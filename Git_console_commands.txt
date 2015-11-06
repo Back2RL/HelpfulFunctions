@@ -1,0 +1,6 @@
+// go to repository-directory:
+git pull
+git status
+git add -A
+git commit -m "description of the changes"
+git push
