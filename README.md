@@ -1,4 +1,8 @@
 # HelpfulFunctions
-A collection of Methods/Functions in C++ and Java.
+content:
+
+-	java examples
+-	interesting bash commands
+-	vim-/bashsettings
 
 Content will be added over time.

@@ -1,0 +1,3 @@
+[submodule "pr1uebungen"]
+	path = pr1uebungen
+	url = ../../x2spieler/pr1uebungen
