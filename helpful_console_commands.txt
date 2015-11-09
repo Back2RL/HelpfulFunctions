@@ -1,0 +1,5 @@
+# continue a download which was interupted
+wget -c link
+# check whether a file is available/online
+wget --spider link
+
