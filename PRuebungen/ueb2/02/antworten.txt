@@ -1,0 +1,6 @@
+a) Fehler, Java unterstützt die automatische Typkonvertierung zu einem niederen Datentyp nicht.
+b) Fehler, genau wie bei a.
+
+Korrektur eines der Statements:
+b)
+x = (int)(3.00001 - 1.00001);

@@ -1,0 +1,17 @@
+#!/bin/bash
+# Nur ein kleines bash Skript zum zippen einer Abgabe zu einem Uebungsblatt.
+# Mehr Details finden Sie auf dem ersten Uebungsblatt.
+
+if [ "$1" = "" ]; then
+  echo "Parameter (Nummer des Aufgabenblattes) fehlt"
+  echo "Beispiel: ./zipu 1"
+  exit
+fi
+
+if [ ! -d "ueb$1" ]; then
+  echo "Es existiert kein Verzeichnis ueb$1. Nichts zu tun."
+  exit
+fi
+
+rm -f ueb$1.zip; zip -x *.settings* *.project* *.classpath* *.svn* *.DS_Store* *.class -r ueb$1.zip ueb$1
+
