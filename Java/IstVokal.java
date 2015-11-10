@@ -1,32 +1,37 @@
 /**
- *	Di 10. Nov 11:05:51 CET 2015
+ *	Di 10. Nov 12:17:31 CET 2015
  *
  *	PR1, WS2015/16
  *
  *	Leonard Oertelt
  *	Matrikelnummer 1276156
  *	leonard.oertelt@stud.hs-hannover.de
- * 
- *	Julian Opitz
- * 	Matrikelnummer 1302082
- * 	julian.opitz@stud.hs-hannover.de
- *
  *	-----------------------------------------
- *	Programmbeschreibung
+ *	generiert zufällige Buchstaben und prüft anschließen ob es sich um einen Vokal handelt
  */
+import java.util.*;
 
 public class IstVokal {
 	public static void main(String[] args) {
-char c = 'a';	
 
+		for (int i = 0; i<24; i++) {
+			char c = (char) ('a' + randomInRange(0,26));
+			String vokal = istVokal(c) ? "ein" : "kein";
+			System.out.println(c + " ist " + vokal + " Vokal.");
+		}
+
+	}
+	// prüft ob char c ein Vokal ist
+	public static boolean istVokal(char c) {
 		if ("aeiou".indexOf(c) >= 0) {
-			System.out.println("Es ist ein Vokal.");
+			return true;
 		}
-		else {
-			System.out.println("Es ist kein Vokal.");
+		return false;
+	}
 
-		}
-
-
+	// generiert eine Zufällige Integer-Zahl zwischen min und max
+	public static int randomInRange(int min, int max) {
+		Random rand = new Random();
+		return rand.nextInt(max-min) + min;
 	}
 }
