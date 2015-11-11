@@ -21,7 +21,7 @@ map <F9> :2<CR>dd:1<CR>:r!date<CR>:2 s/^/ \*\t/<CR>:w<CR>:!javac %<.java<CR>
 map <F12> :!clear<CR>:!java %<
 "
 "Datum
-map <F2> :r!date<CR>
+"map <F2> :r!date<CR>
 
 set number
 set mouse=a
