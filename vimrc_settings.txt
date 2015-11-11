@@ -1,0 +1,29 @@
+"--------my-vimrc-settings------------------------
+"
+"vim tabs
+map <F3> :tabprevious<CR>
+map <F4> :tabnext<CR>
+map <F5> :tabnew 
+map <F6> :tabonly
+map <F7> :tabclose<CR>
+map <F8> :tabmove<CR>
+"
+"gfortran
+map <F1> :!clear<CR>:!./%<.exe
+map <F2> :!clear<CR>:w<CR>:!sh ~/f90_gf.sh %<<CR>
+"
+"gcc
+"map <F9> :w<CR>:make %<<CR>
+"map <F12> :!clear<CR>:!./%<
+"
+"java
+map <F9> :2<CR>dd:1<CR>:r!date<CR>:2 s/^/ \*\t/<CR>:w<CR>:!javac %<.java<CR>
+map <F12> :!clear<CR>:!java %<
+"
+"Datum
+map <F2> :r!date<CR>
+
+set number
+set mouse=a
+
+"--------end-my-vimrc-settings--------------------
