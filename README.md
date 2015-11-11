@@ -2,7 +2,10 @@
 content:
 
 -	java examples
--	interesting bash commands
+-	C/C++ examples
+-	fortran examples
+-	bash commands
 -	vim-/bashsettings
+-	shell-scripts for compiling	
 
 Content will be added over time.
