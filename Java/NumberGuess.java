@@ -1,5 +1,5 @@
 /**
- *	Do 12. Nov 11:46:10 CET 2015
+ *	Do 12. Nov 12:17:27 CET 2015
  *
  *	PR1, WS2015/16
  *
@@ -7,7 +7,8 @@
  *	Matrikelnummer 1276156
  *	leonard.oertelt@stud.hs-hannover.de
  *	-----------------------------------------
- *	not yet working, wip
+ *	generates a random number in range of 0-99.
+ *	The user has to guess that number.
  */
 import java.util.*;
 
@@ -16,7 +17,7 @@ public class NumberGuess {
 		Random rand = new Random();
 		int number = rand.nextInt(100);
 		// debug: uncomment to use
-		System.out.println("Debug: number = " + number);
+		// System.out.println("Debug: number = " + number);
 
 		Scanner console = new Scanner(System.in);
 
@@ -25,7 +26,7 @@ public class NumberGuess {
 
 		do {
 			System.out.print("Your guess: ");
-			guess = console.nextInt();
+			guess = readGuess(console);
 			guesses++;
 
 			if (guess != number) {
@@ -45,8 +46,8 @@ public class NumberGuess {
 		int firstNumberGuess = guess / 10;
 		int secondNumberGuess = guess % 10;
 
-		int firstNumberNumber = guess / 10;
-		int secondNumberNumber = guess % 10;
+		int firstNumberNumber = number / 10;
+		int secondNumberNumber = number % 10;
 
 		if (firstNumberGuess == firstNumberNumber || firstNumberGuess == secondNumberNumber) {
 			hits++;
@@ -64,16 +65,16 @@ public class NumberGuess {
 		int guess = 0;
 		boolean valid = false;
 		do {
-if(!console.hasNextInt()) {
-System.out.println("Not a number!");
-console.next();
-valid = false;
-}
-else {
+			if(!console.hasNextInt()) {
+				System.out.println("Not a number!");
+				console.next();
+				valid = false;
+			}
+			else {
 
-			int guess = console.nextInt();
-			valid = guess >= 0 && guess < 100;
-}
+				guess = console.nextInt();
+				valid = guess >= 0 && guess < 100;
+			}
 			if (!valid) {
 				System.out.println("Invalid number: 0-99 allowed");
 			}
