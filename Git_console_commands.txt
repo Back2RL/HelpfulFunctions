@@ -8,4 +8,9 @@ git push
 git branch name				//create a branch called name
 git checkout name			//switch to branch called name
 git lfs track "*.mov"		//tells git to track certain large filetypes
-git push -u origin branchname	//merges the branch with the origin branch
+git push origin branchname	//merges the branch with the origin branch
+git push origin :branchname	//deletes the branch on github
+git branch -d branchname	//deletes the local branch
+
+//interesting article:
+//	http://www.zorched.net/2008/04/14/start-a-new-branch-on-your-remote-git-repository/
