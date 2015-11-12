@@ -1,6 +1,11 @@
 // go to repository-directory:
-git pull
+git pull					//pull current version from git
+git show					//show git indexing process
 git status
 git add -A
 git commit -m "description of the changes"
 git push
+git branch name				//create a branch called name
+git checkout name			//switch to branch called name
+git lfs track "*.mov"		//tells git to track certain large filetypes
+git push -u origin branchname	//merges the branch with the origin branch
