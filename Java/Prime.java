@@ -11,7 +11,7 @@
  */
 import java.util.*;
 
-public class Prim {
+public class Prime {
 	public static void main(String[] args) {
 		Scanner console = new Scanner(System.in);
 		System.out.print("Your number: ");
@@ -38,6 +38,7 @@ public class Prim {
 
 	// returns the number of factors a number has
 	public static int countFactors(int n) {
+		// not yet working
 		return n;
 	}
 
