@@ -1,0 +1,45 @@
+PlayerController:
+- can possess pawns and character
+- can have HUD
+
+GameInstance:
+- for storing global data
+- spawns at game start and is closed on game close
+- default can be set in projectsettings
+
+GameMode:
+- only server has access
+- every level has a gamemode
+- stores data for default pawn/controller/HUD/GameState
+- spawns on level load
+- contains level rules
+
+GameState:
+- tracks progress of the level
+- everyone has access
+- tells the players what is the current goal
+
+UE4 launch process:
+
+-	When you run the game GameInstance class will be spawned,
+-	Default Level will be loaded,
+-	When Level is opening its checking for GameMode and spawning all of the default classes from GameMode,
+-	DefaultPlayerController is asked to posses DefaultPawn so you don’t need to posses it manually,
+-	It’s spawning all Actors that was placed in the Level.
+
+https://answers.unrealengine.com/questions/122429/gamemode-vs-gamestate.html
+//
+They Are Very Different In Multiplayer Game
+
+Game Mode = Only Exists on the server, and controls how players login to the match, and how player units are spawned. You can stop a player from joining a multiplayer game here, or know when a player has left. And again this actor only ever exists on the server.
+
+Game State = Ideal for managing all aspects of a replicated world, such as world time, world object positions not owned by a player, AOE damage zones, neutral replicated gameplay elements of any kind.
+
+This actor exists for client and server and allows for each client to know stuff about the world.
+
+Again a great example is World time where you want the client to know what what the session / turn / current mission time is as propogated to each client from server calculations that are done in Game State class on the server, and replicated to each client using a replicated Time variable.
+
+The bulk of actual game-time related stuff in multiplayer game has to be done in Game State if it is anything you want clients to know about locally :)
+
+Rama
+//
