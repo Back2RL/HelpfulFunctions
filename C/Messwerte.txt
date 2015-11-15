@@ -1,0 +1,10 @@
+servokabel:
+pro strang 3.333g/m (0.25mm²)
+
+4 servostränge verdrillt 15.263g/m (1mm²)
+
+silikonkabel:
+pro strang 19.500g/m (1.5mm²)
+
+A=pi r²
+wurzel(A/pi) = r

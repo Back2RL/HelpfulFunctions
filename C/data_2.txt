@@ -1,0 +1,34 @@
+#Motordescription (text)
+Robbe 2824
+#Propellerdescription (text)
+APC-E
+#size [in] (eg. 8x4)
+8x4
+#weight battery [kg]
+0.780
+#weight receiver + voltmeter [kg]
+0.00
+#weight motor + speedcontroller + propeller [kg]
+0.0
+#weight camera [kg]
+0.0
+#weight fuselage (center piece) [kg]
+0.0
+#weight arms [kg]
+0.00
+#weight tilt mechanism + servo [kg]
+0.0
+#measured Values (seperate with tabulator)
+#voltage[V]	current[A]	weight[g]
+12.0	1.0	105
+11.9	0.9	106
+11.8	2.0	204
+11.7	2.8	261
+#12.2	0	0
+#12.3	0	0
+10.8	12.4	742
+11.6	2.5	245
+11.3	5.4	437
+12.1	1.7	187
+11.9	3.3	307
+10.9	13	769
