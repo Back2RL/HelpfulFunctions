@@ -57,6 +57,21 @@ public class ReadFile {
 		printLinesWithCommentSymbol(input, "> ");
 		
 		input.close();
+		
+		
+		Scanner text = new Scanner("22\n Hugo");
+		int age = text.nextInt();
+		String name = new String(text.nextLine());
+		// results in wrong output: "22" -> nextLine -> 22""\n -> ""
+		System.out.println(name + " is " + age + " years old.");
+		// better:
+		text = new Scanner("22\n Hugo");
+		age = text.nextInt();
+		text.nextLine(); // ignore next line
+		name = text.nextLine();
+		System.out.println(name + " is " + age + " years old.");
+		
+		text.close();		
 	}
 	
 	public static void printlnAllTokens(Scanner input) {
