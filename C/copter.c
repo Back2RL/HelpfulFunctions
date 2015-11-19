@@ -1,5 +1,5 @@
 /**
- *	Mi 18. Nov 13:03:45 CET 2015
+ *	Do 19. Nov 15:10:47 CET 2015
  *
  *	PR1, WS2015/16
  *
@@ -8,7 +8,9 @@
  *	leonard.oertelt@stud.hs-hannover.de
  * 
  *	-----------------------------------------
- *	Programmbeschreibung
+ *	calculates the flightime of a multicopter with the data from inputfile
+ *	usage:
+ *	./copter data.txt
  */
 
 #include <stdio.h>
@@ -25,18 +27,21 @@
 #define MAXLEN 100
 #define MAXLWERTE 10
 
-double matelements(double werte[2][MAXLWERTE], int j, int n);
-double stvektelements(double werte[2][MAXLWERTE], int potenz, int n);
-double FQS(double werte[2][MAXLWERTE], double c[3], int n);
-double funktion(double c[3], double x);
-double funktion2(double c[3], double x);
-double copter_funktion(int n, char *text, double m);
-void scanString(char *prompt, char *text, int maxlen);
-double scanDouble(char *prompt);
-int scanInt(char *prompt);
-double readValue(char *string);
-int matrixausgabe(double *a, int size, int zeilen);
-void readFile(char *file, char *desc, char *descv);
+int 	matrixausgabe(double *a, int size, int zeilen);
+double 	matelements(double werte[2][MAXLWERTE], int j, int n);
+double 	stvektelements(double werte[2][MAXLWERTE], int potenz, int n);
+double 	FQS(double werte[2][MAXLWERTE], double c[3], int n);
+
+double 	funktion(double c[3], double x);
+double 	funktion2(double c[3], double x);
+double 	copter_funktion(int n, char *text, double m);
+
+void 	scanString(char *prompt, char *text, int maxlen);
+double 	scanDouble(char *prompt);
+int 	scanInt(char *prompt);
+
+double 	readValue(char *string);
+void 	readFile(char *file, char *desc, char *descv);
 
 int main(int argc, char *argv[])
 {
@@ -210,6 +215,7 @@ void readFile(char *file, char *desc, char *descv)
 
 }
 
+/* reads a double from console */
 double scanDouble(char *prompt)
 {
 	int rc;
@@ -226,6 +232,7 @@ double scanDouble(char *prompt)
 	return zahl;
 }
 
+/* reads an Integer from console */
 int scanInt(char *prompt)
 {
 	int rc;
