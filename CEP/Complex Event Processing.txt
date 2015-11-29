@@ -1,0 +1,37 @@
+complex event processing (short CEP)
+
+what is it?
+
+-	a method of analyzing data (information) from one or multiple sources which comes in form of an event
+-	is applied close to real-time
+
+what is an event?
+
+-	can be a change from one state into another state
+	e.g. temparatur threshold is being passed: temparatur is normal (state 1) -> temparatur is too hot (state 2)
+- 	can be a phone call or a post in a forum
+-	a return code in a program	
+
+how does CEP work?
+
+-	analyzes all incoming events and puts them in relation to each other and decides on a complex event
+
+
+
+what is a complex event?
+
+-	a defined state which is triggered when certain events occur
+-	can be a threat or opportunity
+
+	e.g. football game in hannover:
+		-	severall events in form of bomb threats were registered
+		-	many people in one place
+	->	complex event: danger and possible casualties
+
+
+
+goals?
+
+-	allows to react to possible threats, crashes or opportunities before they can manifest
+-	identifying complex events as fast as possible as well as more reliable
+-	prevent events from occuring (nip in the bud(im Keim ersticken))
