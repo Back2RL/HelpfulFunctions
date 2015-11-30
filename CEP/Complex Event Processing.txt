@@ -36,3 +36,7 @@ goals?
 		-	proactive (meaning: to react to sth. before it happens)
 -	identifying complex events as fast as possible as well as more reliable
 -	prevent events from occuring (nip in the bud(im Keim ersticken))
+
+Sources:
+http://www.en.pms.ifi.lmu.de/publications/PMS-FB/PMS-FB-2009-5/PMS-FB-2009-5-paper.pdf
+http://www.heise.de/ix/artikel/Kontinuierliche-Kontrolle-905334.html
