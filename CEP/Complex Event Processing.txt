@@ -33,5 +33,6 @@ what is a complex event?
 goals?
 
 -	allows to react to possible threats, crashes or opportunities before they can manifest
+		-	proactive (meaning: to react to sth. before it happens)
 -	identifying complex events as fast as possible as well as more reliable
 -	prevent events from occuring (nip in the bud(im Keim ersticken))
