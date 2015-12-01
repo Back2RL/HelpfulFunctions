@@ -2,8 +2,23 @@ complex event processing (short CEP)
 
 what is it?
 
--	a method of analyzing data (information) from one or multiple sources which comes in form of an event
--	is applied close to real-time
+-	a rather new method of analyzing data (information) from one or multiple sources which comes in form of events
+-	a process of continuous control
+-	real-time process (information has to pass and is being processed)
+-	is an upcoming and standardized method of analyzing data in industriell projects
+
+-	is a Service Oriented Architecture (SOA)
+	and Event-Driven Architecture (EDA)
+
+where is it being used?
+
+-	trading and logistics (Business Activity Monitoring)
+-	network security
+-	banking
+
+known CEP user:
+Oracle, IBM und Microsoft (are beginning to implement CEP Systems)
+
 
 what is an event?
 
@@ -11,10 +26,13 @@ what is an event?
 	e.g. temparatur threshold is being passed: temparatur is normal (state 1) -> temparatur is too hot (state 2)
 - 	can be a phone call or a post in a forum
 -	a return code in a program	
+-	a price change on a market
 
 how does CEP work?
 
--	analyzes all incoming events and puts them in relation to each other and decides on a complex event
+-	analyzes all incoming events
+-	extracts information
+-	puts them in relation to each other and decides on a complex event
 
 
 
@@ -26,16 +44,40 @@ what is a complex event?
 	e.g. football game in hannover:
 		-	severall events in form of bomb threats were registered
 		-	many people in one place
-	->	complex event: danger and possible casualties
+	->	complex event: danger for the people
+
+how does CEP work 2 ?
+in detail:
+-	compared to traditional databases CEP uses different and newer algorithms
+-	everything is being processed using only the main memory of the machine which analyzes
+	(no database are used to store data)
+-	a CEP-system is being fed with tasks (example: search query by a User using GOOGLE)
+	-	the results of this task are transmitted to adapters which return them to where the task was sent
+	
+example tasks:
+-	give a warning when body temperature is above 39°C (smarwatch)
+-	return every minute the amount of visitors on a website
+-	warn the user when he has lost his gps signal (smartphone)
+-	send an email when price of an article drops (amazon/ebay/geizhals)
 
 
 
-goals?
+advantages of CEP compared to Databasesystems?
 
--	allows to react to possible threats, crashes or opportunities before they can manifest
+-	CEP-system are fast and scalable (e.g. severall servers)
+-	on system can process severall thousands of events every second
+
+-	to analyze timecritical information in real-time 
+-	allows reacting to possible threats, crashes or opportunities as fast as possible
 		-	proactive (meaning: to react to sth. before it happens)
 -	identifying complex events as fast as possible as well as more reliable
 -	prevent events from occuring (nip in the bud(im Keim ersticken))
+
+conclusion:
+
+CEP is a collection of technics, tools and methods to analyze and process data in realtime
+
+
 
 Sources:
 http://www.en.pms.ifi.lmu.de/publications/PMS-FB/PMS-FB-2009-5/PMS-FB-2009-5-paper.pdf
