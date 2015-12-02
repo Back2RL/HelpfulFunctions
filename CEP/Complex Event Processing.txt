@@ -7,8 +7,6 @@ what is it?
 -	real-time process (information has to pass and is being processed)
 -	is an upcoming and standardized method of analyzing data in industriell projects
 
--	is a Service Oriented Architecture (SOA)
-	and Event-Driven Architecture (EDA)
 
 where is it being used?
 
@@ -76,8 +74,7 @@ advantages of CEP compared to Databasesystems?
 conclusion:
 
 CEP is a collection of technics, tools and methods to analyze and process data in realtime
-
-
+-	is a Service Oriented Architecture (SOA) as well as	 Event-Driven Architecture (EDA)
 
 Sources:
 http://www.en.pms.ifi.lmu.de/publications/PMS-FB/PMS-FB-2009-5/PMS-FB-2009-5-paper.pdf
