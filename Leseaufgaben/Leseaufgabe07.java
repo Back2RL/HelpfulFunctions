@@ -41,7 +41,7 @@ public class Leseaufgabe07 {
 
 
         // Strings and Arrays
-        System.out.println(areAnagrams("tonne","noten"));
+        System.out.println(areAnagrams("tonne", "noten"));
 
         //ArrayList<E>
         ArrayList<String> someWords = new ArrayList<String>();
@@ -49,7 +49,7 @@ public class Leseaufgabe07 {
         someWords.add("and Good Bye");
 
         System.out.println(someWords.toString());
-        if(someWords.contains("Hello World")) {
+        if (someWords.contains("Hello World")) {
             System.out.println("Yes, someWords contains \"Hello World\"");
         }
 
@@ -60,7 +60,7 @@ public class Leseaufgabe07 {
         char[] contentB = wordB.toCharArray();
         Arrays.sort(contentA);
         Arrays.sort(contentB);
-        if (Arrays.equals(contentA,contentB)) {
+        if (Arrays.equals(contentA, contentB)) {
             return true;
         }
         return false;
