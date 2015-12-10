@@ -18,12 +18,19 @@ public class Arrays {
         temperaturen[0][3] = 23.5;
         temperaturen[0][3] = 19.0;
 
+        int[] a = {2, 5, 1, 6, 14, 7, 9};
+        for (int i = 1; i < a.length; i++) {
+            a[i] += a[i - 1];
+        }
+        for (int zahl : a) {
+            System.out.println(zahl);
+        }
 
         int[][] jagged = new int[3][];
         jagged[0] = new int[2];
         jagged[1] = new int[3];
         jagged[2] = new int[1];
-        jagged[0][2] = 1; //ArrayIndexOutOfBoundsException
+        //jagged[0][2] = 1; //ArrayIndexOutOfBoundsException
 
     }
 }

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Do 22. Okt 12:01:22 CEST 2015
@@ -26,6 +27,8 @@ public class Wrapper {
         System.out.println(list.get(0) == list.get(1)); //is sometimes true and sometimes false
         //to compare the content use equals:
         System.out.println(list.get(0).equals(list.get(1)));
+
+
 
 
     }

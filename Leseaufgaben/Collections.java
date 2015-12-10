@@ -12,7 +12,7 @@
  * Programmbeschreibung
  */
 
-import java.util.*;
+import java.util.ArrayList;
 
 public class Collections {
     public static void main(String[] args) {
@@ -27,7 +27,7 @@ public class Collections {
         System.out.println("length = " + sum);
 
 
-        list.sort();
+//        list.sort();
 
 
     }
