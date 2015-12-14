@@ -10,7 +10,7 @@ import java.util.Random;
  * leonard.oertelt@stud.hs-hannover.de
  * <p>
  * -----------------------------------------
- * Programmbeschreibung
+ * prints random numbers as roman numbers (non-subtracting)
  */
 public class RomanNumbers {
     public static void main(String[] args) {
@@ -54,7 +54,7 @@ public class RomanNumbers {
     }
 }
 
-/*
+/* EBNF für Römische Zahlen
 
 Cs      ::= [C][C]
 100-900 ::= (CCs|CD)|(DCs|DCCC|CM)
@@ -63,10 +63,16 @@ Xs      ::= [X][X]
 Is      ::= [I][I]
 1-9     ::= (IIs|IV)|(VIs|VIII|IX)
 
-roman ::= (M[<100-900>][<10-90>][<1-9>] | <100-900>[<10-90>][<1-9>] | <10-90>[<1-9>] | <1-9>) | MM
+ZahlGleich2000          ::= MM
+ZahlGrößerGleich1000    ::= M[<100-900>][<10-90>][<1-9>]
+ZahlGrößerGleich100     ::= <100-900>[<10-90>][<1-9>]
+ZahlGrößerGleich10      ::= <10-90>[<1-9>]
+ZahlGrößerGleich1       ::= <1-9>
+
+
+roman ::= ZahlGleich2000 | ZahlGrößerGleich1000 | ZahlGrößerGleich100 |  | ZahlGrößerGleich10 | ZahlGrößerGleich1
+
 463
 CDLXIII
-
-
 
 */
