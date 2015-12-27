@@ -39,12 +39,21 @@ public class Kunze {
                 break;
             }
             String name = auswahl.get(wahl);
-            produktDaten.put(name, new TreeMap<Double, Integer>());
+            if(!produktDaten.containsKey(name)){
+                TreeMap<Double, Integer> daten = new TreeMap<>();
+                produktDaten.put(name, daten);
+
+            }
             produktDaten.get(name).put(readDouble(console, "Zu welchem Preis? "), readInt(console, "Wie viele Einheiten? "));
             System.out.println();
 
         } while (true);
         System.out.println("Statistik (in der obigen Sortierung)");
+        for (String name: auswahl) {
+            for (Double key: produktDaten.get(name).keySet()) {
+                System.out.println("Preis: "+ key + " Anzahl: "+produktDaten.get(name).get(key));
+            }
+        }
 
 
     }
