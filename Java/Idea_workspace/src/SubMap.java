@@ -8,6 +8,7 @@ public class SubMap {
         HashMap<String, String> map1 = new HashMap<>();
         map1.put("Meier", "0511-673904");
         map1.put("Müller", "030-8497489");
+        //map1.put("Müller", "030-1111111");
 
         HashMap<String, String> map2 = new HashMap<>();
         map2.put("Meier", "0511-673904");
