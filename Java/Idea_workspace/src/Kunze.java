@@ -77,7 +77,7 @@ public class Kunze {
                     double preis = 0.0;
                     for (Double key : produktDaten.get(name).keySet()) {
                         anzahl += produktDaten.get(name).get(key);
-                        preis += anzahl * key;
+                        preis += produktDaten.get(name).get(key) * key;
                         System.out.println("    " + produktDaten.get(name).get(key) + " Einheiten zu " + round2(key) + " EUR");
                     }
                     System.out.println("  Akkumulierte Werte:");
