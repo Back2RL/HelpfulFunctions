@@ -1,8 +1,22 @@
+/**
+ *	Sa 02. Jan 15:28:17 CEST 2016
+ *
+ *	PR1, WS2015/16
+ *
+ *	Leonard Oertelt
+ *	Matrikelnummer 1276156
+ *	leonard.oertelt@stud.hs-hannover.de
+ * 
+ *	Julian Opitz
+ * 	Matrikelnummer 1302082
+ * 	julian.opitz@stud.hs-hannover.de
+ *
+ *	-----------------------------------------
+ *	Programmbeschreibung
+ */
+
 import java.util.HashMap;
 
-/**
- * Created by Leo on 23.12.2015.
- */
 public class SubMap {
     public static void main(String[] args) {
         HashMap<String, String> map1 = new HashMap<>();
@@ -19,7 +33,6 @@ public class SubMap {
     }
 
     public static boolean subMap(HashMap<String, String> map1, HashMap<String, String> map2) {
-
         for (String key : map1.keySet()) {
             if (map2.containsKey(key) && map2.get(key).equals(map1.get(key))) {
                 continue;

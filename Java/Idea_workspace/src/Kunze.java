@@ -1,10 +1,24 @@
+/**
+ *	Sa 02. Jan 15:48:07 CEST 2016
+ *
+ *	PR1, WS2015/16
+ *
+ *	Leonard Oertelt
+ *	Matrikelnummer 1276156
+ *	leonard.oertelt@stud.hs-hannover.de
+ * 
+ *	Julian Opitz
+ * 	Matrikelnummer 1302082
+ * 	julian.opitz@stud.hs-hannover.de
+ *
+ *	-----------------------------------------
+ *	Programmbeschreibung
+ */
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.TreeMap;
 
-/**
- * Created by Leo on 24.12.2015.
- */
 public class Kunze {
     public static void main(String[] args) {
         ArrayList<String> auswahl = new ArrayList<>();
@@ -18,14 +32,14 @@ public class Kunze {
         auswahl.add("Brotzeitbrett Kunze");
 
         // Auswahlmöglichkeiten auf Console ausgeben
-        int zähler = 0;
+        int zaehler = 0;
         for (String auswahlElement : auswahl) {
-            System.out.println("<" + zähler + "> " + auswahlElement);
-            zähler++;
+            System.out.println("<" + zaehler + "> " + auswahlElement);
+            zaehler++;
         }
         System.out.println();
 
-        // Collection anlegen
+        // Collection anlegen zum speichern von Produktpreisen mit jeweiliger Anzahl
         TreeMap<String, TreeMap<Double, Integer>> produktDaten = new TreeMap<String, TreeMap<Double, Integer>>();
 
         Scanner console = new Scanner(System.in);
@@ -37,7 +51,7 @@ public class Kunze {
                 break; // fertig mit Einlesen
             }
 
-            String name;
+            String name = null;
             try {
                 // prüfen ob bereits Daten zu einem Produkt existieren
                 name = auswahl.get(wahl);
@@ -63,21 +77,22 @@ public class Kunze {
             System.out.println();
         }
 
+        // Statistik ausgeben
         System.out.println("Statistik (in der obigen Sortierung)");
         System.out.println();
 
 
         for (String name : auswahl) {
             try {
-                if (produktDaten.get(name).keySet().size() > 0) {
+                if (produktDaten.get(name).keySet().size() > 0) { // sind Daten zu einem Produkt verfügbar?
                     System.out.println("Statistik für " + name);
                     System.out.println("  Einzelverkäufe (nach Preis aufsteigend sortiert):");
 
                     int anzahl = 0;
                     double preis = 0.0;
                     for (Double key : produktDaten.get(name).keySet()) {
-                        anzahl += produktDaten.get(name).get(key);
-                        preis += produktDaten.get(name).get(key) * key;
+                        anzahl += produktDaten.get(name).get(key);  // Gesamtanzahl des Produkts ermitteln
+                        preis += produktDaten.get(name).get(key) * key; // Gesamteinnahme berechnen
                         System.out.println("    " + produktDaten.get(name).get(key) + " Einheiten zu " + round2(key) + " EUR");
                     }
                     System.out.println("  Akkumulierte Werte:");
@@ -89,16 +104,16 @@ public class Kunze {
                 e.getLocalizedMessage();
             }
         }
-
-
     }
 
+    // Double auf 2 Stellen runden
     public static double round2(double value) {
         if (Double.isNaN(value)) return value;
         if (Double.isInfinite(value)) return value;
         return Math.round(value * 100) / 100.0;
     }
 
+    // Integer von der Console einlesen
     public static int readInt(Scanner console, String text) {
         do {
             System.out.print(text);
@@ -109,6 +124,7 @@ public class Kunze {
         } while (true);
     }
 
+    // Double von der Console einlesen
     public static double readDouble(Scanner console, String text) {
         do {
             System.out.print(text);
@@ -118,6 +134,4 @@ public class Kunze {
             console.next();
         } while (true);
     }
-
-
 }
