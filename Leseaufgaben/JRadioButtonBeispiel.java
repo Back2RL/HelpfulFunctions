@@ -1,12 +1,10 @@
 import javax.swing.*;
 
-public class JRadioButtonBeispiel
-{
-    public static void main(String[] args)
-    {
+public class JRadioButtonBeispiel {
+    public static void main(String[] args) {
         JFrame meinJFrame = new JFrame();
         meinJFrame.setTitle("JButtonGroup Beispiel");
-        meinJFrame.setSize(250,250);
+        meinJFrame.setSize(250, 250);
         JPanel panel = new JPanel();
 
         JLabel frage = new JLabel("Welches Geschlecht hast du?");

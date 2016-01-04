@@ -3,8 +3,7 @@ import java.awt.*;
 import java.util.*;
 import javax.swing.JOptionPane;
 
-public class OeffnenDialog
-{
+public class OeffnenDialog {
     public static void main(String[] args) {
         // JFileChooser-Objekt erstellen
         JFileChooser chooser = new JFileChooser();
@@ -27,11 +26,11 @@ public class OeffnenDialog
         JOptionPane.showMessageDialog(null, "Dies ist ein Message Dialog");
 
 // Bsp. 4: Optionsdialog mit Warnhinweis
-        JOptionPane.showOptionDialog(null, "Dies ist ein Optionsdialog","Optionsdialog",
+        JOptionPane.showOptionDialog(null, "Dies ist ein Optionsdialog", "Optionsdialog",
                 JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.WARNING_MESSAGE, null,
                 new String[]{"A", "B", "C"}, "B");
 
 
-}
+    }
 }

@@ -1,10 +1,8 @@
 
 import javax.swing.*;
 
-public class JButtonBeispiel
-{
-    public static void main(String[] args)
-    {
+public class JButtonBeispiel {
+    public static void main(String[] args) {
         JFrame meinJFrame = new JFrame();
         meinJFrame.setTitle("JButton Beispiel");
         JPanel panel = new JPanel();

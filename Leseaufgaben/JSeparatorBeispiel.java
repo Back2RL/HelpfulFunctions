@@ -1,4 +1,5 @@
 // Import-Anweisungen
+
 import java.awt.Color;
 import javax.swing.JDialog;
 import javax.swing.JMenu;
@@ -10,16 +11,14 @@ import javax.swing.JSeparator;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
-public class JSeparatorBeispiel
-{
+public class JSeparatorBeispiel {
     // main-Methode
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         /* Erzeugung eines neuen Dialoges */
         JDialog meinJDialog = new JDialog();
         meinJDialog.setTitle("JMenuBar für unser Java Tutorial Beispiel.");
         // Wir setzen die Breite auf 450 und die Höhe auf 300 Pixel
-        meinJDialog.setSize(450,300);
+        meinJDialog.setSize(450, 300);
         // Zur Veranschaulichung erstellen wir hier eine Border
         Border bo = new LineBorder(Color.yellow);
         // Erstellung einer Menüleiste

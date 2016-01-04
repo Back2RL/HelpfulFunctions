@@ -1,20 +1,19 @@
 
 // Import-Anweisungen
+
 import java.awt.Color;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
-public class JSplitPaneBeispiel
-{
+public class JSplitPaneBeispiel {
     // main-Methode
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         // Erzeugung eines neuen Dialoges
         JDialog meinJDialog = new JDialog();
         meinJDialog.setTitle("JSplitPane Beispiel");
-        meinJDialog.setSize(450,300);
+        meinJDialog.setSize(450, 300);
 
         // Erzeugung zweier JPanel-Objekte
         JPanel panelRot = new JPanel();

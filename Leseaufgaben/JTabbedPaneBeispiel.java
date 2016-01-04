@@ -1,18 +1,17 @@
 // Import-Anweisungen
+
 import java.awt.Color;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-public class JTabbedPaneBeispiel
-{
+public class JTabbedPaneBeispiel {
     // main-Methode
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         // Erzeugung eines neuen Dialoges
         JDialog meinJDialog = new JDialog();
         meinJDialog.setTitle("JPanel Beispiel");
-        meinJDialog.setSize(450,300);
+        meinJDialog.setSize(450, 300);
 
         // Hier erzeugen wir unsere JPanels
         JPanel panelRot = new JPanel();
@@ -32,7 +31,7 @@ public class JTabbedPaneBeispiel
 
         // Erzeugung eines JTabbedPane-Objektes
         //JTabbedPane tabpane = new JTabbedPane(JTabbedPane.TOP,JTabbedPane.SCROLL_TAB_LAYOUT );
-        JTabbedPane tabpane = new JTabbedPane(JTabbedPane.TOP,JTabbedPane.WRAP_TAB_LAYOUT );
+        JTabbedPane tabpane = new JTabbedPane(JTabbedPane.TOP, JTabbedPane.WRAP_TAB_LAYOUT);
         //JTabbedPane tabpane = new JTabbedPane(JTabbedPane.LEFT,JTabbedPane.SCROLL_TAB_LAYOUT );
 
         // Hier werden die JPanels als Registerkarten hinzugefügt

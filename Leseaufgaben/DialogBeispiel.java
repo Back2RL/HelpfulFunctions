@@ -1,13 +1,12 @@
 // Import-Anweisung für unseren JDialog
+
 import javax.swing.JDialog;
 // Import-Anweisung für unser JLabel
 import javax.swing.JLabel;
 
-public class DialogBeispiel
-{
+public class DialogBeispiel {
     // main-Methode
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         // Erzeugung eines neuen JDialogs mit
         // dem Titel "Beispiel JDialog"
         JDialog meinJDialog = new JDialog();
@@ -16,7 +15,7 @@ public class DialogBeispiel
 
         // Höhe und Breite des Fensters werden
         // auf 200 Pixel gesetzt
-        meinJDialog.setSize(200,200);
+        meinJDialog.setSize(200, 200);
         // Dialog wird auf modal gesetzt
         meinJDialog.setModal(true);
         // Hinzufügen einer Komponente,

@@ -1,9 +1,7 @@
 import javax.swing.*;
 
-public class JToggleButtonBeispiel
-{
-    public static void main(String[] args)
-    {
+public class JToggleButtonBeispiel {
+    public static void main(String[] args) {
         JFrame meinJFrame = new JFrame();
         meinJFrame.setTitle("JToggleButton Beispiel");
 

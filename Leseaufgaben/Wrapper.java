@@ -29,7 +29,5 @@ public class Wrapper {
         System.out.println(list.get(0).equals(list.get(1)));
 
 
-
-
     }
 }

@@ -1,20 +1,19 @@
 
 // Import-Anweisungen
+
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-public class JScrollPaneBeispiel
-{
+public class JScrollPaneBeispiel {
     // main-Methode
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         // Erzeugung eines neuen Dialoges
         JDialog meinJDialog = new JDialog();
         meinJDialog.setTitle("JScrollPane Beispiel");
-        meinJDialog.setSize(450,300);
+        meinJDialog.setSize(450, 300);
         // JPanel wird erzeugt
         JPanel panel = new JPanel();
         // Unser JPanel erhält einen langen Schriftzug
@@ -24,7 +23,7 @@ public class JScrollPaneBeispiel
 
         // JScrollPane wird erzeugt; dabei wird über den 
         // Konstruktor direkt unser JPanel hinzugefügt
-        JScrollPane scrollPane = new JScrollPane (panel,
+        JScrollPane scrollPane = new JScrollPane(panel,
                 ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 

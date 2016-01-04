@@ -1,16 +1,15 @@
 // Import-Anweisungen
+
 import java.awt.Color;
 import javax.swing.*;
 
-public class JToolBarBeispiel
-{
+public class JToolBarBeispiel {
     // main-Methode
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         // Erzeugung eines neuen Dialoges
         JDialog meinJDialog = new JDialog();
         meinJDialog.setTitle("JToolBar Beispiel");
-        meinJDialog.setSize(450,300);
+        meinJDialog.setSize(450, 300);
         // Erstellung einer Menüleiste
         JMenuBar menu = new JMenuBar();
         // Menü wird hinzugefügt

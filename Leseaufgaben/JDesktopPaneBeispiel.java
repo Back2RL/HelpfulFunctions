@@ -1,17 +1,16 @@
 
 // Import-Anweisungen
+
 import java.awt.Color;
 import javax.swing.*;
 
-public class JDesktopPaneBeispiel
-{
+public class JDesktopPaneBeispiel {
     // main-Methode
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         // Erzeugung eines neuen Dialoges
         JDialog meinJDialog = new JDialog();
         meinJDialog.setTitle("JDesktopPane Beispiel");
-        meinJDialog.setSize(450,300);
+        meinJDialog.setSize(450, 300);
 
         // JDesktopPane wird erstellt
         JDesktopPane deskPane = new JDesktopPane();
@@ -29,12 +28,12 @@ public class JDesktopPaneBeispiel
         deskPane.add(inFrame2);
 
         //Größe der JInternalFrames wird gesetzt
-        inFrame1.setSize(200,200);
-        inFrame2.setSize(200,200);
+        inFrame1.setSize(200, 200);
+        inFrame2.setSize(200, 200);
 
         //Position der JInternalFrames wird gesetzt
-        inFrame1.setLocation(0,0);
-        inFrame2.setLocation (200,0);
+        inFrame1.setLocation(0, 0);
+        inFrame2.setLocation(200, 0);
 
         //JInternalFrames werden sichtbar gemacht
         inFrame1.show();
