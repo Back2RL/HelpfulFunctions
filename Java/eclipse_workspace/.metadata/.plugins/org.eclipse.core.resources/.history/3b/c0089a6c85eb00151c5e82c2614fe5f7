@@ -1,0 +1,42 @@
+public class Prim {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		long start = System.currentTimeMillis();
+		int n = 20;
+		boolean[] markiert = new boolean[n];
+		int k = 2;
+		while (k < n) {
+
+			for (int vielfachesVonK = 2 * k; vielfachesVonK < n; vielfachesVonK += k) {
+				markiert[vielfachesVonK] = true;
+			}
+			k = nextUnmarkedFrom(markiert, k, n);
+		}
+
+		System.out.println((System.currentTimeMillis() - start) * 0.001f + " s");
+
+		int cnt = 0;
+		for (boolean b : markiert) {
+			if (!b)
+				System.out.println(cnt);
+			++cnt;
+		}
+		
+		System.out.println((System.currentTimeMillis() - start) * 0.001f + " s");
+
+		// Basis ^ Exponent = Potenz
+		// log(Basis){Potenz} = Exponent
+	}
+
+	public static int nextUnmarkedFrom(boolean[] markiert, int k, int n) {
+		int nextK = k + 1;
+		while (nextK < n && markiert[nextK]) {
+			++nextK;
+		}
+		return nextK;
+	}
+}

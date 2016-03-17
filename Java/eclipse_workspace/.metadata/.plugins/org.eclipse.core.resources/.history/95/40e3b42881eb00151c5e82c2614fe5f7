@@ -1,0 +1,23 @@
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
+
+public class Prim {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		long start = System.currentTimeMillis();
+		int n = Integer.MAX_VALUE;
+		boolean[] bIstTeilbar = new boolean[n];
+		for (int k = 2; k < n; ++k) {
+			if (!bIstTeilbar[k]) {
+				// System.out.println(k);
+				for (int i = 2 * k; i < n; i += k) {
+					bIstTeilbar[i] = true;
+				}
+			}
+		}
+		System.out.println((System.currentTimeMillis() - start) * 0.001f + " s");
+	}
+}
