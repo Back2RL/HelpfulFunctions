@@ -1,5 +1,3 @@
-import java.time.Clock;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,14 +8,15 @@ import java.util.TimeZone;
  */
 public class PrimzahlZerlegung {
     public static void main(String[] args) {
+        // Zu zerlegende Zahl inlesen
         Scanner console = new Scanner(System.in);
         System.out.print("Geben Sie Ihre Zahl ein: ");
-        int zahl = (int)console.nextLong();
+        int zahl = (int) console.nextLong();
+        console.close();
 
-        System.out.println(TimeZone.getDefault());
-        System.out.println((int)(System.nanoTime() *0.000000001));
-        System.out.println((int)(System.currentTimeMillis()*0.001));
-long start = System.currentTimeMillis();
+        // Startzeit speichern
+        long start = System.nanoTime();
+
         List<Integer> Teiler = new ArrayList<>();
         Teiler.add(1);
         int teiler = 2;
@@ -27,14 +26,14 @@ long start = System.currentTimeMillis();
                 Teiler.add(teiler);
                 rest /= teiler;
             } else {
-                teiler++;
+                ++teiler;
             }
 
         } while (teiler < zahl || rest == 0);
-        if(Teiler.size() == 1)Teiler.add(zahl);
-long end = System.currentTimeMillis();
-        System.out.print(end - start);
-        System.out.println("ms");
+
+        if (Teiler.size() == 1) Teiler.add(zahl);
+
+        System.out.println("Laufzeit = " + (System.nanoTime() - start) * 1E-9f + " s");
         System.out.println(Teiler);
     }
 }
