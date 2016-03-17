@@ -1,0 +1,26 @@
+package u1a06;
+
+public class Datum {
+	int tag;
+	int monat;
+	int jahr;
+
+	Datum(int tag, int monat, int jahr) {
+		this.tag = tag;
+		this.monat = monat;
+		this.jahr = jahr;
+	}
+
+	public boolean istSchaltjahr() {
+		if (jahr % 4 == 0) {
+			if (jahr % 100 != 0 || jahr % 400 == 0) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public String getDeutscheSchreibung(){
+		return String.format("%02d.%02d.%04d,", tag, monat, jahr);
+	}
+}

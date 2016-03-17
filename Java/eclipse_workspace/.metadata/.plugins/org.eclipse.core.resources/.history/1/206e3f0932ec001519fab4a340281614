@@ -1,0 +1,9 @@
+package u1a06;
+
+public class Datum {
+int tag;
+int monat;
+int jahr;
+
+
+}

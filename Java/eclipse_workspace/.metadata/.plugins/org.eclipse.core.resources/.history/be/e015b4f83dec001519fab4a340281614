@@ -1,0 +1,36 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
+public class Wuerfeln {
+	public static void main(String[] args) {
+		int n = 100000000;
+
+		List<Integer> wuerfe = new ArrayList<Integer>();
+		Random rand = new Random();
+		for (int i = 0; i < n; ++i) {
+			wuerfe.add(rand.nextInt(6) + 1);
+		}
+		Collections.sort(wuerfe);
+		int summe = 0;
+		for (int wurf : wuerfe) {
+			summe += wurf;
+		}
+		double arithMittel = (double) summe / n;
+		System.out.println("Arithmetisches Mittel = " + arithMittel);
+
+		int median = wuerfe.get(n / 2);
+		System.out.println("Median = " + median);
+
+		summe = 0;
+
+		for (int wurf : wuerfe) {
+			double wert = wurf - arithMittel;
+			summe += wert * wert;
+		}
+
+		double standardAbweichung = Math.sqrt(1.0f / (n - 1) * summe);
+		System.out.println("Standarabweichung = " + standardAbweichung);
+	}
+}

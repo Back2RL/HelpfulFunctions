@@ -1,0 +1,13 @@
+
+public class Name {
+	String vorname = "Leonard";
+	String nachname = "Oertelt";
+
+	String getVollerName() {
+		return vorname + " " + nachname;
+	}
+
+	String getVollerNameRAK() {
+		return nachname + ", " + vorname;
+	}
+}
