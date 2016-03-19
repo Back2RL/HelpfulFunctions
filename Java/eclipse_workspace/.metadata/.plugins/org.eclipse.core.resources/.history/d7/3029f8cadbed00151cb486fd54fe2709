@@ -1,0 +1,9 @@
+
+public class TestingLoc {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Loc location = new Loc(10,5);
+	}
+
+}
