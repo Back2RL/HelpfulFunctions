@@ -1,5 +1,10 @@
-INDEX VERSION 1.127+/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/.metadata/.plugins/org.eclipse.jdt.core
-1399089288.index
-387846345.index
-2961720116.index
-2237058225.index
+INDEX VERSION 1.127+C:\Users\Leo\Documents\GitHub\HelpfulFunctions\Java\eclipse_workspace\.metadata\.plugins\org.eclipse.jdt.core
+2594729894.index
+723075860.index
+3941702368.index
+119199291.index
+2534255096.index
+1945684826.index
+1336446635.index
+1310348819.index
+3240617089.index
