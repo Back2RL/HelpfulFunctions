@@ -1,5 +1,11 @@
 import java.awt.Graphics;
 
+/**
+ * Invariante: alle Objekte dieser Klasse haben Koordinaten >= 0
+ * 
+ * @author Leo
+ *
+ */
 public class Loc {
 	int x;
 	int y;
@@ -14,16 +20,19 @@ public class Loc {
 	 *            Initial X value
 	 * @param y
 	 *            Initial Y value
+	 * @exception IllegalArgumentException
+	 *                bei ungültigen Parameterwerten
 	 */
 	public Loc(int x, int y) {
-		this.x = x;
-		this.y = y;
+		setLocation(x, y);
 	}
 
 	/**
 	 * Constructor
 	 */
 	public Loc() {
+		this(0, 0); // ruft einen anderen Konstruktor auf (nicht unbedingt
+					// notwendig)
 	}
 
 	/**
@@ -86,8 +95,13 @@ public class Loc {
 	 *            New X location
 	 * @param newy
 	 *            New Y location
+	 * @exception IllegalArgumentException
+	 *                bei ungültigen Parameterwerten
 	 */
-	public void setLocaion(int newx, int newy) {
+	public void setLocation(int newx, int newy) {
+		if (!validArguments(x, y)) {
+			throw new IllegalArgumentException("Die Invaiante ist verletzt");
+		}
 		this.x = newx;
 		this.y = newy;
 	}
@@ -99,9 +113,30 @@ public class Loc {
 	 *            The X-Offset
 	 * @param dy
 	 *            The Y-Offset
+	 * @exception IllegalArgumentException
+	 *                bei ungültigen Parameterwerten
 	 */
 	public void translate(int dx, int dy) {
-		x += dx;
-		y += dy;
+		setLocation(x + dx, y + dy);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		return "(" + x + ", " + y + ")";
+	}
+
+	/**
+	 * prüft die Invariante
+	 * 
+	 * @param newX
+	 * @param newY
+	 * @return true wenn newX und newY die Bedingung >=0 erfüllen
+	 */
+	private boolean validArguments(int newX, int newY) {
+		return newX >= 0 && newY >= 0;
 	}
 }
