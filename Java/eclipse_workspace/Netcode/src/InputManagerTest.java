@@ -116,9 +116,8 @@ public class InputManagerTest extends Frame implements Runnable {
 				// count);
 				// count = 0; // reset the counter
 				// }
-				// System.out.println(
-				// input.getNumKeysDown() + " Keys are pressed; Any key is
-				// pressed: " + input.isKeyPressed());
+				System.out.println(
+						input.getNumKeysDown() + " Keys are pressed; Any key is pressed: " + input.isKeyPressed());
 				input.update();
 
 				if (LOCKFRAMERATE) {

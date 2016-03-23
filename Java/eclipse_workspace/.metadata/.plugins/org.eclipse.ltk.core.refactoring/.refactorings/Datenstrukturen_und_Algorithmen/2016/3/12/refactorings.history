@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;ende&apos; in &apos;A1_Maximale_Teilsumme.MaxTeilsumme.main(...)&apos; to &apos;deltaT&apos;&#x0A;- Original project: &apos;Datenstrukturen_und_Algorithmen&apos;&#x0A;- Original element: &apos;A1_Maximale_Teilsumme.MaxTeilsumme.main(String[]).ende&apos;&#x0A;- Renamed element: &apos;ende&apos;&#x0A;- Update references to refactored element" description="Rename local variable &apos;ende&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;A1_Maximale_Teilsumme{MaxTeilsumme.java[MaxTeilsumme~main~\[QString;@ende!293!339!298!301!J!0!false" name="deltaT" references="true" stamp="1458726306044" version="1.0"/>
+</session>
