@@ -6,24 +6,25 @@ public class MaxTeilsumme {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		int durchläufe = 20000;
 		int[] array = { 31, -41, 59, 26, -53, 58, 97, -93, -23, 84 };
-		double sum = 0.0f;
-		for (int i = 0; i < 100; ++i) {
-			int[] randomArray = generiereZahlenfolge(10000);
+		long start = System.currentTimeMillis();
+		for (int i = 0; i < durchläufe; ++i) {
 
-			long start = System.currentTimeMillis();
+			int[] randomArray = generiereZahlenfolge(6000);
 
-			// int maxSum1 = findeMaxTeilsumme1(randomArray);
+			// // int maxSum1 = findeMaxTeilsumme1(randomArray);
 			int maxSum2 = findeMaxTeilsumme2(randomArray);
-
-			long deltaT = System.currentTimeMillis() - start;
-			double laufzeit = deltaT * 0.001f;
-			// System.out.println("Die Berechnung der Summe " + maxSum1);
-			System.out.println("Die Berechnung der Summe " + maxSum2);
-			System.out.println(" benötigte " + laufzeit + " Sekunden.");
-			sum += laufzeit;
+			// // System.out.println("Die Berechnung der Summe " + maxSum1);
+			// System.out.println("Die Berechnung der Summe " + maxSum2);
 		}
-		System.out.println(sum / 100.0f);
+		long deltaT = System.currentTimeMillis() - start;
+		double laufzeit = deltaT * 0.001f;
+
+		System.out.println(" benötigte " + laufzeit + " Sekunden.");
+
+		System.out.println("Im Mittel benötigte die Berechnung " + laufzeit / durchläufe + " Sekunden.");
+
 	}
 
 	public static int findeMaxTeilsumme1(int[] array) {
