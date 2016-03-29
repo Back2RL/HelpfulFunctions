@@ -19,9 +19,11 @@ public class MaxTeilsumme {
 
 		start = System.currentTimeMillis();
 		for (int i = 0; i < durchlaufe; ++i) {
-			int[] randomArray = generiereZahlenfolge(anzahlZufallszahlen);
-			int maxSum1 = findeMaxTeilsumme1(randomArray);
+			int[] randomArray = generiereZahlenfolge(anzahlZufallszahlen); // 10*n+1
+			int maxSum1 = findeMaxTeilsumme1(randomArray); // 4.5*n^3+2*n^2+3*n+6
 			// System.out.println("Die Berechnung der Summe " + maxSum1);
+
+			// in Summe pro Schleife: 4.5*n^3 + 2*n^2 + 13*n + 7
 		}
 		laufzeit = laufzeitSekunden(start);
 		System.out.println(" Laufzeit = " + laufzeit + " Sekunden");
@@ -29,10 +31,11 @@ public class MaxTeilsumme {
 
 		start = System.currentTimeMillis();
 		for (int i = 0; i < durchlaufe; ++i) {
-			int[] randomArray = generiereZahlenfolge(anzahlZufallszahlen);
-
-			int maxSum2 = findeMaxTeilsumme2(randomArray);
+			int[] randomArray = generiereZahlenfolge(anzahlZufallszahlen); // 10*n+1
+			int maxSum2 = findeMaxTeilsumme2(randomArray); // 9*n^2+4*n+6
 			// System.out.println("Die Berechnung der Summe " + maxSum2);
+
+			// in Summe pro Schleife: 9*n^2 + 13*n + 7
 		}
 		laufzeit = laufzeitSekunden(start);
 		System.out.println(" Laufzeit = " + laufzeit + " Sekunden");
@@ -47,51 +50,53 @@ public class MaxTeilsumme {
 
 		for (int i = 0; i < array.length; ++i) { // ( 1 + 1 + 1) * array.length
 													// = 3*array.length
-			for (int j = i; j < array.length; ++j) { // ( 1 + 1 + 1) *
-														// array.length *
-														// array.length =
-														// 3*array.length^2
-				int tmpsum = 0; // 1 * array.length^2
-				for (int k = i; k <= j; ++k) { // 3 * array.length^3
-					tmpsum += array[k]; // 2*array.length^3
-				} // -> 5 * array.length^3
-				if (tmpsum > cursum) { // 1*array.length^3
-					cursum = tmpsum; // 1*array.length^3
-					curstart = i; // 1*array.length^3
-					curend = j; // 1*array.length^3
-				} // -> 4 * array.length^3
-			} // -> 4 * array.length^2 + 9 * array.length^3
-		} // -> 4 * array.length^2 + 9 * array.length^3 + 3 * array.length
+			for (int j = i; j < array.length; ++j) {
+				// 3*array.length * (0.5 * array.length)
+				int tmpsum = 0; // 1 * array.length* (0.5 * array.length)
+				for (int k = i; k <= j; ++k) {
+					// 3 * array.length^2 * (0.5 * array.length)
+					tmpsum += array[k]; // 2*array.length^2 * (0.5 *
+										// array.length)
+				} // -> 5 * array.length^2 * (0.5 * array.length)
+				if (tmpsum > cursum) { // 1*array.length^2 * (0.5 *
+										// array.length)
+					cursum = tmpsum; // 1*array.length^2 * (0.5 * array.length)
+					curstart = i; // 1*array.length^2 * (0.5 * array.length)
+					curend = j; // 1*array.length^2 * (0.5 * array.length)
+				} // -> 4 * array.length^2 * (0.5 * array.length)
+			} // -> 4.5 * array.length^3 + 2 * array.length^2
+		} // -> 4.5 * array.length^3 + 2 * array.length^2 + 3 * array.length
 		return cursum; // 1
-	}// -> 4 * array.length^2 + 9 * array.length^3 + 3 * array.length + 6
+	}// -> 4.5 * array.length^3 + 2 * array.length^2 + 3 * array.length + 6
 
 	public static int findeMaxTeilsumme2(int[] array) {
-		int curstart = 0;
-		int curend = array.length;
-		int cursum = Integer.MIN_VALUE;
+		int curstart = 0; // 1
+		int curend = array.length; // 2
+		int cursum = Integer.MIN_VALUE; // 2
 
-		for (int i = 0; i < array.length; ++i) {
-			int tmpsum = 0;
-			for (int j = i; j < array.length; ++j) {
-				tmpsum += array[j];
+		for (int i = 0; i < array.length; ++i) { // = 3*array.length
+			int tmpsum = 0; // 1 * array.length
+			for (int j = i; j < array.length; ++j) { // 3 * array.length^2
+				tmpsum += array[j]; // 2 * array.length^2
 
-				if (tmpsum > cursum) {
-					cursum = tmpsum;
-					curstart = i;
-					curend = j;
-				}
-			}
-		}
-		return cursum;
-	}
+				if (tmpsum > cursum) { // 1 * array.length^2
+					cursum = tmpsum; // 1 * array.length^2
+					curstart = i; // 1 * array.length^2
+					curend = j; // 1 * array.length^2
+				} // 4 * array.length^2
+			} // 9 * array.length^2
+		} // 9 * array.length^2 + 4 * array.length
+		return cursum; // 1
+	} // 9 * array.length^2 + 4 * array.length + 6
 
 	public static int[] generiereZahlenfolge(int anzahl) {
-		int[] array = new int[anzahl];
-		for (int i = 0; i < anzahl; ++i) {
-			array[i] = (int) Math.round(Math.random() * 2000.0f) - 1000;
-		}
-		return array;
-	}
+		int[] array = new int[anzahl]; // anzahl
+		for (int i = 0; i < anzahl; ++i) { // 3 * anzahl
+			array[i] = (int) Math.round(Math.random() * 2000.0f) - 1000; // 6 *
+																			// anzahl
+		} // 9 * anzahl
+		return array; // 1
+	} // 10 * anzahl + 1
 
 	/**
 	 * @param startTime
