@@ -1,0 +1,170 @@
+Aufgabe 3:
+a)
+
+100n ist Element von O(n^2)
+mit
+f(n) = n^2
+und
+g(n) = 100n
+
+daraus folgt:
+1.:
+100n <= cn^2
+
+
+2.:
+nach n umstellen:
+
+ 
+100n <= cn^2 | :n 
+
+100 <= cn    | :c
+Da n laut Definition mindestens 1 ist (positiv)  wird die Richtung des Kleinerzeichens nicht verändert.
+
+100/c <= n
+
+3.:
+Testen ob Behauptung erfüllbar ist:
+
+t(n) = n
+v(c) = 100/c
+
+v(c) <= t(n) 
+daraus folgt die Fälle müssen vertauscht werden.
+Behauptung ist erfüllbar.
+
+4.:
+c wählen, so dass Ungleichung erfüllt ist:
+
+c = 1
+
+100/1 <= n
+100 <=n
+
+5.:
+n0 finden, so dass Ungleichung für alle n>n0 erfüllt ist.
+
+n => 100
+bereits nach n aufgelöst
+
+n => 100 gilt für alle n > 100, also erfüllt n0 = 100 die Ungleichung
+
+6.:
+Abschluss des Beweises:
+
+Für alle n>n0 gilt g(n) <= c*f(n)
+
+mit n = 100 und c = 1
+
+Für alle n>100 gilt 100n <= n^2
+
+Also gilt für g(n) = 100n und f(n) = n^2 die Aussage g ist Element von O(f) 
+- q.e.d.
+
+
+
+b)
+
+1/(10^5)*n^4 ist Element von O(n^3)
+mit
+f(n) = n^3
+und
+g(n) = 1/(10^5)*n^4
+
+daraus folgt:
+1.:
+
+1/(10^5)*n^4 <= cn^3 
+
+2.:
+nach n umstellen:
+1/(10^5)*n^4 <= cn^3 | * 10^5
+
+n^4 <= cn^3 * 10^5   | : n^3
+
+n <= 10^5 * c
+
+3.:
+Testen ob Behauptung erfüllbar ist:
+
+t(n) = n
+v(c) = 10^5 * c
+
+t(n) <= v(c) 
+
+Da t(n) beliebig groß werden kann, ist die Behauptung unmöglich erfüllbar.
+Ende des Beweisversuchs.
+
+
+
+c)
+
+n log2(n) ist Element von O(n^2)
+mit
+f(n) = n^2
+und
+g(n) = n log2(n)
+
+daraus folgt:
+1.:
+n log2(n) <= cn^2
+
+
+2.:
+nach n umstellen:
+
+n log2(n) <= cn^2 | :n
+
+log2(n) <= cn 
+
+n <= 2^(cn)
+
+alternativ:
+log2(n) <= cn | :c
+
+log2(n) / c <= n
+
+1/c * log2(n) <= n
+log2(n^(1/c)) <= n
+
+n^(1/c) <= 2^n
+
+cte Wurzel von n <= 2^n
+
+
+3.:
+Testen ob Behauptung erfüllbar ist:
+
+t(n) = 2^n
+v(c) = cte Wurzel von n
+
+v(c) <= t(n) 
+daraus folgt die Fälle müssen vertauscht werden.
+Behauptung ist erfüllbar.
+
+4.:
+c wählen, so dass Ungleichung erfüllt ist:
+
+c = 1
+
+1te Wurzel n <= 2^n
+
+durch schlaues hingucken sieht man das c = 1 und n = 1 sein müssen um die Ungleichung zu erfüllen
+
+5.:
+n0 finden, so dass Ungleichung für alle n>n0 erfüllt ist.
+
+Die Ungleichung lässt sich nicht nach n auflösen.
+
+2^n => 1te Wurzel n gilt für alle n > 1, also erfüllt n0 = 1 die Ungleichung
+
+6.:
+Abschluss des Beweises:
+
+Für alle n>n0 gilt g(n) <= c*f(n)
+
+mit n = 1 und c = 1
+
+Für alle n>1 gilt n log2(n) <= n^2
+
+Also gilt für g(n) = n log2(n) und f(n) = n^2 die Aussage g ist Element von O(f) 
