@@ -13,9 +13,7 @@ import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Frame;
-import java.awt.GradientPaint;
 import java.awt.Graphics2D;
-import java.awt.Paint;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -35,6 +33,11 @@ import java.util.TimerTask;
  * @author Nick
  */
 public class AngularMovementSnippet extends Canvas {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	// java 2d control flags
 	static {
@@ -59,7 +62,7 @@ public class AngularMovementSnippet extends Canvas {
 	private Rectangle2D.Double basicBlock;
 
 	// just a gradient background for our little demo.
-	private Paint backgroundGradient;
+	// private Paint backgroundGradient;
 
 	// our little basic blocks speed, which will be multipled by the number
 	// of seconds passed, each render frame.
@@ -71,7 +74,7 @@ public class AngularMovementSnippet extends Canvas {
 	private boolean up = false;
 
 	// true if the down arrow key is being pressed, false otherwise
-	private boolean down = false;
+	// private boolean down = false;
 
 	// true if the right arrow key is being pressed, false otherwise
 	private boolean right = false;
@@ -80,6 +83,13 @@ public class AngularMovementSnippet extends Canvas {
 	private boolean left = false;
 
 	private double turnspeed = turnSpeed(360.0d);
+
+	private int renderedFrames = 0;
+	private double avgFramerate = 0.0d;
+	private double maxFramerate = 30.0d;
+	private static boolean bIsRunning = true;
+
+	private long timeout = (long) (1E9 / maxFramerate);
 
 	/**
 	 * This configures the canvas component for rendering. Creates any objects
@@ -100,9 +110,9 @@ public class AngularMovementSnippet extends Canvas {
 					up = true;
 				}
 
-				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-					down = true;
-				}
+				// if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+				// down = true;
+				// }
 
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 					right = true;
@@ -119,9 +129,9 @@ public class AngularMovementSnippet extends Canvas {
 					up = false;
 				}
 
-				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-					down = false;
-				}
+				// if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+				// down = false;
+				// }
 
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 					right = false;
@@ -139,14 +149,16 @@ public class AngularMovementSnippet extends Canvas {
 	 * do offscreen rendering without having to wait for swing to repaint, the
 	 * component. It also eliminates flickering and splicing issues.
 	 */
-	public void render(double dt) {
+	public void render() {
 		// the back buffer graphics object
 		Graphics2D bkG = (Graphics2D) strategy.getDrawGraphics();
 
 		// clear the backbuffer, this could be substituted for a background
 		// image or a tiled background.
-		bkG.setPaint(backgroundGradient);
-		bkG.fillRect(0, 0, getWidth(), getHeight());
+		bkG.clearRect(0, 0, getWidth(), getHeight());
+
+		// bkG.setPaint(backgroundGradient);
+		// bkG.fillRect(0, 0, getWidth(), getHeight());
 
 		// TODO: Draw your game world, or scene or anything else here.
 
@@ -165,7 +177,7 @@ public class AngularMovementSnippet extends Canvas {
 		bkG.drawLine(cx, cy, (int) (cx + Math.sin(direction) * 20), (int) (cy + Math.cos(direction) * 20));
 
 		bkG.setColor(Color.BLACK);
-		bkG.drawString("fps = " + (int) (1.0d / dt), 0, 12);
+		bkG.drawString(String.format("%s %5d", "fps = ", (int) (avgFramerate)), 0, 12);
 
 		// properly dispose of the backbuffer graphics object. Release resources
 		// and cleanup.
@@ -173,6 +185,8 @@ public class AngularMovementSnippet extends Canvas {
 
 		// flip the backbuffer to the canvas component.
 		strategy.show();
+
+		++renderedFrames;
 
 		// synchronize drawing with the display refresh rate.
 		Toolkit.getDefaultToolkit().sync();
@@ -194,7 +208,8 @@ public class AngularMovementSnippet extends Canvas {
 		basicBlock.y = this.getHeight() / 2 - basicBlock.height / 2;
 
 		// create the background gradient paint object.
-		backgroundGradient = new GradientPaint(0, 0, Color.gray, getWidth(), getHeight(), Color.lightGray.brighter());
+		// backgroundGradient = new GradientPaint(0, 0, Color.gray, getWidth(),
+		// getHeight(), Color.lightGray.brighter());
 
 		// create a strategy that uses two buffers, or is double buffered.
 		this.createBufferStrategy(2);
@@ -211,42 +226,61 @@ public class AngularMovementSnippet extends Canvas {
 	 * timing and fps counting, handling input and cancelling existing tasks.
 	 */
 	public void start() {
+
 		// if the render task is already running stop it, this may cause an
 		// exception to be thrown if the task is already canceled.
 		if (renderTask != null) {
 			renderTask.cancel();
 		}
-
 		// our main task for handling the rendering and for updating and
 		// handling input and movement events. The timer class isn't the most
 		// reliable for game updating and rendering but it will suffice for the
 		// purpose of this snippet.
 		renderTask = new TimerTask() {
-			long lasttime = System.currentTimeMillis();
 
 			@Override
 			public void run() {
 
-				// get the current system time
-				long time = System.currentTimeMillis();
-
-				// calculate the time passed in milliseconds
-				double dt = (time - lasttime) * 0.001d;
-
-				// save the current time
-				lasttime = time;
-
-				// for now just move the basic block
-				update(dt);
-
-				render(dt);
+				avgFramerate = renderedFrames;
+				renderedFrames = 0;
 			}
 		};
 
 		// These will cap our frame rate but give us unexpected results if our
 		// rendering or updates take longer than the 'period' time. It
 		// is likely that we could have overlapping calls.
-		timer.schedule(renderTask, 0, 1);
+		timer.schedule(renderTask, 0, 1000);
+
+		long renderTimeout = 0;
+		long lasttime = System.nanoTime();
+		while (bIsRunning) {
+			// get the current system time
+			long time = System.nanoTime();
+
+			// calculate the time passed in milliseconds
+			long deltaNanoSeconds = time - lasttime;
+			double dt = deltaNanoSeconds * 0.000000001d;
+
+			// save the current time
+			lasttime = time;
+
+			// for now just move the basic block
+			update(dt);
+
+			render();
+
+			renderTimeout = timeout - (deltaNanoSeconds - renderTimeout);
+
+			if (renderTimeout > 0) {
+				try {
+					Thread.sleep((long) (renderTimeout * 1E-6), (int) ((int) renderTimeout % 1E6));
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+
 	}
 
 	double turnSpeed(double degPerSecond) {
@@ -302,6 +336,7 @@ public class AngularMovementSnippet extends Canvas {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+					bIsRunning = false;
 					canvas.stop(); // first stop the drawing and updating
 					frame.setVisible(false); // hide the window quickly
 					frame.dispose(); // release all system resources
