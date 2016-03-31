@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move element &apos;Loc.java&apos; to &apos;Statistik/src/(default package)&apos;&#x0A;- Original project: &apos;Programmieren_2&apos;&#x0A;- Destination element: &apos;Statistik/src/(default package)&apos;&#x0A;- Original element: &apos;Loc.java&apos;&#x0A;- Update references to refactored element" description="Move compilation unit" destination="=Statistik/src&lt;" element1="/src&lt;{Loc.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1459421095877" units="1" version="1.0"/>
+</session>

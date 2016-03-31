@@ -1,0 +1,26 @@
+import java.awt.geom.Rectangle2D;
+
+public class Actor {
+
+	private Loc position;
+	private Loc velocity;
+
+	public Rectangle2D.Double basicBlock;
+
+	public Loc getVelocity() {
+		return velocity;
+	}
+
+	public void setVelocity(Loc velocity) {
+		this.velocity = velocity;
+	}
+
+	public Loc getPosition() {
+		return position;
+	}
+
+	public void setPosition(Loc position) {
+		this.position = position;
+	}
+
+}

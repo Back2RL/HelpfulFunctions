@@ -15,4 +15,5 @@
 <fullyQualifiedTypeName name="java.lang.IllegalArgumentException"/>
 <fullyQualifiedTypeName name="java.lang.StringBuilder"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="java.awt.geom.Point2D"/>
 </qualifiedTypeNameHistroy>

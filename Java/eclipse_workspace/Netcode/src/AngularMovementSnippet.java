@@ -13,7 +13,9 @@ import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Frame;
+import java.awt.GradientPaint;
 import java.awt.Graphics2D;
+import java.awt.Paint;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -59,16 +61,14 @@ public class AngularMovementSnippet extends Canvas {
 	// the main render and update task.
 	private TimerTask renderTask;
 
-	private Rectangle2D.Double basicBlock;
+	private Actor player = new Actor();
 
 	// just a gradient background for our little demo.
-	// private Paint backgroundGradient;
+	private Paint backgroundGradient;
 
 	// our little basic blocks speed, which will be multipled by the number
 	// of seconds passed, each render frame.
-	private final double speed = 200.0d /* px/sec */;
-
-	private double direction = Math.PI;
+	private final double speed = 400.0d /* px/sec */;
 
 	// true if the up arrow key is being pressed, false otherwise
 	private boolean up = false;
@@ -82,11 +82,11 @@ public class AngularMovementSnippet extends Canvas {
 	// true if the left arrow key is being pressed, false otherwise
 	private boolean left = false;
 
-	private double turnspeed = turnSpeed(360.0d);
+	private double turnspeed = turnSpeed(720.0d);
 
 	private int renderedFrames = 0;
 	private double avgFramerate = 0.0d;
-	private double maxFramerate = 30.0d;
+	public double maxFramerate = 60.0d;
 	private static boolean bIsRunning = true;
 
 	private long timeout = (long) (1E9 / maxFramerate);
@@ -157,24 +157,24 @@ public class AngularMovementSnippet extends Canvas {
 		// image or a tiled background.
 		bkG.clearRect(0, 0, getWidth(), getHeight());
 
-		// bkG.setPaint(backgroundGradient);
-		// bkG.fillRect(0, 0, getWidth(), getHeight());
+		bkG.setPaint(backgroundGradient);
+		bkG.fillRect(0, 0, getWidth(), getHeight());
 
 		// TODO: Draw your game world, or scene or anything else here.
 
 		// Rectangle2D is a shape subclass, and the graphics object can render
 		// it, makes things a little easier.
-		int cx = (int) basicBlock.getCenterX();
-		int cy = (int) basicBlock.getCenterY();
+		int cx = (int) player.basicBlock.getCenterX();
+		int cy = (int) player.basicBlock.getCenterY();
 
 		bkG.setColor(Color.green.darker());
 		Graphics2D g = (Graphics2D) bkG.create();
-		g.rotate(-direction, cx, cy);
-		g.fill(basicBlock);
+		g.rotate(-player.rotation, cx, cy);
+		g.fill(player.basicBlock);
 		g.dispose();
 
 		// show direction
-		bkG.drawLine(cx, cy, (int) (cx + Math.sin(direction) * 20), (int) (cy + Math.cos(direction) * 20));
+		bkG.drawLine(cx, cy, (int) (cx + Math.sin(player.rotation) * 20), (int) (cy + Math.cos(player.rotation) * 20));
 
 		bkG.setColor(Color.BLACK);
 		bkG.drawString(String.format("%s %5d", "fps = ", (int) (avgFramerate)), 0, 12);
@@ -201,15 +201,14 @@ public class AngularMovementSnippet extends Canvas {
 	 * available once the component is created and displayed.
 	 */
 	public void setup() {
-		basicBlock = new Rectangle2D.Double(0, 0, 16, 16);
+		player.basicBlock = new Rectangle2D.Double(0, 0, 16, 16);
 
 		// center the block in the canvas.
-		basicBlock.x = this.getWidth() / 2 - basicBlock.width / 2;
-		basicBlock.y = this.getHeight() / 2 - basicBlock.height / 2;
+		player.setPosition(new Loc((int) (this.getWidth() / 2 - player.basicBlock.width / 2),
+				(int) (this.getHeight() / 2 - player.basicBlock.height / 2)));
 
 		// create the background gradient paint object.
-		// backgroundGradient = new GradientPaint(0, 0, Color.gray, getWidth(),
-		// getHeight(), Color.lightGray.brighter());
+		backgroundGradient = new GradientPaint(0, 0, Color.gray, getWidth(), getHeight(), Color.lightGray.brighter());
 
 		// create a strategy that uses two buffers, or is double buffered.
 		this.createBufferStrategy(2);
@@ -291,12 +290,12 @@ public class AngularMovementSnippet extends Canvas {
 		// angular movement is based on a radian angle for direction
 
 		if (right) {
-			this.direction += -turnspeed * dt; // angular turning
+			player.rotation -= turnspeed * dt; // angular turning
 												// speed
 		}
 
 		if (left) {
-			this.direction += turnspeed * dt; // angular turning
+			player.rotation += turnspeed * dt; // angular turning
 												// speed
 		}
 
@@ -306,9 +305,12 @@ public class AngularMovementSnippet extends Canvas {
 			// timed passed so that we get more accurate movement and then the
 			// speed variable controls how fast the block moves. And it has
 			// specific units which are pixels per second.
-			basicBlock.x += Math.sin(direction) * dt * speed;
-			basicBlock.y += Math.cos(direction) * dt * speed;
+			player.basicBlock.x += Math.sin(player.rotation) * dt * speed;
+			player.basicBlock.y += Math.cos(player.rotation) * dt * speed;
+
 		}
+		// System.out.println("Forward = " + player.getForwardVector());
+		// System.out.println("Right = " + player.getRightVector());
 	}
 
 	/**

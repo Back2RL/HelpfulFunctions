@@ -1,0 +1,15 @@
+
+public class Actor {
+
+	private Loc position;
+
+	public Loc getPosition() {
+		return position;
+	}
+
+	public void setPosition(Loc position) {
+		this.position = position;
+	}
+	
+
+}
