@@ -149,7 +149,7 @@ c = 1
 
 1te Wurzel n <= 2^n
 
-durch schlaues hingucken sieht man das c = 1 und n = 1 sein müssen um die Ungleichung zu erfüllen
+durch schlaues hingucken sieht man mit c = 1 und n = 1 die Ungleichung erfüllt ist.
 
 5.:
 n0 finden, so dass Ungleichung für alle n>n0 erfüllt ist.
