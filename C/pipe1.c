@@ -3,7 +3,7 @@
 #include <unistd.h>
 
 #define MAXLEN 80
-#define THREADS 1
+#define THREADS 4
 
 void kindService(int in);
 
@@ -30,8 +30,8 @@ int main(int argc, char *argv[])
 		}
 
 		if( pid == 0 ) { /*Kindprozess */
-			/*ungenutzten Deskriptor schließen*/	
-			close(pd[1]);	/*schreibd.*/	
+			/*ungenutzten Deskriptor schließen*/
+			close(pd[1]);	/*schreibd.*/
 			printf("Kindprozess PID = %5d\n" , pid);
 			kindService(pd[0]);
 
@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 	}
 
 	/*Vaterprozess*/
-	/*ungenutzten Deskriptor schließen*/	
+	/*ungenutzten Deskriptor schließen*/
 	close(pd[0]);	/*lesed.*/
 
 	printf("Vaterprozess PID = %d\n",pid);
