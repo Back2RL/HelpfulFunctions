@@ -29,6 +29,7 @@ int main()
 	}
 	while (xo <= xu);
 	do {
+            printf("0 < d <= 0.5\n");
 		::readdouble((char*) "d", dx);
 	}
 	while (dx < pow(10.0, -3.0) || dx > 0.5);
@@ -56,7 +57,7 @@ int main()
 		//sprintf(buffer, "%lf", fpxwert);
 		cout << " |" << setw(9) << fpxwert << endl;
 
-	} 
+	}
 
 	return 0;
 }
@@ -96,6 +97,6 @@ double readdouble(char name[len], double &variable)
 			continue;
 	}
 	while (rc != true);
-		return variable;	
+		return variable;
 
 }
