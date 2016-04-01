@@ -1,0 +1,169 @@
+execve("./Aclient", ["./Aclient", "localhost"], [/* 93 vars */]) = 0
+brk(0)                                  = 0x804d000
+mmap2(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xb7745000
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+open("/opt/rz/intel/Compiler/11.1/059/lib/ia32/tls/i686/sse2/libm.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/opt/rz/intel/Compiler/11.1/059/lib/ia32/tls/i686/sse2", 0xbf9b4f24) = -1 ENOENT (No such file or directory)
+open("/opt/rz/intel/Compiler/11.1/059/lib/ia32/tls/i686/libm.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/opt/rz/intel/Compiler/11.1/059/lib/ia32/tls/i686", 0xbf9b4f24) = -1 ENOENT (No such file or directory)
+open("/opt/rz/intel/Compiler/11.1/059/lib/ia32/tls/sse2/libm.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/opt/rz/intel/Compiler/11.1/059/lib/ia32/tls/sse2", 0xbf9b4f24) = -1 ENOENT (No such file or directory)
+open("/opt/rz/intel/Compiler/11.1/059/lib/ia32/tls/libm.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/opt/rz/intel/Compiler/11.1/059/lib/ia32/tls", 0xbf9b4f24) = -1 ENOENT (No such file or directory)
+open("/opt/rz/intel/Compiler/11.1/059/lib/ia32/i686/sse2/libm.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/opt/rz/intel/Compiler/11.1/059/lib/ia32/i686/sse2", 0xbf9b4f24) = -1 ENOENT (No such file or directory)
+open("/opt/rz/intel/Compiler/11.1/059/lib/ia32/i686/libm.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/opt/rz/intel/Compiler/11.1/059/lib/ia32/i686", 0xbf9b4f24) = -1 ENOENT (No such file or directory)
+open("/opt/rz/intel/Compiler/11.1/059/lib/ia32/sse2/libm.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/opt/rz/intel/Compiler/11.1/059/lib/ia32/sse2", 0xbf9b4f24) = -1 ENOENT (No such file or directory)
+open("/opt/rz/intel/Compiler/11.1/059/lib/ia32/libm.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/opt/rz/intel/Compiler/11.1/059/lib/ia32", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+open("/usr/lib/mpi/gcc/openmpi/lib/tls/i686/sse2/libm.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/usr/lib/mpi/gcc/openmpi/lib/tls/i686/sse2", 0xbf9b4f24) = -1 ENOENT (No such file or directory)
+open("/usr/lib/mpi/gcc/openmpi/lib/tls/i686/libm.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/usr/lib/mpi/gcc/openmpi/lib/tls/i686", 0xbf9b4f24) = -1 ENOENT (No such file or directory)
+open("/usr/lib/mpi/gcc/openmpi/lib/tls/sse2/libm.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/usr/lib/mpi/gcc/openmpi/lib/tls/sse2", 0xbf9b4f24) = -1 ENOENT (No such file or directory)
+open("/usr/lib/mpi/gcc/openmpi/lib/tls/libm.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/usr/lib/mpi/gcc/openmpi/lib/tls", 0xbf9b4f24) = -1 ENOENT (No such file or directory)
+open("/usr/lib/mpi/gcc/openmpi/lib/i686/sse2/libm.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/usr/lib/mpi/gcc/openmpi/lib/i686/sse2", 0xbf9b4f24) = -1 ENOENT (No such file or directory)
+open("/usr/lib/mpi/gcc/openmpi/lib/i686/libm.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/usr/lib/mpi/gcc/openmpi/lib/i686", 0xbf9b4f24) = -1 ENOENT (No such file or directory)
+open("/usr/lib/mpi/gcc/openmpi/lib/sse2/libm.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/usr/lib/mpi/gcc/openmpi/lib/sse2", 0xbf9b4f24) = -1 ENOENT (No such file or directory)
+open("/usr/lib/mpi/gcc/openmpi/lib/libm.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/usr/lib/mpi/gcc/openmpi/lib", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+open("/home/oertelt/System und Netzprog/files/lib/tls/i686/sse2/libm.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/home/oertelt/System und Netzprog/files/lib/tls/i686/sse2", 0xbf9b4f24) = -1 ENOENT (No such file or directory)
+open("/home/oertelt/System und Netzprog/files/lib/tls/i686/libm.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/home/oertelt/System und Netzprog/files/lib/tls/i686", 0xbf9b4f24) = -1 ENOENT (No such file or directory)
+open("/home/oertelt/System und Netzprog/files/lib/tls/sse2/libm.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/home/oertelt/System und Netzprog/files/lib/tls/sse2", 0xbf9b4f24) = -1 ENOENT (No such file or directory)
+open("/home/oertelt/System und Netzprog/files/lib/tls/libm.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/home/oertelt/System und Netzprog/files/lib/tls", 0xbf9b4f24) = -1 ENOENT (No such file or directory)
+open("/home/oertelt/System und Netzprog/files/lib/i686/sse2/libm.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/home/oertelt/System und Netzprog/files/lib/i686/sse2", 0xbf9b4f24) = -1 ENOENT (No such file or directory)
+open("/home/oertelt/System und Netzprog/files/lib/i686/libm.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/home/oertelt/System und Netzprog/files/lib/i686", 0xbf9b4f24) = -1 ENOENT (No such file or directory)
+open("/home/oertelt/System und Netzprog/files/lib/sse2/libm.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/home/oertelt/System und Netzprog/files/lib/sse2", 0xbf9b4f24) = -1 ENOENT (No such file or directory)
+open("/home/oertelt/System und Netzprog/files/lib/libm.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/home/oertelt/System und Netzprog/files/lib", {st_mode=S_IFDIR|0700, st_size=4096, ...}) = 0
+open("/etc/ld.so.cache", O_RDONLY)      = 3
+fstat64(3, {st_mode=S_IFREG|0644, st_size=163357, ...}) = 0
+mmap2(NULL, 163357, PROT_READ, MAP_PRIVATE, 3, 0) = 0xb771d000
+close(3)                                = 0
+open("/lib/libm.so.6", O_RDONLY)        = 3
+read(3, "\177ELF\1\1\1\0\0\0\0\0\0\0\0\0\3\0\3\0\1\0\0\0p4\0\0004\0\0\0"..., 512) = 512
+fstat64(3, {st_mode=S_IFREG|0755, st_size=165924, ...}) = 0
+mmap2(NULL, 163968, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xb76f4000
+fadvise64(3, 0, 163968, POSIX_FADV_WILLNEED) = 0
+mmap2(0xb771b000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x27) = 0xb771b000
+close(3)                                = 0
+open("/opt/rz/intel/Compiler/11.1/059/lib/ia32/libc.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/usr/lib/mpi/gcc/openmpi/lib/libc.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/home/oertelt/System und Netzprog/files/lib/libc.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/lib/libc.so.6", O_RDONLY)        = 3
+read(3, "\177ELF\1\1\1\0\0\0\0\0\0\0\0\0\3\0\3\0\1\0\0\0 l\1\0004\0\0\0"..., 512) = 512
+fstat64(3, {st_mode=S_IFREG|0755, st_size=1430104, ...}) = 0
+mmap2(NULL, 1440072, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xb7594000
+fadvise64(3, 0, 1440072, POSIX_FADV_WILLNEED) = 0
+mprotect(0xb76ed000, 4096, PROT_NONE)   = 0
+mmap2(0xb76ee000, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x159) = 0xb76ee000
+mmap2(0xb76f1000, 10568, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xb76f1000
+close(3)                                = 0
+mmap2(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xb7593000
+set_thread_area({entry_number:-1 -> 6, base_addr:0xb75936c0, limit:1048575, seg_32bit:1, contents:0, read_exec_only:0, limit_in_pages:1, seg_not_present:0, useable:1}) = 0
+mprotect(0xb76ee000, 8192, PROT_READ)   = 0
+mprotect(0xb771b000, 4096, PROT_READ)   = 0
+mprotect(0x804b000, 4096, PROT_READ)    = 0
+mprotect(0xb7764000, 4096, PROT_READ)   = 0
+munmap(0xb771d000, 163357)              = 0
+rt_sigaction(SIGINT, {0x804a525, [INT], SA_RESTART}, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGQUIT, {0x1, [QUIT], SA_RESTART}, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGPIPE, {0x804a3f3, [PIPE], SA_RESTART}, {SIG_DFL, [], 0}, 8) = 0
+socket(PF_INET, SOCK_STREAM, IPPROTO_IP) = 3
+fstat64(1, {st_mode=S_IFCHR|0600, st_rdev=makedev(136, 4), ...}) = 0
+mmap2(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xb7744000
+write(1, "Server: localhost\n", 18)     = 18
+write(1, "Port  : 12345\n", 14)         = 14
+write(1, "=======\n", 8)                = 8
+brk(0)                                  = 0x804d000
+brk(0x806e000)                          = 0x806e000
+getpid()                                = 7790
+open("/etc/resolv.conf", O_RDONLY)      = 4
+fstat64(4, {st_mode=S_IFREG|0644, st_size=867, ...}) = 0
+mmap2(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xb7743000
+read(4, "### /etc/resolv.conf file autoge"..., 4096) = 867
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+munmap(0xb7743000, 4096)                = 0
+time(NULL)                              = 1432892058
+stat64("/etc/resolv.conf", {st_mode=S_IFREG|0644, st_size=867, ...}) = 0
+open("/etc/resolv.conf", O_RDONLY)      = 4
+fstat64(4, {st_mode=S_IFREG|0644, st_size=867, ...}) = 0
+mmap2(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xb7743000
+read(4, "### /etc/resolv.conf file autoge"..., 4096) = 867
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+munmap(0xb7743000, 4096)                = 0
+socket(PF_FILE, 0x80801 /* SOCK_??? */, 0) = 4
+connect(4, {sa_family=AF_FILE, path="/var/run/nscd/socket"}, 110) = 0
+send(4, "\2\0\0\0\r\0\0\0\6\0\0\0hosts\0", 18, MSG_NOSIGNAL) = 18
+poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 5000) = 1 ([{fd=4, revents=POLLIN|POLLHUP}])
+recvmsg(4, {msg_name(0)=NULL, msg_iov(2)=[{"\2\0\0\0\207\360", 6}, {"\1\0\0\0t\272i\267", 8}], msg_controllen=0, msg_flags=MSG_CMSG_CLOEXEC}, MSG_CMSG_CLOEXEC) = 0
+close(4)                                = 0
+socket(PF_FILE, 0x80801 /* SOCK_??? */, 0) = 4
+connect(4, {sa_family=AF_FILE, path="/var/run/nscd/socket"}, 110) = 0
+send(4, "\2\0\0\0\4\0\0\0\n\0\0\0localhost\0", 22, MSG_NOSIGNAL) = 22
+poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 5000) = 1 ([{fd=4, revents=POLLIN|POLLHUP}])
+read(4, "\2\0\0\0\1\0\0\0\f\0\0\0\2\0\0\0\2\0\0\0\4\0\0\0\2\0\0\0\0\0\0\0", 32) = 32
+readv(4, [{"localhost\0\0\0", 12}, {"\17\0\0\0\16\0\0\0", 8}, {"\177\0\0\1\177\0\0\1", 8}], 3) = 28
+read(4, "ipv6-localhost\0ipv6-loopback\0", 29) = 29
+close(4)                                = 0
+connect(3, {sa_family=AF_INET, sin_port=htons(12345), sin_addr=inet_addr("127.0.0.1")}, 16) = 0
+munmap(0xb7744000, 4096)                = 0
+select(4, [0 3], NULL, NULL, {1, 0})    = 0 (Timeout)
+write(1, "\nWarte auf Gegenspieler", 23) = 23
+write(1, "\n", 1)                       = 1
+write(1, "-", 1)                        = 1
+select(4, [0 3], NULL, NULL, {1, 0})    = 0 (Timeout)
+write(1, "-", 1)                        = 1
+select(4, [0 3], NULL, NULL, {1, 0})    = 0 (Timeout)
+write(1, "-", 1)                        = 1
+select(4, [0 3], NULL, NULL, {1, 0})    = 0 (Timeout)
+write(1, "-", 1)                        = 1
+select(4, [0 3], NULL, NULL, {1, 0})    = 1 (in [3], left {0, 776098})
+write(1, "\n", 1)                       = 1
+read(3, "H", 1)                         = 1
+read(3, "A", 1)                         = 1
+read(3, "L", 1)                         = 1
+read(3, "L", 1)                         = 1
+read(3, "O", 1)                         = 1
+read(3, "\n", 1)                        = 1
+write(3, "OK\n", 3)                     = 3
+write(1, "Gib deinen Spielernamen ein!", 28) = 28
+write(1, "\n", 1)                       = 1
+write(1, "Dein Spielername: ", 18)      = 18
+select(4, [0 3], NULL, NULL, NULL)      = 1 (in [3])
+read(3, "Q", 1)                         = 1
+read(3, "U", 1)                         = 1
+read(3, "I", 1)                         = 1
+read(3, "T", 1)                         = 1
+read(3, "\n", 1)                        = 1
+write(1, "\nEin Fehler ist aufgetreten!\nEND"..., 33) = 33
+write(1, "\n", 1)                       = 1
+write(3, "quit\n", 5)                   = 5
+select(4, [0 3], NULL, NULL, {1, 0})    = 1 (in [3], left {0, 999495})
+write(1, "\n", 1)                       = 1
+read(3, "", 1)                          = 0
+dup(2)                                  = 4
+fcntl64(4, F_GETFL)                     = 0x2 (flags O_RDWR)
+fstat64(4, {st_mode=S_IFCHR|0600, st_rdev=makedev(136, 4), ...}) = 0
+mmap2(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xb7744000
+_llseek(4, 0, 0xbf9b4d60, SEEK_CUR)     = -1 ESPIPE (Illegal seek)
+write(4, "empfangen: Success\n", 19)    = 19
+close(4)                                = 0
+munmap(0xb7744000, 4096)                = 0
+exit_group(-1)                          = ?

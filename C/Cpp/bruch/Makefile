@@ -2,7 +2,8 @@ CFLAGS = -Wall -Wdeclaration-after-statement
 CXXFLAGS = -Wall
 LDLIBS = -lm
 
-copter: copter.c
+brueche: brueche.cpp Bruch.h Bruch.o
+Bruch.o: Bruch.cpp Bruch.h
 
 clean:
-	rm *.o
+	rm -f *.o brueche

@@ -1,0 +1,3 @@
+meine PID: 7816
+meine PPID: 7112
+Ich starte jetzt ./collatz ...

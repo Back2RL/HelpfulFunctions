@@ -1,0 +1,243 @@
+rt_sigaction(SIGINT, {SIG_DFL, [INT], SA_RESTART}, {0x1, [INT], SA_RESTART}, 8)      = 0
+rt_sigaction(SIGQUIT, {SIG_DFL, [QUIT], SA_RESTART}, {0x1, [QUIT], SA_RESTART}, 8) = 0
+rt_sigaction(SIGPIPE, {SIG_DFL, [PIPE], SA_RESTART}, {0x1, [PIPE], SA_RESTART}, 8) = 0
+rt_sigaction(SIGCHLD, {SIG_DFL, [CHLD], SA_RESTART}, {0x80491d1, [CHLD], SA_RESTART}, 8) = 0
+close(4) = 0
+close(3) = 0
+close(6) = 0
+close(7) = 0
+close(10) = 0
+close(9)                                = 0
+close(0) = 0
+dup(5) = 0
+close(5) = 0
+close(1) = 0
+dup(8) = 1
+close(8) = 0
+execve("/opt/rz/intel/Compiler/11.1/059/bin/ia32/sort", ["sort"], [/* 93 vars */]) = -1 ENOENT (No such file or directory)
+execve("/vorlesungen/hentschel/bin/sort", ["sort"], [/* 93 vars */])                               = -1 ENOENT (No such file or directory)
+execve("/opt/rz/intel/Compiler/11.1/059/bin/ia32/sort", ["sort"], [/* 93 vars */])                = -1 ENOENT (No such file or directory)
+execve("/vorlesungen/hentschel/bin/sort", ["sort"], [/* 93 vars */]) = -1 ENOENT (No such file or directory)
+execve("/usr/lib/mpi/gcc/openmpi/bin/sort", ["sort"], [/* 93 vars */])      = -1 ENOENT (No such file or directory)
+execve("/home/oertelt/bin/sort", ["sort"], [/* 93 vars */]) = -1 ENOENT (No such file or directory)
+execve("/usr/local/bin/sort", ["sort"], [/* 93 vars */]) = -1 ENOENT (No such file or directory)
+execve("/usr/bin/sort", ["sort"], [/* 93 vars */]) = 0
+brk(0) = 0x805e000
+mmap2(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xb7869000
+access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+open("/opt/rz/intel/Compiler/11.1/059/lib/ia32/tls/i686/sse2/librt.so.1", O_RDONLY)                                = -1 ENOENT (No such file or directory)
+stat64("/opt/rz/intel/Compiler/11.1/059/lib/ia32/tls/i686/sse2", 0xbfbc5e34) = -1 ENOENT (No such file or directory)
+open("/opt/rz/intel/Compiler/11.1/059/lib/ia32/tls/i686/librt.so.1", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/opt/rz/intel/Compiler/11.1/059/lib/ia32/tls/i686", 0xbfbc5e34)                      = -1 ENOENT (No such file or directory)
+open("/opt/rz/intel/Compiler/11.1/059/lib/ia32/tls/sse2/librt.so.1", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/opt/rz/intel/Compiler/11.1/059/lib/ia32/tls/sse2", 0xbfbc5e34)                     = -1 ENOENT (No such file or directory)
+open("/opt/rz/intel/Compiler/11.1/059/lib/ia32/tls/librt.so.1", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/opt/rz/intel/Compiler/11.1/059/lib/ia32/tls", 0xbfbc5e34) = -1 ENOENT (No such file or directory)
+open("/opt/rz/intel/Compiler/11.1/059/lib/ia32/i686/sse2/librt.so.1", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/opt/rz/intel/Compiler/11.1/059/lib/ia32/i686/sse2", 0xbfbc5e34) = -1 ENOENT (No such file or directory)
+open("/opt/rz/intel/Compiler/11.1/059/lib/ia32/i686/librt.so.1", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/opt/rz/intel/Compiler/11.1/059/lib/ia32/i686", 0xbfbc5e34) = -1 ENOENT (No such file or directory)
+open("/opt/rz/intel/Compiler/11.1/059/lib/ia32/sse2/librt.so.1", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/opt/rz/intel/Compiler/11.1/059/lib/ia32/sse2", 0xbfbc5e34) = -1 ENOENT (No such file or directory)
+open("/opt/rz/intel/Compiler/11.1/059/lib/ia32/librt.so.1", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/opt/rz/intel/Compiler/11.1/059/lib/ia32", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+open("/usr/lib/mpi/gcc/openmpi/lib/tls/i686/sse2/librt.so.1", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/usr/lib/mpi/gcc/openmpi/lib/tls/i686/sse2", 0xbfbc5e34) = -1 ENOENT (No such file or directory)
+open("/usr/lib/mpi/gcc/openmpi/lib/tls/i686/librt.so.1", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/usr/lib/mpi/gcc/openmpi/lib/tls/i686", 0xbfbc5e34) = -1 ENOENT (No such file or directory)
+open("/usr/lib/mpi/gcc/openmpi/lib/tls/sse2/librt.so.1", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/usr/lib/mpi/gcc/openmpi/lib/tls/sse2", 0xbfbc5e34) = -1 ENOENT (No such file or directory)
+open("/usr/lib/mpi/gcc/openmpi/lib/tls/librt.so.1", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/usr/lib/mpi/gcc/openmpi/lib/tls", 0xbfbc5e34) = -1 ENOENT (No such file or directory)
+open("/usr/lib/mpi/gcc/openmpi/lib/i686/sse2/librt.so.1", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/usr/lib/mpi/gcc/openmpi/lib/i686/sse2", 0xbfbc5e34) = -1 ENOENT (No such file or directory)
+open("/usr/lib/mpi/gcc/openmpi/lib/i686/librt.so.1", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/usr/lib/mpi/gcc/openmpi/lib/i686", 0xbfbc5e34) = -1 ENOENT (No such file or directory)
+open("/usr/lib/mpi/gcc/openmpi/lib/sse2/librt.so.1", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/usr/lib/mpi/gcc/openmpi/lib/sse2", 0xbfbc5e34) = -1 ENOENT (No such file or directory)
+open("/usr/lib/mpi/gcc/openmpi/lib/librt.so.1", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64("/usr/lib/mpi/gcc/openmpi/lib", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+open("/etc/ld.so.cache", O_RDONLY) = 3
+fstat64(3, {st_mode=S_IFREG|0644, st_size=163357, ...}) = 0
+mmap2(NULL, 163357, PROT_READ, MAP_PRIVATE, 3, 0) = 0xb7841000
+close(3) = 0
+open("/lib/librt.so.1", O_RDONLY) = 3
+read(3, "\177ELF\1\1\1\0\0\0\0\0\0\0\0\0\3\0\3\0\1\0\0\0\220\31\0\0004\0\0\0"..., 512) = 512
+fstat64(3, {st_mode=S_IFREG|0755, st_size=34912, ...}) = 0
+mmap2(NULL, 37488, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xb7837000
+fadvise64(3, 0, 37488, POSIX_FADV_WILLNEED) = 0
+mmap2(0xb783f000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x7) = 0xb783f000
+close(3) = 0
+open("/opt/rz/intel/Compiler/11.1/059/lib/ia32/libc.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/usr/lib/mpi/gcc/openmpi/lib/libc.so.6", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/lib/libc.so.6", O_RDONLY) = 3
+read(3, "\177ELF\1\1\1\0\0\0\0\0\0\0\0\0\3\0\3\0\1\0\0\0 l\1\0004\0\0\0"..., 512) = 512
+fstat64(3, {st_mode=S_IFREG|0755, st_size=1430104, ...}) = 0
+mmap2(NULL, 1440072, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xb76d7000
+fadvise64(3, 0, 1440072, POSIX_FADV_WILLNEED)                            = 0
+mprotect(0xb7830000, 4096, PROT_NONE) = 0
+mmap2(0xb7831000, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x159) = 0xb7831000
+mmap2(0xb7834000, 10568, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xb7834000
+close(3) = 0
+open("/opt/rz/intel/Compiler/11.1/059/lib/ia32/libpthread.so.0", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/usr/lib/mpi/gcc/openmpi/lib/libpthread.so.0", O_RDONLY)   = -1 ENOENT (No such file or directory)
+open("/lib/libpthread.so.0", O_RDONLY) = 3
+read(3, "\177ELF\1\1\1\0\0\0\0\0\0\0\0\0\3\0\3\0\1\0\0\0\220I\0\0004\0\0\0"..., 512) = 512
+fstat64(3, {st_mode=S_IFREG|0755, st_size=120692, ...}) = 0
+mmap2(NULL, 102892, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xb76bd000
+fadvise64(3, 0, 102892, POSIX_FADV_WILLNEED) = 0
+mmap2(0xb76d3000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x15)   = 0xb76d3000
+mmap2(0xb76d5000, 4588, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xb76d5000
+close(3) = 0
+mmap2(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xb76bc000
+mmap2(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0)                                  = 0xb76bb000
+set_thread_area({entry_number:-1 -> 6, base_addr:0xb76bb6c0, limit:1048575, seg_32bit:1, contents:0, read_exec_only:0, limit_in_pages:1, seg_not_present:0, useable:1}) = 0
+mprotect(0xb76d3000, 4096, PROT_READ) = 0
+mprotect(0xb7831000, 8192, PROT_READ)                            = 0
+mprotect(0xb783f000, 4096, PROT_READ) = 0
+mprotect(0x805c000, 4096, PROT_READ) = 0
+mprotect(0xb7888000, 4096, PROT_READ)                               = 0
+munmap(0xb7841000, 163357) = 0
+set_tid_address(0xb76bb728) = 7530
+set_robust_list(0xb76bb730, 0xc) = 0
+futex(0xbfbc63e0, FUTEX_WAKE_PRIVATE, 1) = 0
+futex(0xbfbc63e0, 0x189 /* FUTEX_??? */, 1, NULL, b76bb6c0)                            = -1 EAGAIN (Resource temporarily unavailable)
+rt_sigaction(SIGRTMIN, {0xb76c1360, [], SA_SIGINFO}, NULL, 8) = 0
+rt_sigaction(SIGRT_1, {0xb76c1880, [], SA_RESTART|SA_SIGINFO}, NULL, 8)                         = 0
+rt_sigprocmask(SIG_UNBLOCK, [RTMIN RT_1], NULL, 8) = 0
+getrlimit(RLIMIT_STACK, {rlim_cur=8192*1024, rlim_max=RLIM_INFINITY}) = 0
+uname({sys="Linux", node="ws13", ...}) = 0
+brk(0) = 0x805e000
+brk(0x807f000)                            = 0x807f000
+open("/usr/lib/locale/locale-archive", O_RDONLY|O_LARGEFILE) = -1 ENOENT (No such file or directory)
+open("/usr/share/locale/locale.alias", O_RDONLY)                                = 3
+fstat64(3, {st_mode=S_IFREG|0644, st_size=2512, ...}) = 0
+mmap2(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xb7868000
+read(3, "# Locale name alias data base.\n#"..., 4096) = 2512
+read(3, "", 4096)                        = 0
+close(3) = 0
+munmap(0xb7868000, 4096) = 0
+open("/usr/lib/locale/de_DE.UTF-8/LC_IDENTIFICATION", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/usr/lib/locale/de_DE.utf8/LC_IDENTIFICATION", O_RDONLY)                                = 3
+fstat64(3, {st_mode=S_IFREG|0644, st_size=375, ...}) = 0
+mmap2(NULL, 375, PROT_READ, MAP_PRIVATE, 3, 0) = 0xb7868000
+close(3)                            = 0
+open("/usr/lib/gconv/gconv-modules.cache", O_RDONLY) = 3
+fstat64(3, {st_mode=S_IFREG|0644, st_size=26048, ...}) = 0
+mmap2(NULL, 26048, PROT_READ, MAP_SHARED, 3, 0) = 0xb7861000
+close(3) = 0
+futex(0xb7833a8c, FUTEX_WAKE_PRIVATE, 2147483647)                            = 0
+open("/usr/lib/locale/de_DE.UTF-8/LC_MEASUREMENT", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/usr/lib/locale/de_DE.utf8/LC_MEASUREMENT", O_RDONLY)                                = 3
+fstat64(3, {st_mode=S_IFREG|0644, st_size=23, ...}) = 0
+mmap2(NULL, 23, PROT_READ, MAP_PRIVATE, 3, 0) = 0xb7860000
+close(3)                            = 0
+open("/usr/lib/locale/de_DE.UTF-8/LC_TELEPHONE", O_RDONLY)                                = -1 ENOENT (No such file or directory)
+open("/usr/lib/locale/de_DE.utf8/LC_TELEPHONE", O_RDONLY) = 3
+fstat64(3, {st_mode=S_IFREG|0644, st_size=56, ...}) = 0
+mmap2(NULL, 56, PROT_READ, MAP_PRIVATE, 3, 0) = 0xb785f000
+close(3)                                = 0
+open("/usr/lib/locale/de_DE.UTF-8/LC_ADDRESS", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/usr/lib/locale/de_DE.utf8/LC_ADDRESS", O_RDONLY) = 3
+fstat64(3, {st_mode=S_IFREG|0644, st_size=155, ...}) = 0
+mmap2(NULL, 155, PROT_READ, MAP_PRIVATE, 3, 0) = 0xb785e000
+close(3) = 0
+open("/usr/lib/locale/de_DE.UTF-8/LC_NAME", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/usr/lib/locale/de_DE.utf8/LC_NAME", O_RDONLY) = 3
+fstat64(3, {st_mode=S_IFREG|0644, st_size=83, ...}) = 0
+mmap2(NULL, 83, PROT_READ, MAP_PRIVATE, 3, 0) = 0xb785d000
+close(3) = 0
+open("/usr/lib/locale/de_DE.UTF-8/LC_PAPER", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/usr/lib/locale/de_DE.utf8/LC_PAPER", O_RDONLY) = 3
+fstat64(3, {st_mode=S_IFREG|0644, st_size=34, ...}) = 0
+mmap2(NULL, 34, PROT_READ, MAP_PRIVATE, 3, 0) = 0xb785c000
+close(3) = 0
+open("/usr/lib/locale/de_DE.UTF-8/LC_MESSAGES", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/usr/lib/locale/de_DE.utf8/LC_MESSAGES", O_RDONLY) = 3
+fstat64(3, {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+close(3) = 0
+open("/usr/lib/locale/de_DE.utf8/LC_MESSAGES/SYS_LC_MESSAGES", O_RDONLY) = 3
+fstat64(3, {st_mode=S_IFREG|0644, st_size=54, ...}) = 0
+mmap2(NULL, 54, PROT_READ, MAP_PRIVATE, 3, 0) = 0xb785b000
+close(3) = 0
+open("/usr/lib/locale/de_DE.UTF-8/LC_MONETARY", O_RDONLY)                                = -1 ENOENT (No such file or directory)
+open("/usr/lib/locale/de_DE.utf8/LC_MONETARY", O_RDONLY)                                = 3
+fstat64(3, {st_mode=S_IFREG|0644, st_size=294, ...}) = 0
+mmap2(NULL, 294, PROT_READ, MAP_PRIVATE, 3, 0) = 0xb785a000
+close(3) = 0
+open("/usr/lib/locale/de_DE.UTF-8/LC_COLLATE", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/usr/lib/locale/de_DE.utf8/LC_COLLATE", O_RDONLY) = 3
+fstat64(3, {st_mode=S_IFREG|0644, st_size=966938, ...}) = 0
+mmap2(NULL, 966938, PROT_READ, MAP_PRIVATE, 3, 0) = 0xb75ce000
+close(3) = 0
+open("/usr/lib/locale/de_DE.UTF-8/LC_TIME", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/usr/lib/locale/de_DE.utf8/LC_TIME", O_RDONLY)   = 3
+fstat64(3, {st_mode=S_IFREG|0644, st_size=2354, ...}) = 0
+mmap2(NULL, 2354, PROT_READ, MAP_PRIVATE, 3, 0) = 0xb7859000
+close(3)                                = 0
+open("/usr/lib/locale/de_DE.UTF-8/LC_NUMERIC", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/usr/lib/locale/de_DE.utf8/LC_NUMERIC", O_RDONLY)   = 3
+fstat64(3, {st_mode=S_IFREG|0644, st_size=54, ...}) = 0
+mmap2(NULL, 54, PROT_READ, MAP_PRIVATE, 3, 0)   = 0xb7858000
+close(3)    = 0
+open("/usr/lib/locale/de_DE.UTF-8/LC_CTYPE", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/usr/lib/locale/de_DE.utf8/LC_CTYPE", O_RDONLY) = 3
+fstat64(3, {st_mode=S_IFREG|0644, st_size=256476, ...}) = 0
+mmap2(NULL, 256476, PROT_READ, MAP_PRIVATE, 3, 0) = 0xb758f000
+close(3)                                = 0
+rt_sigaction(SIGALRM, NULL, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGHUP, NULL, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGINT, NULL, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGPIPE, NULL, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGQUIT, NULL, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGTERM, NULL, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGIO, NULL, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGPROF, NULL, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGVTALRM, NULL, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGXCPU, NULL, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGXFSZ, NULL, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGALRM, {0x804b080, [HUP INT QUIT PIPE ALRM TERM XCPU XFSZ VTALRM PROF IO], 0}, NULL, 8) = 0
+rt_sigaction(SIGHUP, {0x804b080, [HUP INT QUIT PIPE ALRM TERM XCPU XFSZ VTALRM PROF IO], 0}, NULL, 8) = 0
+rt_sigaction(SIGINT, {0x804b080, [HUP INT QUIT PIPE ALRM TERM XCPU XFSZ VTALRM PROF IO], 0}, NULL, 8) = 0
+rt_sigaction(SIGPIPE, {0x804b080, [HUP INT QUIT PIPE ALRM TERM XCPU XFSZ VTALRM PROF IO], 0}, NULL, 8) = 0
+rt_sigaction(SIGQUIT, {0x804b080, [HUP INT QUIT PIPE ALRM TERM XCPU XFSZ VTALRM PROF IO], 0}, NULL, 8) = 0
+rt_sigaction(SIGTERM, {0x804b080, [HUP INT QUIT PIPE ALRM TERM XCPU XFSZ VTALRM PROF IO], 0}, NULL, 8) = 0
+rt_sigaction(SIGIO, {0x804b080, [HUP INT QUIT PIPE ALRM TERM XCPU XFSZ VTALRM PROF IO], 0}, NULL, 8) = 0
+rt_sigaction(SIGPROF, {0x804b080, [HUP INT QUIT PIPE ALRM TERM XCPU XFSZ VTALRM PROF IO], 0}, NULL, 8) = 0
+rt_sigaction(SIGVTALRM, {0x804b080, [HUP INT QUIT PIPE ALRM TERM XCPU XFSZ VTALRM PROF IO], 0}, NULL, 8) = 0
+rt_sigaction(SIGXCPU, {0x804b080, [HUP INT QUIT PIPE ALRM TERM XCPU XFSZ VTALRM PROF IO], 0}, NULL, 8) = 0
+rt_sigaction(SIGXFSZ, {0x804b080, [HUP INT QUIT PIPE ALRM TERM XCPU XFSZ VTALRM PROF IO], 0}, NULL, 8) = 0
+fstat64(0, {st_mode=S_IFIFO|0600, st_size=0, ...}) = 0
+open("/proc/meminfo", O_RDONLY)         = 3
+fstat64(3, {st_mode=S_IFREG|0444, st_size=0, ...}) = 0
+mmap2(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xb7857000
+read(3, "MemTotal:        8185084 kB\nMemF"..., 1024) = 1024
+close(3)                                = 0
+munmap(0xb7857000, 4096)                = 0
+open("/proc/meminfo", O_RDONLY)         = 3
+fstat64(3, {st_mode=S_IFREG|0444, st_size=0, ...}) = 0
+mmap2(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xb7857000
+read(3, "MemTotal:        8185084 kB\nMemF"..., 1024) = 1024
+close(3)                                = 0
+munmap(0xb7857000, 4096)                = 0
+getrlimit(RLIMIT_DATA, {rlim_cur=RLIM_INFINITY, rlim_max=RLIM_INFINITY}) = 0
+getrlimit(RLIMIT_AS, {rlim_cur=RLIM_INFINITY, rlim_max=RLIM_INFINITY}) = 0
+getrlimit(RLIMIT_RSS, {rlim_cur=RLIM_INFINITY, rlim_max=RLIM_INFINITY}) = 0
+mmap2(NULL, 26218496, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xb5c8e000
+fstat64(0, {st_mode=S_IFIFO|0600, st_size=0, ...}) = 0
+mmap2(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xb7857000
+read(0, "alle\nmeine", 1048576) = 10
+read(0, "\n", 1044480) = 1
+read(0, "entchen", 1044480) = 7
+read(0, "\nalle\n", 1044480) = 6
+read(0, "", 1044480) = 0
+fstat64(1, {st_mode=S_IFIFO|0600, st_size=0, ...}) = 0
+mmap2(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xb7856000
+write(1, "alle\nalle\nentchen\nmeine\n", 24)                   = 24
+munmap(0xb5c8e000, 26218496)            = 0
+close(0)                                = 0
+munmap(0xb7857000, 4096)                            = 0
+close(1) = 0
+munmap(0xb7856000, 4096)                               = 0
+close(2)                                = 0
+exit_group(0)                           = ?
