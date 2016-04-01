@@ -95,6 +95,30 @@ int main(int argc, char *argv[])
 		if(pid == 0) { 
 			/* Kindprozess */
 			/* Signale wieder auf standard stellen */
+			if(signal(SIGINT, SIG_DFL) == SIG_ERR) {
+				perror("SIGINT");
+				exit(1);
+			}
+			if(signal(SIGQUIT, SIG_DFL) == SIG_ERR) {
+				perror("SIGQUIT");
+				exit(1);
+			}
+			if(signal(SIGPIPE, SIG_DFL) == SIG_ERR) {
+				perror("SIGPIPE");
+				exit(1);
+			}
+			if (signal(SIGCHLD, SIG_DFL) == SIG_ERR) {
+				perror("SIGCHLD");
+				exit(12);
+			}
+
+			close(sd);
+			doService(td);
+			close(td);
+			exit(0);
+		}
+		/* Vater */
+		/* Signale wieder auf standard stellen */
 		if(signal(SIGINT, SIG_DFL) == SIG_ERR) {
 			perror("SIGINT");
 			exit(1);
@@ -111,30 +135,6 @@ int main(int argc, char *argv[])
 			perror("SIGCHLD");
 			exit(12);
 		}
-		
-			close(sd);
-			doService(td);
-			close(td);
-			exit(0);
-		}
-		/* Vater */
-			/* Signale wieder auf standard stellen */
-	if(signal(SIGINT, SIG_DFL) == SIG_ERR) {
-		perror("SIGINT");
-		exit(1);
-	}
-	if(signal(SIGQUIT, SIG_DFL) == SIG_ERR) {
-		perror("SIGQUIT");
-		exit(1);
-	}
-	if(signal(SIGPIPE, SIG_DFL) == SIG_ERR) {
-		perror("SIGPIPE");
-		exit(1);
-	}
-	if (signal(SIGCHLD, SIG_DFL) == SIG_ERR) {
-		perror("SIGCHLD");
-		exit(12);
-	}
 		printf("Client %d connected\n", pid);
 		close(td);
 
@@ -191,7 +191,7 @@ void doService(int sd)
 			write(sd, "\n", 1);
 
 		}
-		
+
 		if( strcasecmp(buffer, "release\n") == 0) {
 			rc = uname(&ubuf);
 			//if( rc < 1 )
@@ -202,19 +202,19 @@ void doService(int sd)
 		}
 
 		if( strcasecmp(buffer, "time\n") == 0) {
-		time(&rawtime);
-		timeinfo = localtime( &rawtime );
-		rc = sprintf( timestr,"%02d:%02d", timeinfo->tm_hour, timeinfo->tm_min);
-		write(sd, timestr, strlen(timestr));
-		write(sd, "\n", 1);
+			time(&rawtime);
+			timeinfo = localtime( &rawtime );
+			rc = sprintf( timestr,"%02d:%02d", timeinfo->tm_hour, timeinfo->tm_min);
+			write(sd, timestr, strlen(timestr));
+			write(sd, "\n", 1);
 		}
 
 		if( strcasecmp(buffer, "date\n") == 0) {
-		time(&rawtime);
-		timeinfo = localtime( &rawtime );
-		rc = sprintf( timestr,"%02d.%02d.%d", timeinfo->tm_mday, 1 + timeinfo->tm_mon,1900 + timeinfo->tm_year);
-		write(sd, timestr, strlen(timestr));
-		write(sd, "\n", 1);
+			time(&rawtime);
+			timeinfo = localtime( &rawtime );
+			rc = sprintf( timestr,"%02d.%02d.%d", timeinfo->tm_mday, 1 + timeinfo->tm_mon,1900 + timeinfo->tm_year);
+			write(sd, timestr, strlen(timestr));
+			write(sd, "\n", 1);
 		}
 
 		if( strcasecmp(buffer, "quit\n") == 0) {
@@ -227,7 +227,7 @@ void doService(int sd)
 
 		//	write(sd, buffer,strlen(buffer));
 	}
-	
+
 }
 
 
