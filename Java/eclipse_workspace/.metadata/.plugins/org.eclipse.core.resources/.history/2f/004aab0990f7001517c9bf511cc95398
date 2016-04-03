@@ -1,0 +1,25 @@
+package renderEngine;
+
+public class DisplayManager {
+	
+	private static final int WIDTH = 1280;
+	private static final int HIGHT = 720;
+
+	// The window handle
+    private long window;
+    
+	public static void createDisplay() {
+		 // Create the window
+        window = glfwCreateWindow(WIDTH, HEIGHT, "Hello World!", NULL, NULL);
+        if ( window == NULL )
+            throw new RuntimeException("Failed to create the GLFW window");
+	}
+
+	public static void updateDisplay() {
+
+	}
+
+	public static void closeDisplay() {
+
+	}
+}

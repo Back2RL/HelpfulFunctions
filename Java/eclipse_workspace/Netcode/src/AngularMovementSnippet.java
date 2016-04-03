@@ -86,7 +86,7 @@ public class AngularMovementSnippet extends Canvas {
 
 	private int renderedFrames = 0;
 	private double avgFramerate = 0.0d;
-	public double maxFramerate = 60.0d;
+	public double maxFramerate = 100000.0d;
 	private static boolean bIsRunning = true;
 
 	private long timeout = (long) (1E9 / maxFramerate);
@@ -157,8 +157,8 @@ public class AngularMovementSnippet extends Canvas {
 		// image or a tiled background.
 		bkG.clearRect(0, 0, getWidth(), getHeight());
 
-		bkG.setPaint(backgroundGradient);
-		bkG.fillRect(0, 0, getWidth(), getHeight());
+		// bkG.setPaint(backgroundGradient);
+		// bkG.fillRect(0, 0, getWidth(), getHeight());
 
 		// TODO: Draw your game world, or scene or anything else here.
 

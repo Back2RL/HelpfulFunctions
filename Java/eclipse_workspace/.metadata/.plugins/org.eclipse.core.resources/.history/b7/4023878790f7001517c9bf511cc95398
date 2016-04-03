@@ -1,0 +1,39 @@
+package renderEngine;
+
+import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.glfw.GLFWKeyCallback;
+
+public class DisplayManager {
+
+	private static final int WIDTH = 1280;
+	private static final int HIGHT = 720;
+
+	// We need to strongly reference callback instances.
+	private GLFWErrorCallback errorCallback;
+	private GLFWKeyCallback keyCallback;
+
+	// The window handle
+	private long window;
+
+	public static void createDisplay() {
+		// Setup an error callback. The default implementation
+		// will print the error message in System.err.
+		glfwSetErrorCallback(errorCallback = GLFWErrorCallback.createPrint(System.err));
+
+		// Initialize GLFW. Most GLFW functions will not work before doing this.
+		if (glfwInit() != GLFW_TRUE)
+			throw new IllegalStateException("Unable to initialize GLFW");
+		// Create the window
+		window = glfwCreateWindow(WIDTH, HEIGHT, "Hello World!", NULL, NULL);
+		if (window == NULL)
+			throw new RuntimeException("Failed to create the GLFW window");
+	}
+
+	public static void updateDisplay() {
+
+	}
+
+	public static void closeDisplay() {
+
+	}
+}
