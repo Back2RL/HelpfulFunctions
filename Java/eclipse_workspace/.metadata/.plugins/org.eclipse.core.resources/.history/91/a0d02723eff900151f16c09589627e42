@@ -1,0 +1,16 @@
+
+public class Aktie {
+	private int gesamtAnzahl;
+	private double gesamtKosten;
+	// Vorbdg.: anzahl und kaufKurs >= 0
+	public void kaufe(int anzahl, double kaufKurs) {
+	if (kaufKurs < 0) {
+	throw new IllegalArgumentException("kaufKurs muss >= 0 sein");
+	}
+	if (anzahl < 0) {
+	throw new IllegalArgumentException("anzahl muss >= 0 sein");
+	}
+	gesamtAnzahl += anzahl;
+	gesamtKosten += anzahl * kaufKurs;
+	}
+}
