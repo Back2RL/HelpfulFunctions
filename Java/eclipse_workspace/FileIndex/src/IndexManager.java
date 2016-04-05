@@ -11,31 +11,46 @@ import java.util.TreeSet;
 public class IndexManager {
 
 	private final String indexFileName = "index.csv";
+
 	private String indexPath;
-	private File indexDirectory;
-	private File index;
 	private String indexDirectoryPath;
+
+	private File index;
+	private File indexDirectory;
+
 	private Map<String, TreeSet<File>> indexFromFile = new TreeMap<String, TreeSet<File>>();
 
-	public Map<String, TreeSet<File>> getIndexFromFile() {
-		return indexFromFile;
-	}
-
+	/**
+	 * @param pathToIndexDirectory
+	 * @throws IllegalArgumentException
+	 *             given path has to point to a directory and must not be
+	 *             empty/null
+	 */
 	IndexManager(String pathToIndexDirectory) {
+		// invariant 1
+		if (pathToIndexDirectory == null || pathToIndexDirectory.equals("")) {
+			throw new IllegalArgumentException("Given path must not be empty");
+		}
+		// invariant 2
 		try {
 			indexDirectory = new File(pathToIndexDirectory);
-			if (!indexDirectory.isDirectory()) {
-				throw new IllegalArgumentException("Given path does not point to a directory");
-			}
-			indexDirectoryPath = indexDirectory.getAbsolutePath() + File.separatorChar;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		if (!indexDirectory.isDirectory()) {
+			throw new IllegalArgumentException("Given path does not point to a directory");
+		}
+		indexDirectoryPath = indexDirectory.getAbsolutePath() + File.separatorChar;
 	}
 
+	/**
+	 * attempts to load the index file
+	 * 
+	 * @return true when a file exists
+	 */
 	boolean loadIndex() {
 		indexPath = indexDirectoryPath + indexFileName;
-		System.out.println(indexPath);
+		System.out.println("Looking for file: \"" + indexPath + "\"");
 		index = new File(indexPath);
 		if (index.exists()) {
 			return true;
@@ -44,6 +59,9 @@ public class IndexManager {
 		}
 	}
 
+	/**
+	 * creates a backup of the index file, modified with a timestamp
+	 */
 	void createIndexBackup() {
 		int dotIndex = indexFileName.lastIndexOf(".");
 		String fileName = null;
@@ -64,11 +82,18 @@ public class IndexManager {
 			e.printStackTrace();
 		}
 
+		System.out.println("Listing all files in directory: \"" + indexDirectoryPath + "\"");
+		System.out.println("-----");
 		for (File file : indexDirectory.listFiles()) {
 			System.out.println(file.getName());
 		}
+		System.out.println("-----");
 	}
 
+	/**
+	 * @return a String containing a timestamp with current date and time,
+	 *         format: year-month-dayThour-minute-second-millisecond
+	 */
 	String timeNowToString() {
 		LocalDateTime date = LocalDateTime.now();
 		String timeString = date.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
