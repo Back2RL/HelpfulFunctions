@@ -12,6 +12,7 @@ public class Indexer {
 
 		// check for valid number of arguments
 		if (args.length != 2) {
+
 			System.out.println("help: ./Indexer [path to index-directory] [path to analysis-directory]");
 			throw new IllegalArgumentException("Invalid Arguments");
 		}
