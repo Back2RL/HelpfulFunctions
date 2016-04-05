@@ -1,0 +1,16 @@
+
+public class Indexer {
+
+	public static void main(String[] args) {
+		/*
+		 * if (args.length == 0) { throw new IllegalArgumentException(
+		 * "Expected a path to the directory where the indexfile is/shall be stored"
+		 * ); }
+		 */
+
+		IndexManager index = new IndexManager("X:\\IndexThis\\");
+		if(!index.loadIndex()){
+			System.out.println("Index is being created");
+		}
+	}
+}

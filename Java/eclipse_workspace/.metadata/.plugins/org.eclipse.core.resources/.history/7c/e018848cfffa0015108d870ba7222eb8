@@ -1,0 +1,9 @@
+
+public class Indexer {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		IndexManager index = new IndexManager("X:\\IndexThis\\");
+	}
+
+}
