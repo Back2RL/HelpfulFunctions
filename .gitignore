@@ -1,5 +1,5 @@
 *.class
 *.java~
 *.o
-Java\eclipse_workspace\.metadata\*
-Java\eclipse_workspace\.recommenders
+Java/eclipse_workspace/.metadata/*
+Java/eclipse_workspace/.recommenders/*
