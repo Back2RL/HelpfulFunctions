@@ -9,9 +9,9 @@ public class DSA_1276156_02 {
 		// iterativ: wenn eingabe zu groß, dann passt die Lösung nicht mehr in
 		// den Datentyp Integer
 		// Integer Overflow bei eingabe = 47
-		int eingabe = 10;
+		int eingabe = 50;
 
-		boolean bUseIterativ = true;
+		boolean bUseIterativ = false;
 
 		// verhindern das das Programm zu lange rechnet um eine Ausgabe zu
 		// erzeugen
@@ -27,8 +27,8 @@ public class DSA_1276156_02 {
 				fibIterativ(eingabe);
 			} else {
 				fibRekursiv(eingabe);
+				break;
 			}
-
 		}
 
 		double laufzeit = laufzeitSekunden(start);
@@ -45,21 +45,26 @@ public class DSA_1276156_02 {
 
 		// -------------- Logarithmus ----------------
 
-		System.out.println(logarithmusNIterationen(100.0, 1000));
-		System.out.println(logarithmus(100.0));
+		double x = 10.0;
+		int schritte = 100;
+
+		System.out.println(logarithmusNIterationenOptimized(x, schritte));
+		System.out.println(logarithmusNIterationenOptimized(x, schritte));
+		System.out.println(logarithmusMitGenauigkeit(x, 1E-9));
 	}
 
 	public static int fibRekursiv(int a) {
-		if (a < 3)
+		if (a < 3) {
 			return 1;
-		else
+		} else {
 			return fibRekursiv(a - 1) + fibRekursiv(a - 2);
+		}
 	}
 
 	public static int fibIterativ(int a) {
-		if (a < 3)
+		if (a < 3) {
 			return 1;
-
+		}
 		int sum_n = 1;
 		int sum_n_minus_1 = 1;
 		for (int i = 2; i < a; ++i) {
@@ -94,7 +99,14 @@ public class DSA_1276156_02 {
 	}
 
 	public static double logarithmusNIterationen(double x, int n) {
+		double sum = 0.0;
+		for (int k = 0; k < n; ++k) {
+			sum += 2 * Math.pow(x - 1, 2 * k + 1) / (2 * k + 1 * Math.pow(x - 1, 2 * k + 1));
+		}
+		return sum;
+	}
 
+	public static double logarithmusNIterationenOptimized(double x, int n) {
 		double sum = 0.0;
 		double bruch = (x - 1) / (x + 1);
 		for (int k = 0; k < n; ++k) {
@@ -104,11 +116,9 @@ public class DSA_1276156_02 {
 		return 2 * sum;
 	}
 
-	public static double logarithmus(double x) {
-
+	public static double logarithmusMitGenauigkeit(double x, double eps) {
 		int k = 0;
 		double bruch = (x - 1) / (x + 1);
-		double eps = 1E-20;
 		double oldSum = 0;
 		double sum = 0;
 		do {
@@ -119,5 +129,4 @@ public class DSA_1276156_02 {
 		} while (Math.abs(oldSum - sum) > eps);
 		return 2 * sum;
 	}
-
 }
