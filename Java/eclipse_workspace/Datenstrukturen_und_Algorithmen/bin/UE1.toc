@@ -1,9 +1,0 @@
-\select@language {ngerman}
-\contentsline {section}{\numberline {1}1st section}{2}
-\contentsline {section}{\numberline {2}2nd section}{2}
-\contentsline {section}{\numberline {3}3rd section}{2}
-\contentsline {subsection}{\numberline {3.1}Unterstufe}{2}
-\contentsline {subsection}{\numberline {3.2}Oberstufe}{2}
-\contentsline {section}{\numberline {4}Fortgeschrittene Anwendung}{3}
-\contentsline {subsection}{\numberline {4.1}subsection}{3}
-\contentsline {subsection}{\numberline {4.2}Analyse}{3}
