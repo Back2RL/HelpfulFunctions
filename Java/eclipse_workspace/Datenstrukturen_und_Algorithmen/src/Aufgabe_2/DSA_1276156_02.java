@@ -8,21 +8,21 @@ public class DSA_1276156_02 {
 
 	public static void main(String[] args) {
 
-		Teilaufgabe aufgabe = Teilaufgabe.LogarithmusEPS;
+		// Aufgabenteil waehlen:
+		Teilaufgabe aufgabe = Teilaufgabe.c_LogarithmusN;
 
-		int anzahlDurchlaufe = (int) 1E3;
+		int anzahlDurchlaufe = (int) 1E1;
 
-		if (aufgabe.equals(Teilaufgabe.a_FibonacciRekursiv) || aufgabe.equals(Teilaufgabe.b_FakultaetRekursiv)) {
+		if (aufgabe.equals(Teilaufgabe.a_FibonacciRekursiv)) {
 			anzahlDurchlaufe = 1;
 		}
 
 		// FibonacciRekursiv: eingabe <= 50, da die Berechnung sonst zu lange
 		// dauert
 		// FibonacciIterativ: wenn eingabe zu groß, dann passt die Lösung nicht
-		// mehr in
-		// den Datentyp Integer
-		// Integer Overflow bei eingabe = 47
-		int eingabe = 10;
+		// mehr in den Datentyp Integer; Overflow bei eingabe = 47
+		// Fakultaet:
+		int eingabe = 0;
 
 		// verhindern das das Programm zu lange rechnet um eine Ausgabe zu
 		// erzeugen
@@ -32,20 +32,18 @@ public class DSA_1276156_02 {
 		System.out.println("Fibonacci iterativ: " + fibIterativ(eingabe));
 		// -------------- Fakultät ----------------
 
-		int fakVonN = 15;
-
-		System.out.println("Fakultaet iterativ: " + fakVonN + "! = " + fakIterativ(fakVonN));
-		System.out.println("Fakultaet rekursiv: " + fakVonN + "! = " + fakRekursiv(fakVonN));
+		System.out.println("Fakultaet iterativ: " + eingabe + "! = " + fakIterativ(eingabe));
+		System.out.println("Fakultaet rekursiv: " + eingabe + "! = " + fakRekursiv(eingabe));
 
 		// -------------- Logarithmus ----------------
 
-		double x = 10.0;
-		int schritte = 100;
+		int schritte = 20;
 		double eps = 1E-9;
 
-		System.out.println("Logarithmus Formel 1:1 : " + logarithmusNIterationen(x, schritte));
-		System.out.println("Logarithmus optimiert : " + logarithmusNIterationenOptimized(x, schritte));
-		System.out.println("Logarithmus mit Abbruchkriterium (" + eps + "): " + logarithmusMitGenauigkeit(x, 1E-9));
+		System.out.println("Logarithmus Formel 1:1 : " + logarithmusNIterationen(eingabe, schritte));
+		System.out.println("Logarithmus optimiert : " + logarithmusNIterationenOptimized(eingabe, schritte));
+		System.out
+				.println("Logarithmus mit Abbruchkriterium (" + eps + "): " + logarithmusMitGenauigkeit(eingabe, 1E-9));
 
 		// ----- Zeit messen ------
 		System.out.println("Zeit Messung... (" + anzahlDurchlaufe + " Widerholungen)");
@@ -66,13 +64,13 @@ public class DSA_1276156_02 {
 				fakRekursiv(eingabe);
 				break;
 			case c_LogarithmusN:
-				logarithmusNIterationen(x, schritte);
+				logarithmusNIterationen(eingabe, schritte);
 				break;
 			case d_LogarithmusNOptimiert:
-				logarithmusNIterationenOptimized(x, schritte);
+				logarithmusNIterationenOptimized(eingabe, schritte);
 				break;
 			case LogarithmusEPS:
-				logarithmusMitGenauigkeit(x, eps);
+				logarithmusMitGenauigkeit(eingabe, eps);
 				break;
 			default:
 				break;
@@ -134,7 +132,7 @@ public class DSA_1276156_02 {
 	public static double logarithmusNIterationen(double x, int n) {
 		double sum = 0.0;
 		for (int k = 0; k < n; ++k) {
-			sum += 2 * Math.pow(x - 1, 2 * k + 1) / (2 * k + 1 * Math.pow(x - 1, 2 * k + 1));
+			sum += 2 * Math.pow(x - 1, 2 * k + 1) / ((2 * k + 1) * Math.pow(x + 1, 2 * k + 1));
 		}
 		return sum;
 	}
