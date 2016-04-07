@@ -2,31 +2,79 @@ package Aufgabe_2;
 
 public class DSA_1276156_02 {
 
-	public static void main(String[] args) {
-		int anzahlDurchlaufe = (int) 1E1;
+	public enum Teilaufgabe {
+		a_FibonacciRekursiv, a_FibonacciIterativ, b_FakultaetRekursiv, b_FakultaetIterativ, c_LogarithmusN, d_LogarithmusNOptimiert, LogarithmusEPS
+	}
 
-		// rekursiv: eingabe <= 50, da die Berechnung sonst zu lange dauert
-		// iterativ: wenn eingabe zu groß, dann passt die Lösung nicht mehr in
+	public static void main(String[] args) {
+
+		Teilaufgabe aufgabe = Teilaufgabe.LogarithmusEPS;
+
+		int anzahlDurchlaufe = (int) 1E3;
+
+		if (aufgabe.equals(Teilaufgabe.a_FibonacciRekursiv) || aufgabe.equals(Teilaufgabe.b_FakultaetRekursiv)) {
+			anzahlDurchlaufe = 1;
+		}
+
+		// FibonacciRekursiv: eingabe <= 50, da die Berechnung sonst zu lange
+		// dauert
+		// FibonacciIterativ: wenn eingabe zu groß, dann passt die Lösung nicht
+		// mehr in
 		// den Datentyp Integer
 		// Integer Overflow bei eingabe = 47
-		int eingabe = 50;
-
-		boolean bUseIterativ = false;
+		int eingabe = 10;
 
 		// verhindern das das Programm zu lange rechnet um eine Ausgabe zu
 		// erzeugen
 		if (eingabe < 47) {
-			System.out.println(fibRekursiv(eingabe));
+			System.out.println("Fibonacci rekursiv: " + fibRekursiv(eingabe));
 		}
-		System.out.println(fibIterativ(eingabe));
+		System.out.println("Fibonacci iterativ: " + fibIterativ(eingabe));
+		// -------------- Fakultät ----------------
 
+		int fakVonN = 15;
+
+		System.out.println("Fakultaet iterativ: " + fakVonN + "! = " + fakIterativ(fakVonN));
+		System.out.println("Fakultaet rekursiv: " + fakVonN + "! = " + fakRekursiv(fakVonN));
+
+		// -------------- Logarithmus ----------------
+
+		double x = 10.0;
+		int schritte = 100;
+		double eps = 1E-9;
+
+		System.out.println("Logarithmus Formel 1:1 : " + logarithmusNIterationen(x, schritte));
+		System.out.println("Logarithmus optimiert : " + logarithmusNIterationenOptimized(x, schritte));
+		System.out.println("Logarithmus mit Abbruchkriterium (" + eps + "): " + logarithmusMitGenauigkeit(x, 1E-9));
+
+		// ----- Zeit messen ------
+		System.out.println("Zeit Messung... (" + anzahlDurchlaufe + " Widerholungen)");
 		long start = System.currentTimeMillis();
 
 		for (int i = 0; i < anzahlDurchlaufe; ++i) {
-			if (bUseIterativ) {
-				fibIterativ(eingabe);
-			} else {
+			switch (aufgabe) {
+			case a_FibonacciRekursiv:
 				fibRekursiv(eingabe);
+				break;
+			case a_FibonacciIterativ:
+				fibIterativ(eingabe);
+				break;
+			case b_FakultaetIterativ:
+				fakIterativ(eingabe);
+				break;
+			case b_FakultaetRekursiv:
+				fakRekursiv(eingabe);
+				break;
+			case c_LogarithmusN:
+				logarithmusNIterationen(x, schritte);
+				break;
+			case d_LogarithmusNOptimiert:
+				logarithmusNIterationenOptimized(x, schritte);
+				break;
+			case LogarithmusEPS:
+				logarithmusMitGenauigkeit(x, eps);
+				break;
+			default:
 				break;
 			}
 		}
@@ -36,21 +84,6 @@ public class DSA_1276156_02 {
 		System.out.println(" Laufzeit = " + laufzeit + " Sekunden");
 		System.out.println("Im Mittel benötigte die Berechnung " + laufzeit / anzahlDurchlaufe + " Sekunden.");
 
-		// -------------- Fakultät ----------------
-
-		int fakVonN = 15;
-
-		System.out.println("Iterativ: " + fakVonN + "! = " + fakIterativ(fakVonN));
-		System.out.println("Rekursiv: " + fakVonN + "! = " + fakRekursiv(fakVonN));
-
-		// -------------- Logarithmus ----------------
-
-		double x = 10.0;
-		int schritte = 100;
-
-		System.out.println(logarithmusNIterationenOptimized(x, schritte));
-		System.out.println(logarithmusNIterationenOptimized(x, schritte));
-		System.out.println(logarithmusMitGenauigkeit(x, 1E-9));
 	}
 
 	public static int fibRekursiv(int a) {
