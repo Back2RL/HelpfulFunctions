@@ -1,6 +1,11 @@
 // http://www.cprogramming.com/tutorial/3d/quaternions.html
+// http://www.cbcity.de/tutorial-rotationsmatrix-und-quaternion-einfach-erklaert-in-din70000-zyx-konvention
+
 public class FQuat {
 	public static final float EPS = (float) 1E-9;
+
+	private boolean bMagIsSet = false;
+	private float magnitude;
 	private float w, x, y, z;
 
 	public float getW() {
@@ -19,20 +24,16 @@ public class FQuat {
 		return z;
 	}
 
-	private boolean bMagIsSet = false;
-	private float magnitude;
-
 	public FQuat(float w, float x, float y, float z) {
 		this.w = w;
 		this.x = x;
 		this.y = y;
 		this.z = z;
+		normalize();
 	}
 
 	public FQuat() {
-		w = 1.0f;
-		magnitude = 1.0f;
-		bMagIsSet = true;
+		normalize();
 	}
 
 	public float getMagnitude() {
@@ -55,6 +56,14 @@ public class FQuat {
 		if (isNormalized()) {
 			return;
 		}
+
+		if (w == 0 && x == 0 && y == 0 && z == 0) {
+			w = 1.0f;
+			bMagIsSet = true;
+			magnitude = 1.0f;
+			return;
+		}
+
 		float mag = getMagnitude();
 		w /= mag;
 		x /= mag;
@@ -105,12 +114,54 @@ public class FQuat {
 		axisY /= tempAxisMag;
 		axisZ /= tempAxisMag;
 
-		bMagIsSet = false;
-		float halfAngle = 0.5f * angle;
+		float halfAngle = 0.5f * angle * (float) (Math.PI / 180.0f);
 		float sinHalfAngle = (float) Math.sin(halfAngle);
 		w = (float) Math.cos(halfAngle);
 		x = axisX * sinHalfAngle;
 		y = axisY * sinHalfAngle;
 		z = axisZ * sinHalfAngle;
+		normalize();
+	}
+
+	/**
+	 * @return index 0 : angle, index 1-3 : vector with x,y,z
+	 */
+	public float[] getRotAngleAndAxis() {
+		float angle = 2.0f * (float) Math.acos((w));
+		float s = (float) Math.sin(0.5 * angle);
+		if (s == 0.0f) {
+			float[] result = { (float) (angle * (180.0f / Math.PI)), x, y, z };
+			return result;
+		}
+
+		float[] result = { (float) (angle * (180.0f / Math.PI)), x / s, y / s, z / s };
+		return result;
+	}
+
+	public float getEulerYaw() {
+		normalize();
+		float divider = (w * w + x * x - y * y - z * z);
+		if (divider == 0.0f) {
+			return (float) (Math.atan2(2.0 * (x * y + w * z), 1.0) * (180.0 / Math.PI));
+		}
+		return (float) (Math.atan2(2.0 * (x * y + w * z), divider) * (180.0 / Math.PI));
+	}
+
+	public float getEulerPitch() {
+		normalize();
+		return (float) (Math.asin(2.0 * (w * y - x * z)) * (180.0f / Math.PI));
+	}
+
+	public float getEulerRoll() {
+		normalize();
+		float divider = (w * w - x * x - y * y + z * z);
+		if (divider == 0.0f) {
+			return (float) -Math.atan(-2.0 * (y * z + w * x)) * (float) (180.0f / Math.PI);
+		}
+		return (float) -Math.atan(-2.0 * (y * z + w * x) / divider) * (float) (180.0f / Math.PI);
+	}
+
+	public String toString() {
+		return "(" + w + ", " + x + ", " + y + ", " + z + ")";
 	}
 }
