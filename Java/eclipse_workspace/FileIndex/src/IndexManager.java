@@ -107,6 +107,7 @@ public class IndexManager {
 		try {
 			indexScanner = new Scanner(index);
 			int lineCnt = 0;
+			int notFoundFiles = 0;
 			System.out.println("-----");
 			while (indexScanner.hasNextLine()) {
 				++lineCnt;
@@ -123,14 +124,23 @@ public class IndexManager {
 				if (debug)
 					System.out.println(Arrays.toString(lineContent));
 				TreeSet<File> entries = new TreeSet<>();
+
 				for (int i = 1; i < lineContent.length; ++i) {
-					entries.add(new File(lineContent[i]));
+					File file = new File(lineContent[i]);
+					if (file.exists()) {
+						entries.add(file);
+					} else {
+						++notFoundFiles;
+					}
 				}
 				indexFromFile.put(lineContent[0], entries);
 
 			}
 			System.out.println("-----");
 			System.out.println("Indexfile loaded.");
+			if (notFoundFiles > 0) {
+				System.out.println(notFoundFiles + " files no longer exist.");
+			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -153,7 +163,7 @@ public class IndexManager {
 		System.out.println();
 	}
 
-	public void analyzeDirecetory(String dir) {
+	public void analyzeDirectory(String dir) {
 		File analysisDir = getDirectory(dir);
 		System.out.println("Starting analysis of: \"" + analysisDir + "\"");
 
@@ -181,17 +191,30 @@ public class IndexManager {
 
 		int alreadyIndexed = 0;
 		for (File file : allFiles) {
-			if (indexFromFile.containsKey(file.toString())) {
-				++alreadyIndexed;
-				System.out.println("Dup found");
-				continue;
+			String hash = MD5.fromFile(file);
+			if (indexFromFile.containsKey(hash)) {
+				if (indexFromFile.get(hash) != null) {
+					if (indexFromFile.get(hash).contains(file)) {
+						++alreadyIndexed;
+						continue;
+					}
+				}
+				try {
+					indexFromFile.get(hash).add(file);
+				} catch (NullPointerException e) {
+					TreeSet<File> entries = new TreeSet<>();
+					entries.add(file);
+					indexFromFile.put(hash, entries);
+				}
+			} else {
+				TreeSet<File> entries = new TreeSet<>();
+				entries.add(file);
+				indexFromFile.put(hash, entries);
 			}
-			TreeSet<File> entries = new TreeSet<>();
-			indexFromFile.put(file.toString(), entries);
 		}
-
-		System.out.println("Number of already indexed files: " + alreadyIndexed);
-
+		if (alreadyIndexed > 0) {
+			System.out.println(alreadyIndexed + " files already indexed.");
+		}
 		PrintWriter writer = null;
 		try {
 			writer = new PrintWriter(indexDirectoryPath + indexFileName, "UTF-8");
@@ -215,7 +238,7 @@ public class IndexManager {
 				writer.close();
 			}
 		}
-		System.out.println("New index has beem written");
+		System.out.println("New index has been written");
 
 	}
 }

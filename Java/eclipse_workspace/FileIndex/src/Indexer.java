@@ -43,6 +43,6 @@ public class Indexer {
 		} else {
 			System.out.println("File not found: A new index file will be created");
 		}
-		index.analyzeDirecetory(args[1]);
+		index.analyzeDirectory(args[1]);
 	}
 }
