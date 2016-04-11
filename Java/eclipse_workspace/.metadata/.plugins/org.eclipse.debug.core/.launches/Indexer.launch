@@ -7,6 +7,6 @@
 <listEntry value="1"/>
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="Indexer"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="X:\IndexThis X:\files"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="X:\IndexThis C:\FileSync"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="FileIndex"/>
 </launchConfiguration>
