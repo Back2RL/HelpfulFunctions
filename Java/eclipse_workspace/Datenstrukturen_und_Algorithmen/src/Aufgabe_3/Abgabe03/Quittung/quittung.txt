@@ -1,0 +1,22 @@
+Kurs: AD (Algorithmen und Datenstrukturen) im SS2016
+Blatt: A.3 (Ableitungen, O-Kalkül, effiziente Algorithmen)
+Abgabezeitpunkt: 13.04.16 16:26:33
+MD5-Summe der Abgabe: 36a64e0abd01750422abd5cd5bcbdf8d.
+Matrikelnummer(n): 1276156
+Partner-Matrikelnummer(n): 1302082
+------START-PROPS------------
+VjAwMS4wMDFrdXJzX2lkPTExMztibGF0
+dF9pZD0xMTkxO3plaXRwdW5rdD0xNDYw
+NTU3NTkzO21kNT0zNmE2NGUwYWJkMDE3
+NTA0MjJhYmQ1Y2Q1YmNiZGY4ZDttYXRu
+cm49MTI3NjE1NjtwYXJ0bmVyPTEzMDIw
+ODI7cGxhZ3JlZnVzZT0=
+------START-SIGNATUR------------
+19d9a044069922a01f350c58553b4960
+6eea5665a4312a725d84951d5d57517b
+9ec395738f4137465fe9afae4e342b64
+97fbdd7e502a319b1cd155cd571f195f
+28523f71932dc0bf04a035757a0ff418
+3cfbe6a31d7543e209392c8a5a606b93
+b2c4adfb902ee8783ff419d9b1ac8764
+2054764b16af708062df68e80f4f3f70

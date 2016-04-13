@@ -30,7 +30,6 @@
 <fullyQualifiedTypeName name="java.time.LocalDate"/>
 <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
 <fullyQualifiedTypeName name="java.lang.Character.Subset"/>
-<fullyQualifiedTypeName name="java.lang.Exception"/>
 <fullyQualifiedTypeName name="java.util.Enumeration"/>
 <fullyQualifiedTypeName name="Aufgabe_2.DSA_1276156_02.Teilaufgabe"/>
 <fullyQualifiedTypeName name="BottomUpHeapSorter"/>
@@ -50,4 +49,6 @@
 <fullyQualifiedTypeName name="java.security.DigestInputStream"/>
 <fullyQualifiedTypeName name="MD5"/>
 <fullyQualifiedTypeName name="java.lang.NullPointerException"/>
+<fullyQualifiedTypeName name="java.lang.Exception"/>
+<fullyQualifiedTypeName name="java.security.InvalidParameterException"/>
 </qualifiedTypeNameHistroy>
