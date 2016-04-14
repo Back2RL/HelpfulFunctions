@@ -170,13 +170,22 @@ public class IndexManager {
 		ArrayList<File> pendingDirectories = new ArrayList<>();
 		ArrayList<File> allFiles = new ArrayList<>();
 
+		long maxFileSize = 100 * 1024; // 100 KB
 		while (true) {
-			for (File currentFile : analysisDir.listFiles()) {
-				if (currentFile.isDirectory()) {
-					pendingDirectories.add(currentFile);
-				} else {
-					allFiles.add(currentFile);
+			try {
+				for (File currentFile : analysisDir.listFiles()) {
+					if (currentFile.length() > maxFileSize) {
+						System.out.println("Ignored: " + analysisDir.toString());
+						continue;
+					}
+					if (currentFile.isDirectory()) {
+						pendingDirectories.add(currentFile);
+					} else {
+						allFiles.add(currentFile);
+					}
 				}
+			} catch (NullPointerException e) {
+				System.out.println("Can not access: " + analysisDir.toString() + " : NullPointerException");
 			}
 			if (!pendingDirectories.isEmpty()) {
 				analysisDir = pendingDirectories.get(0);
@@ -191,25 +200,29 @@ public class IndexManager {
 
 		int alreadyIndexed = 0;
 		for (File file : allFiles) {
-			String hash = MD5.fromFile(file);
-			if (indexFromFile.containsKey(hash)) {
-				if (indexFromFile.get(hash) != null) {
-					if (indexFromFile.get(hash).contains(file)) {
-						++alreadyIndexed;
-						continue;
+			try {
+				String hash = MD5.fromFile(file);
+				if (indexFromFile.containsKey(hash)) {
+					if (indexFromFile.get(hash) != null) {
+						if (indexFromFile.get(hash).contains(file)) {
+							++alreadyIndexed;
+							continue;
+						}
 					}
-				}
-				try {
-					indexFromFile.get(hash).add(file);
-				} catch (NullPointerException e) {
+					try {
+						indexFromFile.get(hash).add(file);
+					} catch (NullPointerException e) {
+						TreeSet<File> entries = new TreeSet<>();
+						entries.add(file);
+						indexFromFile.put(hash, entries);
+					}
+				} else {
 					TreeSet<File> entries = new TreeSet<>();
 					entries.add(file);
 					indexFromFile.put(hash, entries);
 				}
-			} else {
-				TreeSet<File> entries = new TreeSet<>();
-				entries.add(file);
-				indexFromFile.put(hash, entries);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 		if (alreadyIndexed > 0) {
