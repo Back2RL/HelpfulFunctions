@@ -2,5 +2,5 @@ CFLAGS = -Wall -Wdeclaration-after-statement
 CXXFLAGS = -Wall
 LDLIBS = -lm
 
-vektoren: vektoren.cpp Vektor.h Vektor.o
-Vektor.o: Vektor.cpp Vektor.h
+vektoren: vektoren.cpp Vektor.o Headers/CPUtime.h 
+Vektor.o: Vektor.cpp Headers/Vektor.h
