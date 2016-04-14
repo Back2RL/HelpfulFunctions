@@ -11,15 +11,13 @@ Vektor::Vektor(const double &x, const double &y, const double &z) {
 }
 
 
-Vektor::Vektor(const Vektor &v) // copy-Konstruktor
+Vektor::Vektor(const Vektor &v)
 {
-//	x = v.getX();
-//	y = v.getY();
-//	z = v.getZ();
     x = v.x;
     y = v.y;
     z = v.z;
 }
+
 
 double Vektor::getX(void) const {
     return x;
@@ -46,9 +44,12 @@ void Vektor::setZ(const double &z) {
 }
 
 double Vektor::length(void) const
-// const bedeutet: in der Memberfunktion werden keine Variablen geändert (nur Lesezugriff)
 {
-    return sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
+    return sqrt(x*x + y*y + z*z);
+}
+    double Vektor::lengthSquared(void) const
+{
+ return x*x+y*y+z*z; 
 }
 
 double Vektor::dotProduct(const Vektor &v1, const Vektor &v2) {
@@ -62,20 +63,16 @@ void Vektor::normalize(void) {
     z = norm.getZ();
 }
 
-/*
- * @return Vektor with length of 1.0
- */
 Vektor Vektor::getNormalized(void) const {
     if (!isZeroVector()) {
         double len = length();
         return Vektor(x, y, z) / len;
     }
-    __throw_invalid_argument("Vektor is ZeroVector");
     return Vektor(0, 0, 0);
 }
 
 bool Vektor::isZeroVector(void) const {
-    return length() <= SMALL_NUMBER;
+    return lengthSquared() <= SMALL_NUMBER;
 }
 
 

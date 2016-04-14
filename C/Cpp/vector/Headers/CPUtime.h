@@ -11,58 +11,36 @@ using namespace std;
 
 class CPUtime {
 public:
-    clock_t getStart() const {
-        return start;
-    }
+    clock_t getStart(void) const;
 
-    void setStart(clock_t start) {
-        CPUtime::start = start;
-    }
+    void setStart(clock_t start);
 
 private:
     clock_t start;
 public:
-    clock_t getEnd() const {
-        return end;
-    }
+    clock_t getEnd(void) const ;
 
-    void setEnd(clock_t end) {
-        CPUtime::end = end;
-    }
+    void setEnd(clock_t end);
 
 private:
     clock_t end;
 
 public:
-    CPUtime() {
-        this->start = clock();
-    }
+    CPUtime(void);
 
-    CPUtime(clock_t start) {
-        this->start = start;
-    }
+    CPUtime(clock_t start);
 
-    ~CPUtime() { }
+    ~CPUtime(void) {}
 
-    int getClockPerSecond() const {
-        return CLOCKS_PER_SEC;
-    }
+    int getClocksPerSecond(void) const;
 
-    void startTimer() {
-        start = clock();
-    }
+    void startTimer(void);
 
-    void stopTimer() {
-        end = clock();
-    }
+    void stopTimer(void) ;
 
-    int getNumClocks() const {
-        return (int)(end - start);
-    }
+    int getNumClocks(void) const ;
 
-    double getSeconds() const {
-        return  getNumClocks() / (double)(CLOCKS_PER_SEC);
-    }
+    double getSeconds(void) const ;
 
 };
 

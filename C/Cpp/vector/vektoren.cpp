@@ -3,6 +3,9 @@
 #include "Headers/Vektor.h"
 #include "Headers/CPUtime.h"
 //  Windows
+#define TARGETTIME 30
+using namespace std;
+
 #ifdef _WIN32
 
 #include <Windows.h>
@@ -50,7 +53,6 @@ double get_cpu_time(){
 	return (double)clock() / CLOCKS_PER_SEC;
 }
 #endif
-using namespace std;
 
 // Hauptprogramm
 int main(int argc, char *argv[]) {
@@ -63,93 +65,124 @@ int main(int argc, char *argv[]) {
 	//  Start Timers
 	double wall0 = get_wall_time();
 	double cpu0 = get_cpu_time();
+	int counts = 0;
 
-	//  Perform some computation.
-	double sum = 0;
+	bool bCanDisplayAgain = true;
+	while(timer.getSeconds()<TARGETTIME) {	
+		++counts;	
+		if(timer.getNumClocks() % timer.getClocksPerSecond() == 0)  {
+			if(bCanDisplayAgain) {
+				printf("%f seconds\n",timer.getSeconds());
+				bCanDisplayAgain = false;
+			}
+		}
+		else {
+			bCanDisplayAgain = true;
+		}
+
+		//  Perform some computation.
+		double sum = 0;
+		/*
 #pragma omp parallel for reduction(+ : sum)
-	for (long long i = 1; i < 100000000; i++) {
-		sum += log((double) i);
-	}
+for (long long i = 1; i < 1000000000; i++) {
+sum += log((double) i);
+}
+		 */
+		// ein Objekt der Klasse Vektor
+		Vektor v1; //1. Konstruktor verwendet (Standardwerte, also (0,0,0))
 
-	// ein Objekt der Klasse Vektor
-	Vektor v1; //1. Konstruktor verwendet (Standardwerte, also (0,0,0))
+		v1.setX(1);
+		v1.setY(2);
+		v1.setZ(3);
 
-	v1.setX(1);
-	v1.setY(2);
-	v1.setZ(3);
+#ifdef debug
+		cout.setf(ios::fixed);
+		cout.precision(6);
+#endif
 
-	cout.setf(ios::fixed);
-	cout.precision(6);
+		double d = v1.length();
+#ifdef debug
+		cout << "Länge von v1: " << d << endl;
+#endif
 
+		double x = v1.getX();
+		double y = v1.getY();
+		double z = v1.getZ();
+#ifdef debug
+		cout << "Vektor v1 = (" << x << "," << y << "," << z << ")" << endl;
+#endif
 
-	double d = v1.length();
-	cout << "Länge von v1: " << d << endl;
+		Vektor v2 = Vektor(5, 7, 8); //1. Konstruktor verwendet
+		d = v2.length();
+#ifdef debug
+		cout << "Länge von v2: " << d << endl;
+#endif
 
-	double x = v1.getX();
-	double y = v1.getY();
-	double z = v1.getZ();
-	cout << "Vektor v1 = (" << x << "," << y << "," << z << ")" << endl;
+		Vektor v3 = v1; // 2. Konstruktor copy verwendet
+		d = v3.length();
+#ifdef debug
+		cout << "Länge von v3: " << d << endl;
+#endif
 
-	Vektor v2 = Vektor(5, 7, 8); //1. Konstruktor verwendet
-	d = v2.length();
-	cout << "Länge von v2: " << d << endl;
+		Vektor v4 = v2 + v1;
+		d = v4.length();
+#ifdef debug
+		cout << "Länge von v4: " << d << endl;
+#endif
 
-	Vektor v3 = v1; // 2. Konstruktor copy verwendet
-	d = v3.length();
-	cout << "Länge von v3: " << d << endl;
+		double a = v2 * v1;
+		//	Vektor v5 = v1 * 7;
+		Vektor v5 = 7 * v1;
 
-	Vektor v4 = v2 + v1;
-	d = v4.length();
-	cout << "Länge von v4: " << d << endl;
+#ifdef debug
+		cout << "v1: " << v1 << endl;
+		cout << "v2: " << v2 << endl;
+		cout << "v3: " << v3 << endl;
+		cout << "v4: " << v4 << endl;
+		cout << "v5: " << v5 << endl;
 
-	double a = v2 * v1;
-	//	Vektor v5 = v1 * 7;
-	Vektor v5 = 7 * v1;
+		cout << "v2 * v1 =  " << a << endl;
+		cout << "(v2) normalized =  " << v2.getNormalized() << endl;
+#endif
+		v2.normalize();
+#ifdef debug
+		cout << "(v2) normalized =  " << v2 << endl;
+		cout << "(v1) normalized =  " << v1.getNormalized() << endl;
+		cout << "v1 dot v2 =  " << Vektor::dotProduct(v1.getNormalized(), v2) << endl;
+#endif
 
-	cout << "v1: " << v1 << endl;
-	cout << "v2: " << v2 << endl;
-	cout << "v3: " << v3 << endl;
-	cout << "v4: " << v4 << endl;
-	cout << "v5: " << v5 << endl;
+		Vektor zero;
+#ifdef debug
+			cout << "zero normalized =  " << zero.getNormalized() << endl;
+#endif
+int *numbers;
+try {
+	numbers = new int[50];
+	if(numbers != NULL) delete[] numbers;
+} catch (bad_alloc e) {
+	printf("numbers : %s\n", e.what());
+}
 
-	cout << "v2 * v1 =  " << a << endl;
-	cout << "(v2) normalized =  " << v2.getNormalized() << endl;
-	v2.normalize();
-	cout << "(v2) normalized =  " << v2 << endl;
-	cout << "(v1) normalized =  " << v1.getNormalized() << endl;
-	cout << "v1 dot v2 =  " << Vektor::dotProduct(v1.getNormalized(), v2) << endl;
+timer.stopTimer();
+}
 
-	Vektor zero;
-	try {
-		cout << "zero normalized =  " << zero.getNormalized() << endl;
-	} catch (invalid_argument error) {
-		printf("zero : %s\n", error.what());
-	}
-	int *numbers;
-	try {
-		numbers = new int[50];
-	} catch (bad_alloc e) {
-		printf("numbers : %s\n", e.what());
-	}
+time = clock() - time;
+timer.stopTimer();
+cout << "It took " << time << " clocks or " << (float) time / CLOCKS_PER_SEC << " CPU-seconds" << endl;
+printf("%f seconds\n", timer.getSeconds());
+cout << timer.getNumClocks() << " &  " << timer.getSeconds() << endl;
 
-	delete[] numbers;
-	time = clock() - time;
-	timer.stopTimer();
-	cout << "It took " << time << " clocks or " << (float) time / CLOCKS_PER_SEC << " CPU-seconds" << endl;
-	printf("%f seconds\n", timer.getSeconds());
-	cout << timer.getNumClocks() << " &  " << timer.getSeconds() << endl;
+//  Stop timers
+double wall1 = get_wall_time();
+double cpu1 = get_cpu_time();
 
-	//  Stop timers
-	double wall1 = get_wall_time();
-	double cpu1 = get_cpu_time();
+cout << "Wall Time = " << wall1 - wall0 << endl;
+cout << "CPU Time  = " << cpu1 - cpu0 << endl;
 
-	cout << "Wall Time = " << wall1 - wall0 << endl;
-	cout << "CPU Time  = " << cpu1 - cpu0 << endl;
+//  Prevent Code Elimination
+cout << endl;
+//cout << "Sum = " << sum << endl;
 
-	//  Prevent Code Elimination
-	cout << endl;
-	cout << "Sum = " << sum << endl;
-
-
-	return 0;
+cout << "loop ran "<< counts << " times in "<< TARGETTIME<<" CPU-seconds"<< endl;
+return 0;
 }
