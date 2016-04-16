@@ -14,6 +14,25 @@ import java.util.TreeSet;
 public class IndexManager {
 
 	private boolean debug = false;
+	private boolean bUseMaxFileSize = false;
+	private long maxFileSize = 100 * 1024; // 100 KB
+
+	public boolean isbUseMaxFileSize() {
+		return bUseMaxFileSize;
+	}
+
+	public void setbUseMaxFileSize(boolean bUseMaxFileSize) {
+		this.bUseMaxFileSize = bUseMaxFileSize;
+	}
+
+	public long getMaxFileSize() {
+		return maxFileSize;
+	}
+
+	public void setMaxFileSize(long maxFileSize) {
+		this.maxFileSize = maxFileSize;
+	}
+
 	private final String indexFileName = "index.csv";
 	private String indexDirectoryPath;
 	private File index;
@@ -86,7 +105,9 @@ public class IndexManager {
 		} catch (FileAlreadyExistsException e) {
 			System.out.println("There is already a valid backup file");
 		} catch (IOException e) {
+			System.out.println("No backup was created! EXIT");
 			e.printStackTrace();
+			System.exit(0);
 		}
 
 		if (debug) {
@@ -103,19 +124,15 @@ public class IndexManager {
 	 * load content of indexfile into memory
 	 */
 	private void scanIndex() {
-		Scanner indexScanner = null;
-		try {
-			indexScanner = new Scanner(index);
+		try (Scanner indexScanner = new Scanner(index)) {
 			int lineCnt = 0;
 			int notFoundFiles = 0;
 			System.out.println("-----");
 			while (indexScanner.hasNextLine()) {
 				++lineCnt;
-
 				String line = indexScanner.nextLine();
 				if (debug)
 					System.out.println(line);
-
 				String[] lineContent = line.split(",");
 				if (lineContent.length < 2) {
 					System.out.println("No valid index in line: " + lineCnt);
@@ -124,7 +141,6 @@ public class IndexManager {
 				if (debug)
 					System.out.println(Arrays.toString(lineContent));
 				TreeSet<File> entries = new TreeSet<>();
-
 				for (int i = 1; i < lineContent.length; ++i) {
 					File file = new File(lineContent[i]);
 					if (file.exists()) {
@@ -134,7 +150,6 @@ public class IndexManager {
 					}
 				}
 				indexFromFile.put(lineContent[0], entries);
-
 			}
 			System.out.println("-----");
 			System.out.println("Indexfile loaded.");
@@ -144,12 +159,7 @@ public class IndexManager {
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			if (indexScanner != null) {
-				indexScanner.close();
-			}
 		}
-
 	}
 
 	public void printIndex() {
@@ -170,11 +180,10 @@ public class IndexManager {
 		ArrayList<File> pendingDirectories = new ArrayList<>();
 		ArrayList<File> allFiles = new ArrayList<>();
 
-		long maxFileSize = 100 * 1024; // 100 KB
 		while (true) {
 			try {
 				for (File currentFile : analysisDir.listFiles()) {
-					if (currentFile.length() > maxFileSize) {
+					if (bUseMaxFileSize && currentFile.length() > maxFileSize) {
 						System.out.println("Ignored: " + analysisDir.toString());
 						continue;
 					}
@@ -202,24 +211,26 @@ public class IndexManager {
 		for (File file : allFiles) {
 			try {
 				String hash = MD5.fromFile(file);
-				if (indexFromFile.containsKey(hash)) {
-					if (indexFromFile.get(hash) != null) {
-						if (indexFromFile.get(hash).contains(file)) {
-							++alreadyIndexed;
-							continue;
+				if (hash != null) {
+					if (indexFromFile.containsKey(hash)) {
+						if (indexFromFile.get(hash) != null) {
+							if (indexFromFile.get(hash).contains(file)) {
+								++alreadyIndexed;
+								continue;
+							}
 						}
-					}
-					try {
-						indexFromFile.get(hash).add(file);
-					} catch (NullPointerException e) {
+						try {
+							indexFromFile.get(hash).add(file);
+						} catch (NullPointerException e) {
+							TreeSet<File> entries = new TreeSet<>();
+							entries.add(file);
+							indexFromFile.put(hash, entries);
+						}
+					} else {
 						TreeSet<File> entries = new TreeSet<>();
 						entries.add(file);
 						indexFromFile.put(hash, entries);
 					}
-				} else {
-					TreeSet<File> entries = new TreeSet<>();
-					entries.add(file);
-					indexFromFile.put(hash, entries);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -228,10 +239,7 @@ public class IndexManager {
 		if (alreadyIndexed > 0) {
 			System.out.println(alreadyIndexed + " files already indexed.");
 		}
-		PrintWriter writer = null;
-		try {
-			writer = new PrintWriter(indexDirectoryPath + indexFileName, "UTF-8");
-
+		try (PrintWriter writer = new PrintWriter(indexDirectoryPath + indexFileName, "UTF-8")) {
 			for (String key : indexFromFile.keySet()) {
 				writer.print(key);
 				if (indexFromFile.get(key) != null) {
@@ -242,16 +250,10 @@ public class IndexManager {
 				writer.println();
 			}
 			writer.flush();
-			writer.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			if (writer != null) {
-				writer.close();
-			}
 		}
 		System.out.println("New index has been written");
-
 	}
 }

@@ -18,26 +18,22 @@ public class MD5 {
 		// Change MD5 to SHA1 to get SHA checksum
 		// MessageDigest md = MessageDigest.getInstance("SHA1");
 
-		FileInputStream fis;
-		try {
-			fis = new FileInputStream(file.toString());
+		try (FileInputStream fis = new FileInputStream(file.toString())) {
+			byte[] dataBytes = new byte[1024];
+			int nread = 0;
+			while ((nread = fis.read(dataBytes)) != -1) {
+				md.update(dataBytes, 0, nread);
+			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
-		}
-		byte[] dataBytes = new byte[1024];
-		int nread = 0;
-
-		try {
-			while ((nread = fis.read(dataBytes)) != -1) {
-				md.update(dataBytes, 0, nread);
-			}
-		} catch (IOException e) {
+		} catch (IOException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e1.printStackTrace();
+			return null;
 		}
-		;
+
 		byte[] mdbytes = md.digest();
 
 		// convert the byte to hex format

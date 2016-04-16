@@ -18,6 +18,7 @@ public class Indexer {
 
 		// create an IndeManager object
 		IndexManager index = new IndexManager(args[0]);
+		index.setbUseMaxFileSize(false);
 
 		// try to open an existing index file
 		if (index.loadIndex()) {
@@ -29,6 +30,7 @@ public class Indexer {
 				System.out.print("Create Backup of existing Index? (y/n) : ");
 				console = new Scanner(System.in);
 				userInput = console.nextLine();
+				console.close();
 				bDoBackup = userInput.trim().toLowerCase().equals("y");
 				bValidInput = userInput.trim().toLowerCase().equals("n");
 			} while (!bDoBackup && !bValidInput);
