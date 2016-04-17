@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 import com.bjp.DrawingPanel;
 
+import Loc.Loc;
+
 public class Main {
 
 	public static Station erzeugeStation() {

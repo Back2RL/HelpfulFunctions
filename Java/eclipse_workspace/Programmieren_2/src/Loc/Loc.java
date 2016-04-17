@@ -1,3 +1,4 @@
+package Loc;
 import java.awt.Graphics;
 
 /**

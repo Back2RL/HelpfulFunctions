@@ -6,7 +6,14 @@ public class HelloRunnable implements Runnable {
 	}
 
 	public static void main(String args[]) {
-		(new Thread(new HelloRunnable())).start();
+		Thread aNewOne = new Thread(new HelloRunnable());
+		aNewOne.start();
+		try {
+			aNewOne.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

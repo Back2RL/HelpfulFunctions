@@ -1,3 +1,4 @@
+import Loc.Loc;
 
 public class TestingLoc {
 

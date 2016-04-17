@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
+import Loc.Loc;
+
 public class Station {
 	private Loc sender;
 	private int radius;
