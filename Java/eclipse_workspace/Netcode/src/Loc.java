@@ -130,4 +130,24 @@ public class Loc {
 		double length = distanceFromOrigin();
 		return new Loc(this.x / length, this.y / length);
 	}
+
+	/**
+	 * Hessesche Normalform
+	 * 
+	 * @param lineLoc
+	 *            location on the line
+	 * @param lineDir
+	 *            direction of the line
+	 * @param dot
+	 *            location of which the distance to the line is requested
+	 * @return shortest distance between line and dot
+	 */
+	public static double distanceLineDot(Loc lineLoc, Loc lineDir, Loc dot) {
+		Loc n = new Loc(lineDir.y, -1.0 * lineDir.x);
+		double len = n.distanceFromOrigin();
+		n.normalize();
+		lineLoc.translate(-1.0 * dot.x, -1.0 * dot.y);
+		return Math.abs(lineLoc.x * n.x + lineLoc.y * n.y) / len;
+	}
+
 }
