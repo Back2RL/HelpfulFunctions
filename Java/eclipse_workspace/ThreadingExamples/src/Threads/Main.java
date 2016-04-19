@@ -3,7 +3,7 @@ package Threads;
 import java.util.ArrayList;
 
 public class Main {
-	public static final int THREADS = 256;
+	public static final int THREADS = 12;
 
 	public static void main(String[] args) {
 		System.out.println("Start " + THREADS + " threats and wait for them to finish");
