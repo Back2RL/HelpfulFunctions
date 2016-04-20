@@ -3,10 +3,11 @@ package Threads;
 import java.util.ArrayList;
 
 public class Main {
-	public static final int THREADS = 12;
+	public static final int THREADS = 8;
 
 	public static void main(String[] args) {
-		System.out.println("Start " + THREADS + " threats and wait for them to finish");
+
+		System.out.println("Start " + THREADS + " threads and wait for them to finish");
 		ArrayList<Sub> multipleThreads = new ArrayList<>();
 		for (int i = 0; i < THREADS; ++i) {
 			ArrayList<Integer> list = new ArrayList<>();
@@ -63,6 +64,5 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("All threads finished work.");
 	}
 }

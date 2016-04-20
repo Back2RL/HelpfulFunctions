@@ -2,7 +2,7 @@ package Aufgabe_4;
 
 import java.util.Arrays;
 
-public class BubbleSort {
+public class DSA_1276156_04 {
 
 	public static final int ANZAHL_DURCHLAEUFE = (int) 1E0;
 	public static final int ANZAHL_ELEMENTE = 100;
@@ -10,33 +10,39 @@ public class BubbleSort {
 	public static void main(String[] args) {
 
 		int[] A = { 13, 38, 64, 13, 12, 71, 26 };
-		int[] B = new int[10];
 
+		// langes Array mit 10 Zufallszahlen
+		int[] B = new int[10];
 		for (int i = 0; i < B.length; ++i) {
-			B[i] = (int) (Math.random() * ANZAHL_ELEMENTE);
+			B[i] = (int) (Math.random() * 10);
 		}
 
+		// langes Array mit vielen Zufallszahlen
 		int[] randomArray = new int[ANZAHL_ELEMENTE];
 		for (int i = 0; i < randomArray.length; ++i) {
 			randomArray[i] = (int) (Math.random() * ANZAHL_ELEMENTE);
 		}
 
-		// ----- Zeit messen ------
-		System.out.println(
-				"Zeit Messung... (" + ANZAHL_DURCHLAEUFE + " Widerholungen / " + ANZAHL_ELEMENTE + " Elemente)");
-		long start = System.currentTimeMillis();
-
-		System.out.println(Arrays.toString(simplestBubbleSort(A, A.length)));
-		System.out.println(Arrays.toString(checkingBubbleSort(A, A.length)));
-		System.out.println(Arrays.toString(straightSelection(A, A.length)));
-		System.out.println(Arrays.toString(straightSelection(B, B.length)));
-		System.out.println(Arrays.toString(straightInsertion(B, B.length)));
+		// System.out.println(Arrays.toString(simplestBubbleSort(A, A.length)));
+		// System.out.println(Arrays.toString(checkingBubbleSort(A, A.length)));
+		// System.out.println(Arrays.toString(straightSelection(A, A.length)));
+		// System.out.println(Arrays.toString(straightSelection(B, B.length)));
+		// System.out.println(Arrays.toString(straightInsertion(B, B.length)));
+		System.out.println(Arrays.toString(B));
+		System.out.println(Arrays.toString(binaryInsertion(B, B.length)));
 		// System.out.println(Arrays.toString(simplestBubbleSort(randomArray,
 		// randomArray.length)));
 		// System.out.println(Arrays.toString(checkingBubbleSort(randomArray,
 		// randomArray.length)));
 		// System.out.println(Arrays.toString(straightSelection(randomArray,
 		// randomArray.length)));
+		// System.out.println(Arrays.toString(binaryInsertion(randomArray,
+		// randomArray.length)));
+
+		// ----- Zeit messen (viele Arrayelemente) ------
+		System.out.println(
+				"Zeit Messung... (" + ANZAHL_DURCHLAEUFE + " Widerholungen / " + ANZAHL_ELEMENTE + " Elemente)");
+		long start = System.currentTimeMillis();
 
 		for (int i = 0; i < ANZAHL_DURCHLAEUFE; ++i) {
 			// simplestBubbleSort(randomArray, randomArray.length);
@@ -51,8 +57,9 @@ public class BubbleSort {
 		System.out.println("Index finden: ");
 		int[] aSorted = simplestBubbleSort(A, A.length);
 		System.out.println(Arrays.toString(aSorted));
-		int zahl = 70;
+		int zahl = 14;
 		System.out.println("Index of " + zahl + " is " + findIndexOf(aSorted, zahl, 0, aSorted.length - 1));
+
 	}
 
 	// Zeit Messung... (1 Widerholungen / 100000 Elemente)
@@ -130,6 +137,18 @@ public class BubbleSort {
 		return A;
 	}
 
+	public static int[] binaryInsertion(int[] A, int n) {
+		for (int i = 1; i < n; ++i) {
+			int temp = A[i];
+			int index = findIndexOf(A, A[i], 0, i - 1);
+			A[i] = A[index];
+			A[index] = temp;
+			if (index < i)
+				i = index;
+		}
+		return A;
+	}
+
 	/**
 	 * sucht rekursiv die Zahl k in einem Array von Integern und gibt deren
 	 * Index, falls vorhanden zurück
@@ -142,37 +161,34 @@ public class BubbleSort {
 	 *            Index welcher den Start des Suchbereichs markiert
 	 * @param end
 	 *            Index welcher das Ende des Suchbereichs markiert
-	 * @return Index(k) oder -1 wenn k nicht enthalten oder Array A leer ist
+	 * @return Index(k) oder Index der postion an der k stehen müsste; -1 falls
+	 *         A leer ist
 	 */
 	public static int findIndexOf(int[] A, int k, int start, int end) {
 		if (start < 0 || end >= A.length) {
 			throw new IndexOutOfBoundsException("Die angegebenen Grenzen sprengen den Rahmen des Arrays!");
 		}
-
 		// leeres Array -> return -1
 		if (A.length == 0)
 			return -1;
 		// aktuellen Bereich (definiert durch start/end) halbieren
-		int m = start + (end - start) / 2;
+		int m = (start + end) / 2;
 		// Zahl gefunden? zurückgeben
 		if (A[m] == k) {
 			return m;
 		}
-		// Zahl nicht gefunden aber start/end sind identisch -> Zahl ist nicht
-		// im Array enthalten -> return -1
+		// Zahl nicht gefunden aber start/end sind identisch
+		// index zurückgeben an der k stehen sollte
 		if (start == end) {
-			return -1;
+			// an dieser Stelle sollte k stehen
+			return (A[m] < k) ? m + 1 : m;
 		}
 		// Zahl ist kleiner -> neue Suche unterhalb des Index m
 		if (k < A[m]) {
-			return findIndexOf(A, k, start, m - 1);
+			return findIndexOf(A, k, start, m);
 		}
 		// Zahl ist größer -> neue Suche oberhalb des Index m
-		if (A[m] < k) {
-			return findIndexOf(A, k, m + 1, end);
-		}
-
-		return -1;
+		return findIndexOf(A, k, m + 1, end);
 	}
 
 	public static double laufzeitSekunden(long startTime) {
