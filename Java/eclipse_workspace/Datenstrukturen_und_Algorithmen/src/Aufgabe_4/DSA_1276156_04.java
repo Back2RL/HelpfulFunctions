@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class DSA_1276156_04 {
 
 	public static final int ANZAHL_DURCHLAEUFE = (int) 1E0;
-	public static final int ANZAHL_ELEMENTE = 100000;
+	public static final int ANZAHL_ELEMENTE = 10000;
 
 	public static void main(String[] args) {
 
@@ -29,7 +29,8 @@ public class DSA_1276156_04 {
 		// System.out.println(Arrays.toString(straightSelection(A, A.length)));
 		// System.out.println(Arrays.toString(straightSelection(B, B.length)));
 		// System.out.println(Arrays.toString(straightInsertion(B, B.length)));
-		System.out.println(Arrays.toString(binaryInsertionFaster(B, B.length)));
+		// System.out.println(Arrays.toString(binaryInsertionFaster(B,
+		// B.length)));
 		// System.out.println(Arrays.toString(simplestBubbleSort(randomArray,
 		// randomArray.length)));
 		// System.out.println(Arrays.toString(checkingBubbleSort(randomArray,
@@ -47,8 +48,8 @@ public class DSA_1276156_04 {
 		for (int i = 0; i < ANZAHL_DURCHLAEUFE; ++i) {
 			// simplestBubbleSort(randomArray, randomArray.length);
 			// checkingBubbleSort(randomArray, randomArray.length);
-			// binaryInsertionSlow(randomArray, randomArray.length);
-			binaryInsertionFaster(randomArray, randomArray.length);
+			binaryInsertionSlow(randomArray, randomArray.length);
+			// binaryInsertionFaster(randomArray, randomArray.length);
 			// straightInsertion(randomArray, randomArray.length);
 			// straightSelection(randomArray, randomArray.length);
 		}
@@ -61,13 +62,18 @@ public class DSA_1276156_04 {
 		int[] aSorted = simplestBubbleSort(A, A.length);
 		System.out.println(Arrays.toString(aSorted));
 		int zahl = 14;
-		System.out.println("Index of " + zahl + " is " + findIndexOf(aSorted, zahl, 0, aSorted.length - 1));
+		System.out.println("Index of " + zahl + " is " + findeEinfuegestelle(aSorted, zahl, 0, aSorted.length - 1));
 
 	}
 
+	// 9a & d)
 	// Zeit Messung... (1 Widerholungen / 100000 Elemente)
-	// Laufzeit = 12.915000915527344 Sekunden
-	// Im Mittel benötigte die Berechnung 12.915000915527344 Sekunden.
+	// Laufzeit = 12.9350004196167 Sekunden
+	// Im Mittel benötigte die Berechnung 12.9350004196167 Sekunden.
+	// Zeit Messung... (1 Widerholungen / 10000 Elemente)
+	// Laufzeit = 0.12600000202655792 Sekunden
+	// Im Mittel benötigte die Berechnung 0.12600000202655792 Sekunden.
+	// O(n²)
 	public static int[] simplestBubbleSort(int[] A, int n) {
 		for (int j = 0; j < n - 1; ++j) {
 			for (int i = 0; i < n - 1 - j; ++i) {
@@ -81,9 +87,14 @@ public class DSA_1276156_04 {
 		return A;
 	}
 
+	// 9b & d)
 	// Zeit Messung... (1 Widerholungen / 100000 Elemente)
-	// Laufzeit = 12.062000274658203 Sekunden
-	// Im Mittel benötigte die Berechnung 12.062000274658203 Sekunden.
+	// Laufzeit = 11.828001022338867 Sekunden
+	// Im Mittel benötigte die Berechnung 11.828001022338867 Sekunden.
+	// Zeit Messung... (1 Widerholungen / 10000 Elemente)
+	// Laufzeit = 0.11900000274181366 Sekunden
+	// Im Mittel benötigte die Berechnung 0.11900000274181366 Sekunden.
+	// O(n²)
 	public static int[] checkingBubbleSort(int[] A, int n) {
 		boolean bSwap = false;
 		for (int j = 0; j < n - 1; ++j) {
@@ -104,9 +115,10 @@ public class DSA_1276156_04 {
 		return A;
 	}
 
-	// Zeit Messung... (1 Widerholungen / 100000 Elemente)
-	// Laufzeit = 3.694000244140625 Sekunden
-	// Im Mittel benötigte die Berechnung 3.694000244140625 Sekunden.
+	// 9c & d)
+	// Zeit Messung... (1 Widerholungen / 500000 Elemente)
+	// Laufzeit = 91.25800323486328 Sekunden
+	// Im Mittel benötigte die Berechnung 91.25800323486328 Sekunden.
 	public static int[] straightSelection(int[] A, int n) {
 		for (int i = 0; i < n; ++i) {
 			int pos_min = i;
@@ -122,6 +134,10 @@ public class DSA_1276156_04 {
 		return A;
 	}
 
+	// 10b)
+	// Zeit Messung... (1 Widerholungen / 500000 Elemente)
+	// Laufzeit = 86.69800567626953 Sekunden
+	// Im Mittel benötigte die Berechnung 86.69800567626953 Sekunden.
 	public static int[] straightInsertion(int[] A, int n) {
 		for (int i = 0; i < n; ++i) {
 			int pos_found = 0;
@@ -140,10 +156,14 @@ public class DSA_1276156_04 {
 		return A;
 	}
 
+	// 10d) schlechte Lösung
+	// Zeit Messung... (1 Widerholungen / 50000 Elemente)
+	// Laufzeit = 34.04800033569336 Sekunden
+	// Im Mittel benötigte die Berechnung 34.04800033569336 Sekunden.
 	public static int[] binaryInsertionSlow(int[] A, int n) {
 		for (int i = 1; i < n; ++i) {
 			int temp = A[i];
-			int index = findIndexOf(A, temp, 0, i - 1);
+			int index = findeEinfuegestelle(A, temp, 0, i - 1);
 			// System.out.println(Arrays.toString(A) + " i=" + i + " temp=" +
 			// temp + " index=" + index);
 			while (A[index] == temp && index != i) {
@@ -159,10 +179,14 @@ public class DSA_1276156_04 {
 		return A;
 	}
 
+	// 10d) bessere Lösung
+	// Zeit Messung... (1 Widerholungen / 500000 Elemente)
+	// Laufzeit = 25.211000442504883 Sekunden
+	// Im Mittel benötigte die Berechnung 25.211000442504883 Sekunden.
 	public static int[] binaryInsertionFaster(int[] A, int n) {
 		for (int i = 1; i < n; ++i) {
 			int temp = A[i];
-			int index = findIndexOf(A, temp, 0, i - 1);
+			int index = findeEinfuegestelle(A, temp, 0, i - 1);
 			// System.out.println(Arrays.toString(A) + " i=" + i + " temp=" +
 			// temp + " index=" + index);
 			while (A[index] == temp && index != i) {
@@ -181,6 +205,7 @@ public class DSA_1276156_04 {
 		return A;
 	}
 
+	// 10c)
 	/**
 	 * sucht rekursiv die Zahl k in einem Array von Integern und gibt deren
 	 * Index, falls vorhanden zurück
@@ -196,7 +221,7 @@ public class DSA_1276156_04 {
 	 * @return Index(k) oder Index der postion an der k stehen müsste; -1 falls
 	 *         A leer ist
 	 */
-	public static int findIndexOf(int[] A, int k, int start, int end) {
+	public static int findeEinfuegestelle(int[] A, int k, int start, int end) {
 		if (start < 0 || end >= A.length || end < 0) {
 			throw new IndexOutOfBoundsException("Die angegebenen Grenzen sprengen den Rahmen des Arrays!");
 		}
@@ -217,10 +242,10 @@ public class DSA_1276156_04 {
 		}
 		// Zahl ist kleiner -> neue Suche unterhalb des Index m
 		if (k < A[m]) {
-			return findIndexOf(A, k, start, m);
+			return findeEinfuegestelle(A, k, start, m);
 		}
 		// Zahl ist größer -> neue Suche oberhalb des Index m
-		return findIndexOf(A, k, m + 1, end);
+		return findeEinfuegestelle(A, k, m + 1, end);
 	}
 
 	public static double laufzeitSekunden(long startTime) {
