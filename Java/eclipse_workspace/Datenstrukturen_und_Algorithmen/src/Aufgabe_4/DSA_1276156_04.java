@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class DSA_1276156_04 {
 
 	public static final int ANZAHL_DURCHLAEUFE = (int) 1E0;
-	public static final int ANZAHL_ELEMENTE = 100;
+	public static final int ANZAHL_ELEMENTE = 100000;
 
 	public static void main(String[] args) {
 
@@ -22,14 +22,14 @@ public class DSA_1276156_04 {
 		for (int i = 0; i < randomArray.length; ++i) {
 			randomArray[i] = (int) (Math.random() * ANZAHL_ELEMENTE);
 		}
-
+		System.out.println("Array A: " + Arrays.toString(A));
+		System.out.println("Array B: " + Arrays.toString(B));
 		// System.out.println(Arrays.toString(simplestBubbleSort(A, A.length)));
 		// System.out.println(Arrays.toString(checkingBubbleSort(A, A.length)));
 		// System.out.println(Arrays.toString(straightSelection(A, A.length)));
 		// System.out.println(Arrays.toString(straightSelection(B, B.length)));
 		// System.out.println(Arrays.toString(straightInsertion(B, B.length)));
-		System.out.println(Arrays.toString(B));
-		System.out.println(Arrays.toString(binaryInsertion(B, B.length)));
+		System.out.println(Arrays.toString(binaryInsertionFaster(B, B.length)));
 		// System.out.println(Arrays.toString(simplestBubbleSort(randomArray,
 		// randomArray.length)));
 		// System.out.println(Arrays.toString(checkingBubbleSort(randomArray,
@@ -40,14 +40,17 @@ public class DSA_1276156_04 {
 		// randomArray.length)));
 
 		// ----- Zeit messen (viele Arrayelemente) ------
-		System.out.println(
-				"Zeit Messung... (" + ANZAHL_DURCHLAEUFE + " Widerholungen / " + ANZAHL_ELEMENTE + " Elemente)");
+		System.out.print("Zeit Messung... (" + ANZAHL_DURCHLAEUFE + " Widerholungen / ");
+		System.out.println(ANZAHL_ELEMENTE + " Elemente)");
 		long start = System.currentTimeMillis();
 
 		for (int i = 0; i < ANZAHL_DURCHLAEUFE; ++i) {
 			// simplestBubbleSort(randomArray, randomArray.length);
 			// checkingBubbleSort(randomArray, randomArray.length);
-			straightSelection(randomArray, randomArray.length);
+			// binaryInsertionSlow(randomArray, randomArray.length);
+			binaryInsertionFaster(randomArray, randomArray.length);
+			// straightInsertion(randomArray, randomArray.length);
+			// straightSelection(randomArray, randomArray.length);
 		}
 		double laufzeit = laufzeitSekunden(start);
 
@@ -137,14 +140,43 @@ public class DSA_1276156_04 {
 		return A;
 	}
 
-	public static int[] binaryInsertion(int[] A, int n) {
+	public static int[] binaryInsertionSlow(int[] A, int n) {
 		for (int i = 1; i < n; ++i) {
 			int temp = A[i];
-			int index = findIndexOf(A, A[i], 0, i - 1);
+			int index = findIndexOf(A, temp, 0, i - 1);
+			// System.out.println(Arrays.toString(A) + " i=" + i + " temp=" +
+			// temp + " index=" + index);
+			while (A[index] == temp && index != i) {
+				index++;
+				// System.out.println(Arrays.toString(A) + " i=" + i + " temp="
+				// + temp + " index=" + index + "+");
+			}
 			A[i] = A[index];
 			A[index] = temp;
-			if (index < i)
-				i = index;
+			if (index < i && A[i] != A[index])
+				i--;
+		}
+		return A;
+	}
+
+	public static int[] binaryInsertionFaster(int[] A, int n) {
+		for (int i = 1; i < n; ++i) {
+			int temp = A[i];
+			int index = findIndexOf(A, temp, 0, i - 1);
+			// System.out.println(Arrays.toString(A) + " i=" + i + " temp=" +
+			// temp + " index=" + index);
+			while (A[index] == temp && index != i) {
+				index++;
+				// System.out.println(Arrays.toString(A) + " i=" + i + " temp="
+				// + temp + " index=" + index + "+");
+			}
+
+			for (int j = i; j > index; --j) {
+				A[j] = A[j - 1];
+			}
+			A[index] = temp;
+			if (index < i && A[i] != A[index])
+				i--;
 		}
 		return A;
 	}
@@ -165,7 +197,7 @@ public class DSA_1276156_04 {
 	 *         A leer ist
 	 */
 	public static int findIndexOf(int[] A, int k, int start, int end) {
-		if (start < 0 || end >= A.length) {
+		if (start < 0 || end >= A.length || end < 0) {
 			throw new IndexOutOfBoundsException("Die angegebenen Grenzen sprengen den Rahmen des Arrays!");
 		}
 		// leeres Array -> return -1
