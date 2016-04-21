@@ -42,7 +42,6 @@ public class Client extends Thread {
 	}
 
 	public void run() {
-		bIsRunning = true;
 		System.out.println(Thread.currentThread().getName() + " Client ready to receive");
 		try {
 			PrintWriter send = new PrintWriter(connection.getOutputStream());
@@ -56,7 +55,6 @@ public class Client extends Thread {
 		}
 		try (Scanner receive = new Scanner(connection.getInputStream())) {
 			while (bIsRunning && receive.hasNext()) {
-
 				System.out.println("received: " + receive.nextLine());
 			}
 			bIsRunning = false;
@@ -72,6 +70,7 @@ public class Client extends Thread {
 
 		try (Socket server = new Socket(HOST, PORT)) {
 			Client receiveThread = new Client(server);
+			receiveThread.setbIsRunning(true);
 			receiveThread.start();
 			receiveThread.join();
 		} catch (IOException e) {

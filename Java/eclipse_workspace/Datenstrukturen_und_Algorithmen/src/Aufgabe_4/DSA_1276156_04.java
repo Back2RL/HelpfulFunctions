@@ -5,32 +5,42 @@ import java.util.Arrays;
 public class DSA_1276156_04 {
 
 	public static final int ANZAHL_DURCHLAEUFE = (int) 1E0;
-	public static final int ANZAHL_ELEMENTE = 10000;
+	public static final int ANZAHL_ELEMENTE = 5000;
 
 	public static void main(String[] args) {
-
-		int[] A = { 13, 38, 64, 13, 12, 71, 26 };
 
 		// langes Array mit 10 Zufallszahlen
 		int[] B = new int[10];
 		for (int i = 0; i < B.length; ++i) {
 			B[i] = (int) (Math.random() * 10);
 		}
+		System.out.println("   Array B: " + Arrays.toString(B));
+		// System.out.println("sortiert B: " +
+		// Arrays.toString(straightInsertion(B, B.length)));
+		System.out.println("sortiert B: " + Arrays.toString(straightInsertionSkript(B, B.length)));
+		// System.out.println(Arrays.toString(straightSelection(A, A.length)));
+		// System.out.println(Arrays.toString(straightSelection(B, B.length)));
+		// System.out.println(Arrays.toString(binaryInsertionFaster(B,
+		// B.length)));
 
 		// langes Array mit vielen Zufallszahlen
 		int[] randomArray = new int[ANZAHL_ELEMENTE];
 		for (int i = 0; i < randomArray.length; ++i) {
 			randomArray[i] = (int) (Math.random() * ANZAHL_ELEMENTE);
 		}
-		System.out.println("Array A: " + Arrays.toString(A));
-		System.out.println("Array B: " + Arrays.toString(B));
+
+		int[] A = { 13, 38, 64, 13, 12, 71, 26 };
+		System.out.println();
+		System.out.println("Einfuegestelle finden: ");
+		int[] aSorted = simplestBubbleSort(A, A.length);
+		System.out.println(Arrays.toString(aSorted));
+		int zahl = 14;
+		System.out.println("Einfuegestelle der Zahl " + zahl + " ist bei Index = "
+				+ findeEinfuegestelleBinaer(aSorted, zahl, 0, aSorted.length - 1));
+
+		// System.out.println("Array A: " + Arrays.toString(A));
 		// System.out.println(Arrays.toString(simplestBubbleSort(A, A.length)));
 		// System.out.println(Arrays.toString(checkingBubbleSort(A, A.length)));
-		// System.out.println(Arrays.toString(straightSelection(A, A.length)));
-		// System.out.println(Arrays.toString(straightSelection(B, B.length)));
-		// System.out.println(Arrays.toString(straightInsertion(B, B.length)));
-		// System.out.println(Arrays.toString(binaryInsertionFaster(B,
-		// B.length)));
 		// System.out.println(Arrays.toString(simplestBubbleSort(randomArray,
 		// randomArray.length)));
 		// System.out.println(Arrays.toString(checkingBubbleSort(randomArray,
@@ -41,28 +51,24 @@ public class DSA_1276156_04 {
 		// randomArray.length)));
 
 		// ----- Zeit messen (viele Arrayelemente) ------
-		System.out.print("Zeit Messung... (" + ANZAHL_DURCHLAEUFE + " Widerholungen / ");
+		System.out.println();
+		System.out.print("Zeit Messung... (" + ANZAHL_DURCHLAEUFE + " Wiederholungen / ");
 		System.out.println(ANZAHL_ELEMENTE + " Elemente)");
 		long start = System.currentTimeMillis();
 
 		for (int i = 0; i < ANZAHL_DURCHLAEUFE; ++i) {
 			// simplestBubbleSort(randomArray, randomArray.length);
 			// checkingBubbleSort(randomArray, randomArray.length);
-			binaryInsertionSlow(randomArray, randomArray.length);
+			// binaryInsertionSlow(randomArray, randomArray.length);
 			// binaryInsertionFaster(randomArray, randomArray.length);
-			// straightInsertion(randomArray, randomArray.length);
+			// straightInsertionSkript(randomArray, randomArray.length);
+			straightInsertion(randomArray, randomArray.length);
 			// straightSelection(randomArray, randomArray.length);
 		}
 		double laufzeit = laufzeitSekunden(start);
 
 		System.out.println(" Laufzeit = " + laufzeit + " Sekunden");
 		System.out.println("Im Mittel benötigte die Berechnung " + laufzeit / ANZAHL_DURCHLAEUFE + " Sekunden.");
-
-		System.out.println("Index finden: ");
-		int[] aSorted = simplestBubbleSort(A, A.length);
-		System.out.println(Arrays.toString(aSorted));
-		int zahl = 14;
-		System.out.println("Index of " + zahl + " is " + findeEinfuegestelle(aSorted, zahl, 0, aSorted.length - 1));
 
 	}
 
@@ -117,8 +123,12 @@ public class DSA_1276156_04 {
 
 	// 9c & d)
 	// Zeit Messung... (1 Widerholungen / 500000 Elemente)
-	// Laufzeit = 91.25800323486328 Sekunden
-	// Im Mittel benötigte die Berechnung 91.25800323486328 Sekunden.
+	// Laufzeit = 80.95700073242188 Sekunden
+	// Im Mittel benötigte die Berechnung 80.95700073242188 Sekunden.
+	// Zeit Messung... (1 Widerholungen / 50000 Elemente)
+	// Laufzeit = 0.8330000638961792 Sekunden
+	// Im Mittel benötigte die Berechnung 0.8330000638961792 Sekunden.
+	// O(n²)
 	public static int[] straightSelection(int[] A, int n) {
 		for (int i = 0; i < n; ++i) {
 			int pos_min = i;
@@ -138,7 +148,7 @@ public class DSA_1276156_04 {
 	// Zeit Messung... (1 Widerholungen / 500000 Elemente)
 	// Laufzeit = 86.69800567626953 Sekunden
 	// Im Mittel benötigte die Berechnung 86.69800567626953 Sekunden.
-	public static int[] straightInsertion(int[] A, int n) {
+	public static int[] straightInsertionSkript(int[] A, int n) {
 		for (int i = 0; i < n; ++i) {
 			int pos_found = 0;
 			int j = i;
@@ -156,6 +166,37 @@ public class DSA_1276156_04 {
 		return A;
 	}
 
+	// 10b) mit findeeinfuegestelle-Methodenaufruf
+	// Zeit Messung... (1 Wiederholungen / 10000 Elemente)
+	// Laufzeit = 11.54800033569336 Sekunden
+	// Im Mittel benötigte die Berechnung 11.54800033569336 Sekunden.
+	// Zeit Messung... (1 Wiederholungen / 5000 Elemente)
+	// Laufzeit = 1.5010000467300415 Sekunden
+	// Im Mittel benötigte die Berechnung 1.5010000467300415 Sekunden.
+	public static int[] straightInsertion(int[] A, int n) {
+		for (int i = 1; i < n; ++i) {
+			int temp = A[i];
+			int index = findeEinfuegestelle(A, i, temp);
+			while (A[index] == temp && index != i) {
+				index++;
+			}
+			A[i] = A[index];
+			A[index] = temp;
+			if (index < i && A[i] != A[index])
+				i--;
+		}
+		return A;
+	}
+
+	public static int findeEinfuegestelle(int[] A, int index, int zahl) {
+		for (int i = index; i > 0; --i) {
+			if (A[i - 1] < zahl) {
+				return i;
+			}
+		}
+		return 0;
+	}
+
 	// 10d) schlechte Lösung
 	// Zeit Messung... (1 Widerholungen / 50000 Elemente)
 	// Laufzeit = 34.04800033569336 Sekunden
@@ -163,7 +204,7 @@ public class DSA_1276156_04 {
 	public static int[] binaryInsertionSlow(int[] A, int n) {
 		for (int i = 1; i < n; ++i) {
 			int temp = A[i];
-			int index = findeEinfuegestelle(A, temp, 0, i - 1);
+			int index = findeEinfuegestelleBinaer(A, temp, 0, i - 1);
 			// System.out.println(Arrays.toString(A) + " i=" + i + " temp=" +
 			// temp + " index=" + index);
 			while (A[index] == temp && index != i) {
@@ -186,7 +227,7 @@ public class DSA_1276156_04 {
 	public static int[] binaryInsertionFaster(int[] A, int n) {
 		for (int i = 1; i < n; ++i) {
 			int temp = A[i];
-			int index = findeEinfuegestelle(A, temp, 0, i - 1);
+			int index = findeEinfuegestelleBinaer(A, temp, 0, i - 1);
 			// System.out.println(Arrays.toString(A) + " i=" + i + " temp=" +
 			// temp + " index=" + index);
 			while (A[index] == temp && index != i) {
@@ -221,7 +262,7 @@ public class DSA_1276156_04 {
 	 * @return Index(k) oder Index der postion an der k stehen müsste; -1 falls
 	 *         A leer ist
 	 */
-	public static int findeEinfuegestelle(int[] A, int k, int start, int end) {
+	public static int findeEinfuegestelleBinaer(int[] A, int k, int start, int end) {
 		if (start < 0 || end >= A.length || end < 0) {
 			throw new IndexOutOfBoundsException("Die angegebenen Grenzen sprengen den Rahmen des Arrays!");
 		}
@@ -242,10 +283,10 @@ public class DSA_1276156_04 {
 		}
 		// Zahl ist kleiner -> neue Suche unterhalb des Index m
 		if (k < A[m]) {
-			return findeEinfuegestelle(A, k, start, m);
+			return findeEinfuegestelleBinaer(A, k, start, m);
 		}
 		// Zahl ist größer -> neue Suche oberhalb des Index m
-		return findeEinfuegestelle(A, k, m + 1, end);
+		return findeEinfuegestelleBinaer(A, k, m + 1, end);
 	}
 
 	public static double laufzeitSekunden(long startTime) {

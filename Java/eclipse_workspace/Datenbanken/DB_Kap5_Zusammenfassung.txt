@@ -1,0 +1,46 @@
+Elementare Operationen auf Relationen
+
+Begriff Vereinigungsverträglichkeit:
+-	2 Relationen (R aus Att1×...×Attn und S aus Btt1×...×Bttn) heißen vereinigungsverträglich,
+wenn jedes i-te Attribut Atti und Btti den gleichen Datentyp/gemeinsamen Obertypen hat. 
+
+Begriff Obertyp:
+-	alle für Tabellen erlaubten Datentypen
+-	z.B.: Datentyp: Zahl < 1000 
+		-> Obertyp: Zahl
+		
+Definition Mengenoperatoren für Relationen (erzeugen neue Relationen):
+-	R und S vereinigungsverträgliche Relationen:
+-> möglich Berechnungen:
+Schnittmenge: R geschnitten S = { r | r e R und r e S} 	-> Einträge, die in beiden Relationen vorkommen
+Vereinigung: R vereinigt S = { r | r e R oder r e S}	-> alle Einträge der Relationen zusammen betrachten
+Differenz: R – S = { r | r e R und nicht r e S} 		-< Einträge, die nur in der ersten, aber nicht in der zweiten Relation vorkommen
+*e - Element von
+
+Definition Projektion:
+R aus Att1×...×Attn
+Proj(R,[Btt1×...×Bttn]) -> Relation die Alle Spalten/Attribute aus R enthält, bis auf die die nicht in Btt1×...×Bttn enthalten sind
+-	Reihenfolge ergibt sich aus der Reihenfolge von Btt1×...×Bttn
+
+Begriff Umbenennung:
+Ren(R,T) -> Relation R heißt dann T, hat aber immernoch den selben Inhalt
+
+Begriff Auswahl:
+Sel(R,Bed) -> Relation die alle Zeilen enthält, welche die Bedingung Bed erfüllen
+Bed: Att1 <op> <Konstante>
+<> = !=
+AND OR NOT
+Klammerung um Bedingen zuerst überprüfen zu lassen
+
+z.B.: 	1. Sel(VK, VK.Verkäufer=‘Meier‘) 
+		2. Proj(Sel(VK, VK.Verkäufer=‘Meier‘),[Käufer])
+		3. Proj(Sel(Ren(VK,Verkauf), Verkauf.Verkäufer=‘Meier‘),[Käufer])
+		4. Sel(VK, VK.Verkäufer=‘Meier‘ AND VK.Käufer<>‘Schulz‘) 
+
+Definition Verknüpfung von Tupeln:
+Konkatenation: Relationen R und S -> r°s (Zeilen werden hintereinander geschrieben)
+
+Definition Kreuzprodukt:
+R×S= { r°s | r e R und s e S} (Jede Zeile aus R wird mit jeder Zeile aus S verknüpft)
+Hinweis: es können unsinnige Einträge entstehen:
+Filterbeispiel dafür: Sel(VK×PL, VK.Produkt=PL.Produkt) 
