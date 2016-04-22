@@ -1,5 +1,3 @@
-package Aufgabe_4;
-
 import java.util.Arrays;
 
 public class DSA_1276156_04 {
