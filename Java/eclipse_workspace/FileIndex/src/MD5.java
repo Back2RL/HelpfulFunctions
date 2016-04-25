@@ -1,3 +1,4 @@
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -18,10 +19,10 @@ public class MD5 {
 		// Change MD5 to SHA1 to get SHA checksum
 		// MessageDigest md = MessageDigest.getInstance("SHA1");
 
-		try (FileInputStream fis = new FileInputStream(file.toString())) {
+		try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file))) {
 			byte[] dataBytes = new byte[1024];
 			int nread = 0;
-			while ((nread = fis.read(dataBytes)) != -1) {
+			while ((nread = bis.read(dataBytes)) != -1) {
 				md.update(dataBytes, 0, nread);
 			}
 		} catch (FileNotFoundException e) {
