@@ -1,5 +1,8 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.FileAlreadyExistsException;
@@ -7,7 +10,6 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -124,16 +126,21 @@ public class IndexManager {
 	 * load content of indexfile into memory
 	 */
 	private void scanIndex() {
-		try (Scanner indexScanner = new Scanner(index)) {
+		try (/* Scanner indexScanner = new Scanner(index); */
+				BufferedReader br = new BufferedReader(new FileReader(index));) {
 			int lineCnt = 0;
 			int notFoundFiles = 0;
 			System.out.println("-----");
-			while (indexScanner.hasNextLine()) {
+			String sCurrentLine;
+			while ((sCurrentLine = br.readLine()) != null) {
+				System.out.println(sCurrentLine);
+
+				// while (indexScanner.hasNextLine()) {
 				++lineCnt;
-				String line = indexScanner.nextLine();
+				// String line = indexScanner.nextLine();
 				if (debug)
-					System.out.println(line);
-				String[] lineContent = line.split(",");
+					System.out.println(sCurrentLine);
+				String[] lineContent = sCurrentLine.split(",");
 				if (lineContent.length < 2) {
 					System.out.println("No valid index in line: " + lineCnt);
 					continue;
@@ -159,6 +166,9 @@ public class IndexManager {
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 	}
 
@@ -187,11 +197,15 @@ public class IndexManager {
 						System.out.println("Ignored: " + analysisDir.toString());
 						continue;
 					}
+					if (Files.isSymbolicLink(currentFile.toPath())) {
+						continue;
+					}
 					if (currentFile.isDirectory()) {
 						pendingDirectories.add(currentFile);
-					} else {
-						allFiles.add(currentFile);
+						continue;
 					}
+
+					allFiles.add(currentFile);
 				}
 			} catch (NullPointerException e) {
 				System.out.println("Can not access: " + analysisDir.toString() + " : NullPointerException");
@@ -209,6 +223,7 @@ public class IndexManager {
 
 		int alreadyIndexed = 0;
 		for (File file : allFiles) {
+
 			try {
 				String hash = MD5.fromFile(file);
 				if (hash != null) {
@@ -239,15 +254,15 @@ public class IndexManager {
 		if (alreadyIndexed > 0) {
 			System.out.println(alreadyIndexed + " files already indexed.");
 		}
-		try (PrintWriter writer = new PrintWriter(indexDirectoryPath + indexFileName, "UTF-8")) {
+		try (BufferedWriter writer = new BufferedWriter(new PrintWriter(indexDirectoryPath + indexFileName, "UTF-8"))) {
 			for (String key : indexFromFile.keySet()) {
-				writer.print(key);
+				writer.write(key);
 				if (indexFromFile.get(key) != null) {
 					for (File file : indexFromFile.get(key)) {
-						writer.print("," + file.toString());
+						writer.write("," + file.toString());
 					}
 				}
-				writer.println();
+				writer.newLine();
 			}
 			writer.flush();
 		} catch (IOException e) {
