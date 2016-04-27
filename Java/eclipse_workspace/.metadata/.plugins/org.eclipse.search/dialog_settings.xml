@@ -3,6 +3,14 @@
 	<section name="SearchDialog.ScopePart">
 		<item value="0" key="scope"/>
 	</section>
+	<section name="">
+		<item value="1000" key="org.eclipse.jdt.search.resultpage.limit"/>
+		<item value="TRUE" key="org.eclipse.jdt.search.resultpage.limit_enabled"/>
+	</section>
+	<section name="">
+		<item value="1000" key="org.eclipse.jdt.search.resultpage.limit"/>
+		<item value="TRUE" key="org.eclipse.jdt.search.resultpage.limit_enabled"/>
+	</section>
 	<section name="Search">
 		<list key="Search.processedPageIds">
 			<item value="org.eclipse.rse.internal.files.ui.search.searchPage"/>
@@ -26,9 +34,13 @@
 	<section name="SearchDialog">
 		<item value="org.eclipse.jdt.ui.JavaSearchPage" key="PREVIOUS_PAGE"/>
 	</section>
+	<section name="org.eclipse.jdt.ui.JavaSearchResultPage">
+		<item value="1000" key="org.eclipse.jdt.search.resultpage.limit"/>
+		<item value="TRUE" key="org.eclipse.jdt.search.resultpage.limit_enabled"/>
+	</section>
 	<section name="DialogBounds_SearchDialog">
 		<item value="842" key="DIALOG_WIDTH"/>
-		<item value="1|Ubuntu|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+		<item value="1|Ubuntu|10.864198|0|GTK|1|" key="DIALOG_FONT_NAME"/>
 		<item value="497" key="DIALOG_HEIGHT"/>
 		<item value="540" key="DIALOG_X_ORIGIN"/>
 		<item value="245" key="DIALOG_Y_ORIGIN"/>

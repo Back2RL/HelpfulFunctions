@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="sprengen" key="selection"/>
+		<item value="" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="instert"/>
 			<item value="sprengen"/>
 			<item value="run()"/>
 			<item value="fromFile("/>
@@ -15,7 +16,6 @@
 			<item value="System.out.println"/>
 			<item value="exists"/>
 			<item value="debug"/>
-			<item value="indexFromFile"/>
 		</list>
 		<list key="replacehistory">
 			<item value=".0"/>
@@ -23,7 +23,7 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="313" key="DIALOG_WIDTH"/>
-		<item value="1|Ubuntu|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+		<item value="1|Ubuntu|11.354838|0|GTK|1|" key="DIALOG_FONT_NAME"/>
 		<item value="419" key="DIALOG_HEIGHT"/>
 		<item value="1030" key="DIALOG_X_ORIGIN"/>
 		<item value="150" key="DIALOG_Y_ORIGIN"/>
