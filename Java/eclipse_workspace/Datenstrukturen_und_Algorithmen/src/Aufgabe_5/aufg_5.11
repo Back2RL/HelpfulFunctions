@@ -1,0 +1,87 @@
+x^(2^-k) = x^(1/2^k)
+x^(1/2)
+x^(1/4) = (x^(1/2))^(1/2)
+x^(1/8) = ((x^(1/2))^(1/2))^(1/2)
+x^(1/16)= (((x^(1/2))^(1/2))^(1/2))^(1/2)
+
+11.
+
+Algorithm ln(x, anzahl)
+	wert <= sqrt(x)
+	produkt = 2 /(wert + 1/wert)
+	for k <= 2 to anzahl do
+		wert <= sqrt(wert)
+		prudukt <= produkt * 2 /(wert + 1/wert)
+		
+	return 0.5 * (x - 1/x) * produkt
+	
+12.a
+
+Algorithm max(liste[])
+	max <= liste[0] 
+	for i <= 1 to liste[].length do
+		if liste[i] > max
+			max <= liste[i]
+	return max
+	
+
+Algorithm min(liste[])
+	min <= liste[0] 
+	for i <= 1 to liste[].length do
+		if liste[i] < min
+			min <= liste[i]
+	return min
+
+12.b	
+insgesamt 2*(n-1) Schlüsselvergleiche
+
+12.c
+Algorithm divideConquer(liste[])
+	if liste[].length = 1
+		min <= liste[0]
+		max <= min
+		return max,min
+	if liste[].length = 2
+		if liste[0] < liste[1]
+			min <= liste[0]
+			max <= liste[1]
+			return max,min
+		min <= liste[1]
+		max <= liste[0]
+		return max,min
+	result1 <= divideConquer( new liste[0 to length/2])
+	result2 <= divideConquer( new liste[length/2 to length])
+	if result1 < result2
+		min <= result1
+		max <= result2
+		return max,min
+	min <= result2
+	max <= result1
+	return max,min
+	
+12.d
+
+Algorithm divideConquer(liste[], a, b)
+	if a = b
+		min <= liste[a]
+		max <= min
+		return max,min
+	if (b-a) = 1
+		if liste[a] < liste[b]
+			min <= liste[a]
+			max <= liste[b]
+			return max,min
+		min <= liste[b]
+		max <= liste[a]
+		return max,min
+	middle <= (a+b)/2
+	result1 <= divideConquer( liste[], a, middle)
+	result2 <= divideConquer( liste[], middle + 1, b)
+	if result1 < result2
+		min <= result1
+		max <= result2
+		return max,min
+	min <= result2
+	max <= result1
+	return max,min	
+	
