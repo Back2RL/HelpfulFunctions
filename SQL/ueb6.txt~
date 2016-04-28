@@ -1,0 +1,70 @@
+DROP TABLE Ang_Pro;
+DROP TABLE Project;
+DROP TABLE Angest;
+CREATE TABLE Angest(
+	Angnr INTEGER ,
+	Name VARCHAR(20) NOT NULL,
+	Wohnort VARCHAR(20),
+	Beruf VARCHAR(20),
+	Gehalt INTEGER NOT NULL,
+	AbtNr SMALLINT NOT NULL,
+	CONSTRAINT Angest_PK PRIMARY KEY (Angnr),
+	CONSTRAINT AngNrDreistellig CHECK(Angnr >= 100),
+	CONSTRAINT PositvesGehalt CHECK(Gehalt >= 0)
+	);
+	
+CREATE TABLE Project(
+	PNR INTEGER,
+	P_Name VARCHAR(20) NOT NULL,
+	P_Beschr VARCHAR(200) DEFAULT '...',
+	P_Leiter INTEGER,
+	FOREIGN KEY (P_Leiter)
+	REFERENCES Angest(Angnr),
+	CONSTRAINT Project_PK PRIMARY KEY (PNR),
+	CONSTRAINT LeiterNotwendig CHECK(P_Leiter IS NOT NULL)
+);
+CREATE TABLE Ang_Pro(
+	PNR INTEGER,
+	AngNr INTEGER,
+	Proz_Arb INTEGER,
+	CONSTRAINT Ang_Pro_PK PRIMARY KEY (PNR,AngNr),
+	FOREIGN KEY (PNR)
+		REFERENCES Project(PNR),
+	FOREIGN KEY (AngNr)
+		REFERENCES Angest(Angnr)
+	);
+	
+INSERT INTO Angest VALUES(112,'Müller','Karlsruhe','Programmiererin',4500,3);
+INSERT INTO Angest VALUES(205,'Winter','Hamburg','Analytikerin',5600,3);
+INSERT INTO Angest VALUES(117,'Matthäus','Osnabrück','Werbefachfrau',8000,5);
+INSERT INTO Angest VALUES(198,'Schmidt','Hannover','Ingenieur',6400,4);
+INSERT INTO Angest VALUES(199,'Huber','Hannover','Administrator',5000,3);
+
+INSERT INTO Project VALUES(12,'Datawarehouse',DEFAULT,205);
+INSERT INTO Project VALUES(18,'Intranet',DEFAULT,117);
+INSERT INTO Project VALUES(17,'Projekt DBMigration',DEFAULT,198);
+INSERT INTO Project VALUES(33,'VU',DEFAULT,198);
+
+INSERT INTO Ang_Pro VALUES(12,112,100);
+INSERT INTO Ang_Pro VALUES(18,205,20);
+INSERT INTO Ang_Pro VALUES(17,117,70);
+INSERT INTO Ang_Pro VALUES(17,198,30);
+INSERT INTO Ang_Pro VALUES(18,198,80);
+INSERT INTO Ang_Pro VALUES(33,198,50);
+
+ALTER TABLE Angest ADD(
+Einstellungsdatum DATE DEFAULT SYSDATE,
+CONSTRAINT Datum_angeben CHECK(Einstellungsdatum IS NOT NULL)
+);
+
+ALTER TABLE Ang_Pro DROP COLUMN Proz_Arb;
+
+DELETE FROM Ang_Pro WHERE PNR = (
+  SELECT PNR FROM PROJECT WHERE P_NAME = 'Projekt DBMigration'
+);
+
+DELETE FROM PROJECT WHERE P_NAME = 'Projekt DBMigration';
+
+
+
+

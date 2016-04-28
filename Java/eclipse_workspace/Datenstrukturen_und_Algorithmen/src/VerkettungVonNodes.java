@@ -7,15 +7,48 @@ public class VerkettungVonNodes {
 		Node first = new Node(1, null, null);
 		Node second = new Node(2, first, null);
 		Node third = new Node(3, second, null);
+		third.setNext(new Node(5, null, null));
 
-		Node curr = first;
+		Node curr = first.getHead();
 
-		System.out.println(curr);
+		while (curr != null && !(curr.getContentNoInkrement() == 5)) {
+			System.out.println(curr.getContent());
+
+			System.out.println(curr);
+			System.out.println("AC = " + curr.getAccessCount());
+			curr = curr.getNext();
+		}
+		System.out.println("-----");
+		curr = first;
+
 		while (curr != null) {
 			System.out.println(curr.getContent());
-			curr = curr.getNext();
+
 			System.out.println(curr);
+			System.out.println("AC = " + curr.getAccessCount());
+			curr = curr.getNext();
+		}
+		System.out.println("-----");
+		curr = first;
+
+		while (curr != null) {
+			System.out.println(curr.getContent());
+
+			System.out.println(curr);
+			System.out.println("AC = " + curr.getAccessCount());
+			curr = curr.getNext();
+		}
+		System.out.println("-----");
+		curr = first;
+
+		while (curr != null) {
+			System.out.println(curr.getContent());
+
+			System.out.println(curr);
+			System.out.println("AC = " + curr.getAccessCount());
+			curr = curr.getNext();
 		}
 		System.out.println("finished");
+
 	}
 }

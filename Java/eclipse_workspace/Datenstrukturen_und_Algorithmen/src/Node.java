@@ -1,11 +1,28 @@
 
 public class Node {
+	private int accessCount = 0;
+
+	public int getAccessCount() {
+		return accessCount;
+	}
+
 	private int content;
 
 	private Node head;
 	private Node tail;
 
 	public int getContent() {
+		accessCount++;
+		if (!this.equals(head)) {
+			if (previous.getAccessCount() < accessCount) {
+				previous.setNext(next);
+				setPrevious(previous.getPrevious());
+			}
+		}
+		return content;
+	}
+
+	public int getContentNoInkrement() {
 		return content;
 	}
 

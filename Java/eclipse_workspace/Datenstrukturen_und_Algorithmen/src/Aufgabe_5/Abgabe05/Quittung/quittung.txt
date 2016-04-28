@@ -1,0 +1,22 @@
+Kurs: AD (Algorithmen und Datenstrukturen) im SS2016
+Blatt: A.5 (Näherungsverfahren, Listen, Mergesort)
+Abgabezeitpunkt: 28.04.16 17:19:20
+MD5-Summe der Abgabe: dc7da492574bf466a211d6eea1297504.
+Matrikelnummer(n): 1276156
+Partner-Matrikelnummer(n): 1302082
+------START-PROPS------------
+VjAwMS4wMDFrdXJzX2lkPTExMztibGF0
+dF9pZD0xMTkzO3plaXRwdW5rdD0xNDYx
+ODU2NzYwO21kNT1kYzdkYTQ5MjU3NGJm
+NDY2YTIxMWQ2ZWVhMTI5NzUwNDttYXRu
+cm49MTI3NjE1NjtwYXJ0bmVyPTEzMDIw
+ODI7cGxhZ3JlZnVzZT0=
+------START-SIGNATUR------------
+22bb2b94d255a8883f22ee1d1c5bf0a0
+cb23fd662960d4e56fa6c7869bf7c498
+5df35e2bb17fbbcde5920bd6f2261c22
+ea6e4bca7c13e7b938ce6ee2cdbd8b34
+ce8d7b85cfa364a31384e001529034a4
+cab44800591ea9cd735a7bb30cec9e7d
+9ddee9c928c8b0302fef5f1a5c029aff
+a9fdcb324518e17c4c313bb4a54f02ce
