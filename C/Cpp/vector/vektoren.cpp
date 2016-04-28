@@ -68,7 +68,11 @@ int main(int argc, char *argv[]) {
 	int counts = 0;
 
 	bool bCanDisplayAgain = true;
-	while(timer.getSeconds()<TARGETTIME) {	
+
+	cout.setf(ios::fixed);
+	cout.precision(6);
+
+	while(timer.getSeconds()<TARGETTIME) {
 		++counts;	
 		if(timer.getNumClocks() % timer.getClocksPerSecond() == 0)  {
 			if(bCanDisplayAgain) {
@@ -95,10 +99,6 @@ sum += log((double) i);
 		v1.setY(2);
 		v1.setZ(3);
 
-#ifdef debug
-		cout.setf(ios::fixed);
-		cout.precision(6);
-#endif
 
 		double d = v1.length();
 #ifdef debug

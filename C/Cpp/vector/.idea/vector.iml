@@ -3,9 +3,9 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/Vektor.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Headers/CPUtime.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Headers/Vektor.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/vektoren.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Headers/CPUtime.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
