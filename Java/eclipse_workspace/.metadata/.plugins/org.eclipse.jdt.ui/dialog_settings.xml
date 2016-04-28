@@ -124,7 +124,7 @@
 	</section>
 	<section name="SourceActionDialog.methods">
 		<item value="true" key="IgnoreDefault"/>
-		<item value="true" key="SynchronizedModifier"/>
+		<item value="false" key="SynchronizedModifier"/>
 		<item value="false" key="Blocks"/>
 		<item value="false" key="Comments"/>
 		<item value="1" key="VisibilityModifier"/>
