@@ -6,8 +6,7 @@ package Aufgabe_5;
 import java.util.Arrays;
 
 /**
- * @author oertelt, opitzju
- *
+ * @author oertelt, opitzju *
  */
 public class DSA_1276156_05 {
 	public static final int ANZAHL_ELEMENTE = 100000;
