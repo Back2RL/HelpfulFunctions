@@ -11,24 +11,38 @@ public class Node {
 
 	public void setContent(int content) {
 		this.content = content;
+		checkPointer();
 	}
 
 	public Node getHead() {
 		return head;
 	}
 
-	public void setHead(Node head) {
+	private void setHead(Node head) {
 		this.head = head;
-		checkPointer();
+
+		if (previous != null && (previous.getHead() == null || !previous.getHead().equals(tail))) {
+			previous.setHead(head);
+		}
+		if (next != null && (next.getHead() == null || !next.getHead().equals(head))) {
+			next.setHead(head);
+		}
+
 	}
 
 	public Node getTail() {
 		return tail;
 	}
 
-	public void setTail(Node tail) {
+	private void setTail(Node tail) {
 		this.tail = tail;
-		checkPointer();
+
+		if (previous != null && (previous.getTail() == null || !previous.getTail().equals(tail))) {
+			previous.setTail(head);
+		}
+		if (next != null && (next.getTail() == null || !next.getTail().equals(tail))) {
+			next.setTail(tail);
+		}
 	}
 
 	public Node getPrevious() {
@@ -53,43 +67,26 @@ public class Node {
 	private Node next;
 
 	public Node(int value, Node previous, Node next) {
-		content = value;
-		this.previous = previous;
-		this.next = next;
-		checkPointer();
+		setContent(value);
+		setPrevious(previous);
+		setNext(next);
 	}
 
 	private void checkPointer() {
 		if (previous == null) {
 			head = this;
-			if (next != null) {
-				next.setPrevious(this);
-				next.setHead(this);
-			}
-		} else {
-			head = previous.getHead();
-			if (next != null) {
-				if (!next.getPrevious().equals(this))
-					next.setPrevious(this);
-				if (!next.getHead().equals(head))
-					next.setPrevious(tail);
-			}
 		}
 
 		if (next == null) {
 			tail = this;
-			if (previous != null) {
-				previous.setNext(this);
-				previous.setTail(this);
-			}
-		} else {
-			tail = next.getTail();
-			if (previous != null) {
-				if (!previous.getNext().equals(this))
-					previous.setNext(this);
-				if (!previous.getTail().equals(tail))
-					previous.setTail(tail);
-			}
+		}
+
+		if (previous != null && (previous.getNext() == null || !previous.getNext().equals(this))) {
+			previous.setNext(this);
+		}
+
+		if (next != null && (next.getPrevious() == null || !next.getPrevious().equals(this))) {
+			next.setPrevious(this);
 		}
 
 	}
