@@ -7,7 +7,6 @@ INDEX VERSION 1.127+/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_work
 2890921558.index
 2136309406.index
 2237058225.index
-1680435617.index
 1399089288.index
 3088331507.index
 2322831203.index
@@ -24,7 +23,7 @@ INDEX VERSION 1.127+/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_work
 1400542933.index
 3257869233.index
 1691078435.index
-366815561.index
-3549272218.index
 2410097.index
+3549272218.index
+366815561.index
 2083126098.index
