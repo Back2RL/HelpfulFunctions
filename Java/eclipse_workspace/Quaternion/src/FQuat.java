@@ -2,33 +2,33 @@
 // http://www.cbcity.de/tutorial-rotationsmatrix-und-quaternion-einfach-erklaert-in-din70000-zyx-konvention
 
 public class FQuat {
-	public static final float EPS = (float) 1E-9;
+	public static final double EPS = 1E-9;
 
 	private boolean bMagIsSet = false;
-	private float magnitude;
-	private float w, x, y, z;
+	private double magnitude;
+	private double w, x, y, z;
 
-	public float getW() {
+	public double getW() {
 		return w;
 	}
 
-	public float getX() {
+	public double getX() {
 		return x;
 	}
 
-	public float getY() {
+	public double getY() {
 		return y;
 	}
 
-	public float getZ() {
+	public double getZ() {
 		return z;
 	}
 
-	public FQuat(float w, float x, float y, float z) {
-		this.w = w;
-		this.x = x;
-		this.y = y;
-		this.z = z;
+	public FQuat(double w, double x, double y, double z) {
+		this.w = (double) w;
+		this.x = (double) x;
+		this.y = (double) y;
+		this.z = (double) z;
 		normalize();
 	}
 
@@ -36,11 +36,11 @@ public class FQuat {
 		normalize();
 	}
 
-	public float getMagnitude() {
+	public double getMagnitude() {
 		if (bMagIsSet) {
 			return magnitude;
 		}
-		magnitude = (float) Math.sqrt(w * w + x * x + y * y + z * z);
+		magnitude = Math.sqrt(w * w + x * x + y * y + z * z);
 		bMagIsSet = true;
 		return magnitude;
 	}
@@ -64,7 +64,7 @@ public class FQuat {
 			return;
 		}
 
-		float mag = getMagnitude();
+		double mag = getMagnitude();
 		w /= mag;
 		x /= mag;
 		y /= mag;
@@ -74,17 +74,20 @@ public class FQuat {
 	}
 
 	public static FQuat multiply(FQuat a, FQuat b) {
-		if (!a.isNormalized()) {
-			a.normalize();
-		}
-		if (!b.isNormalized()) {
-			b.normalize();
-		}
-		float w = a.getW() * b.getW() - a.getX() * b.getX() - a.getY() * b.getY() - a.getZ() * b.getZ();
-		float x = a.getW() * b.getX() + a.getX() * b.getW() + a.getY() * b.getZ() - a.getZ() * b.getY();
-		float y = a.getW() * b.getY() - a.getX() * b.getZ() + a.getY() * b.getW() + a.getZ() * b.getX();
-		float z = a.getW() * b.getZ() + a.getX() * b.getY() - a.getY() * b.getX() + a.getZ() * b.getW();
-		return new FQuat(w, x, y, z);
+		// if (!a.isNormalized()) {
+		// a.normalize();
+		// }
+		// if (!b.isNormalized()) {
+		// b.normalize();
+		// }
+		double newW = a.w * b.w - a.x * b.x - a.y * b.y - a.z * b.z;
+		double newX = a.w * b.x + a.x * b.w + a.y * b.z - a.z * b.y;
+		double newY = a.w * b.y - a.x * b.z + a.y * b.w + a.z * b.x;
+		double newZ = a.w * b.z + a.x * b.y - a.y * b.x + a.z * b.w;
+		// return new FQuat(newW, newX, newY, newZ);
+		FQuat res = new FQuat(newW, newX, newY, newZ);
+		res.normalize();
+		return res;
 	}
 
 	public void multiplyWith(FQuat b) {
@@ -94,10 +97,10 @@ public class FQuat {
 		if (!b.isNormalized()) {
 			b.normalize();
 		}
-		float newW = w * b.getW() - x * b.getX() - y * b.getY() - z * b.getZ();
-		float newX = w * b.getX() + x * b.getW() + y * b.getZ() - z * b.getY();
-		float newY = w * b.getY() - x * b.getZ() + y * b.getW() + z * b.getX();
-		float newZ = w * b.getZ() + x * b.getY() - y * b.getX() + z * b.getW();
+		double newW = w * b.w - x * b.x - y * b.y - z * b.z;
+		double newX = w * b.x + x * b.w + y * b.z - z * b.y;
+		double newY = w * b.y - x * b.z + y * b.w + z * b.x;
+		double newZ = w * b.z + x * b.y - y * b.x + z * b.w;
 		w = newW;
 		x = newX;
 		y = newY;
@@ -126,39 +129,39 @@ public class FQuat {
 	/**
 	 * @return index 0 : angle, index 1-3 : vector with x,y,z
 	 */
-	public float[] getRotAngleAndAxis() {
+	public double[] getRotAngleAndAxis() {
 		float angle = 2.0f * (float) Math.acos((w));
 		float s = (float) Math.sin(0.5 * angle);
 		if (s == 0.0f) {
-			float[] result = { (float) (angle * (180.0f / Math.PI)), x, y, z };
+			double[] result = { (angle * (180.0f / Math.PI)), x, y, z };
 			return result;
 		}
 
-		float[] result = { (float) (angle * (180.0f / Math.PI)), x / s, y / s, z / s };
+		double[] result = { (angle * (180.0f / Math.PI)), x / s, y / s, z / s };
 		return result;
 	}
 
-	public float getEulerYaw() {
+	public double getEulerYaw() {
 		normalize();
-		float divider = (w * w + x * x - y * y - z * z);
+		double divider = (w * w + x * x - y * y - z * z);
 		if (divider == 0.0f) {
-			return (float) (Math.atan2(2.0 * (x * y + w * z), 1.0) * (180.0 / Math.PI));
+			return (Math.atan2(2.0 * (x * y + w * z), 1.0) * (180.0 / Math.PI));
 		}
-		return (float) (Math.atan2(2.0 * (x * y + w * z), divider) * (180.0 / Math.PI));
+		return (Math.atan2(2.0 * (x * y + w * z), divider) * (180.0 / Math.PI));
 	}
 
-	public float getEulerPitch() {
+	public double getEulerPitch() {
 		normalize();
-		return (float) (Math.asin(2.0 * (w * y - x * z)) * (180.0f / Math.PI));
+		return (Math.asin(2.0 * (w * y - x * z)) * (180.0f / Math.PI));
 	}
 
-	public float getEulerRoll() {
+	public double getEulerRoll() {
 		normalize();
-		float divider = (w * w - x * x - y * y + z * z);
+		double divider = (w * w - x * x - y * y + z * z);
 		if (divider == 0.0f) {
-			return (float) -Math.atan(-2.0 * (y * z + w * x)) * (float) (180.0f / Math.PI);
+			return -Math.atan(-2.0 * (y * z + w * x)) * (180.0 / Math.PI);
 		}
-		return (float) -Math.atan(-2.0 * (y * z + w * x) / divider) * (float) (180.0f / Math.PI);
+		return -Math.atan(-2.0 * (y * z + w * x) / divider) * (180.0 / Math.PI);
 	}
 
 	public String toString() {
@@ -166,15 +169,20 @@ public class FQuat {
 	}
 
 	public static FQuat QuatMul(FQuat q1, FQuat q2) {
-		float A, B, C, D, E, F, G, H;
-		A = (q1.getW() + q1.getX()) * (q2.getW() + q2.getX());
-		B = (q1 -> z - q1 -> y) * (q2 -> y - q2 -> z);
-		C = (q1 -> w - q1 -> x) * (q2 -> y + q2 -> z);
-		D = (q1 -> y + q1 -> z) * (q2 -> w - q2 -> x);
-		E = (q1 -> x + q1 -> z) * (q2 -> x + q2 -> y);
-		F = (q1 -> x - q1 -> z) * (q2 -> x - q2 -> y);
-		G = (q1 -> w + q1 -> y) * (q2 -> w - q2 -> z);
-		H = (q1 -> w - q1 -> y) * (q2 -> w + q2 -> z);
+		// if (!q1.isNormalized()) {
+		// q1.normalize();
+		// }
+		// if (!q2.isNormalized()) {
+		// q2.normalize();
+		// }
+		double A = (q1.w + q1.x) * (q2.w + q2.x);
+		double B = (q1.z - q1.y) * (q2.y - q2.z);
+		double C = (q1.w - q1.x) * (q2.y + q2.z);
+		double D = (q1.y + q1.z) * (q2.w - q2.x);
+		double E = (q1.x + q1.z) * (q2.x + q2.y);
+		double F = (q1.x - q1.z) * (q2.x - q2.y);
+		double G = (q1.w + q1.y) * (q2.w - q2.z);
+		double H = (q1.w - q1.y) * (q2.w + q2.z);
 		return new FQuat(B + (-E - F + G + H) / 2, A - (E + F + G + H) / 2, C + (E - F + G - H) / 2,
 				D + (E - F - G + H) / 2);
 

@@ -1,5 +1,6 @@
 public class QuatTest {
-	public static final int RUNS = 50000000;
+	public static final int RUNS = 100000000;
+	public static final boolean USEA = true;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -7,7 +8,7 @@ public class QuatTest {
 		for (int i = 0; i < RUNS; ++i) {
 
 			// System.out.println("Quat a:");
-			FQuat a = new FQuat(0, 1, 1, 0);
+			FQuat a = new FQuat(Math.random(), 1, 1, 0);
 			// System.out.println(a);
 			// System.out.println(a.getEulerYaw());
 			// System.out.println(a.getEulerPitch());
@@ -17,7 +18,7 @@ public class QuatTest {
 			//
 			// System.out.println("Quat b: 20, 1, 0, 0");
 			FQuat b = new FQuat();
-			b.fromRotAndAxis(45, 0, 0, 1);
+			// b.fromRotAndAxis(45, 0, 0, 1);
 			// System.out.println(b);
 			// System.out.println(b.getEulerYaw());
 			// System.out.println(b.getEulerPitch());
@@ -26,8 +27,8 @@ public class QuatTest {
 			// System.out.println();
 			//
 			// System.out.println("Quat c: 20, 1, 0, 0");
-			FQuat c = new FQuat();
-			c.fromRotAndAxis(-90, 0, 1, 0);
+			// FQuat c = new FQuat();
+			// c.fromRotAndAxis(-90, 0, 1, 0);
 			// System.out.println(c);
 			// System.out.println(c.getEulerYaw());
 			// System.out.println(c.getEulerPitch());
@@ -35,7 +36,7 @@ public class QuatTest {
 			// System.out.println(Arrays.toString(c.getRotAngleAndAxis()));
 			// System.out.println();
 
-			FQuat e = FQuat.multiply(b, c);
+			// FQuat e = FQuat.multiply(b, c);
 			// System.out.println("b mit c Multipliziert: " +
 			// Arrays.toString(e.getRotAngleAndAxis()));
 			// System.out.println("c mit b Multipliziert: " +
@@ -46,6 +47,10 @@ public class QuatTest {
 			// System.out.println(e.getEulerRoll());
 			// System.out.println(Arrays.toString(e.getRotAngleAndAxis()));
 			// System.out.println();
+			if (USEA)
+				FQuat.multiply(a, b);
+			else
+				FQuat.QuatMul(a, b);
 
 		}
 		long end = System.nanoTime();
