@@ -3,13 +3,13 @@ import Loc.Loc;
 public class TestingLoc {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Loc location = new Loc("7,3");
 		System.out.println(location + " has a length of " + location.distanceFromOrigin());
 		long startTime = System.nanoTime();
 
 		for (int i = 0; i < (int) 1E9; i++) {
 			// long test = System.nanoTime();
+			@SuppressWarnings("unused")
 			long test = System.currentTimeMillis();
 		}
 

@@ -1,11 +1,10 @@
 public class QuatTest {
+	public static final int RUNS = 50000000;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		TimeMeasure timer = new TimeMeasure();
-		timer.startTimer();
-
-		for (int i = 0; i < 100000000; ++i) {
+		long start = System.nanoTime();
+		for (int i = 0; i < RUNS; ++i) {
 
 			// System.out.println("Quat a:");
 			FQuat a = new FQuat(0, 1, 1, 0);
@@ -49,6 +48,10 @@ public class QuatTest {
 			// System.out.println();
 
 		}
-		timer.stopTimer();
+		long end = System.nanoTime();
+		double runtime = (end - start) * 1E-9;
+		System.out.println("Time = " + runtime + " seconds");
+		System.out.println("Avg. = " + Math.round((end - start) * (1.0 / RUNS)) + " nanoseconds");
+
 	}
 }

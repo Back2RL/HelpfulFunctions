@@ -17,6 +17,7 @@ public class Main {
 		int sendery = console.nextInt();
 		System.out.print("Radius? ");
 		int radius = console.nextInt();
+		console.close();
 		return new Station(senderx, sendery, radius);
 	}
 
@@ -32,6 +33,7 @@ public class Main {
 			Loc city = new Loc(input.nextInt(), input.nextInt());
 			station.drawReceiver(g, city);
 		}
+		input.close();
 	}
 
 	public static void main(String[] args) throws FileNotFoundException {
