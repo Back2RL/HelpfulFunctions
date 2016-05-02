@@ -188,4 +188,33 @@ public class FQuat {
 
 	}
 
+	public static FQuat slerp(FQuat qa, FQuat qb, double t) {
+		// quaternion to return
+		qa.normalize();
+		qb.normalize();
+		FQuat qm = new FQuat();
+		// Calculate angle between them. (dot product)
+		double cosHalfTheta = qa.w * qb.w + qa.x * qb.x + qa.y * qb.y + qa.z * qb.z;
+
+		// Calculate temporary values.
+		double halfTheta = Math.acos(cosHalfTheta);
+		double sinHalfTheta = Math.sqrt(1.0 - cosHalfTheta * cosHalfTheta);
+		// if theta = 180 degrees then result is not fully defined
+		// we could rotate around any axis normal to qa or qb
+		if (Math.abs(sinHalfTheta) < 0.001) { // fabs is floating point absolute
+			qm.w = (qa.w * 0.5 + qb.w * 0.5);
+			qm.x = (qa.x * 0.5 + qb.x * 0.5);
+			qm.y = (qa.y * 0.5 + qb.y * 0.5);
+			qm.z = (qa.z * 0.5 + qb.z * 0.5);
+			return qm;
+		}
+		double ratioA = Math.sin((1 - t) * halfTheta) / sinHalfTheta;
+		double ratioB = Math.sin(t * halfTheta) / sinHalfTheta;
+		// calculate Quaternion.
+		qm.w = (qa.w * ratioA + qb.w * ratioB);
+		qm.x = (qa.x * ratioA + qb.x * ratioB);
+		qm.y = (qa.y * ratioA + qb.y * ratioB);
+		qm.z = (qa.z * ratioA + qb.z * ratioB);
+		return qm;
+	}
 }
