@@ -1,15 +1,28 @@
 public class QuatTest {
-	public static final int RUNS = 1000000;
+	public static final int RUNS = 30000000;
 	public static final boolean USEA = true;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		long start = System.nanoTime();
+
 		for (int i = 0; i < RUNS; ++i) {
 
 			// System.out.println("Quat a:");
 			double x = Math.random();
 			FQuat a = new FQuat(x, x, x, x);
+
+		}
+		long temp = System.nanoTime() - start;
+		System.out.println("Temp time = " + temp * 1E-9);
+		start = System.nanoTime();
+
+		for (int i = 0; i < RUNS; ++i) {
+
+			// System.out.println("Quat a:");
+			double x = Math.random();
+			FQuat a = new FQuat(x, x, x, x);
+
 			// FQuat a = new FQuat(0, 0, 1, 0);
 			// System.out.println(a);
 			// System.out.println(a.getEulerYaw());
@@ -60,9 +73,9 @@ public class QuatTest {
 
 		}
 		long end = System.nanoTime();
-		double runtime = (end - start) * 1E-9;
-		System.out.println("Time = " + runtime + " seconds");
-		double nanoPerRun = (double) (end - start) / RUNS;
+		double runtime = end - start - temp;
+		System.out.println("Time = " + runtime * 1E-9 + " seconds");
+		double nanoPerRun = runtime / RUNS;
 		System.out.println("Avg. = " + Math.round(nanoPerRun) + " nanoseconds");
 		System.out.println("Avg.  per second = " + (int) (1E0 / (nanoPerRun * 1E-9)));
 		System.out.println("Avg.  per millis = " + (int) (1E-3 / (nanoPerRun * 1E-9)));
