@@ -1,7 +1,7 @@
 package Aufgabe_6;
 
 public class SinglyLinkedList {
-	private static final boolean WITH_CHECK = true;
+	private static final boolean WITH_CHECK = false;
 
 	private Node head;
 
@@ -134,28 +134,27 @@ public class SinglyLinkedList {
 	 * @param L
 	 */
 	public void merge(SinglyLinkedList L) {
-		Node currL1 = head;
-		Node currL2 = L.head;
+		Node L1 = head;
+		Node L2 = L.head.getPointer();
 		while (true) {
-			System.out.println(this);
-			System.out.println(currL1.getValue() + " / " + currL2.getValue());
-			if (currL1.getValue() < currL2.getValue()) {
-				insertBefore(new Node(currL2), currL1.getPointer());
-				currL1 = currL1.getPointer();
-			}
-			if (currL1.getValue() == currL2.getValue()) {
-				currL2 = currL2.getPointer();
-				currL1 = currL1.getPointer();
-			}
-			if (currL1.getValue() > currL2.getValue()) {
-				insertBefore(new Node(currL2), currL1);
-				if (currL1.equals(tail)) {
-					tail.getPointer().setPointer(L.head.getPointer());
+			if ((L1.equals(head) || L1.getValue() <= L2.getValue())
+					&& (L1.getPointer().getValue() >= L2.getValue() || L1.getPointer().equals(tail))) {
+				Node temp = L2.getPointer();
+				this.insert(L2, L1);
+				L2 = temp;
+				if (L2.equals(L.tail)) {
+					break;
+				}
+			} else {
+				if (!L1.equals(tail)) {
+					L1 = L1.getPointer();
+				} else {
 					break;
 				}
 			}
 		}
-
+		L.head.setPointer(L.tail);
+		L.tail.setPointer(L.head);
 	}
 
 	public void add(int value) {

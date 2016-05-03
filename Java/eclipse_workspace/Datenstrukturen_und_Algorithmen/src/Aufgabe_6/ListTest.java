@@ -21,17 +21,21 @@ public class ListTest {
 		System.out.println(liste);
 
 		SinglyLinkedList sorted1 = new SinglyLinkedList();
-		sorted1.add(1);
-		sorted1.add(3);
-		sorted1.add(5);
+		sorted1.add(100);
+		sorted1.add(200);
+		sorted1.add(300);
 		System.out.println(sorted1);
 		SinglyLinkedList sorted2 = new SinglyLinkedList();
 		sorted2.add(2);
 		sorted2.add(4);
-		sorted2.add(6);
+		sorted2.add(8);
+		sorted2.add(10);
 		System.out.println(sorted2);
-		sorted1.merge(sorted2);
+
+		// sorted1.merge(sorted2);
+		sorted2.merge(sorted1);
 		System.out.println("merged " + sorted1);
+		System.out.println(sorted2);
 
 	}
 
