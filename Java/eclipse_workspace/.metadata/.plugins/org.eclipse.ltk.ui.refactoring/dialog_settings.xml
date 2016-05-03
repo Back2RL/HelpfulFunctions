@@ -2,8 +2,8 @@
 <section name="Workbench">
 	<section name="RefactoringStatusDialog">
 		<item value="806" key="DIALOG_WIDTH"/>
-		<item value="484" key="DIALOG_HEIGHT"/>
-		<item value="1|Droid Sans|10.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+		<item value="472" key="DIALOG_HEIGHT"/>
+		<item value="1|Droid Sans|8.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="RefactoringWizard.preview">
 		<item value="400" key="height"/>
