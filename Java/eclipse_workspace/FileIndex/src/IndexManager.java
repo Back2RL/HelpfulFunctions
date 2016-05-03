@@ -14,10 +14,17 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class IndexManager {
-
-	private boolean debug = false;
-	private boolean bUseMaxFileSize = false;
+	private static final String indexSeperator = ";";
+	private final boolean DEBUG = false;
+	private boolean bUseMaxFileSize;
 	private long maxFileSize = 100 * 1024; // 100 KB
+
+	private final String indexFileName = "index.csv";
+	private String indexDirectoryPath;
+
+	private Map<String, TreeSet<File>> indexFromFile = new TreeMap<String, TreeSet<File>>();
+	private File index;
+	private File indexDirectory;
 
 	public boolean isbUseMaxFileSize() {
 		return bUseMaxFileSize;
@@ -35,11 +42,20 @@ public class IndexManager {
 		this.maxFileSize = maxFileSize;
 	}
 
-	private final String indexFileName = "index.csv";
-	private String indexDirectoryPath;
-	private File index;
-	private File indexDirectory;
-	private Map<String, TreeSet<File>> indexFromFile = new TreeMap<String, TreeSet<File>>();
+	/**
+	 * @param pathToIndexDirectory
+	 * @param maxFileSize
+	 *            in Bytes 100 * 1024 => 100KB
+	 * @throws IllegalArgumentException
+	 *             given path has to point to a directory and must not be
+	 *             empty/null
+	 */
+	IndexManager(String pathToIndexDirectory, long maxFileSize) {
+		this.bUseMaxFileSize = true;
+		this.maxFileSize = maxFileSize;
+		indexDirectory = getDirectory(pathToIndexDirectory);
+		indexDirectoryPath = getDirectory(pathToIndexDirectory).getAbsolutePath() + File.separatorChar;
+	}
 
 	/**
 	 * @param pathToIndexDirectory
@@ -48,6 +64,7 @@ public class IndexManager {
 	 *             empty/null
 	 */
 	IndexManager(String pathToIndexDirectory) {
+		this.bUseMaxFileSize = false;
 		indexDirectory = getDirectory(pathToIndexDirectory);
 		indexDirectoryPath = getDirectory(pathToIndexDirectory).getAbsolutePath() + File.separatorChar;
 	}
@@ -112,7 +129,7 @@ public class IndexManager {
 			System.exit(0);
 		}
 
-		if (debug) {
+		if (DEBUG) {
 			System.out.println("Listing all files in directory: \"" + indexDirectoryPath + "\"");
 			System.out.println("-----");
 			for (File file : indexDirectory.listFiles()) {
@@ -126,36 +143,40 @@ public class IndexManager {
 	 * load content of indexfile into memory
 	 */
 	private void scanIndex() {
-		try (/* Scanner indexScanner = new Scanner(index); */
-				BufferedReader br = new BufferedReader(new FileReader(index));) {
+
+		try (BufferedReader br = new BufferedReader(new FileReader(index))) {
+
 			int lineCnt = 0;
 			int notFoundFiles = 0;
 			System.out.println("-----");
+
 			String sCurrentLine;
 			while ((sCurrentLine = br.readLine()) != null) {
-				System.out.println(sCurrentLine);
-
-				// while (indexScanner.hasNextLine()) {
 				++lineCnt;
-				// String line = indexScanner.nextLine();
-				if (debug)
-					System.out.println(sCurrentLine);
-				String[] lineContent = sCurrentLine.split(",");
+
+				String[] lineContent = sCurrentLine.split(indexSeperator);
 				if (lineContent.length < 2) {
 					System.out.println("No valid index in line: " + lineCnt);
 					continue;
 				}
-				if (debug)
+				if (DEBUG) {
 					System.out.println(Arrays.toString(lineContent));
+				}
+
 				TreeSet<File> entries = new TreeSet<>();
 				for (int i = 1; i < lineContent.length; ++i) {
+
 					File file = new File(lineContent[i]);
 					if (file.exists()) {
 						entries.add(file);
 					} else {
 						++notFoundFiles;
+						System.out.println("Missing: " + lineContent[i]);
 					}
 				}
+
+				if (entries.isEmpty())
+					continue;
 				indexFromFile.put(lineContent[0], entries);
 			}
 			System.out.println("-----");
@@ -259,7 +280,7 @@ public class IndexManager {
 				writer.write(key);
 				if (indexFromFile.get(key) != null) {
 					for (File file : indexFromFile.get(key)) {
-						writer.write("," + file.toString());
+						writer.write(indexSeperator + file.toString());
 					}
 				}
 				writer.newLine();

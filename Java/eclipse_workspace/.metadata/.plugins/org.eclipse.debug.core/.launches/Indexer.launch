@@ -7,6 +7,6 @@
 <listEntry value="1"/>
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="Indexer"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="X: C:\Users"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="/home/leo/ /home/leo/"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="FileIndex"/>
 </launchConfiguration>

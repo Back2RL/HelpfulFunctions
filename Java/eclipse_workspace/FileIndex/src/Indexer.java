@@ -1,6 +1,9 @@
+import java.io.File;
 import java.util.Scanner;
 
 public class Indexer {
+
+	public static final boolean DEBUG = false;
 
 	public static void main(String[] args) {
 
@@ -9,42 +12,66 @@ public class Indexer {
 			System.out.println("help: ./Indexer [path to index-directory] [path to analysis-directory]");
 			throw new IllegalArgumentException("Invalid Arguments");
 		}
-		// print given arguments
+
+		// make sure the given paths end with system specific sperator char
+		String indexDir = shallEndWithSuffix(args[0], "" + File.separatorChar);
+		String analyzeDir = shallEndWithSuffix(args[1], "" + File.separatorChar);
+
+		// print given paths
 		System.out.println("Given arguments: ");
 		System.out.println("-----");
-		System.out.println("Indexdirectory:    \"" + args[0] + "\"");
-		System.out.println("Analysisdirectory: \"" + args[1] + "\"");
+		System.out.println("Indexdirectory:    \"" + indexDir);
+		System.out.println("Analysisdirectory: \"" + analyzeDir);
 		System.out.println("-----");
 
 		// create an IndeManager object
-		IndexManager index = new IndexManager(args[0]);
-		index.setbUseMaxFileSize(false);
+		IndexManager index = new IndexManager(indexDir);
 
 		// try to open an existing index file
 		if (index.loadIndex()) {
-			String userInput;
-			boolean bDoBackup;
-			boolean bValidInput;
-			Scanner console = null;
-			do {
-				System.out.print("Create Backup of existing Index? (y/n) : ");
-				console = new Scanner(System.in);
-				userInput = console.nextLine();
-				console.close();
-				bDoBackup = userInput.trim().toLowerCase().equals("y");
-				bValidInput = userInput.trim().toLowerCase().equals("n");
-			} while (!bDoBackup && !bValidInput);
-			if (console != null)
-				console.close();
-			if (bDoBackup) {
-				System.out.println("Creating Backup of Indexfile.");
-				index.createIndexBackup();
+			try (Scanner console = new Scanner(System.in)) {
+				// while no valid user input received continue asking for input
+				while (true) {
+					System.out.print("Create Backup of existing Index? (yes: y; no: n; exit: x) : ");
+					String userInput = console.nextLine().trim().toLowerCase();
+
+					// create backup of existing index
+					if (userInput.equals("y")) {
+						System.out.println("Creating Backup of Indexfile.");
+						index.createIndexBackup();
+						break;
+					}
+
+					// no backup, break
+					if (userInput.equals("n")) {
+						break;
+					}
+
+					// exit
+					if (userInput.equals("x")) {
+						System.out.println("Exit");
+						System.exit(0);
+					}
+				}
+			} catch (Exception e) {
+				// in case anything happens
+				e.printStackTrace();
 			}
 
-			// index.printIndex();
+			if (DEBUG) {
+				index.printIndex();
+			}
 		} else {
 			System.out.println("File not found: A new index file will be created");
 		}
-		index.analyzeDirectory(args[1]);
+
+		// look for not indexed files/duplicates and create new index file
+		index.analyzeDirectory(analyzeDir);
+	}
+
+	public static String shallEndWithSuffix(String in, String suffix) {
+		if (!in.endsWith(suffix))
+			return in + suffix;
+		return in;
 	}
 }
