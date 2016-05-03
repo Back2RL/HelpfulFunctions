@@ -44,6 +44,11 @@ import javax.swing.JPanel;
  */
 public class AntiAliasingDemo extends JFrame implements MouseListener, MouseMotionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	// A string to display in the window.
 	private static final String DISPLAY_STRING = "Hello World!";
 

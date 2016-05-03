@@ -1,3 +1,4 @@
+
 /**
  * File: SmoothMovement.java
  *
@@ -33,6 +34,11 @@ import java.awt.image.BufferStrategy;
  * @author Nick
  */
 public class SmoothMovement extends Canvas {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	// performance settings
 	static {

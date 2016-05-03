@@ -30,6 +30,11 @@ import javax.swing.JPanel;
  */
 public class ToggleFullscreen extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	// a reference to the GraphicsDevice for changing resolution and making
 	// this window fullscreen.
 	private GraphicsDevice device = null;
@@ -68,6 +73,11 @@ public class ToggleFullscreen extends JFrame {
 
 		// create an Anonymous JPanel to do rendering
 		drawingArea = new JPanel() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			public void paint(Graphics g) {
 				// display toggling instructions.
 				g.drawString("Press 'f' key to toggle fullscreen", 10, 20);
