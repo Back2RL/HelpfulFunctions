@@ -30,6 +30,5 @@ public class Node {
 
 	public Node(Node other) {
 		setValue(value);
-		setPointer(other.pointer);
 	}
 }
