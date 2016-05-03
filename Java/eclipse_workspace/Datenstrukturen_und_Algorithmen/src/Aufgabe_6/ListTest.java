@@ -21,6 +21,9 @@ public class ListTest {
 		System.out.println(liste);
 
 		SinglyLinkedList sorted1 = new SinglyLinkedList();
+		sorted1.add(1);
+		sorted1.add(1);
+		sorted1.add(2);
 		sorted1.add(100);
 		sorted1.add(200);
 		sorted1.add(300);

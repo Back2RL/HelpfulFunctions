@@ -1,7 +1,7 @@
 package Aufgabe_6;
 
 public class SinglyLinkedList {
-	private static final boolean WITH_CHECK = false;
+	private static final boolean WITH_CHECK = true;
 
 	private Node head;
 

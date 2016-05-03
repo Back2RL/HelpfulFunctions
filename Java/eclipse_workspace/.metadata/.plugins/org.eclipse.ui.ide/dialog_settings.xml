@@ -12,8 +12,8 @@
 		<item value="false" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
 		<item value="false" key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
-			<item value="/home/leo/GitHub/HelpfulFunctions"/>
 			<item value="C:\Users\Leo\Documents\GitHub\HelpfulFunctions\Java\eclipse_workspace"/>
+			<item value="/home/leo/GitHub/HelpfulFunctions"/>
 			<item value="/home/stud/oertelt/GitHub/HelpfulFunctions"/>
 		</list>
 		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
