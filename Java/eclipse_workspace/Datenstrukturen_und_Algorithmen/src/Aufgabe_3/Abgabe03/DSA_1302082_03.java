@@ -1,3 +1,5 @@
+package Aufgabe_3.Abgabe03;
+
 public class DSA_1302082_03 {
 
 	private final static long LIMIT = 62;
@@ -16,9 +18,8 @@ public class DSA_1302082_03 {
 	}
 
 	/**
-	 * correct result up to binom(61,30)
-	 * WolframAlpha result for binom(62,31): 465428353255261088
-	 * this method:							-129627907186982512
+	 * correct result up to binom(61,30) WolframAlpha result for binom(62,31):
+	 * 465428353255261088 this method: -129627907186982512
 	 */
 	public static long binomialLittleBetter(final long n, final long k) {
 		binomialPrecondition(n, k);
@@ -37,9 +38,8 @@ public class DSA_1302082_03 {
 	}
 
 	/**
-	 * correct result up to binom(20,10)
-	 * WolframAlpha result for binom(21,10): 352716
-	 * this method:							-29335
+	 * correct result up to binom(20,10) WolframAlpha result for binom(21,10):
+	 * 352716 this method: -29335
 	 */
 	public static long binomialStupid(final long n, final long k) {
 		binomialPrecondition(n, k);
@@ -47,12 +47,11 @@ public class DSA_1302082_03 {
 	}
 
 	/**
-	 * Infeasibly slow for values over ~34
-	 * Largest calculated: binom(40,20) = 137846528820
-	 * time taken: 190,51 seconds
+	 * Infeasibly slow for values over ~34 Largest calculated: binom(40,20) =
+	 * 137846528820 time taken: 190,51 seconds
 	 */
 	public static long binomialStupidRecursive(final long n, final long k) {
-		//binomialPrecondition(n, k);
+		// binomialPrecondition(n, k);
 		if (k == 1)
 			return n;
 		if (k == n)

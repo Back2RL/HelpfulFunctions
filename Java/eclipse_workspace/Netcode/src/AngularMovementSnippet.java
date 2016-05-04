@@ -64,6 +64,7 @@ public class AngularMovementSnippet extends Canvas {
 	private Actor player = new Actor();
 
 	// just a gradient background for our little demo.
+	@SuppressWarnings("unused")
 	private Paint backgroundGradient;
 
 	// our little basic blocks speed, which will be multipled by the number

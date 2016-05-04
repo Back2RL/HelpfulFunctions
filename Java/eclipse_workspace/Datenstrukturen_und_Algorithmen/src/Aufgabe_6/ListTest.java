@@ -39,6 +39,13 @@ public class ListTest {
 		sorted2.merge(sorted1);
 		System.out.println("merged " + sorted1);
 		System.out.println(sorted2);
+		Node is8 = sorted2.get(8);
+		sorted2.delete(is8);
+		System.out.println(sorted2);
+		sorted2.delete(200);
+		sorted2.delete(300);
+		System.out.println(sorted2);
+		System.out.println(sorted2);
 
 	}
 

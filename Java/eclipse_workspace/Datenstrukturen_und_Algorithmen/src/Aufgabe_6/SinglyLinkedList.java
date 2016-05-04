@@ -1,7 +1,7 @@
 package Aufgabe_6;
 
 public class SinglyLinkedList {
-	private static final boolean WITH_CHECK = true;
+	private static final boolean CHECK_ELEMENT_EXISTENCE = false;
 
 	private Node head;
 
@@ -53,41 +53,42 @@ public class SinglyLinkedList {
 		L.insertBefore(x, p);
 	}
 
-	public void insertBefore(Node x, Node p) {
-		Node previous = head;
-		while (!previous.getPointer().equals(p) && !previous.getPointer().equals(tail)) {
-			previous = previous.getPointer();
-		}
-		if (previous.equals(tail)) {
+	public void insertBefore(Node x, Node next) {
+		Node previous = getPrevious(next);
+		if (previous == null) {
 			throw new IllegalArgumentException("Node is not part of List");
 		}
 		insert(x, previous);
 	}
 
-	public void insert(Node x, Node p) {
-		if (p == null || x == null) {
+	public void insert(Node x, Node previous) {
+		if (previous == null || x == null) {
 			throw new IllegalArgumentException("Nodes must not be null");
 		}
-
-		if (WITH_CHECK) {
-			if (!contains(p)) {
-				System.err.println("Node with value " + p.getValue() + " is not entry of List");
+		if (CHECK_ELEMENT_EXISTENCE) {
+			if (!contains(previous)) {
+				System.err.println("Node with value " + previous.getValue() + " is not entry of List");
 				throw new IllegalArgumentException();
 			}
 		}
-
-		x.setPointer(p.getPointer());
-		p.setPointer(x);
-
+		x.setPointer(previous.getPointer());
+		previous.setPointer(x);
 		// tail.pointer umbiegen falls x neues letztes Element ist
 		if (x.getPointer().equals(tail)) {
 			tail.setPointer(x);
 		}
 	}
 
-	public boolean contains(Node p) {
+	public boolean contains(int value) {
+		if (get(value) == null) {
+			return false;
+		}
+		return true;
+	}
+
+	public boolean contains(Node x) {
 		Node currSelected = head;
-		while (!currSelected.equals(tail) && !currSelected.equals(p)) {
+		while (!currSelected.equals(tail) && !currSelected.equals(x)) {
 			currSelected = currSelected.getPointer();
 		}
 		if (currSelected.equals(tail)) {
@@ -158,6 +159,46 @@ public class SinglyLinkedList {
 	}
 
 	public void add(int value) {
-		insertBefore(new Node(value), tail);
+		Node added = new Node(value);
+		tail.getPointer().setPointer(added);
+		added.setPointer(tail);
+		tail.setPointer(added);
+	}
+
+	public void delete(int value) {
+		Node x = get(value);
+		if (x == null) {
+			System.err.println(value + " not entry of list");
+			return;
+		}
+		delete(x);
+	}
+
+	public void delete(Node x) {
+		Node next = x.getPointer();
+		Node previous = getPrevious(x);
+		previous.setPointer(next);
+		if (next.equals(tail)) {
+			next.setPointer(previous);
+		}
+	}
+
+	/**
+	 * @param x
+	 * @return Node that links to x or null if x not element of list
+	 */
+	public Node getPrevious(Node x) {
+		Node curr = head;
+		// gehe Liste durch und prüfe ob das nächste Element x ist
+		while (!curr.getPointer().equals(x) && !curr.getPointer().equals(tail)) {
+			curr = curr.getPointer();
+		}
+		// ist das gefundene Element das Tail Element dann ist x nicht in der
+		// Liste enthalten
+		// return null
+		if (curr.getPointer().equals(tail)) {
+			return null;
+		}
+		return curr;
 	}
 }

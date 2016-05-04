@@ -11,6 +11,7 @@ public class Server extends Thread {
 
 	private static final int PORT = 1235;
 
+	@SuppressWarnings("unused")
 	private static ServerSocket connection;
 	private boolean bIsRunning;
 	private Socket client;

@@ -9,7 +9,6 @@ public class TimeMeasure {
 	}
 
 	public void startTimer() {
-
 		// ----- Zeit messen ------
 		System.out.println("Zeit Messung start...");
 		start = System.currentTimeMillis();

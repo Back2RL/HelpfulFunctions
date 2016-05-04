@@ -1,3 +1,4 @@
+package Aufgabe_2.Abgabe02;
 
 public class DSA_1276156_02 {
 

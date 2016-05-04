@@ -1,4 +1,4 @@
-package Aufgabe_1.Abgabe;
+package Aufgabe_1.Abgabe01;
 
 // Leonard Oertelt 1276156
 // Julian Opitz 1302082
@@ -18,10 +18,9 @@ public class DSA_1276156_01 {
 			maxSum = findeMaxTeilsumme1(array);
 
 			{
-				// int[] randomArray =
-				// generiereZahlenfolge(anzahlZufallszahlen); // 10*n+1
+				int[] randomArray = generiereZahlenfolge(anzahlZufallszahlen); // 10*n+1
 				{
-					// maxSum = findeMaxTeilsumme1(randomArray);
+					maxSum = findeMaxTeilsumme1(randomArray);
 					// 4.5*n^3+2*n^2+3*n+6
 					// in Summe pro Schleife: 4.5*n^3 + 2*n^2 + 13*n + 7
 				}
@@ -32,7 +31,7 @@ public class DSA_1276156_01 {
 				}
 			}
 
-			// System.out.println("Maximale Teilsumme = " + maxSum);
+			System.out.println("Maximale Teilsumme = " + maxSum);
 		}
 		double laufzeit = laufzeitSekunden(start);
 		System.out.println(" Laufzeit = " + laufzeit + " Sekunden");

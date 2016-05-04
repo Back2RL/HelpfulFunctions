@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Aufgabe_5;
+package Aufgabe_5.Abgabe05;
 
 import java.util.Arrays;
 

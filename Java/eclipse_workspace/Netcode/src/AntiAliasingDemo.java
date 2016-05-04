@@ -50,6 +50,7 @@ public class AntiAliasingDemo extends JFrame implements MouseListener, MouseMoti
 	private static final long serialVersionUID = 1L;
 
 	// A string to display in the window.
+	@SuppressWarnings("unused")
 	private static final String DISPLAY_STRING = "Hello World!";
 
 	// backbuffer for page flipping, not initialized because we do not know

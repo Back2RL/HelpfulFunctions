@@ -2,6 +2,7 @@ public class QuatTest {
 	public static final int RUNS = 30000000;
 	public static final boolean USEA = true;
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		long start = System.nanoTime();

@@ -5,7 +5,9 @@
 //being interleaved with an update of c2 — and doing so reduces concurrency by creating unnecessary blocking.
 //Instead of using synchronized methods or otherwise using the lock associated with this, we create two objects solely to provide locks.
 public class MsLunch {
+	@SuppressWarnings("unused")
 	private long c1 = 0;
+	@SuppressWarnings("unused")
 	private long c2 = 0;
 	private Object lock1 = new Object();
 	private Object lock2 = new Object();

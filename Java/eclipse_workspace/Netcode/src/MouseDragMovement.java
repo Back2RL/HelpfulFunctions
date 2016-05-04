@@ -1,3 +1,4 @@
+
 /**
  * File: MouseDragMovement.java
  *
@@ -47,6 +48,11 @@ import java.util.TimerTask;
  * @author Nick
  */
 public class MouseDragMovement extends Canvas {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	// java 2d control flags
 	static {

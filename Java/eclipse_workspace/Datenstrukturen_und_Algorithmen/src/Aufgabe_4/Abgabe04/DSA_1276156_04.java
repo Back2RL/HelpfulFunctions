@@ -1,3 +1,5 @@
+package Aufgabe_4.Abgabe04;
+
 import java.util.Arrays;
 
 public class DSA_1276156_04 {
