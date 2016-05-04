@@ -26,23 +26,24 @@ public class TestingMatrix {
 		System.out.println(c.multiply(c).toStringMatForm());
 		System.out.println(b.multiply(b).toStringMatForm());
 
-		System.out.println(b.multiplyThreaded(b, 2).toStringMatForm());
-
-		int m = 100;
-		int n = 10000;
-		System.out.println(m + "x" + n + "-Matrix: ");
+		int m = 10;
+		int n = 10000000;
+		// 10000x10000 mit 8 Threads -> 2.7GB RAM
+		System.out.println(m + "x" + n + "-Matrix: Generate");
 		MatrixMN testMat = new MatrixMN(m, n);
 		for (int i = 0; i < m; ++i) {
 			for (int j = 0; j < n; ++j) {
-				testMat.setElem(i, j, Math.random());
+				testMat.setElem(i, j, Math.random() * 1E-9);
 			}
 		}
+
+		System.out.println(m + "x" + n + "-Matrix: Transpone");
 		MatrixMN transponedMat = testMat.getTransponed();
 
 		TimeMeasure timer = new TimeMeasure();
 		timer.startTimer();
 
-		MatrixMN result = testMat.multiplyThreaded(transponedMat, 4);
+		MatrixMN result = testMat.multiplyThreaded(transponedMat, 1);
 		// testMat.multiply(transponedMat);
 
 		timer.stopTimer();

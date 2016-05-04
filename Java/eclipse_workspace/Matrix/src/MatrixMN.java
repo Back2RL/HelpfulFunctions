@@ -9,7 +9,7 @@ public class MatrixMN extends Thread {
 	public void run() {
 		// TODO Auto-generated method stub
 		if (DEBUG)
-			System.out.println(getM() + "x" + getN());
+			System.out.println(Thread.currentThread().getName() + ": " + getM() + "x" + getN());
 		result = multiply(other);
 	}
 
@@ -78,23 +78,17 @@ public class MatrixMN extends Thread {
 	}
 
 	public void transpone() {
-		MatrixMN result = new MatrixMN(getN(), getM());
-		for (int x = 0; x < this.getM(); ++x) {
-			for (int y = 0; x < this.getN(); ++y) {
-				result.setElem(y, x, getElem(x, y));
-			}
-		}
-		matrix = result.getMatrix();
+		matrix = getTransponed().matrix;
 	}
 
 	public MatrixMN getTransponed() {
-		MatrixMN result = new MatrixMN(getN(), getM());
-		for (int m = 0; m < this.getM(); ++m) {
-			for (int n = 0; n < this.getN(); ++n) {
-				result.setElem(n, m, getElem(m, n));
+		double[][] result = new double[getN()][getM()];
+		for (int m = 0; m < getM(); ++m) {
+			for (int n = 0; n < getN(); ++n) {
+				result[n][m] = matrix[m][n];
 			}
 		}
-		return result;
+		return new MatrixMN(result);
 	}
 
 	@Override
