@@ -26,8 +26,8 @@ public class TestingMatrix {
 		System.out.println(c.multiply(c).toStringMatForm());
 		System.out.println(b.multiply(b).toStringMatForm());
 
-		int m = 2000;
-		int n = 2000;
+		int m = 1000;
+		int n = 1000;
 		// O(n³)
 		// 10000x10000 mit 8 Threads -> 2.7GB RAM
 		System.out.println(m + "x" + n + "-Matrix: Generate");
@@ -44,14 +44,16 @@ public class TestingMatrix {
 		TimeMeasure timer = new TimeMeasure();
 		timer.startTimer();
 
-		MatrixMN result = testMat.multiplyThreaded(transponedMat, 8);
+		MatrixMN result = testMat.multiplyThreaded(transponedMat, 2);
 		// testMat.multiply(transponedMat);
-
+		// MatrixMN result = testMat;
 		timer.stopTimer();
 
 		if (result != null)
 			// System.out.println(result.toStringMatForm());
 			System.out.println("1. Element = " + result.getElem(0, 0));
+		System.out.println(b.multiplyThreaded(b, 3).toStringMatForm());
+		System.out.println("normal = \n" + b.multiply(b).toStringMatForm());
 	}
 
 }

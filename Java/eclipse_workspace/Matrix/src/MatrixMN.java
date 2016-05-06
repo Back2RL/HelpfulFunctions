@@ -1,17 +1,8 @@
 import java.util.Arrays;
 
-public class MatrixMN extends Thread {
+public class MatrixMN {
 	public static final boolean DEBUG = true;
 	private double[][] matrix;
-	private MatrixMN other;
-	private MatrixMN result;
-
-	public void run() {
-		// TODO Auto-generated method stub
-		if (DEBUG)
-			System.out.println(Thread.currentThread().getName() + ": " + getM() + "x" + getN());
-		result = multiply(other);
-	}
 
 	public synchronized double[][] getMatrix() {
 		return matrix;
@@ -125,11 +116,6 @@ public class MatrixMN extends Thread {
 		return result;
 	}
 
-	public MatrixMN(double[][] matrix, MatrixMN other) {
-		this.matrix = matrix;
-		this.other = other;
-	}
-
 	public MatrixMN multiplyThreaded(MatrixMN other, int maxThreads) {
 		if (getN() != other.getM() || other == null)
 			return null;
@@ -138,48 +124,48 @@ public class MatrixMN extends Thread {
 		if (DEBUG)
 			System.out.println("using " + maxThreads + " Threads");
 
-		MatrixMN[] threaded = new MatrixMN[maxThreads];
+		MatMulThread[] threads = new MatMulThread[maxThreads];
 
 		int elems = getM() / maxThreads;
+
 		if (DEBUG)
 			System.out.println(elems + " line" + ((elems == 1) ? "" : "s") + " per Thread");
+
 		int alreadyAsigned = 0;
 		for (int i = 0; i < maxThreads; ++i) {
 
 			if (i == maxThreads - 1) {
-				threaded[i] = new MatrixMN(Arrays.copyOfRange(matrix, alreadyAsigned, getM()), other);
-				if (DEBUG)
+				threads[i] = new MatMulThread(this, other, alreadyAsigned, getM());
+				if (DEBUG) {
 					System.out.println("last Thread");
-				if (DEBUG)
 					System.out.println("Asigned lines = " + (alreadyAsigned + (getM() - alreadyAsigned)));
-
+				}
 			} else {
-				threaded[i] = new MatrixMN(Arrays.copyOfRange(matrix, alreadyAsigned, alreadyAsigned + elems), other);
+				threads[i] = new MatMulThread(this, other, alreadyAsigned, alreadyAsigned + elems);
 				alreadyAsigned += elems;
-				if (DEBUG)
+				if (DEBUG) {
 					System.out.println("Thread No " + (i + 1));
-				if (DEBUG)
 					System.out.println("Asigned lines = " + alreadyAsigned);
-
+				}
 			}
-
 		}
 		for (int i = 0; i < maxThreads; ++i) {
-			threaded[i].start();
+			threads[i].start();
 		}
+
 		int resultLines = 0;
 		double[][] resultOfMultiplication = new double[getM()][];
+
 		for (int i = 0; i < maxThreads; ++i) {
 			if (DEBUG)
 				System.out.println("Waiting for result " + (i + 1));
 			try {
-				threaded[i].join();
-				for (int j = 0; j < threaded[i].result.getM(); j++) {
-					resultOfMultiplication[resultLines] = threaded[i].result.matrix[j];
+				threads[i].join();
+				for (int j = 0; j < threads[i].getResult().getM(); j++) {
+					resultOfMultiplication[resultLines] = threads[i].getResult().matrix[j];
 					++resultLines;
 				}
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
