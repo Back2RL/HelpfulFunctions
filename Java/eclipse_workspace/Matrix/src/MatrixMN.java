@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 public class MatrixMN {
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 	private double[][] matrix;
 
 	public synchronized double[][] getMatrix() {
