@@ -54,10 +54,10 @@
 <fullyQualifiedTypeName name="Vorlesung"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="FQuat"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="java.util.Collections"/>
 <fullyQualifiedTypeName name="Aufgabe_6.SinglyLinkedList"/>
 <fullyQualifiedTypeName name="TimeMeasure"/>
 <fullyQualifiedTypeName name="java.lang.Runnable"/>
 <fullyQualifiedTypeName name="MatrixMN"/>
+<fullyQualifiedTypeName name="java.util.List"/>
 </qualifiedTypeNameHistroy>

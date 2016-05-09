@@ -67,6 +67,7 @@ public class Indexer {
 
 		// look for not indexed files/duplicates and create new index file
 		index.analyzeDirectory(analyzeDir);
+		index.saveIndex();
 	}
 
 	public static String shallEndWithSuffix(String in, String suffix) {

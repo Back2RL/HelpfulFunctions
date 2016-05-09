@@ -27,7 +27,7 @@ public class MD5 {
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(file + " could not be found");
 			return null;
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block

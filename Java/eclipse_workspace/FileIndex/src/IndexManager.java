@@ -9,6 +9,7 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -208,8 +209,8 @@ public class IndexManager {
 		File analysisDir = getDirectory(dir);
 		System.out.println("Starting analysis of: \"" + analysisDir + "\"");
 
-		ArrayList<File> pendingDirectories = new ArrayList<>();
-		ArrayList<File> allFiles = new ArrayList<>();
+		List<File> pendingDirectories = new ArrayList<>();
+		List<File> allFiles = new ArrayList<>();
 
 		while (true) {
 			try {
@@ -241,19 +242,44 @@ public class IndexManager {
 		// System.out.println(allFiles.toString());
 		System.out.println("-----");
 		System.out.println("Number of found files: " + allFiles.size());
+		merge(allFiles);
+	}
 
+	public void saveIndex() {
+		System.out.println("Saving new index to disk...");
+		try (BufferedWriter writer = new BufferedWriter(new PrintWriter(indexDirectoryPath + indexFileName, "UTF-8"))) {
+			for (String key : indexFromFile.keySet()) {
+				writer.write(key);
+				if (indexFromFile.get(key) != null) {
+					for (File file : indexFromFile.get(key)) {
+						writer.write(indexSeperator + file.toString());
+					}
+				}
+				writer.newLine();
+			}
+			writer.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("New index has been written");
+	}
+
+	public void merge(List<File> allFiles) {
+		System.out.println("Merging result with existing Index...");
 		int alreadyIndexed = 0;
 		for (File file : allFiles) {
 
 			try {
+				// get the hash of the current file
 				String hash = MD5.fromFile(file);
 				if (hash != null) {
+					// search the index for the hash
 					if (indexFromFile.containsKey(hash)) {
-						if (indexFromFile.get(hash) != null) {
-							if (indexFromFile.get(hash).contains(file)) {
-								++alreadyIndexed;
-								continue;
-							}
+						//
+						if (indexFromFile.get(hash) != null && indexFromFile.get(hash).contains(file)) {
+							++alreadyIndexed;
+							continue;
 						}
 						try {
 							indexFromFile.get(hash).add(file);
@@ -275,21 +301,5 @@ public class IndexManager {
 		if (alreadyIndexed > 0) {
 			System.out.println(alreadyIndexed + " files already indexed.");
 		}
-		try (BufferedWriter writer = new BufferedWriter(new PrintWriter(indexDirectoryPath + indexFileName, "UTF-8"))) {
-			for (String key : indexFromFile.keySet()) {
-				writer.write(key);
-				if (indexFromFile.get(key) != null) {
-					for (File file : indexFromFile.get(key)) {
-						writer.write(indexSeperator + file.toString());
-					}
-				}
-				writer.newLine();
-			}
-			writer.flush();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println("New index has been written");
 	}
 }
