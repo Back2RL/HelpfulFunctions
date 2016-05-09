@@ -1,0 +1,116 @@
+\documentclass[12pt]{scrartcl}
+
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amstext} %Mathe
+\usepackage{graphicx} %zum Bilder einfügen
+\usepackage[ngerman]{babel}
+\usepackage[automark]{scrpage2}	%für Kopf/Fußzeilen
+\pagestyle{scrheadings}
+\clearscrheadfoot
+\ifoot[]{\author}
+\ofoot[]{\pagemark}
+
+\title{Hier Titel einfügen}
+\author{L. O.}
+\date{\today{}...}
+
+
+\begin{document}
+\maketitle
+\tableofcontents 	%Inhaltsverzeichnis
+\newpage	%neue Seite anfangen
+Hier steht normaler Text
+\begin{center}
+Zentriert
+\end{center}
+\section{1st section}	%Sektion 1. Inhaltsverzeichniseintrag
+%\section, \subsection, \subsubsection, \paragraph und \subparagraph zur Verfügung. In anderen Dokumentklassen gibt es z.B. noch \chapter und \part 
+\section{2nd section} %Sektion 1. Inhaltsverzeichniseintrag
+\label{sec:2nd-section} %Möcglichkeit zum Verweisen
+
+\begin{itemize} %unterpunkte/Themen
+\item item
+\begin{itemize}
+\item item
+\end{itemize}
+\item item
+\begin{enumerate}	%Aufzählung
+\item enumerate
+\end{enumerate}
+\end{itemize}
+
+\section{3rd section}
+\label{sec:3rd-section}
+
+\subsection{Unterstufe}
+\label{sec:unterstufe}
+
+\subsection{Oberstufe} 
+\label{sec:oberstufe}
+
+\begin{equation*}
+a + 2 = c
+\end{equation*}
+
+\begin{equation*}
+a_{ij} - a_2 = 0
+\end{equation*}
+
+\begin{equation*}
+\frac{1}{a} + \frac{1}{b} = \frac{a+b}{ab}
+\end{equation*}
+
+\begin{equation*}
+\sigma + \tau = \alpha
+\end{equation*}
+
+\begin{equation}
+\label{eq:1}
+\left( \frac{a}{b} \right)' = \frac{a'b-ab'}{b^{2}}
+\end{equation} 
+%So funktioniert das mit allen Klammern: ()[] bzw. \{ und \}. Da die geschwungen Klammern für LaTeX eine interne Bedeutung haben, müssen sie mit vorangestelltem \ angeschrieben werden, wenn man sie als Zeichen verwenden möchte. 
+
+Es gilt die Invariante $b \neq 0$.
+
+\begin{equation}
+\label{eq:2}
+\int\limits_{a}^{b} x^{2} \, dx = \frac{ b^{3} - a^{3} }{3}
+\end{equation}
+
+\begin{equation}
+\label{eq:3}
+c = \sqrt{ a^{2} + b^{2} }
+\end{equation}
+
+\section{Fortgeschrittene Anwendung}
+\label{sec:fortg-anwend}
+
+\subsection{subsection}
+\label{sec:subsection}
+
+In Abschnitt \ref{sec:1st-section} wurde ein Mädchen namens
+Alice erwähnt. Was sie im Wunderland erlebt, kann in einem Buch
+nachgelesen werden.
+
+\subsection{Analyse}
+\label{sec:analyse}
+
+Die Gleichungen \eqref{eq:1} bis \eqref{eq:3} beherrschen wir bestens.
+Alice, von der wir auf Seite \pageref{sec:einleitende-worte} gehört
+haben, kennt diese Gleichungen wahrscheinlich nicht.
+
+Die Gleichungen \eqref{eq:1} bis \eqref{eq:3} beherrschen wir bestens.
+Alice, von der wir auf Seite \pageref{sec:einleitende-worte} gehört
+haben, kennt diese Gleichungen wahrscheinlich nicht.
+
+%\begin{center}
+%\includegraphics[width=0.1\textwidth]{TUG-logo}
+%\end{center}
+
+Das Bild zeigt unser Logo\footnote{Bitte korrekt verwenden.}.
+
+Das Bild zeigt unser Logo nochmal\footnote{Bitte auch korrekt verwenden.}.
+
+\end{document}

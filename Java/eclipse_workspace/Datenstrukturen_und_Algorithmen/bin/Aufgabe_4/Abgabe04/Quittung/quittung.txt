@@ -1,0 +1,22 @@
+Kurs: AD (Algorithmen und Datenstrukturen) im SS2016
+Blatt: A.4 (Elementare Sortieralgorithmen)
+Abgabezeitpunkt: 22.04.16 13:16:21
+MD5-Summe der Abgabe: 46542fdf36bb17d226e825e62a3b4b81.
+Matrikelnummer(n): 1276156
+Partner-Matrikelnummer(n): 1302082
+------START-PROPS------------
+VjAwMS4wMDFrdXJzX2lkPTExMztibGF0
+dF9pZD0xMTkyO3plaXRwdW5rdD0xNDYx
+MzIzNzgxO21kNT00NjU0MmZkZjM2YmIx
+N2QyMjZlODI1ZTYyYTNiNGI4MTttYXRu
+cm49MTI3NjE1NjtwYXJ0bmVyPTEzMDIw
+ODI7cGxhZ3JlZnVzZT0=
+------START-SIGNATUR------------
+33bddcfd4fcbd480fed1e2da49e2ac3a
+b072fa048b8fb7962b81ce10d79992cb
+418848cceac65b0f6dd190a0af7a116b
+a4d02c59e5a46fb07b39a6e8e006c704
+90356322a6082f57620cfe146aef8050
+12ad37574af7e99bddd1632e8c4a394b
+cadc24616e95e207ae7fe0ab5e4ef9a5
+ed8f2197bf74850dc4883444564d22c6

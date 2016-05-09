@@ -1,0 +1,13 @@
+package Aufgabe_6;
+
+public class ListEntry {
+	private Node pointer;
+
+	public Node getPointer() {
+		return pointer;
+	}
+
+	public void setPointer(Node pointer) {
+		this.pointer = pointer;
+	}
+}

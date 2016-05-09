@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename field &apos;debug&apos; in &apos;IndexManager&apos; to &apos;DEBUG&apos;&#x0A;- Original project: &apos;FileIndex&apos;&#x0A;- Original element: &apos;IndexManager.debug&apos;&#x0A;- Renamed element: &apos;IndexManager.DEBUG&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field &apos;debug&apos;" flags="589826" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;{IndexManager.java[IndexManager^debug" name="DEBUG" references="true" setter="false" stamp="1462261993826" textual="false" version="1.0"/>
+</session>

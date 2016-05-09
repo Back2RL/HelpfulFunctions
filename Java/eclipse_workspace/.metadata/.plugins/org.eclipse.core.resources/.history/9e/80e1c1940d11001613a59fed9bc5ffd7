@@ -1,0 +1,15 @@
+package Aufgabe_6;
+
+public class TailDummy {
+	private TailDummy previous;
+
+	public TailDummy getPrevious() {
+		return previous;
+	}
+
+	public void setPrevious(TailDummy previous) {
+		this.previous = previous;
+	}
+
+
+}

@@ -1,0 +1,10 @@
+package Aufgabe_6;
+
+public class LinkedList {
+private HeadDummy head,tail;
+
+public LinkedList(){
+	head = new HeadDummy();
+	tail = new HeadDummy();
+}
+}

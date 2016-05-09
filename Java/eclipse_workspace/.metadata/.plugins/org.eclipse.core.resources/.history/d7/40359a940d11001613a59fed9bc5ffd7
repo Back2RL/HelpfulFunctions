@@ -1,0 +1,14 @@
+package Aufgabe_6;
+
+public class TailDummy {
+	private TailDummy next;
+
+	public TailDummy getNext() {
+		return next;
+	}
+
+	public void setNext(TailDummy next) {
+		this.next = next;
+	}
+
+}

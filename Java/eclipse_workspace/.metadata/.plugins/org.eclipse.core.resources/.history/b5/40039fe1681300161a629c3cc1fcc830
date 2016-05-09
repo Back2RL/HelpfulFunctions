@@ -1,0 +1,29 @@
+
+public class MatMulThread extends Thread {
+	private MatrixMN left;
+	private MatrixMN other;
+	
+	public void run() {
+		// TODO Auto-generated method stub
+		if (MatrixMN.DEBUG)
+			System.out.println(Thread.currentThread().getName() + ": " + getM() + "x" + getN());
+		
+		if (other == null || left.getN() != other.getM()){
+		System.err.println("Matrix multiplication failed: " + other);
+			return;
+		}
+		MatrixMN result = new MatrixMN(getM(), other.getN());
+
+		for (int zeileRes = 0; zeileRes < getM(); ++zeileRes) {
+			for (int spalteRes = 0; spalteRes < other.getN(); ++spalteRes) {
+				for (int i = 0; i < getN(); ++i) {
+					result.matrix[zeileRes][spalteRes] += matrix[zeileRes][i] * other.matrix[i][spalteRes];
+				}
+			}
+		}
+		return result;
+		
+		result = multiply(other);
+	}
+
+}

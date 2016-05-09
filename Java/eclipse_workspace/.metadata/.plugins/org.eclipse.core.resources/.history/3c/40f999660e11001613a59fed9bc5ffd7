@@ -1,0 +1,13 @@
+package Aufgabe_6;
+
+public class LinkedList {
+	private ListEntry head;
+	private ListEntry tail;
+
+	public LinkedList() {
+		head = new ListEntry();
+		tail = new ListEntry();
+		head.setPointer(tail);
+		tail.setPointer(head);
+	}
+}

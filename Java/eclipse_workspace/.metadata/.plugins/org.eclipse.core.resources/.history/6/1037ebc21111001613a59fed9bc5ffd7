@@ -1,0 +1,34 @@
+package Aufgabe_6;
+
+public class SinglyLinkedList {
+	private Node head;
+	private Node tail;
+
+	public SinglyLinkedList() {
+		head = new Node();
+		tail = new Node();
+		head.setPointer(tail);
+		tail.setPointer(head);
+	}
+
+	// b
+	public Node get(int value) {
+		Node currSelected = head.getPointer();
+		while (!currSelected.equals(tail) && currSelected.getValue() != value) {
+			currSelected = currSelected.getPointer();
+		}
+		if (currSelected.equals(tail)) {
+			return null;
+		}
+		return currSelected;
+	}
+	
+	public static void insert(Node x, Node p, SinglyLinkedList L){
+		x.setPointer(p.getPointer());
+		p.setPointer(x);
+		if(x.getPointer().equals(L.tail)){
+			L.tail.setPointer(x);
+		}
+		
+	}
+}

@@ -1,0 +1,22 @@
+package Aufgabe_6;
+
+public class HeadDummy {
+	private HeadDummy previous, next;
+
+	public HeadDummy getPrevious() {
+		return previous;
+	}
+
+	public void setPrevious(HeadDummy previous) {
+		this.previous = previous;
+	}
+
+	public HeadDummy getNext() {
+		return next;
+	}
+
+	public void setNext(HeadDummy next) {
+		this.next = next;
+	}
+
+}
