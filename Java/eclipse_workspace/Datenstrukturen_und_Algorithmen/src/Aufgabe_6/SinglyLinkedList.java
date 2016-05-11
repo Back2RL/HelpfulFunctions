@@ -36,7 +36,7 @@ public class SinglyLinkedList {
 	 * 14b) find the first nodeobject that has the the value
 	 * 
 	 * @param value
-	 *            data to loo for
+	 *            data to look for
 	 * @return the found node or null if there is none
 	 */
 	public Node get(int value) {

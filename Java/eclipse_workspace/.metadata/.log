@@ -9028,3 +9028,13 @@ Command-line arguments:  -os linux -ws gtk -arch x86_64 -product org.eclipse.epp
 
 !ENTRY org.eclipse.ui.monitoring 2 0 2016-05-09 11:39:02.391
 !MESSAGE Event loop monitoring is enabled but logging of UI freezes is disabled.
+!SESSION 2016-05-11 14:17:33.204 -----------------------------------------------
+eclipse.buildId=4.5.2.M20160212-1500
+java.version=1.8.0_60
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=de_DE
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.eclipse.ui.monitoring 2 0 2016-05-11 14:17:55.793
+!MESSAGE Event loop monitoring is enabled but logging of UI freezes is disabled.
