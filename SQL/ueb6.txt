@@ -57,7 +57,7 @@ Einstellungsdatum DATE DEFAULT SYSDATE,
 CONSTRAINT Datum_angeben CHECK(Einstellungsdatum IS NOT NULL)
 );
 
-ALTER TABLE Ang_Pro DROP COLUMN Proz_Arb;
+--ALTER TABLE Ang_Pro DROP COLUMN Proz_Arb;
 
 DELETE FROM Ang_Pro WHERE PNR = (
   SELECT PNR FROM PROJECT WHERE P_NAME = 'Projekt DBMigration'
@@ -65,6 +65,23 @@ DELETE FROM Ang_Pro WHERE PNR = (
 
 DELETE FROM PROJECT WHERE P_NAME = 'Projekt DBMigration';
 
+SELECT name FROM ANGEST ORDER BY name asc;
 
+select count(distinct wohnort) Anzahl_Wohnorte from ANGEST order by Anzahl_Wohnorte;
+
+select distinct beruf from angest where gehalt > 5500 order by beruf;
+
+select ANGEST.Name Projektleiter from angest, project
+  where angest.angnr = project.p_leiter 
+  and project.pnr < 20
+  order by ANGEST.Name;
+  
+select project.p_name Projektname from ang_pro,angest,project
+    where ang_pro.pnr = project.pnr
+    and ang_pro.angnr = angest.angnr
+    and angest.name = 'Schmidt'
+    and ang_pro.proz_arb >= 50
+    order by project.p_name;
+  
 
 
