@@ -1,0 +1,25 @@
+// Schwerkraft auf der Oberfläche
+g(1*r) = 9.81
+
+g(1*r) = GM /r²
+
+// M = Masse des Planeten
+// G Gravitationskonstante
+(g(r) * r²) / G = M
+
+
+// r = Abnstand Massepunkte
+F = G m1 * m2 / r²
+
+a1 = Gm2 / r²
+a2 = Gm1 / r²
+
+Factor = G/r²
+
+a1 = m2 * Factor
+a2 = m1 * Factor
+
+
+
+
+

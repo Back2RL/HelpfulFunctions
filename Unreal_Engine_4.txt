@@ -43,3 +43,5 @@ The bulk of actual game-time related stuff in multiplayer game has to be done in
 
 Rama
 //
+
+SQL: PostGre (angucken)
