@@ -4,12 +4,12 @@ public class Orbit {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		// Planet earth = new Planet(5.972E24, 9.81, 6371000.0);
-		// Planet moon = new Planet(7.34767309E22, 1.62, 1737000.0);
-		// double distance = 384402.0E3;
-		Planet earth = new Planet(5.972E24, false, 637.10);
-		Planet moon = new Planet(7.34767309E22, false, 173.7);
-		double distance = 38440.2;
+		Planet earth = new Planet(5.972E24, 9.81, 6371000.0);
+		Planet moon = new Planet(7.34767309E22, 1.62, 1737000.0);
+		double distance = 384402.0E3;
+		// Planet earth = new Planet(5.972E24, false, 637.10);
+		// Planet moon = new Planet(7.34767309E22, false, 173.7);
+		// double distance = 38440.2;
 		System.out.println("Earth: " + earth);
 		System.out.println("Moon:  " + moon);
 		System.out.println();
