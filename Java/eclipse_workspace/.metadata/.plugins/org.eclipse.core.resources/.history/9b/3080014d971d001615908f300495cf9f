@@ -1,0 +1,26 @@
+
+public class Orbit {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Planet earth = new Planet(5.972E24, false, 6371.0E3);
+		Planet moon = new Planet(7.34767309E22, false, 1737.0E3);
+		double distance = 384402.0E3;
+		System.out.println(earth);
+		System.out.println(moon);
+		double earthAccel = earth.getAccelTowards(moon, distance);
+		double earthForce = earth.getForceTowards(moon, distance);
+		System.out.println(earthAccel + " m/s² Earth");
+		System.out.println(earthForce + " Newton Earth");
+
+		double moonAccel = moon.getAccelTowards(earth, distance);
+		double moonForce = moon.getForceTowards(earth, distance);
+		System.out.println(moonAccel + " m/s² Moon");
+		System.out.println(moonForce + " Newton Moon");
+		System.out.println(Math.sqrt(moonAccel * distance));
+
+		System.out.println(Math.sqrt(earthAccel * distance));
+	}
+
+}

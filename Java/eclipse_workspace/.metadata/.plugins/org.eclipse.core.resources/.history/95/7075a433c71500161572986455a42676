@@ -1,7 +1,0 @@
-package Loc;
-
-import java.util.Comparator;
-
-public class LocLexiComparator implements Comparator<T> {
-
-}

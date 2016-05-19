@@ -1,0 +1,11 @@
+
+public class Orbit {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Planet earth = new Planet();
+		
+	}
+
+}

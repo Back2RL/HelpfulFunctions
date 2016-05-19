@@ -1,0 +1,19 @@
+
+public class Orbit {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Planet earth = new Planet(100, 9.81, 1);
+		Planet moon = new Planet(10, 2.0, 0.2);
+		double distance = 1.1;
+		System.out.println(earth);
+		System.out.println(moon);
+		double earthAccel = earth.getAccelTowards(moon, distance);
+		System.out.println(earthAccel + " m/s² Earth");
+
+		double moonAccel = moon.getAccelTowards(earth, distance);
+		System.out.println(moonAccel + " m/s² Moon");
+	}
+
+}
