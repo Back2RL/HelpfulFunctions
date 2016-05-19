@@ -19,7 +19,8 @@ Factor = G/r²
 a1 = m2 * Factor
 a2 = m1 * Factor
 
-
-
-
+Fzf = m * v² / r
+Fzf * r / m = v²
+sqrt(Fzf * r / m) = v
+sqrt(a*r) = v
 
