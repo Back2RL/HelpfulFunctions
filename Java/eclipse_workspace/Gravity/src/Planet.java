@@ -83,10 +83,12 @@ public class Planet {
 		return Math.sqrt(getAccelTowards(other, distance) * distance);
 	}
 
-	public double getOrbitVelocity(double forceOrAccel, boolean isForce, double distance) {
-		if (isForce)
-			return Math.sqrt(forceOrAccel / mass * distance);
-		return Math.sqrt(forceOrAccel * distance);
+	public double getOrbitVelocityFromAccel(double accel, double distance) {
+		return Math.sqrt(accel * distance);
+	}
+
+	public double getOrbitVelocityFromForce(double force, double distance) {
+		return Math.sqrt(force / mass * distance);
 	}
 
 	public double getJacobiDist(Planet other, double distance) {
