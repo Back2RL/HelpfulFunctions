@@ -35,8 +35,8 @@ public class Orbit {
 		// System.out.println((jacDistEarth + jacDistMoon) + " = " + distance +
 		// "?");
 
-		double orbitVelMoon = moon.getOrbitVelocity(moonAccel, false, jacDistMoon);
-		double orbitVelEarth = earth.getOrbitVelocity(earthForce, true, jacDistEarth);
+		double orbitVelMoon = moon.getOrbitVelocityFromAccel(moonAccel, jacDistMoon);
+		double orbitVelEarth = earth.getOrbitVelocityFromForce(earthForce, jacDistEarth);
 		System.out.println(orbitVelMoon + " m/s Moon");
 		System.out.println(orbitVelEarth + " m/s Earth");
 		System.out.println();

@@ -44,7 +44,7 @@ public class TestingMatrix {
 		TimeMeasure timer = new TimeMeasure();
 		timer.startTimer();
 
-		MatrixMN result = testMat.multiplyThreaded(transponedMat, 2);
+		MatrixMN result = testMat.multiplyThreaded(transponedMat, 1);
 		// testMat.multiply(transponedMat);
 		// MatrixMN result = testMat;
 		timer.stopTimer();
