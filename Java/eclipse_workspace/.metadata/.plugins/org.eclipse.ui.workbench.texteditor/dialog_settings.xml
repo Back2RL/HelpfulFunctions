@@ -2,22 +2,23 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="System" key="selection"/>
+		<item value="+1+ rand.nextInt" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="+ rand.nextInt"/>
+			<item value="childs"/>
 			<item value="System"/>
 			<item value="&quot;,&quot;"/>
 			<item value="Math.floor"/>
 			<item value=" -&gt; "/>
 			<item value="instert"/>
 			<item value="sprengen"/>
-			<item value="run()"/>
-			<item value="fromFile("/>
 		</list>
 		<list key="replacehistory">
+			<item value="+1+ rand.nextInt"/>
 			<item value="indexSeperator"/>
 			<item value="(int)"/>
 			<item value="."/>
@@ -29,6 +30,6 @@
 		<item value="1|Ubuntu|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
 		<item value="419" key="DIALOG_HEIGHT"/>
 		<item value="145" key="DIALOG_Y_ORIGIN"/>
-		<item value="1308" key="DIALOG_X_ORIGIN"/>
+		<item value="646" key="DIALOG_X_ORIGIN"/>
 	</section>
 </section>
