@@ -1,16 +1,16 @@
-!SESSION 2016-05-25 12:13:42.199 -----------------------------------------------
+!SESSION 2016-05-26 09:06:15.629 -----------------------------------------------
 eclipse.buildId=4.5.2.M20160212-1500
-java.version=1.8.0_60
+java.version=1.7.0_101
 java.vendor=Oracle Corporation
 BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=de_DE
-Framework arguments:  -product org.eclipse.epp.package.jee.product
-Command-line arguments:  -os linux -ws gtk -arch x86_64 -product org.eclipse.epp.package.jee.product
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -data /home/leo/GitHub/HelpfulFunctions/Java/eclipse_workspace -os linux -ws gtk -arch x86_64 -product org.eclipse.epp.package.java.product
 
-This is a continuation of log file /home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/.metadata/.bak_0.log
-Created Time: 2016-05-25 12:50:14.116
+!ENTRY org.eclipse.egit.ui 4 0 2016-05-26 09:09:30.609
+!MESSAGE Neither a section nor subsection
 
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 12:50:14.117
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
+!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-26 09:24:08.363
+!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/leo/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
 !STACK 0
 java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
 	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
@@ -42,7 +42,73 @@ Caused by: java.lang.IllegalArgumentException: assertion failed.
 	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
 	at java.lang.Thread.run(Thread.java:745)
 
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 12:50:33.098
+!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-26 09:29:08.187
+!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/leo/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
+!STACK 0
+java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
+	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
+	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
+	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
+	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
+	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
+	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
+	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
+	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
+	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+Caused by: java.lang.IllegalArgumentException: assertion failed.
+	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
+	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
+	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
+	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
+	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
+	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
+	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
+	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
+	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
+	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
+	at com.google.gson.Gson.fromJson(Gson.java:803)
+	at com.google.gson.Gson.fromJson(Gson.java:768)
+	at com.google.gson.Gson.fromJson(Gson.java:717)
+	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
+	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
+	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
+	at java.lang.Thread.run(Thread.java:745)
+
+!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-26 09:29:30.252
+!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/leo/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
+!STACK 0
+java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
+	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
+	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
+	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
+	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
+	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
+	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
+	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
+	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
+	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+Caused by: java.lang.IllegalArgumentException: assertion failed.
+	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
+	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
+	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
+	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
+	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
+	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
+	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
+	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
+	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
+	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
+	at com.google.gson.Gson.fromJson(Gson.java:803)
+	at com.google.gson.Gson.fromJson(Gson.java:768)
+	at com.google.gson.Gson.fromJson(Gson.java:717)
+	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
+	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
+	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
+	at java.lang.Thread.run(Thread.java:745)
+
+!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-26 09:29:58.068
 !MESSAGE Suggesting project coordinate for ‘DependencyInfo{/usr/lib/jvm/java-7-openjdk-amd64, JRE, {EXECUTION_ENVIRONMENT=JavaSE-1.7}}’ failed.
 !STACK 0
 java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
@@ -75,7 +141,198 @@ Caused by: java.lang.IllegalArgumentException: assertion failed.
 	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
 	at java.lang.Thread.run(Thread.java:745)
 
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 12:52:51.472
+!ENTRY org.eclipse.recommenders.types.rcp 1 4 2016-05-26 09:30:02.854
+!MESSAGE Full project indexing required:
+  [+] /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/charsets.jar
+  [+] /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext/dnsns.jar
+  [+] /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext/icedtea-sound.jar
+  [+] /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext/java-atk-wrapper.jar
+  [+] /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext/localedata.jar
+  [+] /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext/sunjce_provider.jar
+  [+] /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext/sunpkcs11.jar
+  [+] /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext/zipfs.jar
+  [+] /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/jce.jar
+  [+] /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/jsse.jar
+  [+] /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/resources.jar
+  [+] /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/rhino.jar
+  [+] /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/rt.jar
+
+!STACK 0
+org.eclipse.recommenders.utils.Logs$LogTraceException
+	at org.eclipse.recommenders.utils.Logs$LogTraceException.newTrace(Logs.java:381)
+	at org.eclipse.recommenders.utils.Logs.log(Logs.java:134)
+	at org.eclipse.recommenders.internal.types.rcp.ProjectTypesIndex.needsRebuild(ProjectTypesIndex.java:167)
+	at org.eclipse.recommenders.internal.types.rcp.ProjectTypesIndex.startUp(ProjectTypesIndex.java:122)
+	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
+	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
+	at java.lang.Thread.run(Thread.java:745)
+
+!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-26 09:30:03.004
+!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/leo/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
+!STACK 0
+java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
+	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
+	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
+	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
+	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
+	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
+	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
+	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
+	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
+	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+Caused by: java.lang.IllegalArgumentException: assertion failed.
+	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
+	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
+	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
+	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
+	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
+	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
+	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
+	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
+	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
+	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
+	at com.google.gson.Gson.fromJson(Gson.java:803)
+	at com.google.gson.Gson.fromJson(Gson.java:768)
+	at com.google.gson.Gson.fromJson(Gson.java:717)
+	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
+	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
+	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
+	at java.lang.Thread.run(Thread.java:745)
+
+!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-26 09:33:55.488
+!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/leo/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
+!STACK 0
+java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
+	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
+	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
+	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
+	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
+	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
+	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
+	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
+	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
+	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+Caused by: java.lang.IllegalArgumentException: assertion failed.
+	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
+	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
+	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
+	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
+	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
+	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
+	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
+	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
+	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
+	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
+	at com.google.gson.Gson.fromJson(Gson.java:803)
+	at com.google.gson.Gson.fromJson(Gson.java:768)
+	at com.google.gson.Gson.fromJson(Gson.java:717)
+	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
+	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
+	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
+	at java.lang.Thread.run(Thread.java:745)
+
+!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-26 09:44:58.446
+!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/leo/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
+!STACK 0
+java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
+	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
+	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
+	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
+	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
+	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
+	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
+	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
+	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
+	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+Caused by: java.lang.IllegalArgumentException: assertion failed.
+	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
+	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
+	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
+	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
+	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
+	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
+	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
+	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
+	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
+	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
+	at com.google.gson.Gson.fromJson(Gson.java:803)
+	at com.google.gson.Gson.fromJson(Gson.java:768)
+	at com.google.gson.Gson.fromJson(Gson.java:717)
+	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
+	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
+	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
+	at java.lang.Thread.run(Thread.java:745)
+
+!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-26 09:46:37.418
+!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/leo/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
+!STACK 0
+java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
+	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
+	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
+	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
+	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
+	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
+	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
+	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
+	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
+	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+Caused by: java.lang.IllegalArgumentException: assertion failed.
+	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
+	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
+	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
+	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
+	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
+	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
+	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
+	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
+	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
+	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
+	at com.google.gson.Gson.fromJson(Gson.java:803)
+	at com.google.gson.Gson.fromJson(Gson.java:768)
+	at com.google.gson.Gson.fromJson(Gson.java:717)
+	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
+	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
+	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
+	at java.lang.Thread.run(Thread.java:745)
+
+!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-26 09:49:03.532
+!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/leo/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
+!STACK 0
+java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
+	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
+	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
+	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
+	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
+	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
+	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
+	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
+	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
+	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+Caused by: java.lang.IllegalArgumentException: assertion failed.
+	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
+	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
+	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
+	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
+	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
+	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
+	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
+	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
+	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
+	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
+	at com.google.gson.Gson.fromJson(Gson.java:803)
+	at com.google.gson.Gson.fromJson(Gson.java:768)
+	at com.google.gson.Gson.fromJson(Gson.java:717)
+	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
+	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
+	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
+	at java.lang.Thread.run(Thread.java:745)
+
+!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-26 09:51:18.595
 !MESSAGE Suggesting project coordinate for ‘DependencyInfo{/usr/lib/jvm/java-7-openjdk-amd64, JRE, {EXECUTION_ENVIRONMENT=JavaSE-1.7}}’ failed.
 !STACK 0
 java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
@@ -108,8 +365,8 @@ Caused by: java.lang.IllegalArgumentException: assertion failed.
 	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
 	at java.lang.Thread.run(Thread.java:745)
 
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 12:52:57.423
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
+!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-26 09:51:41.141
+!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/leo/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
 !STACK 0
 java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
 	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
@@ -141,7 +398,7 @@ Caused by: java.lang.IllegalArgumentException: assertion failed.
 	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
 	at java.lang.Thread.run(Thread.java:745)
 
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 12:55:09.437
+!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-26 09:51:47.413
 !MESSAGE Suggesting project coordinate for ‘DependencyInfo{/usr/lib/jvm/java-7-openjdk-amd64, JRE, {EXECUTION_ENVIRONMENT=JavaSE-1.7}}’ failed.
 !STACK 0
 java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
@@ -174,1612 +431,8 @@ Caused by: java.lang.IllegalArgumentException: assertion failed.
 	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
 	at java.lang.Thread.run(Thread.java:745)
 
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 12:57:07.397
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 12:57:14.796
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 12:57:39.946
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 13:05:04.394
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 13:11:11.914
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/usr/lib/jvm/java-7-openjdk-amd64, JRE, {EXECUTION_ENVIRONMENT=JavaSE-1.7}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 13:11:14.915
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/usr/lib/jvm/java-7-openjdk-amd64, JRE, {EXECUTION_ENVIRONMENT=JavaSE-1.7}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-!SESSION 2016-05-25 14:06:25.122 -----------------------------------------------
-eclipse.buildId=4.5.2.M20160212-1500
-java.version=1.8.0_60
-java.vendor=Oracle Corporation
-BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=de_DE
-Framework arguments:  -product org.eclipse.epp.package.jee.product
-Command-line arguments:  -os linux -ws gtk -arch x86_64 -product org.eclipse.epp.package.jee.product
-
-!ENTRY org.eclipse.ui.monitoring 2 0 2016-05-25 14:06:40.067
-!MESSAGE Event loop monitoring is enabled but logging of UI freezes is disabled.
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 15:07:44.604
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/usr/lib/jvm/java-7-openjdk-amd64, JRE, {EXECUTION_ENVIRONMENT=JavaSE-1.7}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 15:07:48.804
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/usr/lib/jvm/java-7-openjdk-amd64, JRE, {EXECUTION_ENVIRONMENT=JavaSE-1.7}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 15:08:34.308
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 15:15:28.403
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/usr/lib/jvm/java-7-openjdk-amd64, JRE, {EXECUTION_ENVIRONMENT=JavaSE-1.7}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 15:16:51.555
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 15:17:17.234
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 15:37:59.428
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 15:38:44.291
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/usr/lib/jvm/java-7-openjdk-amd64, JRE, {EXECUTION_ENVIRONMENT=JavaSE-1.7}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-!SESSION 2016-05-25 16:05:09.676 -----------------------------------------------
-eclipse.buildId=4.5.2.M20160212-1500
-java.version=1.8.0_60
-java.vendor=Oracle Corporation
-BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=de_DE
-Framework arguments:  -product org.eclipse.epp.package.jee.product
-Command-line arguments:  -os linux -ws gtk -arch x86_64 -product org.eclipse.epp.package.jee.product
-
-!ENTRY org.eclipse.ui.monitoring 2 0 2016-05-25 16:05:26.148
-!MESSAGE Event loop monitoring is enabled but logging of UI freezes is disabled.
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 17:46:14.844
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/usr/lib/jvm/java-7-openjdk-amd64, JRE, {EXECUTION_ENVIRONMENT=JavaSE-1.7}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 17:46:24.843
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/usr/lib/jvm/java-7-openjdk-amd64, JRE, {EXECUTION_ENVIRONMENT=JavaSE-1.7}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 17:46:28.947
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/usr/lib/jvm/java-7-openjdk-amd64, JRE, {EXECUTION_ENVIRONMENT=JavaSE-1.7}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 17:46:36.808
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/usr/lib/jvm/java-7-openjdk-amd64, JRE, {EXECUTION_ENVIRONMENT=JavaSE-1.7}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 17:46:43.527
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/usr/lib/jvm/java-7-openjdk-amd64, JRE, {EXECUTION_ENVIRONMENT=JavaSE-1.7}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:02:11.217
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:02:25.308
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/usr/lib/jvm/java-7-openjdk-amd64, JRE, {EXECUTION_ENVIRONMENT=JavaSE-1.7}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:02:27.766
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:04:23.848
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:04:28.335
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:13:52.637
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:14:15.273
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:14:29.744
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:14:34.044
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:14:40.725
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:14:48.320
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:15:31.797
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:20:24.119
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/usr/lib/jvm/java-7-openjdk-amd64, JRE, {EXECUTION_ENVIRONMENT=JavaSE-1.7}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:25:32.305
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/usr/lib/jvm/java-7-openjdk-amd64, JRE, {EXECUTION_ENVIRONMENT=JavaSE-1.7}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:35:19.050
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/usr/lib/jvm/java-7-openjdk-amd64, JRE, {EXECUTION_ENVIRONMENT=JavaSE-1.7}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:35:20.666
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:36:30.916
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:36:43.853
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:37:59.452
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/usr/lib/jvm/java-7-openjdk-amd64, JRE, {EXECUTION_ENVIRONMENT=JavaSE-1.7}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:38:00.872
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:38:05.468
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:41:12.331
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/usr/lib/jvm/java-7-openjdk-amd64, JRE, {EXECUTION_ENVIRONMENT=JavaSE-1.7}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:43:47.794
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:44:09.794
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:44:28.585
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:44:38.161
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:44:45.721
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:49:28.628
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 18:57:30.376
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/usr/lib/jvm/java-7-openjdk-amd64, JRE, {EXECUTION_ENVIRONMENT=JavaSE-1.7}}’ failed.
-!STACK 0
-java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
-	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)
-	at com.google.common.util.concurrent.AbstractService.awaitRunning(AbstractService.java:277)
-	at com.google.common.util.concurrent.AbstractIdleService.awaitRunning(AbstractIdleService.java:177)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.suggest(EclipseProjectCoordinateAdvisorService.java:136)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:193)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:128)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.resolve(ProjectCoordinateProvider.java:102)
-	at org.eclipse.recommenders.internal.models.rcp.ProjectCoordinateProvider.toUniqueName(ProjectCoordinateProvider.java:203)
-	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:42)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-Caused by: java.lang.IllegalArgumentException: assertion failed.
-	at org.eclipse.recommenders.utils.Throws.throwIllegalArgumentException(Throws.java:29)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:254)
-	at org.eclipse.recommenders.utils.Checks.ensureIsTrue(Checks.java:249)
-	at org.eclipse.recommenders.coordinates.DependencyInfo.<init>(DependencyInfo.java:52)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:57)
-	at org.eclipse.recommenders.internal.coordinates.rcp.DependencyInfoJsonTypeAdapter.deserialize(DependencyInfoJsonTypeAdapter.java:1)
-	at com.google.gson.TreeTypeAdapter.read(TreeTypeAdapter.java:58)
-	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:173)
-	at com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter.read(MapTypeAdapterFactory.java:145)
-	at com.google.gson.Gson.fromJson(Gson.java:803)
-	at com.google.gson.Gson.fromJson(Gson.java:768)
-	at com.google.gson.Gson.fromJson(Gson.java:717)
-	at org.eclipse.recommenders.coordinates.rcp.EclipseProjectCoordinateAdvisorService.startUp(EclipseProjectCoordinateAdvisorService.java:172)
-	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
-	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
-	at java.lang.Thread.run(Thread.java:745)
-
-!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-25 19:05:15.411
-!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/stud/oertelt/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
+!ENTRY org.eclipse.recommenders.coordinates.rcp 4 11 2016-05-26 09:52:03.142
+!MESSAGE Suggesting project coordinate for ‘DependencyInfo{/home/leo/GitHub/HelpfulFunctions/Java/eclipse_workspace/Datenstrukturen_und_Algorithmen, PROJECT, {PROJECT_NAME=Datenstrukturen_und_Algorithmen}}’ failed.
 !STACK 0
 java.lang.IllegalStateException: Expected the service to be RUNNING, but the service has FAILED
 	at com.google.common.util.concurrent.AbstractService.checkCurrentState(AbstractService.java:334)

@@ -1,0 +1,194 @@
+package Aufgabe_8;
+
+import java.util.Random;
+
+public class BinarySearchTree {
+	private TreeNode root;
+	private int nodeGeneratingCounter;
+
+	/**
+	 * default constructor, treeroot is null
+	 */
+	public BinarySearchTree() {
+	}
+
+	/**
+	 * constructor that initializes the tree with a TreeNode
+	 * 
+	 * @param root
+	 */
+	public BinarySearchTree(final TreeNode root) {
+		this.root = root;
+	}
+
+	/**
+	 * @param data
+	 *            integer value to look for in the tree
+	 * @return a TreeNode or null if element with data does not exist
+	 */
+	public TreeNode search(final int data) {
+		return findNodeWithData(root, data);
+	}
+
+	/**
+	 * recursive method to find data in the tree
+	 * 
+	 * @param current
+	 * @param data
+	 * @return
+	 */
+	private TreeNode findNodeWithData(final TreeNode current, final int data) {
+		if (current == null)
+			return current;
+		if (current.getData() == data) {
+			return current;
+		}
+		System.out.println(current.getData());
+		if (current.getLeftChild() != null) {
+			TreeNode result = findNodeWithData(current.getLeftChild(), data);
+			if (result != null && result.getData() == data) {
+				return result;
+			}
+		}
+		if (current.getRightChild() != null) {
+			TreeNode result = findNodeWithData(current.getRightChild(), data);
+			if (result != null && result.getData() == data) {
+				return result;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * generates unsorted Tree with a number a maximum of maxNodes Nodes
+	 * 
+	 * @param min
+	 *            smallest number of randomrange (included)
+	 * @param max
+	 *            biggest number of randomrange (included)
+	 * @param maxNodes
+	 */
+	public void generateRandomUnsortedTree(final int maxNodes, final int min, final int max) {
+		final Random rand = new Random();
+		if (maxNodes < 1) {
+			throw new IllegalArgumentException("maxNodes must be bigger than zero");
+		}
+		nodeGeneratingCounter = 1;
+		if (max - min <= 0) {
+			root = new TreeNode(null, 2);
+		} else {
+			root = new TreeNode(null, min + rand.nextInt(max - min + 1));
+		}
+		generateNode(root, maxNodes, rand, min, max);
+		System.out.println(nodeGeneratingCounter + " Nodes generiert");
+	}
+
+	/**
+	 * generates recursively childnodes for a parentnode while maximum not
+	 * reached or no children where generated
+	 * 
+	 * @param parent
+	 * @param maxNodes
+	 * @param rand
+	 * @param min
+	 * @param max
+	 */
+	private void generateNode(final TreeNode parent, final int maxNodes, final Random rand, final int min,
+			final int max) {
+		if (nodeGeneratingCounter >= maxNodes)
+			return;
+		final boolean leftHasElement = rand.nextBoolean();
+		if (leftHasElement && nodeGeneratingCounter < maxNodes) {
+			nodeGeneratingCounter++;
+			parent.setLeftChild(new TreeNode(parent, min + rand.nextInt(max - min + 1)));
+			generateNode(parent.getLeftChild(), maxNodes, rand, min, max);
+		}
+		final boolean rightHasElement = rand.nextBoolean();
+		if (rightHasElement && nodeGeneratingCounter < maxNodes) {
+			nodeGeneratingCounter++;
+			parent.setRightChild(new TreeNode(parent, min + rand.nextInt(max - min + 1)));
+			generateNode(parent.getRightChild(), maxNodes, rand, min, max);
+		}
+	}
+
+	public void delete(final int data) {
+		final TreeNode delNode = search(data);
+		if (delNode == null) {
+			throw new IllegalArgumentException("data not element of the tree");
+		}
+		delete(delNode);
+	}
+
+	public void delete(final TreeNode delNode) {
+		if (delNode == null) {
+			throw new IllegalArgumentException("delNode must not be null");
+		}
+
+		// 1. case: both children of delNode are null
+		if (delNode.getLeftChild() == null && delNode.getRightChild() == null) {
+
+			System.out.println("0 children");
+			// is delNode the current root of the tree
+			if (delNode == root) {
+				root = null;
+			} else {
+				// the TreeNode has a parent
+				updateChildrenOfChildrenParent(delNode, null);
+			}
+			// delNode has been removed for the tree
+			return;
+		}
+
+		// 2. case: one child exists
+		if (delNode.getLeftChild() == null ^ delNode.getRightChild() == null) {
+			System.out.println("1 child");
+			// is delNode the current root of the tree
+			if (delNode == root) {
+				root = null;
+			}
+				// the TreeNode has a parent
+				if (delNode.getLeftChild() == null) {
+					updateChildrenOfChildrenParent(delNode, delNode.getRightChild());
+				} else {
+					updateChildrenOfChildrenParent(delNode, delNode.getLeftChild());
+				}
+			
+			return;
+		}
+
+		// last case: two children exist
+		System.out.println("2 children");
+		TreeNode curr = delNode.getRightChild();
+		while (curr.getLeftChild() != null) {
+			curr = curr.getLeftChild();
+		}
+		// replace date with the smallest of the right partial tree
+		delNode.setData(curr.getData());
+
+		// delete the node the data was taken from
+		updateChildrenOfChildrenParent(curr, curr.getRightChild());
+	}
+
+	private void updateChildrenOfChildrenParent(final TreeNode child, final TreeNode newChild) {
+		if (child.getParent().getLeftChild().equals(child)) {
+			child.getParent().setLeftChild(newChild);
+		} else {
+			child.getParent().setRightChild(newChild);
+		}
+	}
+
+	public void printElems() {
+		printElems(root);
+		System.out.println();
+	}
+
+	private void printElems(final TreeNode current) {
+		if (current == null)
+			return;
+		System.out.print(current.getData());
+		printElems(current.getLeftChild());
+		printElems(current.getRightChild());
+
+	}
+
+}

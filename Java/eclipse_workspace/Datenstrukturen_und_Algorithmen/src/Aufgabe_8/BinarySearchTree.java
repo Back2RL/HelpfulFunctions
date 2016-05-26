@@ -43,7 +43,6 @@ public class BinarySearchTree {
 		if (current.getData() == data) {
 			return current;
 		}
-		System.out.println(current.getData());
 		if (current.getLeftChild() != null) {
 			TreeNode result = findNodeWithData(current.getLeftChild(), data);
 			if (result != null && result.getData() == data) {
@@ -58,6 +57,32 @@ public class BinarySearchTree {
 		}
 		return null;
 	}
+	
+	public void insert(final int newData){		
+		if(root == null){
+			root = new TreeNode(null,newData);
+			return;
+		}
+		
+		TreeNode curr = root;
+
+		TreeNode prev = null;
+		
+		while(curr != null || curr.getData() > newData){
+			prev = curr;
+			if(curr == null){
+				prev.setRightChild(new TreeNode(prev,newData));
+			}
+			curr = curr.getRightChild();
+	
+		}
+//		while
+//			prev = curr;
+//			curr = curr.getRightChild();
+//		}
+		
+	}
+	
 
 	/**
 	 * generates unsorted Tree with a number a maximum of maxNodes Nodes
@@ -74,7 +99,11 @@ public class BinarySearchTree {
 			throw new IllegalArgumentException("maxNodes must be bigger than zero");
 		}
 		nodeGeneratingCounter = 1;
-		root = new TreeNode(null, min + 1 + rand.nextInt(max - min));
+		if (max - min <= 0) {
+			root = new TreeNode(null, 2);
+		} else {
+			root = new TreeNode(null, min + rand.nextInt(max - min + 1));
+		}
 		generateNode(root, maxNodes, rand, min, max);
 		System.out.println(nodeGeneratingCounter + " Nodes generiert");
 	}
@@ -96,13 +125,13 @@ public class BinarySearchTree {
 		final boolean leftHasElement = rand.nextBoolean();
 		if (leftHasElement && nodeGeneratingCounter < maxNodes) {
 			nodeGeneratingCounter++;
-			parent.setLeftChild(new TreeNode(parent, min + 1 + rand.nextInt(max - min)));
+			parent.setLeftChild(new TreeNode(parent, min + rand.nextInt(max - min + 1)));
 			generateNode(parent.getLeftChild(), maxNodes, rand, min, max);
 		}
 		final boolean rightHasElement = rand.nextBoolean();
 		if (rightHasElement && nodeGeneratingCounter < maxNodes) {
 			nodeGeneratingCounter++;
-			parent.setRightChild(new TreeNode(parent, min + 1 + rand.nextInt(max - min)));
+			parent.setRightChild(new TreeNode(parent, min + rand.nextInt(max - min + 1)));
 			generateNode(parent.getRightChild(), maxNodes, rand, min, max);
 		}
 	}
@@ -122,6 +151,8 @@ public class BinarySearchTree {
 
 		// 1. case: both children of delNode are null
 		if (delNode.getLeftChild() == null && delNode.getRightChild() == null) {
+
+			System.out.println("0 children");
 			// is delNode the current root of the tree
 			if (delNode == root) {
 				root = null;
@@ -135,10 +166,15 @@ public class BinarySearchTree {
 
 		// 2. case: one child exists
 		if (delNode.getLeftChild() == null ^ delNode.getRightChild() == null) {
+			System.out.println("1 child");
 			// is delNode the current root of the tree
 			if (delNode == root) {
-				root = null;
-			} else {
+				if (delNode.getLeftChild() == null) {
+					root =  delNode.getRightChild();
+				} else {
+					root = delNode.getLeftChild();
+				}
+			}else{
 				// the TreeNode has a parent
 				if (delNode.getLeftChild() == null) {
 					updateChildrenOfChildrenParent(delNode, delNode.getRightChild());
@@ -150,6 +186,7 @@ public class BinarySearchTree {
 		}
 
 		// last case: two children exist
+		System.out.println("2 children");
 		TreeNode curr = delNode.getRightChild();
 		while (curr.getLeftChild() != null) {
 			curr = curr.getLeftChild();

@@ -1,5 +1,0 @@
-package Aufgabe_6;
-
-public class ListEntry {
-private ListEntry next;
-}
