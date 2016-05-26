@@ -1,8 +1,12 @@
 package Aufgabe_8;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class BinarySearchTree {
+
+	private final boolean DEBUG = false;
 	private TreeNode root;
 	private int nodeGeneratingCounter;
 
@@ -44,68 +48,55 @@ public class BinarySearchTree {
 			return current;
 		}
 		if (current.getLeftChild() != null) {
-			TreeNode result = findNodeWithData(current.getLeftChild(), data);
+			final TreeNode result = findNodeWithData(current.getLeftChild(), data);
 			if (result != null && result.getData() == data) {
 				return result;
 			}
 		}
 		if (current.getRightChild() != null) {
-			TreeNode result = findNodeWithData(current.getRightChild(), data);
+			final TreeNode result = findNodeWithData(current.getRightChild(), data);
 			if (result != null && result.getData() == data) {
 				return result;
 			}
 		}
 		return null;
 	}
-	
-	public void insert(final int newData){		
-		if(root == null){
-			root = new TreeNode(null,newData);
+
+	public void insert(final int newData) {
+		if (root == null) {
+			root = new TreeNode(null, newData);
 			return;
 		}
-		
+
 		TreeNode curr = root;
-
 		TreeNode prev = null;
-		
-		while(curr != null || curr.getData() > newData){
-			prev = curr;
-			if(curr == null){
-				prev.setRightChild(new TreeNode(prev,newData));
+		while (true) {
+			if (curr == null) {
+				curr = new TreeNode(prev, newData);
+				if (newData <= prev.getData()) {
+					prev.setLeftChild(curr, false);
+				} else {
+					prev.setRightChild(curr, false);
+				}
+				break;
 			}
-			curr = curr.getRightChild();
-	
-		}
-//		while
-//			prev = curr;
-//			curr = curr.getRightChild();
-//		}
-		
-	}
-	
 
-	/**
-	 * generates unsorted Tree with a number a maximum of maxNodes Nodes
-	 * 
-	 * @param min
-	 *            smallest number of randomrange (included)
-	 * @param max
-	 *            biggest number of randomrange (included)
-	 * @param maxNodes
-	 */
-	public void generateRandomUnsortedTree(final int maxNodes, final int min, final int max) {
+			if (newData <= curr.getData()) {
+				prev = curr;
+				curr = curr.getLeftChild();
+			} else {
+				prev = curr;
+				curr = curr.getRightChild();
+			}
+		}
+	}
+
+	public void generateRandomTree(final int maxNodes, final int min, final int max) {
 		final Random rand = new Random();
-		if (maxNodes < 1) {
-			throw new IllegalArgumentException("maxNodes must be bigger than zero");
+
+		for (int i = 0; i < maxNodes; ++i) {
+			insert(min + rand.nextInt(max - min + 1));
 		}
-		nodeGeneratingCounter = 1;
-		if (max - min <= 0) {
-			root = new TreeNode(null, 2);
-		} else {
-			root = new TreeNode(null, min + rand.nextInt(max - min + 1));
-		}
-		generateNode(root, maxNodes, rand, min, max);
-		System.out.println(nodeGeneratingCounter + " Nodes generiert");
 	}
 
 	/**
@@ -125,13 +116,13 @@ public class BinarySearchTree {
 		final boolean leftHasElement = rand.nextBoolean();
 		if (leftHasElement && nodeGeneratingCounter < maxNodes) {
 			nodeGeneratingCounter++;
-			parent.setLeftChild(new TreeNode(parent, min + rand.nextInt(max - min + 1)));
+			parent.setLeftChild(new TreeNode(parent, min + rand.nextInt(max - min + 1)), false);
 			generateNode(parent.getLeftChild(), maxNodes, rand, min, max);
 		}
 		final boolean rightHasElement = rand.nextBoolean();
 		if (rightHasElement && nodeGeneratingCounter < maxNodes) {
 			nodeGeneratingCounter++;
-			parent.setRightChild(new TreeNode(parent, min + rand.nextInt(max - min + 1)));
+			parent.setRightChild(new TreeNode(parent, min + rand.nextInt(max - min + 1)), false);
 			generateNode(parent.getRightChild(), maxNodes, rand, min, max);
 		}
 	}
@@ -170,11 +161,11 @@ public class BinarySearchTree {
 			// is delNode the current root of the tree
 			if (delNode == root) {
 				if (delNode.getLeftChild() == null) {
-					root =  delNode.getRightChild();
+					root = delNode.getRightChild();
 				} else {
 					root = delNode.getLeftChild();
 				}
-			}else{
+			} else {
 				// the TreeNode has a parent
 				if (delNode.getLeftChild() == null) {
 					updateChildrenOfChildrenParent(delNode, delNode.getRightChild());
@@ -199,25 +190,116 @@ public class BinarySearchTree {
 	}
 
 	private void updateChildrenOfChildrenParent(final TreeNode child, final TreeNode newChild) {
-		if (child.getParent().getLeftChild().equals(child)) {
-			child.getParent().setLeftChild(newChild);
+		if (child == null) {
+			throw new IllegalArgumentException("child is null");
+		}
+		if (child.getParent() == null) {
+			throw new IllegalArgumentException("child has no parent: parent is null");
+		}
+
+		if (child.getParent().getLeftChild() == child) {
+			child.getParent().setLeftChild(newChild, false);
 		} else {
-			child.getParent().setRightChild(newChild);
+			child.getParent().setRightChild(newChild, false);
 		}
 	}
 
-	public void printElems() {
-		printElems(root);
-		System.out.println();
+	private enum WireStatus {
+		FindLeft, GoToParent, CheckRight
 	}
 
-	private void printElems(final TreeNode current) {
-		if (current == null)
+	public void generateInOrderWire() {
+		if (root == null) {
 			return;
-		System.out.print(current.getData());
-		printElems(current.getLeftChild());
-		printElems(current.getRightChild());
+		}
 
+		final List<TreeNode> parents = new ArrayList<TreeNode>();
+
+		TreeNode curr = root;
+		WireStatus status = WireStatus.FindLeft;
+		int cnt = 0;
+		do {
+			switch (status) {
+			case FindLeft: {
+				// find the smallest one child on the left side
+				if (curr != null && curr.getLeftChild() != null) {
+					if (DEBUG)
+						System.out.println(curr.getData() + " - left child exists");
+					// store current node as parent
+					parents.add(curr);
+					// go left
+					curr = curr.getLeftChild();
+				} else {
+					status = WireStatus.CheckRight;
+				}
+			}
+				break;
+			case CheckRight: {
+				if (DEBUG)
+					System.out.println(curr.getData() + " - current node");
+				// was there no child found and there are also no right children
+				if (curr == root && curr.getRightChild() == null) {
+					if (DEBUG)
+						System.out.println(curr.getData() + " - is root -> return");
+					return;
+				}
+
+				// smallest child found
+				// wire up the right sides until there is a child
+				if (curr.getRightChild() == null && parents.size() > 0) {
+					status = WireStatus.GoToParent;
+				} else {
+					curr = curr.getRightChild();
+					status = WireStatus.FindLeft;
+				}
+			}
+				break;
+			case GoToParent: {
+				// no right children: wire to parent
+				curr.setRightChild(parents.get(parents.size() - 1), true);
+				parents.remove(parents.size() - 1);
+
+				// follow the new wire to parent
+				curr = curr.getRightChild();
+				if (DEBUG)
+					System.out.println(curr.getData() + " - current node via wire reached");
+				status = WireStatus.CheckRight;
+
+			}
+				break;
+			default:
+				break;
+			}
+			if (DEBUG)
+				System.out.println("runs = " + ++cnt);
+		} while (curr != null);
+
+	}
+
+	public void printInOrder() {
+		System.out.println("Print:");
+		int cnt = 0;
+		TreeNode current = root;
+		TreeNode previous = null;
+
+		do {
+			while (current.getLeftChild() != null && !current.leftIsWire()) {
+				current = current.getLeftChild();
+			}
+			System.out.println(current.getData());
+			++cnt;
+			previous = current;
+			current = current.getRightChild();
+			while (previous.rightIsWire() && (current != null)) {
+
+				System.out.println(current.getData());
+				++cnt;
+				previous = current;
+				current = current.getRightChild();
+			}
+
+		} while (current != null);
+		System.out.println("Anzahl = " + cnt);
 	}
 
 }

@@ -34,15 +34,11 @@ public class DSA_1276156_05 {
 
 		// Aufgabe 13b
 		/*
-		 * Zeit Messung...(100000 Elemente)
-		 * ----- 
-		 * Insertionsort:
-		 * Laufzeit = 3.433000087738037 Sekunden
+		 * Zeit Messung...(100000 Elemente) ----- Insertionsort: Laufzeit =
+		 * 3.433000087738037 Sekunden
 		 * 
-		 * Mergesort: 
-		 * Laufzeit = 0.010000000707805157 Sekunden 
-		 * -----
-		 * Verhältnis: Insertionsort/Mergesort = 343.2999844748538
+		 * Mergesort: Laufzeit = 0.010000000707805157 Sekunden ----- Verhältnis:
+		 * Insertionsort/Mergesort = 343.2999844748538
 		 */
 		compareSortAlgorithms(generateRandomArray(1, 1000, ANZAHL_ELEMENTE));
 

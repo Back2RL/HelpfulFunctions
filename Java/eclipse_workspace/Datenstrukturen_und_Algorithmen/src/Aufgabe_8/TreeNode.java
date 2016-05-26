@@ -7,38 +7,38 @@ public class TreeNode {
 	private TreeNode leftChild;
 	private TreeNode rightChild;
 	/**
-	 * stores information whether left-/rightchild are links or childnodes used
+	 * stores information whether left-/rightchild are Wires or childnodes used
 	 * instead of 2 seperate booleans
 	 */
-	private byte linkInformation;
-	private static final byte leftLinkMask = 1 << 2;
-	private static final byte rightLinkMask = 1;
+	private byte WireInformation;
+	private static final byte leftWireMask = 1 << 2;
+	private static final byte rightWireMask = 1;
 
-	public boolean leftIsLink() {
-		return (linkInformation & leftLinkMask) == leftLinkMask;
+	public boolean leftIsWire() {
+		return (WireInformation & leftWireMask) == leftWireMask;
 	}
 
-	public boolean rightIsLink() {
-		return (linkInformation & rightLinkMask) == rightLinkMask;
+	public boolean rightIsWire() {
+		return (WireInformation & rightWireMask) == rightWireMask;
 	}
 
-	public void setLeftIsLink(final boolean isLink) {
-		if (isLink) {
-			linkInformation |= leftLinkMask;
+	public void setLeftIsWire(final boolean isWire) {
+		if (isWire) {
+			WireInformation |= leftWireMask;
 		} else {
-			linkInformation &= ~leftLinkMask;
+			WireInformation &= ~leftWireMask;
 		}
 	}
 
-	public void setRightIsLink(final boolean isLink) {
-		if (isLink) {
-			linkInformation |= rightLinkMask;
+	public void setRightIsWire(final boolean isWire) {
+		if (isWire) {
+			WireInformation |= rightWireMask;
 		} else {
-			linkInformation &= ~rightLinkMask;
+			WireInformation &= ~rightWireMask;
 		}
 	}
 
-	public TreeNode(TreeNode parent, int data) {
+	public TreeNode(final TreeNode parent, final int data) {
 		setParent(parent);
 		setData(data);
 	}
@@ -47,7 +47,7 @@ public class TreeNode {
 		return parent;
 	}
 
-	public void setParent(TreeNode parent) {
+	public void setParent(final TreeNode parent) {
 		this.parent = parent;
 	}
 
@@ -55,7 +55,7 @@ public class TreeNode {
 		return data;
 	}
 
-	public void setData(int data) {
+	public void setData(final int data) {
 		this.data = data;
 	}
 
@@ -63,7 +63,8 @@ public class TreeNode {
 		return leftChild;
 	}
 
-	public void setLeftChild(TreeNode leftChild) {
+	public void setLeftChild(final TreeNode leftChild, final boolean isWire) {
+		setLeftIsWire(isWire);
 		this.leftChild = leftChild;
 	}
 
@@ -71,7 +72,8 @@ public class TreeNode {
 		return rightChild;
 	}
 
-	public void setRightChild(TreeNode rightChild) {
+	public void setRightChild(final TreeNode rightChild, final boolean isWire) {
+		setRightIsWire(isWire);
 		this.rightChild = rightChild;
 	}
 
