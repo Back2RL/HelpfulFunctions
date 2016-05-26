@@ -1,11 +1,12 @@
 package Aufgabe_8;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 public class BinarySearchTree {
+
+	private final boolean DEBUG = false;
 	private TreeNode root;
 	private int nodeGeneratingCounter;
 
@@ -77,10 +78,10 @@ public class BinarySearchTree {
 				} else {
 					prev.setRightChild(curr, false);
 				}
-				return;
+				break;
 			}
 
-			if (curr.getData() > newData) {
+			if (newData <= curr.getData()) {
 				prev = curr;
 				curr = curr.getLeftChild();
 			} else {
@@ -88,30 +89,6 @@ public class BinarySearchTree {
 				curr = curr.getRightChild();
 			}
 		}
-	}
-
-	/**
-	 * generates unsorted Tree with a number a maximum of maxNodes Nodes
-	 * 
-	 * @param min
-	 *            smallest number of randomrange (included)
-	 * @param max
-	 *            biggest number of randomrange (included)
-	 * @param maxNodes
-	 */
-	public void generateRandomUnsortedTree(final int maxNodes, final int min, final int max) {
-		final Random rand = new Random();
-		if (maxNodes < 1) {
-			throw new IllegalArgumentException("maxNodes must be bigger than zero");
-		}
-		nodeGeneratingCounter = 1;
-		if (max - min <= 0) {
-			root = new TreeNode(null, 2);
-		} else {
-			root = new TreeNode(null, min + rand.nextInt(max - min + 1));
-		}
-		generateNode(root, maxNodes, rand, min, max);
-		System.out.println(nodeGeneratingCounter + " Nodes generiert");
 	}
 
 	public void generateRandomTree(final int maxNodes, final int min, final int max) {
@@ -227,18 +204,8 @@ public class BinarySearchTree {
 		}
 	}
 
-	public void printElems() {
-		printElems(root);
-		System.out.println();
-	}
-
-	private void printElems(final TreeNode current) {
-		if (current == null)
-			return;
-		System.out.print(current.getData() + "; ");
-		printElems(current.getLeftChild());
-		printElems(current.getRightChild());
-
+	private enum WireStatus {
+		FindLeft, GoToParent, CheckRight
 	}
 
 	public void generateInOrderWire() {
@@ -249,82 +216,96 @@ public class BinarySearchTree {
 		final List<TreeNode> parents = new ArrayList<TreeNode>();
 
 		TreeNode curr = root;
-		final boolean start = true;
+		WireStatus status = WireStatus.FindLeft;
 		int cnt = 0;
 		do {
-			System.out.println(Arrays.toString(parents.toArray()));
-			// find the smallest one child on the left side
-			while (curr != null && curr.getRightChild() != null) {
-				System.out.println(curr.getData() + " - left child exists");
-				parents.add(curr);
-				System.out.println(Arrays.toString(parents.toArray()));
-				curr = curr.getLeftChild();
+			switch (status) {
+			case FindLeft: {
+				// find the smallest one child on the left side
+				if (curr != null && curr.getLeftChild() != null) {
+					if (DEBUG)
+						System.out.println(curr.getData() + " - left child exists");
+					// store current node as parent
+					parents.add(curr);
+					// go left
+					curr = curr.getLeftChild();
+				} else {
+					status = WireStatus.CheckRight;
+				}
 			}
-			if (curr != null)
-				System.out.println(curr.getData() + " - current node");
-			// was there no child found and there are also no right children
-			if (curr == root && curr.getRightChild() == null) {
-				System.out.println(curr.getData() + " - is root -> return");
-				return;
+				break;
+			case CheckRight: {
+				if (DEBUG)
+					System.out.println(curr.getData() + " - current node");
+				// was there no child found and there are also no right children
+				if (curr == root && curr.getRightChild() == null) {
+					if (DEBUG)
+						System.out.println(curr.getData() + " - is root -> return");
+					return;
+				}
+
+				// smallest child found
+				// wire up the right sides until there is a child
+				if (curr.getRightChild() == null && parents.size() > 0) {
+					status = WireStatus.GoToParent;
+				} else {
+					curr = curr.getRightChild();
+					status = WireStatus.FindLeft;
+				}
 			}
-			// smallest child found
-			// wire up the right sides until there is a child
-			while (curr != null && curr.getRightChild() == null) {
-				System.out.println(curr.getData() + " - right is null");
-				parents.remove(curr.getParent());
-				System.out.println(Arrays.toString(parents.toArray()));
+				break;
+			case GoToParent: {
 				// no right children: wire to parent
-				curr.setRightChild(curr.getParent(), true);
-				// follow wire to parent
-				System.out.println(curr.getData());
-				curr = curr.getRightChild();
-				System.out.println(curr.getData() + " - current node via wire reached");
-				System.out.println(curr.getData());
-			}
-			// go to the right child
-			curr = curr.getRightChild();
-			System.out.println(curr.getData() + " - gone to right child");
-
-			if (curr.getLeftChild() == null && curr.getRightChild() == null && parents.size() > 0) {
-				System.out.println(curr.getData() + " - no children");
-
 				curr.setRightChild(parents.get(parents.size() - 1), true);
 				parents.remove(parents.size() - 1);
 
-				System.out.println(Arrays.toString(parents.toArray()));
-
+				// follow the new wire to parent
 				curr = curr.getRightChild();
-				System.out.println(curr.getData() + " - gone to parent via new node");
-				curr = curr.getRightChild();
-				if (curr.getRightChild() != null) {
-					curr = curr.getRightChild();
-					System.out.println(curr.getData() + " - right child of parent");
-				}
+				if (DEBUG)
+					System.out.println(curr.getData() + " - current node via wire reached");
+				status = WireStatus.CheckRight;
 
 			}
-			System.out.println("runs = " + ++cnt);
-		} while (curr.getRightChild() != null);
+				break;
+			default:
+				break;
+			}
+			if (DEBUG)
+				System.out.println("runs = " + ++cnt);
+		} while (curr != null);
+
 	}
 
 	public void printInOrder() {
-		System.out.println("Augabe:");
+		System.out.println("Print:");
+		int cnt = 0;
 		TreeNode current = root;
 		TreeNode previous = null;
+
 		do {
 			while (current.getLeftChild() != null && !current.leftIsWire()) {
 				current = current.getLeftChild();
 			}
 			System.out.println(current.getData());
+			++cnt;
 			previous = current;
 			current = current.getRightChild();
 			while (previous.rightIsWire() && (current != null)) {
 
 				System.out.println(current.getData());
+				++cnt;
 				previous = current;
 				current = current.getRightChild();
 			}
 
 		} while (current != null);
+		System.out.println("Anzahl = " + cnt);
+	}
+	
+	public int getHeight(TreeNode x){
+		if(x == null) return 0;
+		return Math.max(getHeight(x.getLeftChild()), getHeight(x.getRightChild())) + 1;
+		
 	}
 
 }

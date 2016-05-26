@@ -1,0 +1,44 @@
+- formales Verfahren zum Übersetzen von ERM in Tabellen
+Tabelle: 
+- Begriff erlaubt genaue Aussagen zum Umgang mit dieser
+
+typ. Tabelleneigenschaften:
+-	Namen
+-	Spaltenüberschriften (Attribute)
+-	Werte zu Attributen (ein Datentyp je Attribut)
+
+Definition Datentyp:
+- 	grob: Menge von Werten
+- 	Beispiele: Text, Zahl, Datum, boolean
+- 	ohne Datentyp:  NULL (undefiniert)
+
+Definition Tabelle (Relationsschema):
+- 	hat einen Namen
+-	Menge von Attributen
+-	jedes Attribut ist Teilmenge eines Datentyps für Tabellen
+-	jedes Attribut ist Inhalt der Teilmenge des Kreuzproduktes der Attribute Att1×...×Attn . (Tupel)
+ z.B.: Kunde×Zahlungsfähig={(42, wahr), (69, wahr)} -> lässt sich als Tabelle darstellen
+ 
+Übersetzungsziele (ERM in Tabelle):
+1.	möglichst Redundanzfrei (z.B.: Kundennamen nur an einer Stelle)
+2.	Null-Werte vermeiden (NULL-Werte sind fehlerträchtig)
+3.	möglichst kleine Anzahl von Tabellen
+
+1. Schritt: Übersetzung der Entitätstypen
+-	Entitätstyp wird eine Tabelle
+-	Attribute des Entitätstypen werden zu den Attributen der Tabelle
+-	identifizierende Attribute werden übernommen
+
+2. Schritt: Übersetzung von 1:1-Beziehungen
+-	werden vereinigt in einer Tabelle
+
+3. Schritt: Übersetzung von 1:N Beziehungen
+-	eine zusätzliche Tabelle wird erstellt, auf die mit Fremdschlüssel verwiesen wird
+
+4. Schritt: Übersetzung von M:N-Beziehungen
+-	  neue Tabelle mit neuem Namen der eng mit dem Namen der Beziehung in Zusammenhang steht (verwandtes Nomen)
+
+1:C wie 1:N
+C:C wie M:N 
+
+man kann statt einer M:N zwei 1:N-Beziehungen verwenden

@@ -8,10 +8,9 @@ public class BinarySearchTree {
 
 	private final boolean DEBUG = false;
 	private TreeNode root;
-	private int nodeGeneratingCounter;
 
 	/**
-	 * default constructor, treeroot is null
+	 * default constructor, tree root is null
 	 */
 	public BinarySearchTree() {
 	}
@@ -96,34 +95,6 @@ public class BinarySearchTree {
 
 		for (int i = 0; i < maxNodes; ++i) {
 			insert(min + rand.nextInt(max - min + 1));
-		}
-	}
-
-	/**
-	 * generates recursively childnodes for a parentnode while maximum not
-	 * reached or no children where generated
-	 * 
-	 * @param parent
-	 * @param maxNodes
-	 * @param rand
-	 * @param min
-	 * @param max
-	 */
-	private void generateNode(final TreeNode parent, final int maxNodes, final Random rand, final int min,
-			final int max) {
-		if (nodeGeneratingCounter >= maxNodes)
-			return;
-		final boolean leftHasElement = rand.nextBoolean();
-		if (leftHasElement && nodeGeneratingCounter < maxNodes) {
-			nodeGeneratingCounter++;
-			parent.setLeftChild(new TreeNode(parent, min + rand.nextInt(max - min + 1)), false);
-			generateNode(parent.getLeftChild(), maxNodes, rand, min, max);
-		}
-		final boolean rightHasElement = rand.nextBoolean();
-		if (rightHasElement && nodeGeneratingCounter < maxNodes) {
-			nodeGeneratingCounter++;
-			parent.setRightChild(new TreeNode(parent, min + rand.nextInt(max - min + 1)), false);
-			generateNode(parent.getRightChild(), maxNodes, rand, min, max);
 		}
 	}
 
@@ -300,6 +271,17 @@ public class BinarySearchTree {
 
 		} while (current != null);
 		System.out.println("Anzahl = " + cnt);
+	}
+
+	public int getHeigth() {
+		return getHeight(root);
+	}
+
+	private int getHeight(final TreeNode x) {
+		if (x == null)
+			return 0;
+		return Math.max(x.leftIsWire() ? 0 : getHeight(x.getLeftChild()),
+				x.rightIsWire() ? 0 : getHeight(x.getRightChild())) + 1;
 	}
 
 }

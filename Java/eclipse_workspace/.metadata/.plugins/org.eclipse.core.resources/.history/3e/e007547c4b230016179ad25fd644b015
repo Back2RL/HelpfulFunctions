@@ -9,6 +9,7 @@ public class TestingTrees {
 		two.generateInOrderWire();
 		two.printInOrder();
 		System.out.println(two.getHeigth());
+		System.out.println(Math.pow(2, 23));
 	}
 
 }

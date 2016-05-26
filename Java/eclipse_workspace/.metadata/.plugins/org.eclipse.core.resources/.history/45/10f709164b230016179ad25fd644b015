@@ -4,7 +4,7 @@ public class TestingTrees {
 	public static void main(final String[] args) {
 		final BinarySearchTree two = new BinarySearchTree();
 		System.out.println("Generation of nodes");
-		two.generateRandomTree(1000, 0, 1000);
+		two.generateRandomTree(1000, 0, 10000000);
 		System.out.println("Wire generation");
 		two.generateInOrderWire();
 		two.printInOrder();
