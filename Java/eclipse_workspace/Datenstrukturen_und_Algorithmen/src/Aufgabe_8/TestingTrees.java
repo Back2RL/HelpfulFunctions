@@ -3,12 +3,37 @@ package Aufgabe_8;
 public class TestingTrees {
 	public static void main(final String[] args) {
 		final BinarySearchTree two = new BinarySearchTree();
-		System.out.println("Generation of nodes");
-		two.generateRandomTree(1000, 0, 100, false);
-		System.out.println("Wire generation");
-		two.generateInOrderWire();
-		two.insert(99, true);
-		two.generateInOrderWire();
+
+		two.insert(7, false);
+		two.insert(8, false);
+		two.insert(9, false);
+		two.insert(10, false);
+		two.insert(5, false);
+		two.insert(4, false);
+		two.insert(3, false);
+		two.insert(2, false);
+		two.insert(1, false);
+		two.insert(0, false);
+		two.printInOrder();
+
+		two.delete(2, false);
+		two.printInOrder();
+		two.delete(1, false);
+		two.printInOrder();
+		two.delete(3, false);
+		two.printInOrder();
+		two.delete(4, false);
+		two.printInOrder();
+		two.delete(5, false);
+		two.printInOrder();
+		two.delete(6, false);
+		two.printInOrder();
+		two.delete(7, false);
+		two.printInOrder();
+		two.delete(8, false);
+		two.printInOrder();
+		two.delete(9, false);
+
 		two.printInOrder();
 		final int searchNum = 999;
 		System.out.println(searchNum + " is in TreeNode = " + two.search(searchNum));

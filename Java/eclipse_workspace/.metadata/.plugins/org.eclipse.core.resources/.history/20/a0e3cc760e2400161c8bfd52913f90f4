@@ -1,0 +1,25 @@
+package Aufgabe_8;
+
+public class TestingTrees {
+	public static void main(final String[] args) {
+		final BinarySearchTree two = new BinarySearchTree();
+		System.out.println("Generation of nodes");
+		two.generateRandomTree(10, 0, 10, false);
+		System.out.println("Wire generation");
+		two.generateInOrderWire();
+		two.insert(99, true);
+		two.generateInOrderWire();
+		two.insert(99, true);
+
+		two.generateInOrderWire();
+		two.insert(99, true);
+		two.generateInOrderWire();
+		two.delete(99,true);
+
+		two.printInOrder();
+		final int searchNum = 999;
+		System.out.println(searchNum + " is in TreeNode = " + two.search(searchNum));
+		System.out.println("Tree height = " + two.getHeigth());
+	}
+
+}
