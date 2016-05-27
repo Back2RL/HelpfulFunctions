@@ -7,6 +7,10 @@ import java.util.Random;
 public class BinarySearchTree {
 
 	private final boolean DEBUG = false;
+
+	/**
+	 * the first node in the tree (parent is null)
+	 */
 	private TreeNode root;
 
 	/**
@@ -30,7 +34,7 @@ public class BinarySearchTree {
 	 * @return a TreeNode or null if element with data does not exist
 	 */
 	public TreeNode search(final int data) {
-		return findNodeWithData(root, data);
+		return searchNode(root, data);
 	}
 
 	/**
@@ -40,28 +44,29 @@ public class BinarySearchTree {
 	 * @param data
 	 * @return
 	 */
-	private TreeNode findNodeWithData(final TreeNode current, final int data) {
-		if (current == null)
-			return current;
-		if (current.getData() == data) {
-			return current;
-		}
-		if (current.getLeftChild() != null) {
-			final TreeNode result = findNodeWithData(current.getLeftChild(), data);
-			if (result != null && result.getData() == data) {
-				return result;
+	private TreeNode searchNode(TreeNode current, final int data) {
+		while (current != null) {
+			if (current.getData() == data) {
+				return current;
 			}
-		}
-		if (current.getRightChild() != null) {
-			final TreeNode result = findNodeWithData(current.getRightChild(), data);
-			if (result != null && result.getData() == data) {
-				return result;
+			if (data < current.getData()) {
+				if (!current.leftIsWire()) {
+					current = current.getLeftChild();
+				} else {
+					return null;
+				}
+			} else {
+				if (!current.rightIsWire()) {
+					current = current.getRightChild();
+				} else {
+					return null;
+				}
 			}
 		}
 		return null;
 	}
 
-	public void insert(final int newData) {
+	public void insert(final int newData, final boolean duplicatesAllowed) {
 		if (root == null) {
 			root = new TreeNode(null, newData);
 			return;
@@ -71,30 +76,55 @@ public class BinarySearchTree {
 		TreeNode prev = null;
 		while (true) {
 			if (curr == null) {
+
 				curr = new TreeNode(prev, newData);
-				if (newData <= prev.getData()) {
+				if (newData < prev.getData()) {
 					prev.setLeftChild(curr, false);
 				} else {
 					prev.setRightChild(curr, false);
 				}
 				break;
 			}
+			if (!duplicatesAllowed && curr.getData() == newData) {
+				return;
+			}
 
-			if (newData <= curr.getData()) {
+			if (newData < curr.getData()) {
 				prev = curr;
-				curr = curr.getLeftChild();
+				if (curr.leftIsWire()) {
+					curr = null;
+				} else {
+					curr = prev.getLeftChild();
+				}
 			} else {
 				prev = curr;
-				curr = curr.getRightChild();
+				if (curr.rightIsWire()) {
+					curr = null;
+				} else {
+					curr = prev.getRightChild();
+				}
+
 			}
 		}
 	}
 
-	public void generateRandomTree(final int maxNodes, final int min, final int max) {
+	/**
+	 * @param maxNodes
+	 *            maximum possible nodes (if random range is smaller than
+	 *            maxNodes and no duplicates allowed: maximum = (max - min + 1))
+	 * @param min
+	 *            smallest possible number to be generated (inclusive)
+	 * @param max
+	 *            biggest possible number to be generated (inclusive)
+	 * @param duplicatesAllowed
+	 *            numbers can occur multiple times in the tree (can reduce tree
+	 *            size, see maxNodes)
+	 */
+	public void generateRandomTree(final int maxNodes, final int min, final int max, final boolean duplicatesAllowed) {
 		final Random rand = new Random();
 
 		for (int i = 0; i < maxNodes; ++i) {
-			insert(min + rand.nextInt(max - min + 1));
+			insert(min + rand.nextInt(max - min + 1), duplicatesAllowed);
 		}
 	}
 
@@ -175,7 +205,7 @@ public class BinarySearchTree {
 		}
 	}
 
-	private enum WireStatus {
+	private enum WireCreationStep {
 		FindLeft, GoToParent, CheckRight
 	}
 
@@ -187,10 +217,10 @@ public class BinarySearchTree {
 		final List<TreeNode> parents = new ArrayList<TreeNode>();
 
 		TreeNode curr = root;
-		WireStatus status = WireStatus.FindLeft;
+		WireCreationStep currStep = WireCreationStep.FindLeft;
 		int cnt = 0;
 		do {
-			switch (status) {
+			switch (currStep) {
 			case FindLeft: {
 				// find the smallest one child on the left side
 				if (curr != null && curr.getLeftChild() != null) {
@@ -201,7 +231,7 @@ public class BinarySearchTree {
 					// go left
 					curr = curr.getLeftChild();
 				} else {
-					status = WireStatus.CheckRight;
+					currStep = WireCreationStep.CheckRight;
 				}
 			}
 				break;
@@ -209,32 +239,36 @@ public class BinarySearchTree {
 				if (DEBUG)
 					System.out.println(curr.getData() + " - current node");
 				// was there no child found and there are also no right children
-				if (curr == root && curr.getRightChild() == null) {
+				if (curr == root && (curr.getRightChild() == null || curr.rightIsWire())) {
+					curr.setRightChild(null, false);
 					if (DEBUG)
 						System.out.println(curr.getData() + " - is root -> return");
 					return;
 				}
 
 				// smallest child found
-				// wire up the right sides until there is a child
-				if (curr.getRightChild() == null && parents.size() > 0) {
-					status = WireStatus.GoToParent;
+				if ((curr.getRightChild() == null || curr.rightIsWire()) && parents.size() > 0) {
+					// wire to parent
+					currStep = WireCreationStep.GoToParent;
 				} else {
+					// go to right child
 					curr = curr.getRightChild();
-					status = WireStatus.FindLeft;
+					currStep = WireCreationStep.FindLeft;
 				}
 			}
 				break;
 			case GoToParent: {
-				// no right children: wire to parent
+				// there is no right child: wire to the most recent parent
 				curr.setRightChild(parents.get(parents.size() - 1), true);
+				// remove the most recent parent from the list
 				parents.remove(parents.size() - 1);
 
-				// follow the new wire to parent
+				// follow the new wire to the linked parent
 				curr = curr.getRightChild();
 				if (DEBUG)
 					System.out.println(curr.getData() + " - current node via wire reached");
-				status = WireStatus.CheckRight;
+				// perform check for right child
+				currStep = WireCreationStep.CheckRight;
 
 			}
 				break;
@@ -270,7 +304,7 @@ public class BinarySearchTree {
 			}
 
 		} while (current != null);
-		System.out.println("Anzahl = " + cnt);
+		System.out.println("Number of elements = " + cnt);
 	}
 
 	public int getHeigth() {
