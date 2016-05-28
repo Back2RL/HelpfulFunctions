@@ -1,8 +1,13 @@
 package Aufgabe_8;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.TreeMap;
 
 public class BinarySearchTree {
 
@@ -17,6 +22,10 @@ public class BinarySearchTree {
 	 * default constructor, tree root is null
 	 */
 	public BinarySearchTree() {
+	}
+
+	private enum WireCreationStep {
+		CheckCurrent, CheckLeft, CheckRight, GoToParent
 	}
 
 	/**
@@ -73,20 +82,54 @@ public class BinarySearchTree {
 		}
 
 		TreeNode curr = root;
-		TreeNode prev = null;
-		while (true) {
-			if (curr == null) {
+		final List parents = new ArrayList<TreeNode>();
 
-				curr = new TreeNode(prev, newData);
-				if (newData < prev.getData()) {
-					prev.setLeftChild(curr, false);
-				} else {
-					prev.setRightChild(curr, false);
+		final WireCreationStep step = WireCreationStep.CheckCurrent;
+		boolean searchInsertPos = true;
+
+		while (true) {
+			switch (step) {
+			case CheckCurrent: {
+				if (newData < curr.getData()) {
+					step = WireCreationStep.CheckLeft;
+					continue;
 				}
-				break;
+				if (newData > curr.getData()) {
+					step = WireCreationStep.CheckRight;
+					continue;
+				}
+				if (newData == curr.getData()) {
+					if (duplicatesAllowed) {
+						step = WireCreationStep.CheckLeft;
+						continue;
+					} else {
+						searchInsertPos = false;
+						continue;
+					}
+				}
 			}
-			if (!duplicatesAllowed && curr.getData() == newData) {
-				return;
+				break;
+			case CheckLeft: {
+
+				if (curr.getLeftChild() != null) {
+					parents.add(curr);
+					curr = curr.getLeftChild();
+					step = WireCreationStep.CheckCurrent;
+					continue;
+				}
+				// test
+				final TreeMap<Integer, String> test = new TreeMap<>();
+				try (FileOutputStream fos = new FileOutputStream("Personen.dat");
+						ObjectOutputStream oos = new ObjectOutputStream(fos);) {
+					oos.writeObject(test);
+				} catch (final FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (final IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 			}
 
 			if (newData < curr.getData()) {
@@ -106,7 +149,8 @@ public class BinarySearchTree {
 
 			}
 		}
-		generateInOrderWire();
+
+		// generateInOrderWire();
 	}
 
 	/**
@@ -250,10 +294,6 @@ public class BinarySearchTree {
 		}
 	}
 
-	private enum WireCreationStep {
-		FindLeft, GoToParent, CheckRight
-	}
-
 	public void generateInOrderWire() {
 		if (root == null) {
 			return;
@@ -262,11 +302,11 @@ public class BinarySearchTree {
 		final List<TreeNode> parents = new ArrayList<TreeNode>();
 
 		TreeNode curr = root;
-		WireCreationStep currStep = WireCreationStep.FindLeft;
+		WireCreationStep currStep = WireCreationStep.CheckLeft;
 		int cnt = 0;
 		do {
 			switch (currStep) {
-			case FindLeft: {
+			case CheckLeft: {
 				// find the smallest one child on the left side
 				if (curr != null && curr.getLeftChild() != null) {
 					if (DEBUG)
@@ -298,7 +338,7 @@ public class BinarySearchTree {
 				} else {
 					// go to right child
 					curr = curr.getRightChild();
-					currStep = WireCreationStep.FindLeft;
+					currStep = WireCreationStep.CheckLeft;
 				}
 			}
 				break;

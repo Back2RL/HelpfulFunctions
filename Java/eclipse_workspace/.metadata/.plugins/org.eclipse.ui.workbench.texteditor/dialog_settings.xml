@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
-	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item value="287" key="DIALOG_WIDTH"/>
-		<item value="293" key="DIALOG_Y_ORIGIN"/>
-		<item value="1079" key="DIALOG_X_ORIGIN"/>
-		<item value="376" key="DIALOG_HEIGHT"/>
-		<item value="1|Droid Sans|8.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+	<section name="org.eclipse.ui.texteditor.GotoLineAction$GotoLineDialog_dialogBounds">
+		<item value="436" key="DIALOG_Y_ORIGIN"/>
+		<item value="686" key="DIALOG_X_ORIGIN"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item value="true" key="wrap"/>
-		<item value="false" key="casesensitive"/>
 		<item value="false" key="isRegEx"/>
+		<item value="CheckLeft" key="selection"/>
+		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
+		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
-		<item value="Anzahl" key="selection"/>
 		<list key="findhistory">
+			<item value="FindLeft"/>
 			<item value="anzahl"/>
 			<item value="runs"/>
 			<item value="print("/>
@@ -22,11 +20,15 @@
 			<item value=""/>
 		</list>
 		<list key="replacehistory">
+			<item value="CheckLeft"/>
 			<item value="Wire"/>
 		</list>
 	</section>
-	<section name="org.eclipse.ui.texteditor.GotoLineAction$GotoLineDialog_dialogBounds">
-		<item value="436" key="DIALOG_Y_ORIGIN"/>
-		<item value="686" key="DIALOG_X_ORIGIN"/>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item value="313" key="DIALOG_WIDTH"/>
+		<item value="1|Ubuntu|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+		<item value="419" key="DIALOG_HEIGHT"/>
+		<item value="293" key="DIALOG_Y_ORIGIN"/>
+		<item value="1079" key="DIALOG_X_ORIGIN"/>
 	</section>
 </section>
