@@ -7,6 +7,9 @@
 <fullyQualifiedTypeName name="org.omg.CORBA.Current"/>
 <fullyQualifiedTypeName name="Aufgabe_8.BinarySearchTree.WireStatus"/>
 <fullyQualifiedTypeName name="java.lang.Integer"/>
-<fullyQualifiedTypeName name="Aufgabe_8.BinarySearchTree.WireCreationStep"/>
 <fullyQualifiedTypeName name="java.util.TreeMap"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="Aufgabe_8.TreeNode"/>
+<fullyQualifiedTypeName name="Aufgabe_8.BinarySearchTree.WireCreationStep"/>
+<fullyQualifiedTypeName name="Aufgabe_8.TestingTrees"/>
 </qualifiedTypeNameHistroy>

@@ -9,18 +9,29 @@ public class TestingTrees {
 		final long start = rt.totalMemory() - rt.freeMemory();
 		System.out.println(start);
 		final BinarySearchTree two = new BinarySearchTree();
-		two.generateRandomTree(1000000, 0, Integer.MAX_VALUE - 1, false);
-		// two.insert(7, false);
-		// two.insert(8, false);
-		// two.insert(9, false);
-		// two.insert(10, false);
+
+		two.generateRandomTree(10000000, 0, 10000000, false);
+		//
+		// final TreeMap<Integer, Byte> test = new TreeMap<>();
+		// for (int i = 0; i < 10000000; ++i) {
+		// two.insert(i, false);
+		// // test.put(i, (byte) 1);
+		// }
+		// System.out.println(test.lastKey());
+
 		// two.insert(5, false);
+		// System.out.println("added");
 		// two.insert(4, false);
+		// System.out.println("added");
 		// two.insert(3, false);
+		// System.out.println("added");
 		// two.insert(2, false);
+		// System.out.println("added");
 		// two.insert(1, false);
+		// System.out.println("added");
 		// two.insert(0, false);
-		// two.printInOrder();
+		// System.out.println("added last");
+		two.printInOrder();
 		//
 		// two.delete(2, false);
 		// two.printInOrder();

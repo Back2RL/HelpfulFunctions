@@ -1,13 +1,8 @@
 package Aufgabe_8;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.TreeMap;
 
 public class BinarySearchTree {
 
@@ -25,7 +20,7 @@ public class BinarySearchTree {
 	}
 
 	private enum WireCreationStep {
-		CheckCurrent, CheckLeft, CheckRight, GoToParent
+		CheckCurrent, CheckLeft, CheckRight, GoToParent, Success, Failed
 	}
 
 	/**
@@ -76,34 +71,48 @@ public class BinarySearchTree {
 	}
 
 	public void insert(final int newData, final boolean duplicatesAllowed) {
+		if (DEBUG)
+			System.out.println("to insert: " + newData);
 		if (root == null) {
 			root = new TreeNode(null, newData);
+			if (DEBUG)
+				System.out.println("root = " + newData);
 			return;
 		}
 
 		TreeNode curr = root;
-		final List parents = new ArrayList<TreeNode>();
+		final List<TreeNode> parents = new ArrayList<>();
 
-		final WireCreationStep step = WireCreationStep.CheckCurrent;
+		WireCreationStep step = WireCreationStep.CheckCurrent;
 		boolean searchInsertPos = true;
 
-		while (true) {
+		while (searchInsertPos) {
 			switch (step) {
 			case CheckCurrent: {
 				if (newData < curr.getData()) {
+					if (DEBUG)
+						System.out.println(" curr: smaller");
 					step = WireCreationStep.CheckLeft;
 					continue;
 				}
 				if (newData > curr.getData()) {
+					if (DEBUG)
+						System.out.println(" curr: bigger");
 					step = WireCreationStep.CheckRight;
 					continue;
 				}
 				if (newData == curr.getData()) {
+					if (DEBUG)
+						System.out.println(" curr: equal");
 					if (duplicatesAllowed) {
+						if (DEBUG)
+							System.out.println("curr: equal dup");
 						step = WireCreationStep.CheckLeft;
 						continue;
 					} else {
-						searchInsertPos = false;
+						if (DEBUG)
+							System.out.println(" curr: equal no dup");
+						step = WireCreationStep.Failed;
 						continue;
 					}
 				}
@@ -111,43 +120,95 @@ public class BinarySearchTree {
 				break;
 			case CheckLeft: {
 
-				if (curr.getLeftChild() != null) {
+				if (curr.getLeftChild() == null || curr.leftIsWire()) {
+					if (DEBUG)
+						System.out.println(" left: null");
+					final TreeNode newLeftChild = new TreeNode(curr, newData);
+					newLeftChild.setRightChild(curr, true);
+					curr.setLeftChild(newLeftChild, false);
+					step = WireCreationStep.Success;
+					continue;
+				}
+
+				if (curr.getLeftChild() != null || !curr.leftIsWire()) {
+					if (DEBUG)
+						System.out.println(" left: not null");
 					parents.add(curr);
 					curr = curr.getLeftChild();
 					step = WireCreationStep.CheckCurrent;
 					continue;
 				}
-				// test
-				final TreeMap<Integer, String> test = new TreeMap<>();
-				try (FileOutputStream fos = new FileOutputStream("Personen.dat");
-						ObjectOutputStream oos = new ObjectOutputStream(fos);) {
-					oos.writeObject(test);
-				} catch (final FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (final IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 			}
+				break;
+			case CheckRight: {
+
+				if (curr.getRightChild() == null || curr.rightIsWire()) {
+					if (DEBUG)
+						System.out.println("right: null or wire");
+					TreeNode rightWire = null;
+					if (curr.rightIsWire()) {
+						if (DEBUG)
+							System.out.println("right: wire");
+						rightWire = curr.getRightChild();
+					}
+					if (curr.getRightChild() == null && parents.size() > 0) {
+						if (DEBUG)
+							System.out.println("right: null");
+						rightWire = parents.get(parents.size() - 1);
+					}
+					if (rightWire == null) {
+						if (DEBUG)
+							System.out.println("right: stays null");
+					}
+					final TreeNode newRightChild = new TreeNode(curr, newData);
+					newRightChild.setRightChild(rightWire, true);
+					curr.setRightChild(newRightChild, false);
+					step = WireCreationStep.Success;
+					continue;
+				}
+
+				if (curr.getRightChild() != null && !curr.rightIsWire()) {
+					if (DEBUG)
+						System.out.println("right: not null not wire");
+					curr = curr.getRightChild();
+					step = WireCreationStep.CheckCurrent;
+					continue;
+
+				}
+				//
+				// // test
+				// final TreeMap<Integer, String> test = new TreeMap<>();
+				// try (FileOutputStream fos = new
+				// FileOutputStream("Personen.dat");
+				// ObjectOutputStream oos = new ObjectOutputStream(fos);) {
+				// oos.writeObject(test);
+				// } catch (final FileNotFoundException e) {
+				// // TODO Auto-generated catch block
+				// e.printStackTrace();
+				// } catch (final IOException e) {
+				// // TODO Auto-generated catch block
+				// e.printStackTrace();
+				// }
+			}
+				break;
+			case Success: {
+				if (DEBUG)
+					System.out.println("root = " + newData);
+				searchInsertPos = false;
+
+			}
+				break;
+			case Failed: {
+				if (DEBUG)
+					System.out.println("not added: " + newData);
+				searchInsertPos = false;
+			}
+				break;
+			default:
+				break;
+
 			}
 
-			if (newData < curr.getData()) {
-				prev = curr;
-				if (curr.leftIsWire()) {
-					curr = null;
-				} else {
-					curr = prev.getLeftChild();
-				}
-			} else {
-				prev = curr;
-				if (curr.rightIsWire()) {
-					curr = null;
-				} else {
-					curr = prev.getRightChild();
-				}
-
-			}
 		}
 
 		// generateInOrderWire();
@@ -368,6 +429,10 @@ public class BinarySearchTree {
 
 	public void printInOrder() {
 		System.out.println("Print:");
+		if (root == null) {
+			return;
+		}
+
 		int cnt = 0;
 		TreeNode current = root;
 		TreeNode previous = null;
