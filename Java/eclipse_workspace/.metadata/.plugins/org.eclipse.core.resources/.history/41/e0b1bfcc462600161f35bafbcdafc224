@@ -1,0 +1,10 @@
+package SwingExamples;
+
+public class SwingTest {
+
+	public BasicFrame(){
+		setTitle("Title");
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	}
+
+}
