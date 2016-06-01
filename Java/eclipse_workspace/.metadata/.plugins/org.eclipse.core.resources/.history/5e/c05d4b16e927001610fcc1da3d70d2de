@@ -1,0 +1,18 @@
+package Gauß;
+
+public class GaussNoPivot {
+	public static final double SMALL_NUMBER = 1E-8;
+
+	public static double[] gaussNoPivot(final double[][] a, final double[] b) {
+		
+		final int zeilen = a.length;
+		if(zeilen < 1) return null;
+		final int spalten = a[0].length; 
+		
+		
+		
+		
+
+		return null;
+	}
+}
