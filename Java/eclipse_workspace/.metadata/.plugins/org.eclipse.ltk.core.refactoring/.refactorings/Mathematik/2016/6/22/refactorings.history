@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;i&apos; in &apos;Gauß.GaussNoPivot.gaussNoPivot(...)&apos; to &apos;spalte&apos;&#x0A;- Original project: &apos;Mathematik&apos;&#x0A;- Original element: &apos;Gauß.GaussNoPivot.gaussNoPivot(double[][], double[]).i&apos;&#x0A;- Renamed element: &apos;i&apos;&#x0A;- Update references to refactored element" description="Rename local variable &apos;i&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;Gauß{GaussNoPivot.java[GaussNoPivot~gaussNoPivot~\[\[D~\[D@i!744!752!748!748!I!0!false" name="spalte" references="true" stamp="1464797383186" version="1.0"/>
+</session>

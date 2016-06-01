@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dirs>
-<entry loc="/usr/lib/jvm/java-6-openjdk" stamp="1461859910000"/>
-<entry loc="/usr/lib/jvm/java-6-openjdk-amd64" stamp="1461859910000"/>
-<entry loc="/usr/lib/jvm/java-oracle" stamp="1461859942000"/>
-<entry loc="/usr/lib/jvm/java-1.6.0-openjdk-amd64" stamp="1461859910000"/>
+<entry loc="/usr/lib/jvm/java-6-openjdk" stamp="1454328694000"/>
+<entry loc="/usr/lib/jvm/java-6-openjdk-amd64" stamp="1454328694000"/>
+<entry loc="/usr/lib/jvm/java-oracle" stamp="1454328723000"/>
+<entry loc="/usr/lib/jvm/java-1.6.0-openjdk-amd64" stamp="1454328694000"/>
 <entry loc="/usr/lib/jvm/java-8-oracle" stamp="1462216919000"/>
-<entry loc="/usr/lib/jvm/java-1.7.0-openjdk-amd64" stamp="1461859908000"/>
+<entry loc="/usr/lib/jvm/java-1.7.0-openjdk-amd64" stamp="1454328691000"/>
 <entry loc="C:\Program Files\Java\jre1.8.0_91" stamp="1463284820485"/>
-<entry loc="/usr/lib/jvm/java-sun" stamp="1461859942000"/>
-<entry loc="/usr/lib/jvm/java-1.6.0-openjdk" stamp="1461859910000"/>
-<entry loc="/usr/lib/jvm/jdk1.8.0_60" stamp="1461859942000"/>
-<entry loc="/usr/lib/jvm/java-7-openjdk-amd64" stamp="1461859908000"/>
-<entry loc="/usr/lib/jvm/default-java" stamp="1461859910000"/>
+<entry loc="/usr/lib/jvm/java-sun" stamp="1454328723000"/>
+<entry loc="/usr/lib/jvm/java-1.6.0-openjdk" stamp="1454328694000"/>
+<entry loc="/usr/lib/jvm/jdk1.8.0_60" stamp="1454328723000"/>
+<entry loc="/usr/lib/jvm/java-7-openjdk-amd64" stamp="1454328691000"/>
+<entry loc="/usr/lib/jvm/default-java" stamp="1454328694000"/>
 </dirs>

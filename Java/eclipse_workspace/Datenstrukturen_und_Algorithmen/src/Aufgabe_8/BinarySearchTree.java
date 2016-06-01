@@ -81,7 +81,8 @@ public class BinarySearchTree {
 		}
 
 		TreeNode curr = root;
-		final List<TreeNode> parents = new ArrayList<>();
+		// TODO: replace list
+		TreeNode previous = null;
 
 		WireCreationStep step = WireCreationStep.CheckCurrent;
 		boolean searchInsertPos = true;
@@ -133,7 +134,7 @@ public class BinarySearchTree {
 				if (curr.getLeftChild() != null || !curr.leftIsWire()) {
 					if (DEBUG)
 						System.out.println(" left: not null");
-					parents.add(curr);
+					previous = curr;
 					curr = curr.getLeftChild();
 					step = WireCreationStep.CheckCurrent;
 					continue;
@@ -151,14 +152,14 @@ public class BinarySearchTree {
 							System.out.println("right: wire");
 						rightWire = curr.getRightChild();
 					}
-					if (curr.getRightChild() == null && parents.size() > 0) {
+					if (curr.getRightChild() == null && previous != null) {
 						if (DEBUG)
 							System.out.println("right: null");
-						rightWire = parents.get(parents.size() - 1);
+						rightWire = previous;
 					}
 					if (rightWire == null) {
 						if (DEBUG)
-							System.out.println("right: stays null");
+							System.out.println("right: right is tree end");
 					}
 					final TreeNode newRightChild = new TreeNode(curr, newData);
 					newRightChild.setRightChild(rightWire, true);
@@ -193,7 +194,7 @@ public class BinarySearchTree {
 				break;
 			case Success: {
 				if (DEBUG)
-					System.out.println("root = " + newData);
+					System.out.println("added: " + newData);
 				searchInsertPos = false;
 
 			}
@@ -464,8 +465,8 @@ public class BinarySearchTree {
 	private int getHeight(final TreeNode x) {
 		if (x == null)
 			return 0;
-		return Math.max(x.leftIsWire() ? 0 : getHeight(x.getLeftChild()),
-				x.rightIsWire() ? 0 : getHeight(x.getRightChild())) + 1;
+		return Math.max((x.leftIsWire() || x.getLeftChild() == null) ? 0 : getHeight(x.getLeftChild()),
+				(x.rightIsWire() || x.getRightChild() == null) ? 0 : getHeight(x.getRightChild())) + 1;
 	}
 
 }
