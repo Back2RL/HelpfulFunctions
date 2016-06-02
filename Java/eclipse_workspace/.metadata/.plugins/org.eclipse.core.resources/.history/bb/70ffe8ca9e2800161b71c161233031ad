@@ -1,0 +1,105 @@
+package Gauß;
+
+public class GaussNoPivot {
+	public static final double SMALL_NUMBER = 1E-8;
+
+	public static double[] gaussNoPivot(final double[][] a, final double[] b) {
+		System.out.println("drin");
+
+		final int zeilen = a.length;
+		// existieren Zeilen
+		if (zeilen < 1) {
+			System.out.println("Zeilen > 0 erwartet");
+			return null;
+		}
+		final int spalten = a[0].length;
+		// existieren Spalten und sind es genauso viele wie Zeilen
+		if (spalten < 1 || spalten != zeilen) {
+			System.out.println("Spalten > 0 erwartet");
+			return null;
+		}
+		// hat b die gleiche Zeilenanzahl
+		if (b.length != zeilen) {
+			System.out.println("Zeilen von b != Zeilen von a");
+			return null;
+		}
+
+		// // Nullen erzeugen links unter der Diagonalen (Working)
+		// for (int i = 0; i < zeilen; ++i) {
+		// // 1. spalte auf 1 bringen
+		// for (int zeile = i; zeile < zeilen; ++zeile) {
+		// // Abbruch falls Diagonalelement == 0
+		// if (Math.abs(a[zeile][i] - 0.0) < SMALL_NUMBER) {
+		// System.out.println("Elem " + zeile + "," + i + " is 0, abort");
+		// return null;
+		// }
+		// // Faktor mit dem multipliziert wird um das 1. element auf 1 zu
+		// // bringen
+		// final double factor = 1.0 / a[zeile][i];
+		//
+		// // Zeile mit dem Faktor multiplizieren; 1. Nicht-0-Element ist
+		// // dann 1.0
+		// for (int spalte = i; spalte < spalten; ++spalte) {
+		// a[zeile][spalte] *= factor;
+		// }
+		// b[zeile] *= factor;
+		// }
+		// // Null erzeugen in dem von jeder Zeile (mit Ausnahme der ersten)
+		// // die erste abgezogen wird
+		// for (int zeile = i + 1; zeile < zeilen; ++zeile) {
+		// for (int spalte = i; spalte < spalten; ++spalte) {
+		// a[zeile][spalte] -= a[i][spalte];
+		// }
+		// b[zeile] -= b[i];
+		// }
+		// }
+
+		// Nullen erzeugen links unter der Diagonalen ((optimieren)
+		for (int i = 0; i < zeilen; ++i) {
+			// 1. spalte auf 1 bringen
+			for (int zeile = i; zeile < zeilen - 1; ++zeile) {
+				// Abbruch falls Diagonalelement == 0
+				if (Math.abs(a[zeile][i] - 0.0) < SMALL_NUMBER) {
+					System.out.println("Elem " + zeile + "," + i + " is 0, abort");
+					return null;
+				}
+				// Faktor mit dem multipliziert wird um das 1. element auf 1 zu
+				// bringen
+				final double factor = a[zeile + 1][i] / a[i][i];
+
+				// Null erzeugen in dem von jeder Zeile (mit Ausnahme der
+				// ersten)
+				// die erste abgezogen wird
+				for (int spalte = i; spalte < spalten; ++spalte) {
+					a[zeile + 1][spalte] -= factor * a[i][spalte];
+				}
+				b[zeile + 1] -= factor * b[i];
+
+			}
+
+			for (int zeile = i + 1; zeile < zeilen; ++zeile) {
+
+			}
+		}
+
+		// debug
+		for (int i = 0; i < zeilen; ++i) {
+			for (final double number : a[i]) {
+				System.out.print(number + ", ");
+
+			}
+			System.out.println(b[i] + ", ");
+		}
+		System.out.println("fertig");
+		return null;
+	}
+
+	public static void main(final String[] args) {
+		final double[][] a = { { 7, 3, -5 }, { -1, -2, 4 }, { -4, 1, -3 } };
+		final double[] b = { -12, 5, 1 };
+		// lösung -1,0,1
+		System.out.println("hallo");
+		GaussNoPivot.gaussNoPivot(a, b);
+	}
+
+}

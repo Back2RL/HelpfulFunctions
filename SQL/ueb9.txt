@@ -99,8 +99,38 @@ group by loc.COUNTRY_ID) innen on aloc.COUNTRY_ID = innen.land
 
 where aemp.salary > innen.avgs;
 
--- 9.
+-- 9.b
+select distinct emp.first_name, emp.last_name
+from hr.employees emp 
+join hr.employees manager on emp.Employee_id = manager.manager_id
 
+where emp.hire_date > manager.hire_date 
+order by emp.first_name;
 
+-- 9.c
+select a.first_name Vorname,
+        a.last_name Nachname,
+        b.first_name MVorname,
+        b.last_name MNachname
+from hr.employees a
+join hr.employees b on a.manager_id = b.employee_id;
+     
+     
+-- 9.d
+select a.first_name Vorname,
+        a.last_name Nachname,
+        a.salary Gehalt,
+        b.first_name MVorname,
+        b.last_name MNachname,
+        b.salary MGehalt
+from hr.employees a 
+join hr.employees b on a.manager_id = b.employee_id
+and a.salary > b.salary;
 
+-- 9.e
+select *
+from hr.departments, hr.locations b;
 
+--9.f
+select *
+from hr.locations a, hr.locations b;
