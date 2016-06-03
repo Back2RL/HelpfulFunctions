@@ -44,7 +44,6 @@ public class GaussPivot {
 		for (int i = 0; i < zeilen; ++i) {
 			// 1. spalte auf 1 bringen
 			for (int zeile = i; zeile < zeilen - 1; ++zeile) {
-				// pivotelement suchen
 				int max = zeile;
 				for (int j = zeile + 1; j < zeilen; ++j) {
 					if (Math.abs(a[j][zeile]) > Math.abs(a[max][zeile])) {

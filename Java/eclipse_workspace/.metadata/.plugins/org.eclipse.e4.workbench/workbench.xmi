@@ -3,7 +3,7 @@
   <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;workbench>&#xA;&lt;mruList>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;GaussPivot.java&quot; tooltip=&quot;Mathematik/src/Gau&#xdf;/GaussPivot.java&quot;>&#xA;&lt;persistable path=&quot;/Mathematik/src/Gau&#xdf;/GaussPivot.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;GaussNoPivot.java&quot; tooltip=&quot;Mathematik/src/Gau&#xdf;/GaussNoPivot.java&quot;>&#xA;&lt;persistable path=&quot;/Mathematik/src/Gau&#xdf;/GaussNoPivot.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;BinarySearchTree.java&quot; tooltip=&quot;Datenstrukturen_und_Algorithmen/src/Aufgabe_8/BinarySearchTree.java&quot;>&#xA;&lt;persistable path=&quot;/Datenstrukturen_und_Algorithmen/src/Aufgabe_8/BinarySearchTree.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;TestingTrees.java&quot; tooltip=&quot;Datenstrukturen_und_Algorithmen/src/Aufgabe_8/TestingTrees.java&quot;>&#xA;&lt;persistable path=&quot;/Datenstrukturen_und_Algorithmen/src/Aufgabe_8/TestingTrees.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.jdt.ui.ClassFileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.ClassFileEditor&quot; name=&quot;Math.class&quot; tooltip=&quot;java.lang.Math&quot;>&#xA;&lt;persistable org.eclipse.jdt.ui.ClassFileIdentifier=&quot;=Mathematik/\/usr\/lib\/jvm\/jdk1.8.0_60\/jre\/lib\/rt.jar&amp;lt;java.lang(Math.class&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;SwingTest.java&quot; tooltip=&quot;Programmieren_2/src/SwingExamples/SwingTest.java&quot;>&#xA;&lt;persistable path=&quot;/Programmieren_2/src/SwingExamples/SwingTest.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.jdt.ui.ClassFileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.ClassFileEditorNoSource&quot; name=&quot;TreeMap.class&quot; tooltip=&quot;java.util.TreeMap&quot;>&#xA;&lt;persistable org.eclipse.jdt.ui.ClassFileIdentifier=&quot;=Datenstrukturen_und_Algorithmen/C:\/Program Files\/Java\/jre1.8.0_91\/lib\/rt.jar&amp;lt;java.util(TreeMap.class&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;Person.java&quot; tooltip=&quot;Programmieren_2/src/Person.java&quot;>&#xA;&lt;persistable path=&quot;/Programmieren_2/src/Person.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;TreeNode.java&quot; tooltip=&quot;Datenstrukturen_und_Algorithmen/src/Aufgabe_8/TreeNode.java&quot;>&#xA;&lt;persistable path=&quot;/Datenstrukturen_und_Algorithmen/src/Aufgabe_8/TreeNode.java&quot;/>&#xA;&lt;/file>&#xA;&lt;/mruList>&#xA;&lt;/workbench>"/>
   <tags>activeSchemeId:org.eclipse.ui.defaultAcceleratorConfiguration</tags>
   <tags>ModelMigrationProcessor.001</tags>
-  <children xsi:type="basic:TrimmedWindow" xmi:id="_56oGIiMPEea9yZ_X9AU1ow" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.platform" selectedElement="_65_RYSMPEea9yZ_X9AU1ow" label="%trimmedwindow.label.eclipseSDK" x="425" y="141" width="929" height="1153">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_56oGIiMPEea9yZ_X9AU1ow" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.platform" selectedElement="_65_RYSMPEea9yZ_X9AU1ow" label="%trimmedwindow.label.eclipseSDK" x="1" y="24" width="962" height="1153">
     <persistedState key="coolBarVisible" value="true"/>
     <persistedState key="perspectiveBarVisible" value="true"/>
     <persistedState key="isRestored" value="true"/>
@@ -11,6 +11,7 @@
     <persistedState key="workingSets" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;workingSets/>"/>
     <persistedState key="aggregateWorkingSetId" value="Aggregate for window 1464246205010"/>
     <tags>topLevel</tags>
+    <tags>shellMaximized</tags>
     <children xsi:type="basic:PartSashContainer" xmi:id="_65_RYSMPEea9yZ_X9AU1ow" selectedElement="_65_4cCMPEea9yZ_X9AU1ow" horizontal="true">
       <children xsi:type="advanced:PerspectiveStack" xmi:id="_65_4cCMPEea9yZ_X9AU1ow" elementId="org.eclipse.ui.ide.perspectivestack" containerData="7500" selectedElement="_78poQCMPEea9yZ_X9AU1ow">
         <children xsi:type="advanced:Perspective" xmi:id="_78poQCMPEea9yZ_X9AU1ow" elementId="org.eclipse.jdt.ui.JavaPerspective" selectedElement="_78poQSMPEea9yZ_X9AU1ow" label="Java" iconURI="platform:/plugin/org.eclipse.jdt.ui/$nl$/icons/full/eview16/jperspective.png">
@@ -73,9 +74,9 @@
           <tags>persp.viewSC:org.eclipse.wb.core.StructureView</tags>
           <tags>persp.viewSC:org.eclipse.wb.core.PaletteView</tags>
           <tags>persp.actionSet:org.eclipse.rse.core.search.searchActionSet</tags>
-          <children xsi:type="basic:PartSashContainer" xmi:id="_78poQSMPEea9yZ_X9AU1ow" selectedElement="_78qPUCMPEea9yZ_X9AU1ow" horizontal="true">
-            <children xsi:type="basic:PartSashContainer" xmi:id="_78poQiMPEea9yZ_X9AU1ow" containerData="2996" selectedElement="_gLjwkCiZEeaNfsVUM2RDgg">
-              <children xsi:type="basic:PartSashContainer" xmi:id="_gLjwkCiZEeaNfsVUM2RDgg" containerData="6000" selectedElement="_78poQyMPEea9yZ_X9AU1ow">
+          <children xsi:type="basic:PartSashContainer" xmi:id="_78poQSMPEea9yZ_X9AU1ow" selectedElement="_78poQiMPEea9yZ_X9AU1ow" horizontal="true">
+            <children xsi:type="basic:PartSashContainer" xmi:id="_78poQiMPEea9yZ_X9AU1ow" containerData="2618" selectedElement="_gLjwkCiZEeaNfsVUM2RDgg">
+              <children xsi:type="basic:PartSashContainer" xmi:id="_gLjwkCiZEeaNfsVUM2RDgg" containerData="6000" selectedElement="_jc-joSgNEeagNZp7mK5xeA">
                 <children xsi:type="basic:PartStack" xmi:id="_78poQyMPEea9yZ_X9AU1ow" elementId="left" containerData="5000" selectedElement="_78poRCMPEea9yZ_X9AU1ow">
                   <tags>org.eclipse.e4.primaryNavigationStack</tags>
                   <children xsi:type="advanced:Placeholder" xmi:id="_78poRCMPEea9yZ_X9AU1ow" elementId="org.eclipse.jdt.ui.PackageExplorer" ref="_77_g8CMPEea9yZ_X9AU1ow"/>
@@ -97,7 +98,7 @@
                 <children xsi:type="advanced:Placeholder" xmi:id="_78poTCMPEea9yZ_X9AU1ow" elementId="org.eclipse.egit.ui.RepositoriesView" toBeRendered="false" ref="_78hFYCMPEea9yZ_X9AU1ow"/>
               </children>
             </children>
-            <children xsi:type="basic:PartSashContainer" xmi:id="_78qPUCMPEea9yZ_X9AU1ow" containerData="7004" selectedElement="_78qPUSMPEea9yZ_X9AU1ow">
+            <children xsi:type="basic:PartSashContainer" xmi:id="_78qPUCMPEea9yZ_X9AU1ow" containerData="7382" selectedElement="_78qPUSMPEea9yZ_X9AU1ow">
               <children xsi:type="basic:PartSashContainer" xmi:id="_78qPUSMPEea9yZ_X9AU1ow" containerData="5940" selectedElement="_78qPUiMPEea9yZ_X9AU1ow" horizontal="true">
                 <children xsi:type="advanced:Placeholder" xmi:id="_78qPUiMPEea9yZ_X9AU1ow" elementId="org.eclipse.ui.editorss" containerData="7500" ref="_77bgQCMPEea9yZ_X9AU1ow"/>
                 <children xsi:type="basic:PartStack" xmi:id="_78qPVCMPEea9yZ_X9AU1ow" elementId="org.eclipse.mylyn.tasks.ui.views.tasksMStack" toBeRendered="false" containerData="2500">
@@ -241,7 +242,7 @@
           <tags>removeOnHide</tags>
         </children>
         <children xsi:type="basic:Part" xmi:id="_2DYv0CfmEeaD5_fTg5c7tg" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="GaussNoPivot.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.png" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;GaussNoPivot.java&quot; partName=&quot;GaussNoPivot.java&quot; title=&quot;GaussNoPivot.java&quot; tooltip=&quot;Mathematik/src/Gau&#xdf;/GaussNoPivot.java&quot;>&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/Mathematik/src/Gau&#xdf;/GaussNoPivot.java&quot;/>&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;3328&quot; selectionTopPixel=&quot;1020&quot;/>&#xA;&lt;/editor>"/>
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;GaussNoPivot.java&quot; partName=&quot;GaussNoPivot.java&quot; title=&quot;GaussNoPivot.java&quot; tooltip=&quot;Mathematik/src/Gau&#xdf;/GaussNoPivot.java&quot;>&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/Mathematik/src/Gau&#xdf;/GaussNoPivot.java&quot;/>&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;726&quot; selectionOffset=&quot;1037&quot; selectionTopPixel=&quot;339&quot;/>&#xA;&lt;/editor>"/>
           <tags>Editor</tags>
           <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
           <tags>removeOnHide</tags>
@@ -259,7 +260,7 @@
           <tags>removeOnHide</tags>
         </children>
         <children xsi:type="basic:Part" xmi:id="_MdT4wCijEeaNfsVUM2RDgg" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="GaussPivot.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.png" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;GaussPivot.java&quot; partName=&quot;GaussPivot.java&quot; title=&quot;GaussPivot.java&quot; tooltip=&quot;Mathematik/src/Gau&#xdf;/GaussPivot.java&quot;>&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/Mathematik/src/Gau&#xdf;/GaussPivot.java&quot;/>&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;393&quot; selectionTopPixel=&quot;0&quot;/>&#xA;&lt;/editor>"/>
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;GaussPivot.java&quot; partName=&quot;GaussPivot.java&quot; title=&quot;GaussPivot.java&quot; tooltip=&quot;Mathematik/src/Gau&#xdf;/GaussPivot.java&quot;>&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/Mathematik/src/Gau&#xdf;/GaussPivot.java&quot;/>&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;1581&quot; selectionTopPixel=&quot;1548&quot;/>&#xA;&lt;/editor>"/>
           <tags>Editor</tags>
           <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
           <tags>removeOnHide</tags>
@@ -463,7 +464,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_7FWM0CMPEea9yZ_X9AU1ow" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_SWKHACiZEeaNfsVUM2RDgg" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_59JOoyMPEea9yZ_X9AU1ow"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_0KcCUCl0Eeale7t6bq1Szg" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_59JOoyMPEea9yZ_X9AU1ow"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_7FXa8CMPEea9yZ_X9AU1ow" elementId="additions" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -487,7 +488,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_7FdhkCMPEea9yZ_X9AU1ow" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_SWMjQSiZEeaNfsVUM2RDgg" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_58rUmCMPEea9yZ_X9AU1ow"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_0KeekCl0Eeale7t6bq1Szg" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_58rUmCMPEea9yZ_X9AU1ow"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_7FevsCMPEea9yZ_X9AU1ow" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>
