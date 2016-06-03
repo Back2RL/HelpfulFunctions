@@ -1,0 +1,86 @@
+package PlayerInputData;
+
+public class InputDataPackage {
+	public long data;
+
+	public InputDataPackage() {
+	}
+
+	// Movement
+	static final long moveLeft = 1l << 3;
+	static final long moveRight = 1l << 2;
+	static final long moveBack = 1l << 1;
+	static final long moveForward = 1l << 0;
+
+	static final long mouseYawClear = ~(8191l << 4);
+	static final long mouseYawIsNegative = 1l << 16;
+
+	public void setMouseInput(final float x, final float y) {
+		data &= mouseYawClear;
+		data |= ((long) (2048 * Math.abs(x))) << 4;
+		if (x < 0.0f) {
+			data |= mouseYawIsNegative;
+		}
+	}
+
+	// public boolean leftIsWire() {
+	// return (WireInformation & leftWireMask) == leftWireMask;
+	// }
+	//
+	// public boolean rightIsWire() {
+	// return (WireInformation & rightWireMask) == rightWireMask;
+	// }
+	//
+	// public void setLeftIsWire(final boolean isWire) {
+	// if (isWire) {
+	// WireInformation |= leftWireMask;
+	// } else {
+	// WireInformation &= ~leftWireMask;
+	// }
+	// }
+	//
+	// public void setRightIsWire(final boolean isWire) {
+	// if (isWire) {
+	// WireInformation |= rightWireMask;
+	// } else {
+	// WireInformation &= ~rightWireMask;
+	// }
+	// }
+
+	// movement input 4 bits
+	// back forward left right
+	// 0000
+	//
+	// mouse input orig. 2x 32 bit float
+	// generated from screen resolution, in case of 2160p max range of +1920
+	// to -1920
+	// -> 1111 1111 111 -> 11 bit for abs value + 1 bit whether + or -
+	// overall 2x 12 bit for mouseinput
+	//
+	// == 4 + 2 * 12 = 28bit;
+	//
+	// package number a days worth of playing at 144hz -> min 11111111
+	// 11111111 11111111 -> 3x 8 = 24 bit
+	//
+	// == 28 + 24 = 52 bit
+	//
+	// guns 1 bit
+	// missiles 1 bit
+	//
+	// == 54 bit
+	//
+	// ABM 1 bit
+	// GBM 1 bit
+	//
+	// == 56 bit
+	//
+	// -> 64 bit
+	//
+	// vs 144 bit
+	// 16
+	// 32
+	// 32
+	// 32
+	// 32
+
+}

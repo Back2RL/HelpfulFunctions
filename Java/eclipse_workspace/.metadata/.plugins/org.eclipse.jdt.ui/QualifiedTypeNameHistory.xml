@@ -16,4 +16,7 @@
 <fullyQualifiedTypeName name="java.awt.Color"/>
 <fullyQualifiedTypeName name="javax.swing.JButton"/>
 <fullyQualifiedTypeName name="Gauß.GaussNoPivot"/>
+<fullyQualifiedTypeName name="java.sql.Struct"/>
+<fullyQualifiedTypeName name="PlayerInputData.Test.InputDataPackage"/>
+<fullyQualifiedTypeName name="PlayerInputData.InputDataPackage"/>
 </qualifiedTypeNameHistroy>
