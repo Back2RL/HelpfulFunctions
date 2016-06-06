@@ -2,7 +2,9 @@ package SwingExamples;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -43,25 +45,61 @@ public class SwingTest extends JFrame {
 		button.addActionListener(listener);
 		button2.addActionListener(new ActionListener() {
 			private int counter;
+			private int activeActions;
 			private String text;
+
+			synchronized private int addAction(final int i) {
+				activeActions = Math.max(0, activeActions + i);
+				return activeActions;
+			}
 
 			@Override
 			public void actionPerformed(final ActionEvent e) {
-				if (text == null) {
-					text = button2.getText();
-				}
-				counter++;
-				button2.setText(text + " " + counter);
-				yellowLabel.setText(yellowLabel.getText() + " -");
+				addAction(1);
+				// button pressed
+				// show user that processing occurs
+				setCursor(new Cursor(Cursor.WAIT_CURSOR));
+				// background thread for the heavy duty
+				final Thread ht = new Thread() {
+					@Override
+					synchronized public void run() {
+						// the heavy duty
+						for (long i = 0; i < 1_000_000_000L; ++i) {
+						}
+						if (text == null) {
+							text = button2.getText();
+						}
+						counter++;
+						// end heavy duty
+						// new thread to change swing elements, needed for
+						// thread-safety
+						EventQueue.invokeLater(new Runnable() {
+							@Override
+							public void run() {
+								button2.setText(text + " " + counter);
+								yellowLabel.setText(yellowLabel.getText() + " -");
+
+								if (addAction(-1) < 1) {
+									setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+								}
+							}
+						});
+					}
+				};
+				ht.start();
 			}
 		});
-
 		pack();
 	}
 
 	public static void main(final String[] args) {
-		final JFrame f = new SwingTest();
-		f.setVisible(true);
+		EventQueue.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				final JFrame f = new SwingTest();
+				f.setVisible(true);
+				f.setResizable(true);
+			}
+		});
 	}
-
 }
