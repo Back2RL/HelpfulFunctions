@@ -12,11 +12,13 @@ public class InputDataPackage {
 	static final long moveBack = 1l << 1;
 	static final long moveForward = 1l << 0;
 
-	static final long mouseInputClear = ~(33554431l << 4);
-	static final long mouseYawIsNegative = 1l << 15;
+	static final long mouseInputClear = ~(16777215 << 4);
+	static final long mouseYawIsNegative = 1l << 1;
 	static final long mousePitchIsNegative = 1l << 27;
 	static final long mouseYaw = 2047l << 4;
 	static final long mousePitch = 2047l << 16;
+
+	static final long packetCounterClear = ~(16777215l << 28);
 
 	public void setMouseInput(final float x, final float y) {
 		data &= mouseInputClear;

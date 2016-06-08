@@ -20,4 +20,6 @@
 <fullyQualifiedTypeName name="PlayerInputData.Test.InputDataPackage"/>
 <fullyQualifiedTypeName name="PlayerInputData.InputDataPackage"/>
 <fullyQualifiedTypeName name="java.awt.Cursor"/>
+<fullyQualifiedTypeName name="java.awt.LayoutManager"/>
+<fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
 </qualifiedTypeNameHistroy>
