@@ -56,61 +56,93 @@ public class SwingTest extends JFrame {
 		final MyActionListener listener = new MyActionListener();
 		button.addActionListener(listener);
 		button2.addActionListener(new ActionListener() {
+			// count how many times the button has been presse
 			private int counter;
-			private final Map<Integer, Integer> progess = new TreeMap<>();
+			// stores the progress of all activities
+			private final Map<Long, Integer> progress = new TreeMap<>();
+			// the button text
 			private String text;
 
-			synchronized private int createProgressTask() {
-				progess.put(progess.size(), 0);
-				return progess.size() - 1;
+			// adds a new entry to the map to keep track of the progress
+			synchronized private long createProgressTask(final Thread thread) {
+				progress.put(thread.getId(), 0);
+				return thread.getId();
 			}
 
-			synchronized private int getAvaerageProgress() {
+			// returns the overall progress percentage
+			synchronized private int getOverallProgress() {
 				int sum = 0;
-				for (final Integer value : progess.values()) {
+				final int dividend = progress.size();
+				for (final Integer value : progress.values()) {
 					sum += value;
 				}
-				return sum / getProgressTasks();
+				System.out.println(dividend + " sum = " + sum);
+				return sum / dividend;
 			}
 
+			// how many actions are performed
 			synchronized private int getProgressTasks() {
-				return progess.size();
+				return progress.size();
 			}
 
-			synchronized private void setProgress(final int index, final int value) {
-				progess.replace(index, value);
+			// update progress
+			synchronized private void setProgress(final long threadID, final int value) {
+				progress.replace(threadID, value);
 			}
 
-			synchronized private void removeProgressTask(final int index) {
-				progess.remove(index);
+			// remove progress tracking entry when task finished
+			synchronized private void removeProgressTask(final long threadID) {
+				progress.remove(threadID);
 			}
 
 			@Override
 			public void actionPerformed(final ActionEvent e) {
-				final int myIndex = createProgressTask();
 				// button pressed
 				// show user that processing occurs
-				if (getProgressTasks() == 0) {
-					setCursor(new Cursor(Cursor.WAIT_CURSOR));
-				}
+				EventQueue.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						setCursor(new Cursor(Cursor.WAIT_CURSOR));
+					}
+				});
+
 				// background thread for the heavy duty
 				final Thread ht = new Thread() {
 					@Override
 					synchronized public void run() {
+
+						Thread.yield();
+						// prevent threads from starting when already all cores
+						// are utilized
+						while (true) {
+							if (getProgressTasks() > Runtime.getRuntime().availableProcessors()) {
+								try {
+									sleep(100);
+								} catch (final InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							} else {
+								break;
+							}
+						}
+
+						final long myID = createProgressTask(Thread.currentThread());
 						if (text == null) {
 							text = button2.getText();
 						}
+
 						// the heavy duty
 						final long max = 1_000_000_000L;
-						final long showProgress = max / 100;
+						final long showProgress = max / 10;
 						for (long i = 0; i < max; ++i) {
 							if (i % showProgress == 0L) {
-								setProgress(myIndex, (int) ((i * 100) / max));
-
+								setProgress(myID, (int) ((i * 100) / max));
+								final int currProgress = getOverallProgress();
 								EventQueue.invokeLater(new Runnable() {
 									@Override
 									public void run() {
-										button2.setText(text + " (" + getAvaerageProgress() + " %)");
+										button2.setText(text + " (" + currProgress + " %)");
 									}
 								});
 							}
@@ -121,7 +153,7 @@ public class SwingTest extends JFrame {
 						// end heavy duty
 						// new thread to change swing elements, needed for
 						// thread-safety
-						removeProgressTask(myIndex);
+						removeProgressTask(myID);
 						EventQueue.invokeLater(new Runnable() {
 							@Override
 							public void run() {
