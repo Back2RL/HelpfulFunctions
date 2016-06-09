@@ -63,6 +63,16 @@ public class SwingTest extends JFrame {
 			// the button text
 			private String text;
 
+			private int waitingTasks = 0;
+
+			private synchronized void incrementWaitingTasks() {
+				waitingTasks++;
+			}
+
+			private synchronized void decrementWaitingTasks() {
+				waitingTasks--;
+			}
+
 			// adds a new entry to the map to keep track of the progress
 			synchronized private long createProgressTask(final Thread thread) {
 				progress.put(thread.getId(), 0);
@@ -114,8 +124,9 @@ public class SwingTest extends JFrame {
 						Thread.yield();
 						// prevent threads from starting when already all cores
 						// are utilized
+						incrementWaitingTasks();
 						while (true) {
-							if (getProgressTasks() > Runtime.getRuntime().availableProcessors()) {
+							if (getProgressTasks() >= Runtime.getRuntime().availableProcessors()) {
 								try {
 									sleep(100);
 								} catch (final InterruptedException e) {
@@ -126,6 +137,7 @@ public class SwingTest extends JFrame {
 								break;
 							}
 						}
+						decrementWaitingTasks();
 
 						final long myID = createProgressTask(Thread.currentThread());
 						if (text == null) {
@@ -133,11 +145,15 @@ public class SwingTest extends JFrame {
 						}
 
 						// the heavy duty
-						final long max = 1_000_000_000L;
+						final long max = 10_000_000_000L;
 						final long showProgress = max / 10;
 						for (long i = 0; i < max; ++i) {
 							if (i % showProgress == 0L) {
 								setProgress(myID, (int) ((i * 100) / max));
+								// final int currProgress = (int)
+								// (getOverallProgress() * (double)
+								// getProgressTasks()
+								// / (getProgressTasks() + waitingTasks));
 								final int currProgress = getOverallProgress();
 								EventQueue.invokeLater(new Runnable() {
 									@Override
@@ -157,9 +173,9 @@ public class SwingTest extends JFrame {
 						EventQueue.invokeLater(new Runnable() {
 							@Override
 							public void run() {
-								button2.setText(text + " " + counter);
 								yellowLabel.setText(yellowLabel.getText() + " -");
 								if (getProgressTasks() < 1) {
+									button2.setText(text + " " + counter);
 									setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 								}
 							}

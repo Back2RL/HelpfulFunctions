@@ -1,0 +1,94 @@
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class JDBC_Example {
+	private Connection con = null;
+	private final String dbAdresse = "127.0.0.1"; // localhost
+	private final String dbInstanz = "XE"; // XE-Version
+
+	public void verbinden(final String nutzer, final String passwort) {
+		try {
+			DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+			con = DriverManager.getConnection("jdbc:oracle:thin:@" + dbAdresse + ":1521:" + dbInstanz, nutzer,
+					passwort);
+		} catch (final SQLException e) {
+			ausnahmeAusgeben(e);
+		}
+	}
+
+	private void ausnahmeAusgeben(SQLException e) {
+		while (e != null) {
+			System.err.println("ORACLE Fehlercode: " + e.getErrorCode());
+			System.err.println("SQL State: " + e.getSQLState());
+			System.err.println(e);
+			e = e.getNextException();
+		}
+	}
+
+	public void verbindungTrennen() {
+		if (con == null) {
+			System.out.println("Trennen: es war sowieso keine Verbindung vorhanden");
+			return;
+		}
+		try {
+			con.close();
+		} catch (final SQLException e) {
+			ausnahmeAusgeben(e);
+		}
+	}
+
+	public void verbindungAnalysieren() {
+		if (con == null) {
+			System.out.println("Analysieren: keine Verbindung vorhanden");
+			return;
+		}
+		try {
+			final DatabaseMetaData dbmd = con.getMetaData();
+			System.out.println("DB-Name: " + dbmd.getDatabaseProductName() + "\nDB-Version: "
+					+ dbmd.getDatabaseMajorVersion() + "\nDB-Release: " + dbmd.getDriverMinorVersion()
+					+ "\nTransaktionen erlaubt: " + dbmd.supportsTransactions() + "\nbeachtet GroßKlein :"
+					+ dbmd.storesMixedCaseIdentifiers() + "\nunterstützt UNION :" + dbmd.supportsUnion()
+					+ "\nmax. Prozedurname: " + dbmd.getMaxProcedureNameLength());
+		} catch (final SQLException e) {
+			ausnahmeAusgeben(e);
+		}
+	}
+
+	public static void main(final String[] s) {
+		final JDBC_Example db = new JDBC_Example();
+		db.verbinden("Kleuker", "Kleuker");
+		db.verbindungAnalysieren();
+		db.verbindungTrennen();
+	}
+
+	public void anfragen(final String anfrage) {
+		if (con == null) {
+			System.out.println("keine Verbindung");
+			return;
+		}
+		try {
+			final Statement stmt = con.createStatement();
+			final ResultSet rs = stmt.executeQuery(anfrage);
+			// Matadaten des Anfrageergebnisses
+			final ResultSetMetaData rsmd = rs.getMetaData();
+			final int spalten = rsmd.getColumnCount();
+			for (int i = 1; i <= spalten; i++) // nicht i=0
+				System.out.println(i + ". Spaltenname: " + rsmd.getColumnName(i) + "\n Spaltentyp: "
+						+ rsmd.getColumnTypeName(i) + "\n Javatyp: " + rsmd.getColumnClassName(i) + "\n");
+			// Ergebnisausgabe
+			while (rs.next()) {
+				for (int i = 1; i <= spalten; i++)
+					System.out.print(rs.getString(i) + " ");
+				System.out.print("\n");
+			}
+		} catch (final SQLException e) {
+			ausnahmeAusgeben(e);
+		}
+	}
+
+}
