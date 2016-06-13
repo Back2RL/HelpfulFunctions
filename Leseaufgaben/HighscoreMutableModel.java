@@ -1,6 +1,6 @@
-import java.util.Vector;
-import javax.swing.MutableComboBoxModel;
+import javax.swing.*;
 import javax.swing.event.ListDataListener;
+import java.util.Vector;
 
 public class HighscoreMutableModel implements MutableComboBoxModel {
     // Das Attribut eintraege stellt unsere Listelemente dar

@@ -1,9 +1,7 @@
-
 // Import-Anweisungen
 
-import java.awt.Color;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 public class JPanelBeispiel {
     // main-Methode

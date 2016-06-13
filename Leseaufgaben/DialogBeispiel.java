@@ -1,8 +1,8 @@
 // Import-Anweisung für unseren JDialog
 
-import javax.swing.JDialog;
+import javax.swing.*;
+
 // Import-Anweisung für unser JLabel
-import javax.swing.JLabel;
 
 public class DialogBeispiel {
     // main-Methode

@@ -1,4 +1,4 @@
-import javax.swing.JFileChooser;
+import javax.swing.*;
 
 public class SpeichernDialog {
     // main-Methode

@@ -1,11 +1,7 @@
-
 // Import-Anweisungen
 
-import java.awt.Color;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSplitPane;
+import javax.swing.*;
+import java.awt.*;
 
 public class JSplitPaneBeispiel {
     // main-Methode

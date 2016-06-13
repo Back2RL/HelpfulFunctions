@@ -1,7 +1,7 @@
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.io.*;
-import java.util.*;
+import java.util.Scanner;
 
 /**
  * Created by Leo on 15.12.2015.

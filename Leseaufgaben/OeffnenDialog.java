@@ -1,7 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
-import java.util.*;
-import javax.swing.JOptionPane;
 
 public class OeffnenDialog {
     public static void main(String[] args) {

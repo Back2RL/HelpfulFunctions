@@ -1,5 +1,4 @@
-import javax.swing.JColorChooser;
-import javax.swing.JFrame;
+import javax.swing.*;
 
 public class ColorChooserFrame {
     // main-Methode

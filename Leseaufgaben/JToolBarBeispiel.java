@@ -1,7 +1,7 @@
 // Import-Anweisungen
 
-import java.awt.Color;
 import javax.swing.*;
+import java.awt.*;
 
 public class JToolBarBeispiel {
     // main-Methode

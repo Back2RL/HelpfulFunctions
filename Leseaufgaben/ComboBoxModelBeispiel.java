@@ -1,6 +1,5 @@
-
-import java.util.Vector;
 import javax.swing.*;
+import java.util.Vector;
 
 public class ComboBoxModelBeispiel {
 

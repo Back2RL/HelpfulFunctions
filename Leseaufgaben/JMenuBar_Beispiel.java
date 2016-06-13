@@ -1,10 +1,9 @@
 // Import-Anweisungen
 
-import java.awt.Color;
-import javax.swing.JDialog;
-import javax.swing.JMenuBar;
-import javax.swing.border.LineBorder;
+import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+import java.awt.*;
 
 
 public class JMenuBar_Beispiel {

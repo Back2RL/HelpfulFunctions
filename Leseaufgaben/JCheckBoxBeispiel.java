@@ -1,5 +1,5 @@
-import java.awt.Color;
 import javax.swing.*;
+import java.awt.*;
 
 public class JCheckBoxBeispiel {
     public static void main(String[] args) {

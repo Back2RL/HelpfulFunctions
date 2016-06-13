@@ -1,5 +1,5 @@
-import java.awt.Color;
-import javax.swing.JColorChooser;
+import javax.swing.*;
+import java.awt.*;
 
 public class FarbauswahlBeispiel {
     // main-Methode
