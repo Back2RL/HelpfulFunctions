@@ -3,13 +3,12 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class JSplitPaneBeispiel {
-    // main-Methode
-    public static void main(String[] args) {
+public class JSplitPaneBeispiel extends JFrame {
+    public JSplitPaneBeispiel() {
         // Erzeugung eines neuen Dialoges
-        JDialog meinJDialog = new JDialog();
-        meinJDialog.setTitle("JSplitPane Beispiel");
-        meinJDialog.setSize(450, 300);
+        setTitle("JSplitPane Beispiel");
+        setSize(450, 300);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         // Erzeugung zweier JPanel-Objekte
         JPanel panelRot = new JPanel();
@@ -31,9 +30,18 @@ public class JSplitPaneBeispiel {
         splitpane.setRightComponent(panelGelb);
 
         // Hier fügen wir unserem Dialog unser JSplitPane hinzu
-        meinJDialog.add(splitpane);
-        // Wir lassen unseren Dialog anzeigen
-        meinJDialog.setVisible(true);
+        add(splitpane);
+    }
 
+    // main-Methode
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                JSplitPaneBeispiel j = new JSplitPaneBeispiel();
+                // Wir lassen unser JFrame anzeigen
+                j.setVisible(true);
+            }
+        });
     }
 }

@@ -3,13 +3,11 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class JToolBarBeispiel {
-    // main-Methode
-    public static void main(String[] args) {
-        // Erzeugung eines neuen Dialoges
-        JDialog meinJDialog = new JDialog();
-        meinJDialog.setTitle("JToolBar Beispiel");
-        meinJDialog.setSize(450, 300);
+public class JToolBarBeispiel extends JDialog{
+    public JToolBarBeispiel(){
+
+        setTitle("JToolBar Beispiel");
+        setSize(450, 300);
         // Erstellung einer Menüleiste
         JMenuBar menu = new JMenuBar();
         // Menü wird hinzugefügt
@@ -26,17 +24,27 @@ public class JToolBarBeispiel {
         tbar.add(new JButton("Vergrößern"));
 
         // Menüleiste wird für den Dialog gesetzt
-        meinJDialog.setJMenuBar(menu);
+        setJMenuBar(menu);
 
         //Unsere Toolbar wird zum Dialog hinzugefügt
-        meinJDialog.add(tbar);
+        add(tbar);
 
         JPanel panel = new JPanel();
         panel.setBackground(Color.YELLOW);
-        meinJDialog.add(panel);
+        add(panel);
 
-        // Wir lassen unseren Dialog anzeigen
-        meinJDialog.setVisible(true);
+    }
+
+
+    // main-Methode
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                JToolBarBeispiel j = new JToolBarBeispiel();
+                j.setVisible(true);
+            }
+        });
 
     }
 }

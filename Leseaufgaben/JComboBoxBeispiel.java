@@ -22,6 +22,7 @@ public class JComboBoxBeispiel {
         //JComboBox mit Bundesländer-Einträgen wird erstellt
         JComboBox bundeslandAuswahl = new JComboBox(comboBoxListe);
 
+
         //JComboBox wird Panel hinzugefügt
         panel.add(bundeslandAuswahl);
 
