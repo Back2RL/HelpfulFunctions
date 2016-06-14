@@ -7,6 +7,8 @@ import java.util.Scanner;
 public class SelectSortTest {
 
     private static final boolean AUTOMATED = true;
+    private static final boolean DEBUG = false;
+    private static final int ANZAHL = 100;
     private static class SortObject implements Comparable<SortObject> {
 
         public int getRating() {
@@ -51,9 +53,9 @@ public class SelectSortTest {
 
         List<SortObject> sorted = new ArrayList<>();
 
-        int anzahl = 1000;
-        for (int i = 0; i < anzahl; i++) {
-            unsorted.add(new SortObject((int) (Math.random() * anzahl) + 1));
+
+        for (int i = 0; i < ANZAHL; i++) {
+            unsorted.add(new SortObject((int) (Math.random() * ANZAHL) + 1));
         }
 
         Scanner console = new Scanner(System.in);
@@ -63,12 +65,14 @@ public class SelectSortTest {
 
             for (SortObject o : sorted
                     ) {
-                System.out.print(o.value + ", ");
+               if(DEBUG) System.out.print(o.value + ", ");
             }
-            System.out.println();
+            if(DEBUG)System.out.println();
 
             if (unsorted.size() == 0) {
                 System.out.println("Runs = " + cnt);
+                System.out.println("Factor = "+ (double)cnt/ ANZAHL);
+                System.out.println("O(n*log(n)) ? = " + (int)(ANZAHL * Math.log(ANZAHL)));
                 break;
             }
 
@@ -89,14 +93,14 @@ public class SelectSortTest {
 
             while (end >= start) {
                 singleInsertCnt++;
-                System.out.println("----------");
-                System.out.println("indizes = " + start + " - " + mid + " - " + end);
-                System.out.println("einzufügen = " + toInsert.value + " (" + toInsert.getRating() + ")");
-                System.out.println("zu vergleichender eintrag = " + sorted.get(mid).value + " (" + sorted.get(mid).getRating() + ")");
+                if(DEBUG) System.out.println("----------");
+                if(DEBUG) System.out.println("indizes = " + start + " - " + mid + " - " + end);
+                if(DEBUG) System.out.println("einzufügen = " + toInsert.value + " (" + toInsert.getRating() + ")");
+                if(DEBUG) System.out.println("zu vergleichender eintrag = " + sorted.get(mid).value + " (" + sorted.get(mid).getRating() + ")");
 
-                System.out.println("Choose the better one:");
-                System.out.println("press 1 to choose the first and 2 to choose the second, choose 0 if equal");
-                System.out.println(sorted.get(mid).value + " - " + toInsert.value);
+                if(DEBUG)System.out.println("Choose the better one:");
+                if(DEBUG) System.out.println("press 1 to choose the first and 2 to choose the second, choose 0 if equal");
+                if(DEBUG) System.out.println(sorted.get(mid).value + " - " + toInsert.value);
                 if(!AUTOMATED) {
                     if (console.hasNextInt()) {
                         int next = console.nextInt();
@@ -137,11 +141,11 @@ public class SelectSortTest {
 //                        return o1.compareTo(o2);
 //                    }
 //                });
-                System.out.println("run number = " + cnt);
+                if(DEBUG)  System.out.println("run number = " + cnt);
             }
 
-            System.out.println(start + " - " + mid + " - " + end);
-            System.out.println("took " + singleInsertCnt + " runs to insert a single value");
+            if(DEBUG)  System.out.println(start + " - " + mid + " - " + end);
+            if(DEBUG) System.out.println("took " + singleInsertCnt + " runs to insert a single value");
             sorted.add(start, toInsert);
 
         }

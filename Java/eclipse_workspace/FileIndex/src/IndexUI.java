@@ -3,6 +3,8 @@ import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +16,11 @@ public class IndexUI extends JFrame {
         setPreferredSize(new Dimension(400, 300));
 
         buildPanels();
-        showImage();
+        baueFotoGUI();
+        //showImage();
+
+
+
 
         pack();
 
@@ -22,12 +28,24 @@ public class IndexUI extends JFrame {
 
     private JPanel jpnlDatabase;
     private JFileChooser jfcDatabase;
+    private JPanel jpnlFoto1;
+    private JPanel jpnlFoto2;
+    private JTextField jtfFoto;
+    private JButton jbtnFotoAuswahl;
 
     private void buildPanels() {
 
         jpnlDatabase = new JPanel();
         jpnlDatabase.setLayout(new GridBagLayout());
         jpnlDatabase.setBorder(BorderFactory.createTitledBorder("Database"));
+
+        jpnlFoto1 = new JPanel();
+        jpnlFoto1.setLayout(new BorderLayout());
+        jpnlFoto1.setBorder(BorderFactory.createTitledBorder("Foto"));
+
+        jpnlFoto2 = new JPanel();
+        jpnlFoto2.setLayout(new BorderLayout());
+        jpnlFoto2.setBorder(BorderFactory.createTitledBorder("Foto"));
 
         FileFilter filter = new FileNameExtensionFilter("Bilder",
                 "gif", "png", "jpg");
@@ -38,7 +56,53 @@ public class IndexUI extends JFrame {
 
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
         getContentPane().add(jpnlDatabase);
+        getContentPane().add(jpnlFoto1);
+        getContentPane().add(jpnlFoto2);
     }
+
+    /**
+     * Baut Dateiauswahl-Felder für das Foto und Eventhandler.
+     */
+    private void baueFotoGUI() {
+        jtfFoto = new JTextField(20);
+        jpnlFoto1.add(jtfFoto, BorderLayout.CENTER);
+
+        jbtnFotoAuswahl = new JButton("Auswählen");
+        jpnlFoto1.add(jbtnFotoAuswahl, BorderLayout.EAST);
+
+        jtfFoto.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ev) {
+
+                showImage();
+            }
+        });
+
+        jbtnFotoAuswahl.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ev) {
+                JFileChooser chooser = new JFileChooser();
+                FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                        "JPG & GIF Images", "jpg", "gif");
+                chooser.setFileFilter(filter);
+                chooser.setMultiSelectionEnabled(false);
+                chooser.changeToParentDirectory();
+                if (chooser.showOpenDialog(IndexUI.this)
+                        == JFileChooser.APPROVE_OPTION) {
+                    File file = chooser.getSelectedFile();
+                    String path = file.getAbsolutePath();
+                    jtfFoto.setText(path);
+
+
+
+
+                    showImage();
+                }
+            }
+        });
+
+    }
+
 
     private void showImage() {
         class ImagePanel extends JPanel {
@@ -47,10 +111,14 @@ public class IndexUI extends JFrame {
 
             public ImagePanel() {
                 try {
-                    image = ImageIO.read(new File("/home/leo/Bilder/running_tiger_hunting_anime_character_ao_no_exorcist.jpeg"));
+                    image = ImageIO.read(new File(jtfFoto.getText()));
                 } catch (IOException ex) {
                     // handle exception...
-                    System.out.println("failed to open image");
+                    JOptionPane.showMessageDialog(this,
+                            "Fehler beim Laden des Bilds: " + ex.getMessage(),
+                            "Fehler",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
                 }
                 setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
             }
@@ -59,7 +127,12 @@ public class IndexUI extends JFrame {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
 
-                float imageAspectRatio = image.getWidth() / image.getHeight();
+                String imgFilename = jtfFoto.getText();
+                ImageIcon icon = new ImageIcon(imgFilename);
+                int width = icon.getIconWidth();
+                int height = icon.getIconHeight();
+
+                float imageAspectRatio = (float)width / height;
                 //float imageAspectRatio = 16.0f/9.0f;
                 float jframeAspectRatio = getWidth() / getHeight();
                 int x = 0;
@@ -77,7 +150,27 @@ public class IndexUI extends JFrame {
         }
         ImagePanel image = new ImagePanel();
 
-        getContentPane().add(image);
+
+        // Erzeugung eines neuen JDialogs mit
+        // dem Titel "Beispiel JDialog"
+        JDialog meinJDialog = new JDialog();
+        // Titel wird gesetzt
+        meinJDialog.setTitle("Mein JDialog Beispiel");
+        // Höhe und Breite des Fensters werden
+        // auf 200 Pixel gesetzt
+        meinJDialog.setSize(200,200);
+
+
+        // Hinzufügen einer Komponente,
+        // in diesem Fall ein JLabel
+//        JLabel imageTest = new JLabel("Beispiel JLabel");
+//        meinJDialog.add(imageTest);
+        // Wir lassen unseren JDialog anzeigen
+
+        meinJDialog.add(image);
+        meinJDialog.setResizable(true);
+        meinJDialog.setVisible(true);
+        //getContentPane().add(image);
     }
 
 
