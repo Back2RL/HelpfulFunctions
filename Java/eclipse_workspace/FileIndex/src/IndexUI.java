@@ -17,7 +17,7 @@ public class IndexUI extends JFrame {
 
         buildPanels();
         baueFotoGUI();
-        //showImage();
+
 
 
 
@@ -81,7 +81,7 @@ public class IndexUI extends JFrame {
         jbtnFotoAuswahl.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ev) {
-                JFileChooser chooser = new JFileChooser();
+                JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
                 FileNameExtensionFilter filter = new FileNameExtensionFilter(
                         "JPG & GIF Images", "jpg", "gif");
                 chooser.setFileFilter(filter);
@@ -129,22 +129,33 @@ public class IndexUI extends JFrame {
 
                 String imgFilename = jtfFoto.getText();
                 ImageIcon icon = new ImageIcon(imgFilename);
+
                 int width = icon.getIconWidth();
                 int height = icon.getIconHeight();
 
                 float imageAspectRatio = (float)width / height;
-                //float imageAspectRatio = 16.0f/9.0f;
-                float jframeAspectRatio = getWidth() / getHeight();
+                float jframeAspectRatio = getWidth() * 0.5f / getHeight();
+
+                int pnlW = (int) (getWidth());
+                int pnlH = getHeight();
+
+                System.out.println("Panelsize = " +pnlW +"x"+pnlH);
+
                 int x = 0;
                 int y = 0;
+
+                System.out.println(imageAspectRatio +" vs "+ jframeAspectRatio);
+
                 if (imageAspectRatio < jframeAspectRatio) {
-                    y = getHeight();
+                    y = pnlH;
                     x = (int) ((y * imageAspectRatio));
+
                 } else {
-                    x = getWidth();
+                    x = pnlW;
                     y = (int) ((x / imageAspectRatio));
                 }
-                g.drawImage(image, getWidth() / 2 - x / 2, getHeight() / 2 - y / 2, x, y, null);
+
+                g.drawImage(image, pnlW / 2 - x/2, getHeight() / 2 - y / 2, x, y, null);
             }
 
         }
@@ -167,7 +178,10 @@ public class IndexUI extends JFrame {
 //        meinJDialog.add(imageTest);
         // Wir lassen unseren JDialog anzeigen
 
-        meinJDialog.add(image);
+        meinJDialog.setAlwaysOnTop(true);
+
+        meinJDialog.add(image,BoxLayout.X_AXIS);
+
         meinJDialog.setResizable(true);
         meinJDialog.setVisible(true);
         //getContentPane().add(image);

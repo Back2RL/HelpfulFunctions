@@ -172,7 +172,7 @@ public class ComponentDemo extends JFrame {
             public void run() {
                 yield();
                 try {
-                    sleep(2000);
+                    sleep(1000);
                 } catch (InterruptedException e) {
                     // thread abbrechen
                     return;
