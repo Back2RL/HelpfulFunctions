@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -21,12 +22,20 @@ public class SelectSortTest extends JFrame {
     private static final boolean DEBUG = true;
     private static final int ANZAHL = 15;
 
+    private static final String testImage = "X:\\Christmas\\2100917268_7f1873c831_o.jpg";
+
     private JDialog left;
     private JDialog right;
 
     private KeyAdapter listener;
 
     private int choice;
+
+    private Point leftLocation;
+    private Point rightLocation;
+
+    private String leftPath ;
+    private String rightPath;
 
     private static final Dimension defaultSize = new Dimension(200, 200);
     private Dimension screenSize;
@@ -50,10 +59,12 @@ public class SelectSortTest extends JFrame {
 
         private int rating;
         public int value;
+        public String path;
 
-        public SortObject(int value) {
+        public SortObject(int value, String path) {
             this.value = value;
             this.rating = 0;
+            this.path = path;
         }
 
         /**
@@ -141,38 +152,38 @@ public class SelectSortTest extends JFrame {
         });
         addKeyListener(listener);
         worker.start();
-//
-//        JButton showLeft = new JButton();
-//        showLeft.setText("Open Left");
-//        showLeft.addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                super.mouseClicked(e);
-//                if (left != null) {
-//                    left.dispose();
-//                }
-//                showLeftImage();
-//            }
-//        });
-//
-//
-//        JButton showRight = new JButton();
-//        showRight.setText("Open Right");
-//        showRight.addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                super.mouseClicked(e);
-//                if (right != null) {
-//                    right.dispose();
-//                }
-//                showRightImage();
-//            }
-//        });
-//
-//
-//
-//        getContentPane().add(showLeft, BorderLayout.WEST);
-//        getContentPane().add(showRight, BorderLayout.EAST);
+
+        JButton showLeft = new JButton();
+        showLeft.setText("Open Left");
+        showLeft.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if (left != null) {
+                    left.dispose();
+                }
+                showLeftImage(leftPath);
+            }
+        });
+
+
+        JButton showRight = new JButton();
+        showRight.setText("Open Right");
+        showRight.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if (right != null) {
+                    right.dispose();
+                }
+                showRightImage(rightPath);
+            }
+        });
+
+
+
+        getContentPane().add(showLeft, BorderLayout.WEST);
+        getContentPane().add(showRight, BorderLayout.EAST);
         pack();
 
     }
@@ -183,8 +194,10 @@ public class SelectSortTest extends JFrame {
         List<SortObject> sorted = new ArrayList<>();
 
 
-        for (int i = 0; i < ANZAHL; i++) {
-            unsorted.add(new SortObject((int) (Math.random() * ANZAHL) + 1));
+        List<File> files = analyzeDirectory("X:");
+
+        for(File file: files){
+            unsorted.add(new SortObject((int) (Math.random() * ANZAHL) + 1, file.getPath()));
         }
 
         Scanner console = new Scanner(System.in);
@@ -200,15 +213,25 @@ public class SelectSortTest extends JFrame {
             }
 
             if (unsorted.size() == 0) {
+                ArrayList<String> sortedList = new ArrayList<>();
                 for (SortObject o : sorted
                         ) {
-                    System.out.print(o.value + ", ");
+                    System.out.println(o.value + ", "+ o.path);
+                    sortedList.add(o.path);
                 }
-                System.out.println();
 
                 System.out.println("Factor = " + (double) cnt / ANZAHL);
                 System.out.println("Runs =          " + cnt);
                 System.out.println("O(n*log(n)) ? = " + (int) (ANZAHL * Math.log(ANZAHL)));
+
+
+                EventQueue.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        ImageList showList = new ImageList(sortedList);
+                        showList.setVisible(true);
+                    }
+                });
                 break;
             }
 
@@ -241,8 +264,10 @@ public class SelectSortTest extends JFrame {
                 if (DEBUG) System.out.println(sorted.get(mid).value + " - " + toInsert.value);
 
                 if (!AUTOMATED) {
-                    showLeftImage();
-                    showRightImage();
+                    leftPath = toInsert.path;
+                    rightPath = sorted.get(mid).path;
+                    showLeftImage(leftPath);
+                    showRightImage(rightPath);
 
                     if (USING_KEYS) {
                         while (!(choice == 1 || choice == 2)) {
@@ -317,6 +342,7 @@ public class SelectSortTest extends JFrame {
     }
 
     private void showImage(JDialog o, String pathToImage) {
+        if(pathToImage == null)return;
         class ImagePanel extends JPanel {
 
             private BufferedImage image;
@@ -332,15 +358,16 @@ public class SelectSortTest extends JFrame {
                             JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-                setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
+                if(image == null)return;
+                this.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
             }
 
             @Override
             protected void paintComponent(Graphics g) {
+                if(image == null) return;
                 super.paintComponent(g);
 
-                String imgFilename = pathToImage;
-                ImageIcon icon = new ImageIcon(imgFilename);
+                ImageIcon icon = new ImageIcon(pathToImage);
 
                 int width = icon.getIconWidth();
                 int height = icon.getIconHeight();
@@ -375,10 +402,37 @@ public class SelectSortTest extends JFrame {
 
 
         o.add(image);
+        o.addKeyListener(new KeyAdapter() {
+            Dimension size;
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+
+
+
+                if (e.getKeyChar() == KeyEvent.VK_SPACE) {
+                    System.out.println("space pressed");
+                    if(size == null){
+                        size = right.getSize();
+
+                        o.setLocation(0,0);
+                        o.setSize(screenSize);
+                        image.update(image.getGraphics());
+                    }else {
+                        o.setSize(size);
+
+                        o.setLocation(o.equals(left) ? leftLocation:rightLocation);
+
+                        size = null;
+                    }
+                }
+            }
+        });
 
     }
 
-    private void showLeftImage() {
+    private void showLeftImage(String path) {
+        if(path == null) return;
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -387,7 +441,8 @@ public class SelectSortTest extends JFrame {
                 left = new JDialog();
                 left.setTitle("Left");
                 left.setAlwaysOnTop(true);
-                left.setLocation((int) (screenSize.width * 0.25 - imageDialogSize.width * 0.5), (int) (screenSize.height * 0.05));
+                leftLocation = new Point((int) (screenSize.width * 0.25 - imageDialogSize.width * 0.5), (int) (screenSize.height * 0.05));
+                left.setLocation(leftLocation);
                 left.setPreferredSize(imageDialogSize);
                 left.pack();
                 left.addKeyListener(new KeyAdapter() {
@@ -401,13 +456,14 @@ public class SelectSortTest extends JFrame {
                     }
                 });
                 left.addKeyListener(listener);
-                showImage(left, "/home/stud/oertelt/Bilder/image.jpg");
+                showImage(left, path);
                 left.setVisible(true);
             }
         });
     }
 
-    private void showRightImage() {
+    private void showRightImage(String path) {
+        if(path == null) return;
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -416,7 +472,8 @@ public class SelectSortTest extends JFrame {
                 right = new JDialog();
                 right.setTitle("Right");
                 right.setAlwaysOnTop(true);
-                right.setLocation((int) (screenSize.width * 0.75 - imageDialogSize.width * 0.5), (int) (screenSize.height * 0.05));
+                rightLocation = new Point((int) (screenSize.width * 0.75 - imageDialogSize.width * 0.5), (int) (screenSize.height * 0.05));
+                right.setLocation(rightLocation);
                 right.setPreferredSize(imageDialogSize);
                 right.pack();
                 right.addKeyListener(new KeyAdapter() {
@@ -430,10 +487,65 @@ public class SelectSortTest extends JFrame {
                     }
                 });
                 right.addKeyListener(listener);
-                showImage(right, "/home/stud/oertelt/Bilder/image.jpg");
+
+                showImage(right, path);
                 right.setVisible(true);
             }
         });
+    }
+
+    public List<File> analyzeDirectory(String dir) {
+        File analysisDir = getDirectory(dir);
+        System.out.println("Starting analysis of: \"" + analysisDir + "\"");
+
+        List<File> pendingDirectories = new ArrayList<>();
+        List<File> allFiles = new ArrayList<>();
+
+        while (true) {
+            try {
+                for (File currentFile : analysisDir.listFiles()) {
+                    if (Files.isSymbolicLink(currentFile.toPath())) {
+                        continue;
+                    }
+                    if (currentFile.isDirectory()) {
+                        pendingDirectories.add(currentFile);
+                        continue;
+                    }
+
+                    allFiles.add(currentFile);
+                }
+            } catch (NullPointerException e) {
+                System.out.println("Can not access: " + analysisDir.toString() + " : NullPointerException");
+            }
+            if (!pendingDirectories.isEmpty()) {
+                analysisDir = pendingDirectories.get(0);
+                pendingDirectories.remove(0);
+            } else {
+                break;
+            }
+        }
+        // System.out.println(allFiles.toString());
+        System.out.println("-----");
+        System.out.println("Number of found files: " + allFiles.size());
+        return allFiles;
+    }
+
+    private File getDirectory(String path) {
+        // invariant 1
+        if (path == null || path.equals("")) {
+            throw new IllegalArgumentException("Given path must not be empty");
+        }
+        // invariant 2
+        File file = null;
+        try {
+            file = new File(path);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (!file.isDirectory()) {
+            throw new IllegalArgumentException("Given path does not point to a directory");
+        }
+        return file;
     }
 
 }
