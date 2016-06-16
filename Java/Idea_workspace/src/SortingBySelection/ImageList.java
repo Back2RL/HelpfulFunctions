@@ -4,6 +4,8 @@ package SortingBySelection;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +19,16 @@ public class ImageList extends JFrame {
     public ImageList(ArrayList<String> files) {
 
         setTitle("Images");
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+
+        this.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(e.equals(KeyEvent.VK_ESCAPE)){
+                    dispose();
+                }
+            }
+        });
 
         content = new JPanel();
         content.setLayout(new FlowLayout(FlowLayout.RIGHT));

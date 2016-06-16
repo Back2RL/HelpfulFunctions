@@ -5,10 +5,7 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -21,22 +18,28 @@ public class SelectSortTest extends JFrame {
 
     private static final boolean AUTOMATED = false;
     private static final boolean USING_KEYS = true;
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
     private static final int ANZAHL = 15;
+
+
+    private static final Dimension defaultSize = new Dimension(300, 150);
 
     private JTextField analysisDir;
     private String analysisDirPath;
 
+    private List<File> pendingDirectories;
+    private List<File> allFiles;
+    private List<SortObject> unsorted;
+    private List<SortObject> sorted;
+    private ArrayList<String> sortedList;
 
     private JButton startAnalysis;
     private JButton abortAnalysis;
-
-    private Thread worker;
-
     private JDialog left;
     private JDialog right;
-
     private KeyAdapter listener;
+
+    private Thread worker;
 
     private int choice;
 
@@ -45,82 +48,27 @@ public class SelectSortTest extends JFrame {
 
     private String leftPath;
     private String rightPath;
-
-    private static final Dimension defaultSize = new Dimension(300, 150);
     private Dimension screenSize;
 
-    private static class SortObject implements Comparable<SortObject> {
-
-        public int getRating() {
-            return rating;
-        }
-
-        // makes sure that the rating is higher then the other one
-        public void increaseRating(SortObject other) {
-            if (rating < other.getRating()) {
-                rating = other.getRating() + 1;
-//                other.rating++;
-            } else {
-                rating++;
-                other.rating++;
-            }
-        }
-
-        private int rating;
-        public int value;
-        public String path;
-
-        public final void calculateMD5() {
-            new Thread() {
-                @Override
-                public void run() {
-                    setMd5Hash(MD5.fromFile(new File(path)));
-                }
-            }.start();
-        }
-
-        public String getMd5Hash() {
-            return md5Hash;
-        }
-
-        private synchronized void setMd5Hash(String md5Hash) {
-            this.md5Hash = md5Hash;
-        }
-
-        private String md5Hash;
-
-
-        public SortObject(int value, String path) {
-            this.value = value;
-            this.rating = 0;
-            this.path = path;
-        }
-
-        /**
-         * return 0 if rating is the same
-         * returns -1 if the rating of o is lower
-         * returns 1 if the rating of o is higher
-         */
-        @Override
-        public int compareTo(SortObject o) {
-            if (o.rating == rating) return 0;
-            if (o.rating < rating) return -1;
-            return 1;
-        }
-    }
-
-    public static void main(String[] args) {
-
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                SelectSortTest f = new SelectSortTest();
-                f.setVisible(true);
-            }
-        });
-    }
-
     public SelectSortTest() {
+
+        pendingDirectories = new ArrayList<>();
+        allFiles = new ArrayList<>();
+        sortedList = new ArrayList<>();
+        unsorted = new ArrayList<>();
+        sorted = new ArrayList<>();
+
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
         //single monitor
         // screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         // multimonitor
@@ -137,18 +85,22 @@ public class SelectSortTest extends JFrame {
                 if (e.getKeyChar() == KeyEvent.VK_1) {
                     System.out.println("main: 1 pressed");
                     if (left != null) {
+                        left.setVisible(false);
                         left.dispose();
                     }
                     if (right != null) {
+                        right.setVisible(false);
                         right.dispose();
                     }
                     choice = 1;
                 } else if (e.getKeyChar() == KeyEvent.VK_2) {
                     System.out.println("main: 2 pressed");
                     if (left != null) {
+                        left.setVisible(false);
                         left.dispose();
                     }
                     if (right != null) {
+                        right.setVisible(false);
                         right.dispose();
                     }
                     choice = 2;
@@ -180,10 +132,10 @@ public class SelectSortTest extends JFrame {
         showLeft.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (right != null) {
-                    right.dispose();
+                if (left != null) {
+                    left.dispose();
                 }
-                showRightImage(rightPath);
+                SelectSortTest.this.showLeftImage(leftPath);
             }
         });
 
@@ -216,9 +168,36 @@ public class SelectSortTest extends JFrame {
 
             }
         };
-        analysisDir = new JTextField("Pfad zum Verzeichnis hier eingeben");
+
+
+        JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.setMultiSelectionEnabled(false);
+        chooser.changeToParentDirectory();
+        if (chooser.showOpenDialog(new JDialog(this))
+                == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile();
+            analysisDirPath = file.getAbsolutePath();
+            chooser.setCurrentDirectory(file);
+        }
+        analysisDir = new JTextField(analysisDirPath);
+        analysisDir.setEnabled(false);
         analysisDir.setToolTipText("Pfad zum Verzeichnis hier eingeben");
-        analysisDir.getDocument().addDocumentListener(docListener);
+        //analysisDir.getDocument().addDocumentListener(docListener);
+        SelectSortTest thisObj = this;
+        analysisDir.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+                if (chooser.showOpenDialog(new JDialog(thisObj))
+                        == JFileChooser.APPROVE_OPTION) {
+                    File file = chooser.getSelectedFile();
+                    analysisDirPath = file.getAbsolutePath();
+                    chooser.setCurrentDirectory(file);
+                    analysisDir.setText(analysisDirPath);
+                }
+            }
+        });
 
         startAnalysis = new JButton("Start");
         abortAnalysis = new JButton("Abbruch");
@@ -239,6 +218,7 @@ public class SelectSortTest extends JFrame {
                             public void run() {
                                 startAnalysis.setEnabled(true);
                                 abortAnalysis.setEnabled(false);
+
                             }
                         });
 
@@ -276,6 +256,14 @@ public class SelectSortTest extends JFrame {
                         if (left != null) {
                             left.dispose();
                         }
+                        sortedList = new ArrayList<String>();
+                        for (SortObject o : sorted
+                                ) {
+                            System.out.println(o.value + ", " + o.path);
+                            sortedList.add(o.path);
+                        }
+                        ImageList showList = new ImageList(sortedList);
+                        showList.setVisible(true);
                     }
                 });
 
@@ -292,14 +280,35 @@ public class SelectSortTest extends JFrame {
 
     }
 
+    public static void main(String[] args) {
+
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                SelectSortTest f = new SelectSortTest();
+                f.setVisible(true);
+            }
+        });
+    }
+
+    private static boolean isImage(File f) {
+        boolean valid = true;
+        try {
+            Image image = ImageIO.read(f);
+            if (image == null) {
+                valid = false;
+            }
+        } catch (IOException ex) {
+            valid = false;
+        }
+        return valid;
+    }
+
     private void updateAnalysisDirPath() {
         analysisDirPath = analysisDir.getText();
     }
 
     private void perform() {
-        List<SortObject> unsorted = new ArrayList<>();
-
-        List<SortObject> sorted = new ArrayList<>();
 
 
         List<File> files = analyzeDirectory(analysisDirPath);
@@ -307,8 +316,13 @@ public class SelectSortTest extends JFrame {
             System.err.println("Keine Dateien gefunden, Fehler beim Analysieren des Verzeichnis.");
             return;
         }
+        unsorted.clear();
         for (File file : files) {
-            unsorted.add(new SortObject((int) (Math.random() * ANZAHL) + 1, file.getPath()));
+            if (isAlreadySorted(file.getPath())) {
+
+            } else {
+                unsorted.add(new SortObject((int) (Math.random() * ANZAHL) + 1, file.getPath()));
+            }
         }
 
         Scanner console = new Scanner(System.in);
@@ -324,7 +338,7 @@ public class SelectSortTest extends JFrame {
             }
 
             if (unsorted.size() == 0) {
-                ArrayList<String> sortedList = new ArrayList<>();
+                sortedList = new ArrayList<>();
                 for (SortObject o : sorted
                         ) {
                     System.out.println(o.value + ", " + o.path);
@@ -378,7 +392,9 @@ public class SelectSortTest extends JFrame {
                     leftPath = toInsert.path;
                     rightPath = sorted.get(mid).path;
                     showLeftImage(leftPath);
+                    System.out.println(leftPath);
                     showRightImage(rightPath);
+                    System.out.println(rightPath);
 
                     if (USING_KEYS) {
                         while (!(choice == 1 || choice == 2)) {
@@ -458,19 +474,35 @@ public class SelectSortTest extends JFrame {
 
             private BufferedImage image;
 
+
             public ImagePanel() {
-                try {
-                    image = ImageIO.read(new File(pathToImage));
-                } catch (IOException ex) {
-                    // handle exception...
-                    JOptionPane.showMessageDialog(this,
-                            "Fehler beim Laden des Bilds: " + ex.getMessage(),
-                            "Fehler",
-                            JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                if (image == null) return;
-                this.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
+                ImagePanel thisObj = this;
+                new Thread() {
+
+                    @Override
+                    public void run() {
+
+                        try {
+                            image = ImageIO.read(new File(pathToImage));
+                        } catch (IOException ex) {
+                            // handle exception...
+                            JOptionPane.showMessageDialog(thisObj,
+                                    "Fehler beim Laden des Bilds: " + ex.getMessage(),
+                                    "Fehler",
+                                    JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+
+                        if (image == null) return;
+                        EventQueue.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                thisObj.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
+                                thisObj.paintComponent(thisObj.getGraphics());
+                            }
+                        });
+                    }
+                }.start();
             }
 
             @Override
@@ -515,6 +547,7 @@ public class SelectSortTest extends JFrame {
         o.add(image);
         o.addKeyListener(new KeyAdapter() {
             Dimension size;
+            ZoomStatus status;
 
             @Override
             public void keyPressed(KeyEvent e) {
@@ -523,19 +556,52 @@ public class SelectSortTest extends JFrame {
 
                 if (e.getKeyChar() == KeyEvent.VK_SPACE) {
                     System.out.println("space pressed");
-                    if (size == null) {
-                        size = right.getSize();
 
-                        o.setLocation(0, 0);
-                        o.setSize(screenSize);
-                        image.update(image.getGraphics());
-                    } else {
-                        o.setSize(size);
+                    if (status == ZoomStatus.noneZoomed) {
 
-                        o.setLocation(o.equals(left) ? leftLocation : rightLocation);
+                        if (size == null) {
+                            size = left.getSize();
+                        }
 
-                        size = null;
+                        left.setLocation(0, 0);
+                        right.setLocation(0, 0);
+
+                        left.setSize(screenSize);
+                        right.setSize(screenSize);
+
+
+                        left.update(left.getGraphics());
+                        right.update(right.getGraphics());
+
+                        status = ZoomStatus.leftZoomed;
+
+                        left.toFront();
+                        return;
                     }
+                    if (status == ZoomStatus.leftZoomed) {
+                        status = ZoomStatus.bothZoomed;
+                        right.toFront();
+                        return;
+                    }
+
+                    if (status == ZoomStatus.bothZoomed) {
+
+                        left.setSize(size);
+                        right.setSize(size);
+
+                        left.setLocation(leftLocation);
+                        right.setLocation(rightLocation);
+
+                        left.update(left.getGraphics());
+                        right.update(right.getGraphics());
+
+                        status = ZoomStatus.noneZoomed;
+                        return;
+
+                    } else {
+                        status = ZoomStatus.noneZoomed;
+                    }
+
                 }
             }
         });
@@ -623,8 +689,6 @@ public class SelectSortTest extends JFrame {
 
         System.out.println("Starting analysis of: \"" + analysisDir + "\"");
 
-        List<File> pendingDirectories = new ArrayList<>();
-        List<File> allFiles = new ArrayList<>();
 
         while (true) {
             try {
@@ -635,6 +699,9 @@ public class SelectSortTest extends JFrame {
 
                     if (currentFile.isDirectory()) {
                         pendingDirectories.add(currentFile);
+                        continue;
+                    }
+                    if (!isImage(currentFile)) {
                         continue;
                     }
                     allFiles.add(currentFile);
@@ -682,4 +749,74 @@ public class SelectSortTest extends JFrame {
         return file;
     }
 
+    public boolean isAlreadySorted(String path) {
+        for (SortObject obj : sorted) {
+            if (obj.path.equals(path)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private enum ZoomStatus {
+        noneZoomed, leftZoomed, rightZoomed, bothZoomed
+    }
+
+    private static class SortObject implements Comparable<SortObject> {
+
+        public int value;
+        public String path;
+        private int rating;
+        private String md5Hash;
+
+        public SortObject(int value, String path) {
+            this.value = value;
+            this.rating = 0;
+            this.path = path;
+        }
+
+        public int getRating() {
+            return rating;
+        }
+
+        // makes sure that the rating is higher then the other one
+        public void increaseRating(SortObject other) {
+            if (rating < other.getRating()) {
+                rating = other.getRating() + 1;
+//                other.rating++;
+            } else {
+                rating++;
+                other.rating++;
+            }
+        }
+
+        public final void calculateMD5() {
+            new Thread() {
+                @Override
+                public void run() {
+                    setMd5Hash(MD5.fromFile(new File(path)));
+                }
+            }.start();
+        }
+
+        public String getMd5Hash() {
+            return md5Hash;
+        }
+
+        private synchronized void setMd5Hash(String md5Hash) {
+            this.md5Hash = md5Hash;
+        }
+
+        /**
+         * return 0 if rating is the same
+         * returns -1 if the rating of o is lower
+         * returns 1 if the rating of o is higher
+         */
+        @Override
+        public int compareTo(SortObject o) {
+            if (o.rating == rating) return 0;
+            if (o.rating < rating) return -1;
+            return 1;
+        }
+    }
 }
