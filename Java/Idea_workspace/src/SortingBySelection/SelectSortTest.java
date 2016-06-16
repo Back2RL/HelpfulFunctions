@@ -26,6 +26,8 @@ public class SelectSortTest extends JFrame {
 
     private JTextField analysisDir;
     private String analysisDirPath;
+
+
     private JButton startAnalysis;
     private JButton abortAnalysis;
 
@@ -67,6 +69,26 @@ public class SelectSortTest extends JFrame {
         private int rating;
         public int value;
         public String path;
+
+        public final void calculateMD5() {
+            new Thread() {
+                @Override
+                public void run() {
+                    setMd5Hash(MD5.fromFile(new File(path)));
+                }
+            }.start();
+        }
+
+        public String getMd5Hash() {
+            return md5Hash;
+        }
+
+        private synchronized void setMd5Hash(String md5Hash) {
+            this.md5Hash = md5Hash;
+        }
+
+        private String md5Hash;
+
 
         public SortObject(int value, String path) {
             this.value = value;
@@ -422,6 +444,7 @@ public class SelectSortTest extends JFrame {
 
             if (DEBUG) System.out.println(start + " - " + mid + " - " + end);
             if (DEBUG) System.out.println("took " + singleInsertCnt + " runs to insert a single value");
+            toInsert.calculateMD5();
             sorted.add(start, toInsert);
 
         }

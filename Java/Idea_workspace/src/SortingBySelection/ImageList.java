@@ -25,51 +25,64 @@ public class ImageList extends JFrame {
         JScrollPane scroll = new JScrollPane(content);
         getContentPane().add(scroll);
         scroll.createHorizontalScrollBar();
-        for (String path : files) {
-            try {
-                class ImagePanel extends JPanel {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                for (String path : files) {
+                    try {
+                        class ImagePanel extends JPanel {
 
-                    private BufferedImage image;
+                            private BufferedImage image;
 
-                    public ImagePanel() {
-                        try {
-                            image = ImageIO.read(new File(path));
-                        } catch (IOException ex) {
-                            // handle exception...
-                            JOptionPane.showMessageDialog(this,
-                                    "Fehler beim Laden des Bilds: " + ex.getMessage(),
-                                    "Fehler",
-                                    JOptionPane.ERROR_MESSAGE);
-                            return;
+                            public ImagePanel() {
+                                try {
+                                    image = ImageIO.read(new File(path));
+                                } catch (IOException ex) {
+                                    // handle exception...
+                                    JOptionPane.showMessageDialog(this,
+                                            "Fehler beim Laden des Bilds: " + ex.getMessage(),
+                                            "Fehler",
+                                            JOptionPane.ERROR_MESSAGE);
+                                    return;
+                                }
+                                if (image == null) return;
+                                this.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
+                            }
+
+                            @Override
+                            protected void paintComponent(Graphics g) {
+                                super.paintComponent(g);
+//
+                                ImageIcon icon = new ImageIcon(path);
+//
+                                int width = icon.getIconWidth();
+                                int height = icon.getIconHeight();
+
+                                float imageAspectRatio = (float) width / height;
+
+
+                                int y = getHeight();
+                                int x = (int) ((y * imageAspectRatio));
+                                g.drawImage(image, 0, 0, x, y, null);
+                            }
+
                         }
-                        if(image == null) return;
-                        this.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
+                        EventQueue.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                ImagePanel image = new ImagePanel();
+                                content.add(image, FlowLayout.LEFT);
+                            }
+                        });
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-
-                    @Override
-                    protected void paintComponent(Graphics g) {
-                        super.paintComponent(g);
-//
-                        ImageIcon icon = new ImageIcon(path);
-//
-                        int width = icon.getIconWidth();
-                        int height = icon.getIconHeight();
-
-                        float imageAspectRatio = (float) width / height;
-
-
-                        int y = getHeight();
-                        int x = (int) ((y * imageAspectRatio));
-                        g.drawImage(image, 0, 0, x, y, null);
-                    }
-
                 }
-                ImagePanel image = new ImagePanel();
-                content.add(image, FlowLayout.LEFT);
-            } catch (Exception e) {
-                e.printStackTrace();
             }
-        }
+        }.start();
+setPreferredSize(new Dimension(640,480));
         pack();
     }
 
