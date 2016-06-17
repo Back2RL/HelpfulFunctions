@@ -1,5 +1,7 @@
 package SortingBySelection;
 
+import com.sun.javaws.exceptions.InvalidArgumentException;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -13,6 +15,8 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import static java.lang.System.*;
 
 public class SelectSortTest extends JFrame {
 
@@ -37,11 +41,14 @@ public class SelectSortTest extends JFrame {
     private JButton abortAnalysis;
     private JDialog left;
     private JDialog right;
-    private KeyAdapter listener;
 
     private Thread worker;
 
     private int choice;
+
+    private synchronized void setChoice(int newChoice){
+        this.choice = newChoice;
+    }
 
     private Point leftLocation;
     private Point rightLocation;
@@ -77,36 +84,13 @@ public class SelectSortTest extends JFrame {
         int height = gd.getDisplayMode().getHeight();
         screenSize = new Dimension(width, height);
 
-        listener = new KeyAdapter() {
+        addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                super.keyPressed(e);
-
-                if (e.getKeyChar() == KeyEvent.VK_1) {
-                    System.out.println("main: 1 pressed");
-                    if (left != null) {
-                        left.setVisible(false);
-                        left.dispose();
-                    }
-                    if (right != null) {
-                        right.setVisible(false);
-                        right.dispose();
-                    }
-                    choice = 1;
-                } else if (e.getKeyChar() == KeyEvent.VK_2) {
-                    System.out.println("main: 2 pressed");
-                    if (left != null) {
-                        left.setVisible(false);
-                        left.dispose();
-                    }
-                    if (right != null) {
-                        right.setVisible(false);
-                        right.dispose();
-                    }
-                    choice = 2;
-                }
+                processKeyInput(e);
             }
-        };
+        });
+
 
         setTitle("select sort demo");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -114,18 +98,7 @@ public class SelectSortTest extends JFrame {
         setLocation((int) (screenSize.width * 0.5 - defaultSize.width * 0.5), (int) (screenSize.height * 0.5 - defaultSize.height * 0.5));
 
 
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                super.keyPressed(e);
 
-                if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
-                    System.out.println("Escape pressed");
-                    System.exit(0);
-                }
-            }
-        });
-        addKeyListener(listener);
 
         JButton showLeft = new JButton();
         showLeft.setText("Open Left");
@@ -152,25 +125,7 @@ public class SelectSortTest extends JFrame {
             }
         });
 
-        DocumentListener docListener = new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                updateAnalysisDirPath();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                updateAnalysisDirPath();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-
-            }
-        };
-
-
-        JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
+        JFileChooser chooser = new JFileChooser(getProperty("user.dir"));
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         chooser.setMultiSelectionEnabled(false);
         chooser.changeToParentDirectory();
@@ -259,7 +214,7 @@ public class SelectSortTest extends JFrame {
                         sortedList = new ArrayList<String>();
                         for (SortObject o : sorted
                                 ) {
-                            System.out.println(o.value + ", " + o.path);
+                            out.println( o.path);
                             sortedList.add(o.path);
                         }
                         ImageList showList = new ImageList(sortedList);
@@ -313,7 +268,7 @@ public class SelectSortTest extends JFrame {
 
         List<File> files = analyzeDirectory(analysisDirPath);
         if (files == null) {
-            System.err.println("Keine Dateien gefunden, Fehler beim Analysieren des Verzeichnis.");
+            err.println("Keine Dateien gefunden, Fehler beim Analysieren des Verzeichnis.");
             return;
         }
         unsorted.clear();
@@ -321,33 +276,24 @@ public class SelectSortTest extends JFrame {
             if (isAlreadySorted(file.getPath())) {
 
             } else {
-                unsorted.add(new SortObject((int) (Math.random() * ANZAHL) + 1, file.getPath()));
+                unsorted.add(new SortObject(file.getPath()));
             }
         }
 
-        Scanner console = new Scanner(System.in);
-
         int cnt = 0;
         while (true) {
-            if (DEBUG) {
-                for (SortObject o : sorted
-                        ) {
-                    System.out.print(o.value + ", ");
-                }
-                System.out.println();
-            }
 
             if (unsorted.size() == 0) {
                 sortedList = new ArrayList<>();
                 for (SortObject o : sorted
                         ) {
-                    System.out.println(o.value + ", " + o.path);
+                    out.println(o.path);
                     sortedList.add(o.path);
                 }
 
-                System.out.println("Factor = " + (double) cnt / ANZAHL);
-                System.out.println("Runs =          " + cnt);
-                System.out.println("O(n*log(n)) ? = " + (int) (ANZAHL * Math.log(ANZAHL)));
+                out.println("Factor = " + (double) cnt / ANZAHL);
+                out.println("Runs =          " + cnt);
+                out.println("O(n*log(n)) ? = " + (int) (ANZAHL * Math.log(ANZAHL)));
 
 
                 EventQueue.invokeLater(new Runnable() {
@@ -377,24 +323,16 @@ public class SelectSortTest extends JFrame {
 
             while (end >= start) {
                 singleInsertCnt++;
-                if (DEBUG) System.out.println("----------");
-                if (DEBUG) System.out.println("indizes = " + start + " - " + mid + " - " + end);
-                if (DEBUG) System.out.println("einzufügen = " + toInsert.value + " (" + toInsert.getRating() + ")");
-                if (DEBUG)
-                    System.out.println("zu vergleichender eintrag = " + sorted.get(mid).value + " (" + sorted.get(mid).getRating() + ")");
+                if (DEBUG) out.println("----------");
+                if (DEBUG) out.println("indizes = " + start + " - " + mid + " - " + end);
+                if (DEBUG) out.println("Choose the better one:");
 
-                if (DEBUG) System.out.println("Choose the better one:");
-                if (DEBUG)
-                    System.out.println("press 1 to choose the first and 2 to choose the second, choose 0 if equal");
-                if (DEBUG) System.out.println(sorted.get(mid).value + " - " + toInsert.value);
-
-                if (!AUTOMATED) {
                     leftPath = toInsert.path;
                     rightPath = sorted.get(mid).path;
                     showLeftImage(leftPath);
-                    System.out.println(leftPath);
+                    out.println(leftPath);
                     showRightImage(rightPath);
-                    System.out.println(rightPath);
+                    out.println(rightPath);
 
                     if (USING_KEYS) {
                         while (!(choice == 1 || choice == 2)) {
@@ -414,38 +352,9 @@ public class SelectSortTest extends JFrame {
                             choice = 0;
                         }
 
-                    } else {
-                        if (console.hasNextInt()) {
-                            int next = console.nextInt();
-                            if (next == 1) {
-                                end = mid - 1;
-                                mid = (start + end) / 2;
-
-                                //          break;
-                            } else if (next == 2) {
-                                start = mid + 1;
-                                mid = (start + end) / 2;
-                            } else if (next == 0) {
-                                end--;
-                                mid = (start + end) / 2;
-                            }
-                        }
                     }
                     // testing
-                } else {
-                    if (sorted.get(mid).value > toInsert.value) {
-                        end = mid - 1;
-                        mid = (start + end) / 2;
 
-                        //          break;
-                    } else if (sorted.get(mid).value < toInsert.value) {
-                        start = mid + 1;
-                        mid = (start + end) / 2;
-                    } else if (sorted.get(mid).value == toInsert.value) {
-                        end--;
-                        mid = (start + end) / 2;
-                    }
-                }
 
 
                 ++cnt;
@@ -455,11 +364,11 @@ public class SelectSortTest extends JFrame {
 //                        return o1.compareTo(o2);
 //                    }
 //                });
-                if (DEBUG) System.out.println("run number = " + cnt);
+                if (DEBUG) out.println("run number = " + cnt);
             }
 
-            if (DEBUG) System.out.println(start + " - " + mid + " - " + end);
-            if (DEBUG) System.out.println("took " + singleInsertCnt + " runs to insert a single value");
+            if (DEBUG) out.println(start + " - " + mid + " - " + end);
+            if (DEBUG) out.println("took " + singleInsertCnt + " runs to insert a single value");
             toInsert.calculateMD5();
             sorted.add(start, toInsert);
 
@@ -521,12 +430,12 @@ public class SelectSortTest extends JFrame {
                 int pnlW = (int) (getWidth());
                 int pnlH = getHeight();
 
-                System.out.println("Panelsize = " + pnlW + "x" + pnlH);
+                out.println("Panelsize = " + pnlW + "x" + pnlH);
 
                 int x = 0;
                 int y = 0;
 
-                System.out.println(imageAspectRatio + " vs " + jframeAspectRatio);
+                out.println(imageAspectRatio + " vs " + jframeAspectRatio);
 
                 if (imageAspectRatio < jframeAspectRatio) {
                     y = pnlH;
@@ -555,7 +464,7 @@ public class SelectSortTest extends JFrame {
 
 
                 if (e.getKeyChar() == KeyEvent.VK_SPACE) {
-                    System.out.println("space pressed");
+                    out.println("space pressed");
 
                     if (status == ZoomStatus.noneZoomed) {
 
@@ -627,12 +536,17 @@ public class SelectSortTest extends JFrame {
                     public void keyPressed(KeyEvent e) {
                         super.keyPressed(e);
                         if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
-                            System.out.println("left: Escape pressed");
+                            out.println("left: Escape pressed");
                             left.dispose();
                         }
                     }
                 });
-                left.addKeyListener(listener);
+                left.addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                        processKeyInput(e);
+                    }
+                });
                 showImage(left, path);
                 left.setVisible(true);
             }
@@ -658,12 +572,17 @@ public class SelectSortTest extends JFrame {
                     public void keyPressed(KeyEvent e) {
                         super.keyPressed(e);
                         if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
-                            System.out.println("right: Escape pressed");
+                            out.println("right: Escape pressed");
                             right.dispose();
                         }
                     }
                 });
-                right.addKeyListener(listener);
+                right.addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                        processKeyInput(e);
+                    }
+                });
 
                 showImage(right, path);
                 right.setVisible(true);
@@ -674,10 +593,10 @@ public class SelectSortTest extends JFrame {
     public List<File> analyzeDirectory(String dir) {
         File analysisDir = getDirectory(dir);
         if (analysisDir == null) {
-            System.err.println("Fehler beim Verzeichnis finden.");
+            err.println("Fehler beim Verzeichnis finden.");
             return null;
         }
-        if (dir == null || dir.equals("") || analysisDir == null) {
+        if (dir == null || dir.equals("")) {
             // handle exception...
             JOptionPane.showMessageDialog(this,
                     "Angegebener Pfad ist nicht gültig: \"" + dir + "\".\r",
@@ -687,7 +606,7 @@ public class SelectSortTest extends JFrame {
         }
 
 
-        System.out.println("Starting analysis of: \"" + analysisDir + "\"");
+        out.println("Starting analysis of: \"" + analysisDir + "\"");
 
 
         while (true) {
@@ -707,7 +626,7 @@ public class SelectSortTest extends JFrame {
                     allFiles.add(currentFile);
                 }
             } catch (NullPointerException e) {
-                System.out.println("Can not access: " + analysisDir.toString() + " : NullPointerException");
+                out.println("Can not access: " + analysisDir.toString() + " : NullPointerException");
             }
             if (!pendingDirectories.isEmpty()) {
                 analysisDir = pendingDirectories.get(0);
@@ -718,8 +637,8 @@ public class SelectSortTest extends JFrame {
             }
         }
         // System.out.println(allFiles.toString());
-        System.out.println("-----");
-        System.out.println("Number of found files: " + allFiles.size());
+        out.println("-----");
+        out.println("Number of found files: " + allFiles.size());
         return allFiles;
     }
 
@@ -739,7 +658,7 @@ public class SelectSortTest extends JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (!file.isDirectory()) {
+        if (file != null && !file.isDirectory()) {
             JOptionPane.showMessageDialog(this,
                     "Angegebener Pfad ist kein Verzeichnis: \"" + path + "\".\r",
                     "Fehler",
@@ -763,14 +682,11 @@ public class SelectSortTest extends JFrame {
     }
 
     private static class SortObject implements Comparable<SortObject> {
-
-        public int value;
         public String path;
         private int rating;
         private String md5Hash;
 
-        public SortObject(int value, String path) {
-            this.value = value;
+        public SortObject(String path) {
             this.rating = 0;
             this.path = path;
         }
@@ -790,6 +706,14 @@ public class SelectSortTest extends JFrame {
             }
         }
 
+        @Override
+        public int hashCode() {
+            int result = path.hashCode();
+            result = 31 * result + rating;
+            result = 31 * result + md5Hash.hashCode();
+            return result;
+        }
+
         public final void calculateMD5() {
             new Thread() {
                 @Override
@@ -807,6 +731,13 @@ public class SelectSortTest extends JFrame {
             this.md5Hash = md5Hash;
         }
 
+        @Override
+        public boolean equals(Object obj) {
+            if (!(obj instanceof SortObject))
+                return false;
+            return rating == ((SortObject) obj).rating && md5Hash.equals(((SortObject) obj).md5Hash);
+        }
+
         /**
          * return 0 if rating is the same
          * returns -1 if the rating of o is lower
@@ -814,9 +745,46 @@ public class SelectSortTest extends JFrame {
          */
         @Override
         public int compareTo(SortObject o) {
+            if(this == o) return 0;
             if (o.rating == rating) return 0;
             if (o.rating < rating) return -1;
             return 1;
         }
     }
+
+    private void closeProgram(){
+        for(KeyListener listener :getKeyListeners()){
+            removeKeyListener(listener);
+        }
+    }
+    private void processKeyInput(KeyEvent e) {
+        if (e.getKeyChar() == KeyEvent.VK_1) {
+            out.println("main: 1 pressed");
+            if (left != null) {
+                left.setVisible(false);
+                left.dispose();
+            }
+            if (right != null) {
+                right.setVisible(false);
+                right.dispose();
+            }
+            setChoice(1);
+        } else if (e.getKeyChar() == KeyEvent.VK_2) {
+            out.println("main: 2 pressed");
+            if (left != null) {
+                left.setVisible(false);
+                left.dispose();
+            }
+            if (right != null) {
+                right.setVisible(false);
+                right.dispose();
+            }
+            setChoice(2);
+        }
+        if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
+            out.println("Escape pressed");
+            closeProgram();
+        }
+    }
+
 }

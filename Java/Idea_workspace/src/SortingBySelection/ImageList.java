@@ -24,7 +24,7 @@ public class ImageList extends JFrame {
         this.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if(e.equals(KeyEvent.VK_ESCAPE)){
+                if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
                     dispose();
                 }
             }
@@ -36,7 +36,7 @@ public class ImageList extends JFrame {
         JScrollPane scroll = new JScrollPane(content);
         getContentPane().add(scroll);
         scroll.createHorizontalScrollBar();
-        new Thread() {
+        Thread loader = new Thread() {
             @Override
             public void run() {
                 super.run();
@@ -92,7 +92,8 @@ public class ImageList extends JFrame {
                     }
                 }
             }
-        }.start();
+        };
+        loader.start();
 setPreferredSize(new Dimension(640,480));
         pack();
     }
