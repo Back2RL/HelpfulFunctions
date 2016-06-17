@@ -1,11 +1,7 @@
 package SortingBySelection;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -14,7 +10,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import static java.lang.System.*;
 
@@ -45,14 +40,8 @@ public class SelectSortTest extends JFrame {
     private Thread worker;
 
     private int choice;
-
-    private synchronized void setChoice(int newChoice){
-        this.choice = newChoice;
-    }
-
     private Point leftLocation;
     private Point rightLocation;
-
     private String leftPath;
     private String rightPath;
     private Dimension screenSize;
@@ -96,8 +85,6 @@ public class SelectSortTest extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(defaultSize);
         setLocation((int) (screenSize.width * 0.5 - defaultSize.width * 0.5), (int) (screenSize.height * 0.5 - defaultSize.height * 0.5));
-
-
 
 
         JButton showLeft = new JButton();
@@ -214,7 +201,7 @@ public class SelectSortTest extends JFrame {
                         sortedList = new ArrayList<String>();
                         for (SortObject o : sorted
                                 ) {
-                            out.println( o.path);
+                            out.println(o.path);
                             sortedList.add(o.path);
                         }
                         ImageList showList = new ImageList(sortedList);
@@ -253,10 +240,15 @@ public class SelectSortTest extends JFrame {
             if (image == null) {
                 valid = false;
             }
-        } catch (IOException ex) {
+        } catch (Exception ex) {
+            System.out.println("Error while checking whether file is image");
             valid = false;
         }
         return valid;
+    }
+
+    private synchronized void setChoice(int newChoice) {
+        this.choice = newChoice;
     }
 
     private void updateAnalysisDirPath() {
@@ -327,34 +319,33 @@ public class SelectSortTest extends JFrame {
                 if (DEBUG) out.println("indizes = " + start + " - " + mid + " - " + end);
                 if (DEBUG) out.println("Choose the better one:");
 
-                    leftPath = toInsert.path;
-                    rightPath = sorted.get(mid).path;
-                    showLeftImage(leftPath);
-                    out.println(leftPath);
-                    showRightImage(rightPath);
-                    out.println(rightPath);
+                leftPath = toInsert.path;
+                rightPath = sorted.get(mid).path;
+                showLeftImage(leftPath);
+                out.println(leftPath);
+                showRightImage(rightPath);
+                out.println(rightPath);
 
-                    if (USING_KEYS) {
-                        while (!(choice == 1 || choice == 2)) {
-                            try {
-                                Thread.sleep(100);
-                            } catch (InterruptedException e) {
-                            }
+                if (USING_KEYS) {
+                    while (!(choice == 1 || choice == 2)) {
+                        try {
+                            Thread.sleep(100);
+                        } catch (InterruptedException e) {
                         }
-                        if (choice == 1) {
-                            end = mid - 1;
-                            mid = (start + end) / 2;
-                            choice = 0;
-                            //          break;
-                        } else if (choice == 2) {
-                            start = mid + 1;
-                            mid = (start + end) / 2;
-                            choice = 0;
-                        }
-
                     }
-                    // testing
+                    if (choice == 1) {
+                        end = mid - 1;
+                        mid = (start + end) / 2;
+                        choice = 0;
+                        //          break;
+                    } else if (choice == 2) {
+                        start = mid + 1;
+                        mid = (start + end) / 2;
+                        choice = 0;
+                    }
 
+                }
+                // testing
 
 
                 ++cnt;
@@ -385,6 +376,15 @@ public class SelectSortTest extends JFrame {
 
 
             public ImagePanel() {
+
+                addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        FullScreenImage fullscreenImage = new FullScreenImage(pathToImage);
+                    }
+                });
+
+
                 ImagePanel thisObj = this;
                 new Thread() {
 
@@ -455,66 +455,15 @@ public class SelectSortTest extends JFrame {
 
         o.add(image);
         o.addKeyListener(new KeyAdapter() {
-            Dimension size;
-            ZoomStatus status;
-
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
-
-
                 if (e.getKeyChar() == KeyEvent.VK_SPACE) {
                     out.println("space pressed");
-
-                    if (status == ZoomStatus.noneZoomed) {
-
-                        if (size == null) {
-                            size = left.getSize();
-                        }
-
-                        left.setLocation(0, 0);
-                        right.setLocation(0, 0);
-
-                        left.setSize(screenSize);
-                        right.setSize(screenSize);
-
-
-                        left.update(left.getGraphics());
-                        right.update(right.getGraphics());
-
-                        status = ZoomStatus.leftZoomed;
-
-                        left.toFront();
-                        return;
-                    }
-                    if (status == ZoomStatus.leftZoomed) {
-                        status = ZoomStatus.bothZoomed;
-                        right.toFront();
-                        return;
-                    }
-
-                    if (status == ZoomStatus.bothZoomed) {
-
-                        left.setSize(size);
-                        right.setSize(size);
-
-                        left.setLocation(leftLocation);
-                        right.setLocation(rightLocation);
-
-                        left.update(left.getGraphics());
-                        right.update(right.getGraphics());
-
-                        status = ZoomStatus.noneZoomed;
-                        return;
-
-                    } else {
-                        status = ZoomStatus.noneZoomed;
-                    }
-
+                    FullScreenImage fullscreenImage = new FullScreenImage(pathToImage);
                 }
             }
         });
-
     }
 
     private void showLeftImage(String path) {
@@ -677,6 +626,42 @@ public class SelectSortTest extends JFrame {
         return false;
     }
 
+    private void closeProgram() {
+        for (KeyListener listener : getKeyListeners()) {
+            removeKeyListener(listener);
+        }
+    }
+
+    private void processKeyInput(KeyEvent e) {
+        if (e.getKeyChar() == KeyEvent.VK_1) {
+            out.println("main: 1 pressed");
+            if (left != null) {
+                left.setVisible(false);
+                left.dispose();
+            }
+            if (right != null) {
+                right.setVisible(false);
+                right.dispose();
+            }
+            setChoice(1);
+        } else if (e.getKeyChar() == KeyEvent.VK_2) {
+            out.println("main: 2 pressed");
+            if (left != null) {
+                left.setVisible(false);
+                left.dispose();
+            }
+            if (right != null) {
+                right.setVisible(false);
+                right.dispose();
+            }
+            setChoice(2);
+        }
+        if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
+            out.println("Escape pressed");
+            closeProgram();
+        }
+    }
+
     private enum ZoomStatus {
         noneZoomed, leftZoomed, rightZoomed, bothZoomed
     }
@@ -745,45 +730,10 @@ public class SelectSortTest extends JFrame {
          */
         @Override
         public int compareTo(SortObject o) {
-            if(this == o) return 0;
+            if (this == o) return 0;
             if (o.rating == rating) return 0;
             if (o.rating < rating) return -1;
             return 1;
-        }
-    }
-
-    private void closeProgram(){
-        for(KeyListener listener :getKeyListeners()){
-            removeKeyListener(listener);
-        }
-    }
-    private void processKeyInput(KeyEvent e) {
-        if (e.getKeyChar() == KeyEvent.VK_1) {
-            out.println("main: 1 pressed");
-            if (left != null) {
-                left.setVisible(false);
-                left.dispose();
-            }
-            if (right != null) {
-                right.setVisible(false);
-                right.dispose();
-            }
-            setChoice(1);
-        } else if (e.getKeyChar() == KeyEvent.VK_2) {
-            out.println("main: 2 pressed");
-            if (left != null) {
-                left.setVisible(false);
-                left.dispose();
-            }
-            if (right != null) {
-                right.setVisible(false);
-                right.dispose();
-            }
-            setChoice(2);
-        }
-        if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
-            out.println("Escape pressed");
-            closeProgram();
         }
     }
 
