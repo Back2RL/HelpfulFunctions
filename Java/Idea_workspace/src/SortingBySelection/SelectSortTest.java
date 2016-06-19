@@ -1,5 +1,7 @@
 package SortingBySelection;
 
+import SQLite.SQLManager;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -28,8 +30,8 @@ public class SelectSortTest extends JFrame {
 
     private List<File> pendingDirectories;
     private List<File> allFiles;
-    private List<SortObject> unsorted;
-    private List<SortObject> sorted;
+    private List<RatedImage> unsorted;
+    private List<RatedImage> sorted;
     private ArrayList<String> sortedList;
 
     private JButton startAnalysis;
@@ -46,13 +48,19 @@ public class SelectSortTest extends JFrame {
     private String rightPath;
     private Dimension screenSize;
 
+    private SQLManager data;
+
     public SelectSortTest() {
 
         pendingDirectories = new ArrayList<>();
         allFiles = new ArrayList<>();
         sortedList = new ArrayList<>();
         unsorted = new ArrayList<>();
-        sorted = new ArrayList<>();
+
+
+        data = new SQLManager();
+
+        sorted = data.getAllEntries();
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -72,6 +80,13 @@ public class SelectSortTest extends JFrame {
         int width = gd.getDisplayMode().getWidth();
         int height = gd.getDisplayMode().getHeight();
         screenSize = new Dimension(width, height);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                data.insertMultipleEntries(sorted);
+            }
+        });
 
         addKeyListener(new KeyAdapter() {
             @Override
@@ -199,7 +214,7 @@ public class SelectSortTest extends JFrame {
                             left.dispose();
                         }
                         sortedList = new ArrayList<String>();
-                        for (SortObject o : sorted
+                        for (RatedImage o : sorted
                                 ) {
                             out.println(o.path);
                             sortedList.add(o.path);
@@ -264,11 +279,10 @@ public class SelectSortTest extends JFrame {
             return;
         }
         unsorted.clear();
-        for (File file : files) {
-            if (isAlreadySorted(file.getPath())) {
 
-            } else {
-                unsorted.add(new SortObject(file.getPath()));
+        for (File file : files) {
+            if (!isAlreadySorted(file.getPath())) {
+                unsorted.add(new RatedImage(file.getPath()));
             }
         }
 
@@ -277,7 +291,7 @@ public class SelectSortTest extends JFrame {
 
             if (unsorted.size() == 0) {
                 sortedList = new ArrayList<>();
-                for (SortObject o : sorted
+                for (RatedImage o : sorted
                         ) {
                     out.println(o.path);
                     sortedList.add(o.path);
@@ -299,7 +313,7 @@ public class SelectSortTest extends JFrame {
             }
 
 
-            SortObject toInsert = unsorted.get(0);
+            RatedImage toInsert = unsorted.get(0);
             unsorted.remove(0);
 
             if (sorted.size() == 0) {
@@ -349,9 +363,9 @@ public class SelectSortTest extends JFrame {
 
 
                 ++cnt;
-//                unsorted.sort(new Comparator<SortObject>() {
+//                unsorted.sort(new Comparator<RatedImage>() {
 //                    @Override
-//                    public int compare(SortObject o1, SortObject o2) {
+//                    public int compare(RatedImage o1, SortObject o2) {
 //                        return o1.compareTo(o2);
 //                    }
 //                });
@@ -618,8 +632,8 @@ public class SelectSortTest extends JFrame {
     }
 
     public boolean isAlreadySorted(String path) {
-        for (SortObject obj : sorted) {
-            if (obj.path.equals(path)) {
+        for (RatedImage obj : sorted) {
+            if (obj.getPath().equals(path)) {
                 return true;
             }
         }
@@ -666,75 +680,6 @@ public class SelectSortTest extends JFrame {
         noneZoomed, leftZoomed, rightZoomed, bothZoomed
     }
 
-    private static class SortObject implements Comparable<SortObject> {
-        public String path;
-        private int rating;
-        private String md5Hash;
 
-        public SortObject(String path) {
-            this.rating = 0;
-            this.path = path;
-        }
-
-        public int getRating() {
-            return rating;
-        }
-
-        // makes sure that the rating is higher then the other one
-        public void increaseRating(SortObject other) {
-            if (rating < other.getRating()) {
-                rating = other.getRating() + 1;
-//                other.rating++;
-            } else {
-                rating++;
-                other.rating++;
-            }
-        }
-
-        @Override
-        public int hashCode() {
-            int result = path.hashCode();
-            result = 31 * result + rating;
-            result = 31 * result + md5Hash.hashCode();
-            return result;
-        }
-
-        public final void calculateMD5() {
-            new Thread() {
-                @Override
-                public void run() {
-                    setMd5Hash(MD5.fromFile(new File(path)));
-                }
-            }.start();
-        }
-
-        public String getMd5Hash() {
-            return md5Hash;
-        }
-
-        private synchronized void setMd5Hash(String md5Hash) {
-            this.md5Hash = md5Hash;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (!(obj instanceof SortObject))
-                return false;
-            return rating == ((SortObject) obj).rating && md5Hash.equals(((SortObject) obj).md5Hash);
-        }
-
-        /**
-         * return 0 if rating is the same
-         * returns -1 if the rating of o is lower
-         * returns 1 if the rating of o is higher
-         */
-        @Override
-        public int compareTo(SortObject o) {
-            if (this == o) return 0;
-            if (o.rating == rating) return 0;
-            if (o.rating < rating) return -1;
-            return 1;
-        }
-    }
 
 }
