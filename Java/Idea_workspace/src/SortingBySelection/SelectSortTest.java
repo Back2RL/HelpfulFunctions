@@ -17,11 +17,8 @@ import static java.lang.System.*;
 
 public class SelectSortTest extends JFrame {
 
-    private static final boolean AUTOMATED = false;
     private static final boolean USING_KEYS = true;
     private static final boolean DEBUG = false;
-    private static final int ANZAHL = 15;
-
 
     private static final Dimension defaultSize = new Dimension(300, 150);
 
@@ -40,6 +37,8 @@ public class SelectSortTest extends JFrame {
     private JDialog right;
 
     private Thread worker;
+    private Thread dataBaseLoader;
+    private Thread directoryAnalyzer;
 
     private int choice;
     private Point leftLocation;
@@ -51,36 +50,25 @@ public class SelectSortTest extends JFrame {
     private SQLManager data;
 
     public SelectSortTest() {
+        // get the Screensize
+        screenSize = getScreenSize();
+        buildMainWindow(this);
 
+        // init lists
         pendingDirectories = new ArrayList<>();
         allFiles = new ArrayList<>();
-        sortedList = new ArrayList<>();
-        unsorted = new ArrayList<>();
+
+        startDatabaseLoader();
+
+        // set the visual style to system
+        initVisualStyle();
 
 
-        data = new SQLManager();
+        buildShowButtons();
+        buildDirectoryChooser();
+        buildStartStopButtons();
 
-        sorted = data.getAllEntries();
-
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
-        //single monitor
-        // screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        // multimonitor
-        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-        int width = gd.getDisplayMode().getWidth();
-        int height = gd.getDisplayMode().getHeight();
-        screenSize = new Dimension(width, height);
-
+        // Windowlistener
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -88,20 +76,36 @@ public class SelectSortTest extends JFrame {
             }
         });
 
-        addKeyListener(new KeyAdapter() {
+        pack();
+    }
+
+    public static void main(String[] args) {
+
+        EventQueue.invokeLater(new Runnable() {
             @Override
-            public void keyPressed(KeyEvent e) {
-                processKeyInput(e);
+            public void run() {
+                SelectSortTest f = new SelectSortTest();
+                f.setVisible(true);
             }
         });
+    }
 
+    private static boolean isImage(File f) {
+        boolean valid = true;
+        try {
+            // TODO: enable start of comparison while images are loaded in the background
+            Image image = ImageIO.read(f);
+            if (image == null) {
+                valid = false;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error while checking whether file is image");
+            valid = false;
+        }
+        return valid;
+    }
 
-        setTitle("select sort demo");
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(defaultSize);
-        setLocation((int) (screenSize.width * 0.5 - defaultSize.width * 0.5), (int) (screenSize.height * 0.5 - defaultSize.height * 0.5));
-
-
+    private void buildShowButtons() {
         JButton showLeft = new JButton();
         showLeft.setText("Open Left");
         showLeft.addActionListener(new ActionListener() {
@@ -127,35 +131,11 @@ public class SelectSortTest extends JFrame {
             }
         });
 
-        JFileChooser chooser = new JFileChooser(getProperty("user.dir"));
-        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        chooser.setMultiSelectionEnabled(false);
-        chooser.changeToParentDirectory();
-        if (chooser.showOpenDialog(new JDialog(this))
-                == JFileChooser.APPROVE_OPTION) {
-            File file = chooser.getSelectedFile();
-            analysisDirPath = file.getAbsolutePath();
-            chooser.setCurrentDirectory(file);
-        }
-        analysisDir = new JTextField(analysisDirPath);
-        analysisDir.setEnabled(false);
-        analysisDir.setToolTipText("Pfad zum Verzeichnis hier eingeben");
-        //analysisDir.getDocument().addDocumentListener(docListener);
-        SelectSortTest thisObj = this;
-        analysisDir.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
+        getContentPane().add(showLeft, BorderLayout.WEST);
+        getContentPane().add(showRight, BorderLayout.EAST);
+    }
 
-                if (chooser.showOpenDialog(new JDialog(thisObj))
-                        == JFileChooser.APPROVE_OPTION) {
-                    File file = chooser.getSelectedFile();
-                    analysisDirPath = file.getAbsolutePath();
-                    chooser.setCurrentDirectory(file);
-                    analysisDir.setText(analysisDirPath);
-                }
-            }
-        });
-
+    private void buildStartStopButtons() {
         startAnalysis = new JButton("Start");
         abortAnalysis = new JButton("Abbruch");
         abortAnalysis.setEnabled(false);
@@ -168,12 +148,13 @@ public class SelectSortTest extends JFrame {
                     @Override
                     public void run() {
                         super.run();
-                        perform();
+
+                        startComparing();
 
                         EventQueue.invokeLater(new Runnable() {
                             @Override
                             public void run() {
-                                startAnalysis.setEnabled(true);
+                                //startAnalysis.setEnabled(true);
                                 abortAnalysis.setEnabled(false);
 
                             }
@@ -192,21 +173,23 @@ public class SelectSortTest extends JFrame {
             }
         });
 
-
         abortAnalysis.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (worker != null && worker.isAlive()) {
                     worker.interrupt();
                     worker = null;
-
-
+                }
+                if (directoryAnalyzer != null && directoryAnalyzer.isAlive()) {
+                    directoryAnalyzer.interrupt();
+                    directoryAnalyzer = null;
                 }
                 EventQueue.invokeLater(new Runnable() {
                     @Override
                     public void run() {
                         abortAnalysis.setEnabled(false);
-                        startAnalysis.setEnabled(true);
+                        // TODO: fix issues with linked list in database, duplicates cause infinite loop
+                        //startAnalysis.setEnabled(true);
                         if (right != null) {
                             right.dispose();
                         }
@@ -214,52 +197,52 @@ public class SelectSortTest extends JFrame {
                             left.dispose();
                         }
                         sortedList = new ArrayList<String>();
-                        for (RatedImage o : sorted
-                                ) {
-                            out.println(o.path);
-                            sortedList.add(o.path);
+                        for (RatedImage o : sorted) {
+                            out.println(o.getPath());
+                            sortedList.add(o.getPath());
                         }
                         ImageList showList = new ImageList(sortedList);
+                        sortedList = null;
                         showList.setVisible(true);
                     }
                 });
-
             }
         });
 
-
-        getContentPane().add(analysisDir, BorderLayout.NORTH);
-        getContentPane().add(showLeft, BorderLayout.WEST);
-        getContentPane().add(showRight, BorderLayout.EAST);
         getContentPane().add(abortAnalysis, BorderLayout.SOUTH);
         getContentPane().add(startAnalysis, BorderLayout.CENTER);
-        pack();
-
     }
 
-    public static void main(String[] args) {
+    private void buildDirectoryChooser() {
+        JFileChooser chooser = new JFileChooser(getProperty("user.dir"));
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.setMultiSelectionEnabled(false);
+        chooser.changeToParentDirectory();
+        if (chooser.showOpenDialog(new JDialog(this))
+                == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile();
+            analysisDirPath = file.getAbsolutePath();
+            chooser.setCurrentDirectory(file);
+        }
+        analysisDir = new JTextField(analysisDirPath);
+        analysisDir.setEnabled(false);
+        analysisDir.setToolTipText("Pfad zum Verzeichnis hier eingeben");
+        //analysisDir.getDocument().addDocumentListener(docListener);
+        getContentPane().add(analysisDir, BorderLayout.NORTH);
 
-        EventQueue.invokeLater(new Runnable() {
+        analysisDir.addMouseListener(new MouseAdapter() {
             @Override
-            public void run() {
-                SelectSortTest f = new SelectSortTest();
-                f.setVisible(true);
+            public void mouseClicked(MouseEvent e) {
+
+                if (chooser.showOpenDialog(new JDialog(SelectSortTest.this))
+                        == JFileChooser.APPROVE_OPTION) {
+                    File file = chooser.getSelectedFile();
+                    analysisDirPath = file.getAbsolutePath();
+                    chooser.setCurrentDirectory(file);
+                    analysisDir.setText(analysisDirPath);
+                }
             }
         });
-    }
-
-    private static boolean isImage(File f) {
-        boolean valid = true;
-        try {
-            Image image = ImageIO.read(f);
-            if (image == null) {
-                valid = false;
-            }
-        } catch (Exception ex) {
-            System.out.println("Error while checking whether file is image");
-            valid = false;
-        }
-        return valid;
     }
 
     private synchronized void setChoice(int newChoice) {
@@ -270,38 +253,68 @@ public class SelectSortTest extends JFrame {
         analysisDirPath = analysisDir.getText();
     }
 
-    private void perform() {
+    private void startComparing() {
 
-
-        List<File> files = analyzeDirectory(analysisDirPath);
-        if (files == null) {
-            err.println("Keine Dateien gefunden, Fehler beim Analysieren des Verzeichnis.");
-            return;
-        }
-        unsorted.clear();
-
-        for (File file : files) {
-            if (!isAlreadySorted(file.getPath())) {
-                unsorted.add(new RatedImage(file.getPath()));
+        // wait until dataBaseLoader has finished loading
+        while (dataBaseLoader.isAlive()) {
+            try {
+                System.out.println("Waiting for Database Loader to finish loading.");
+                dataBaseLoader.join(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
+        System.out.println("Database Loader has finished loading.");
 
+
+        synchronized (this) {
+            directoryAnalyzer = new Thread() {
+                @Override
+                public void run() {
+                    List<File> files = analyzeDirectory(analysisDirPath);
+                    if (files == null) {
+                        err.println("Keine Dateien gefunden, Fehler beim Analysieren des Verzeichnis.");
+                        return;
+                    }
+
+                    unsorted = new ArrayList<>();
+                    for (File file : files) {
+                        if (!isAlreadySorted(file.getPath())) {
+                            System.out.println("Is not yet sorted");
+                            unsorted.add(new RatedImage(file.getPath()));
+                        } else {
+                            System.out.println("Already sorted");
+                        }
+                    }
+                }
+            };
+            directoryAnalyzer.start();
+        }
+
+
+        // wait until Analyzer has finished analysing
+        while (directoryAnalyzer.isAlive()) {
+            try {
+                System.out.println("Waiting for Analyzer to finish analysing.");
+                directoryAnalyzer.join(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("Analyzer has finished analysing.");
+
+        System.out.println("Comparison can start:");
         int cnt = 0;
         while (true) {
 
             if (unsorted.size() == 0) {
                 sortedList = new ArrayList<>();
-                for (RatedImage o : sorted
-                        ) {
-                    out.println(o.path);
-                    sortedList.add(o.path);
+                for (RatedImage o : sorted) {
+                    out.println(o.getPath());
+                    sortedList.add(o.getPath());
                 }
 
-                out.println("Factor = " + (double) cnt / ANZAHL);
-                out.println("Runs =          " + cnt);
-                out.println("O(n*log(n)) ? = " + (int) (ANZAHL * Math.log(ANZAHL)));
-
-
+                System.out.println("Comparison is over.");
                 EventQueue.invokeLater(new Runnable() {
                     @Override
                     public void run() {
@@ -317,6 +330,7 @@ public class SelectSortTest extends JFrame {
             unsorted.remove(0);
 
             if (sorted.size() == 0) {
+                toInsert.calculateMD5();
                 sorted.add(toInsert);
                 continue;
             }
@@ -325,61 +339,41 @@ public class SelectSortTest extends JFrame {
             int end = sorted.size() - 1;
             int mid = (start + end) / 2 + (start + end) % 2;
 
-            int singleInsertCnt = 0;
+            leftPath = toInsert.getPath();
+            showLeftImage(leftPath);
+            out.println(leftPath);
 
             while (end >= start) {
-                singleInsertCnt++;
-                if (DEBUG) out.println("----------");
-                if (DEBUG) out.println("indizes = " + start + " - " + mid + " - " + end);
-                if (DEBUG) out.println("Choose the better one:");
 
-                leftPath = toInsert.path;
-                rightPath = sorted.get(mid).path;
-                showLeftImage(leftPath);
-                out.println(leftPath);
+                rightPath = sorted.get(mid).getPath();
                 showRightImage(rightPath);
                 out.println(rightPath);
 
-                if (USING_KEYS) {
-                    while (!(choice == 1 || choice == 2)) {
-                        try {
-                            Thread.sleep(100);
-                        } catch (InterruptedException e) {
-                        }
+                while (!(choice == 1 || choice == 2)) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
                     }
-                    if (choice == 1) {
-                        end = mid - 1;
-                        mid = (start + end) / 2;
-                        choice = 0;
-                        //          break;
-                    } else if (choice == 2) {
-                        start = mid + 1;
-                        mid = (start + end) / 2;
-                        choice = 0;
-                    }
-
                 }
-                // testing
-
+                if (choice == 1) {
+                    end = mid - 1;
+                    mid = (start + end) / 2;
+                    choice = 0;
+                    //          break;
+                } else if (choice == 2) {
+                    start = mid + 1;
+                    mid = (start + end) / 2;
+                    choice = 0;
+                }
 
                 ++cnt;
-//                unsorted.sort(new Comparator<RatedImage>() {
-//                    @Override
-//                    public int compare(RatedImage o1, SortObject o2) {
-//                        return o1.compareTo(o2);
-//                    }
-//                });
-                if (DEBUG) out.println("run number = " + cnt);
             }
 
-            if (DEBUG) out.println(start + " - " + mid + " - " + end);
-            if (DEBUG) out.println("took " + singleInsertCnt + " runs to insert a single value");
+            // calculate the corresponding MD5 hash for the new image
             toInsert.calculateMD5();
+            // add the image to the already rated/sorted images at the choosen position
             sorted.add(start, toInsert);
-
         }
-
-
     }
 
     private void showImage(JDialog o, String pathToImage) {
@@ -465,8 +459,11 @@ public class SelectSortTest extends JFrame {
 
         }
         ImagePanel image = new ImagePanel();
-
-
+        for (Component comp : o.getComponents()) {
+            if (comp instanceof ImagePanel) {
+                o.remove(comp);
+            }
+        }
         o.add(image);
         o.addKeyListener(new KeyAdapter() {
             @Override
@@ -486,30 +483,34 @@ public class SelectSortTest extends JFrame {
             @Override
             public void run() {
                 Dimension imageDialogSize = new Dimension((int) (screenSize.width * 0.4), (int) (screenSize.height * 0.9));
+                if (left == null) {
+                    left = new JDialog();
+                    left.setTitle("Left");
+                    left.setAlwaysOnTop(true);
 
-                left = new JDialog();
-                left.setTitle("Left");
-                left.setAlwaysOnTop(true);
+                    left.addKeyListener(new KeyAdapter() {
+                        @Override
+                        public void keyPressed(KeyEvent e) {
+                            super.keyPressed(e);
+                            if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
+                                out.println("left: Escape pressed");
+                                left.dispose();
+                                left = null;
+                            }
+                        }
+                    });
+                    left.addKeyListener(new KeyAdapter() {
+                        @Override
+                        public void keyPressed(KeyEvent e) {
+                            processKeyInput(e);
+                        }
+                    });
+                }
                 leftLocation = new Point((int) (screenSize.width * 0.25 - imageDialogSize.width * 0.5), (int) (screenSize.height * 0.05));
                 left.setLocation(leftLocation);
                 left.setPreferredSize(imageDialogSize);
                 left.pack();
-                left.addKeyListener(new KeyAdapter() {
-                    @Override
-                    public void keyPressed(KeyEvent e) {
-                        super.keyPressed(e);
-                        if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
-                            out.println("left: Escape pressed");
-                            left.dispose();
-                        }
-                    }
-                });
-                left.addKeyListener(new KeyAdapter() {
-                    @Override
-                    public void keyPressed(KeyEvent e) {
-                        processKeyInput(e);
-                    }
-                });
+
                 showImage(left, path);
                 left.setVisible(true);
             }
@@ -523,29 +524,33 @@ public class SelectSortTest extends JFrame {
             public void run() {
                 Dimension imageDialogSize = new Dimension((int) (screenSize.width * 0.4), (int) (screenSize.height * 0.9));
 
-                right = new JDialog();
-                right.setTitle("Right");
-                right.setAlwaysOnTop(true);
+                if (right == null) {
+                    right = new JDialog();
+                    right.setTitle("Right");
+                    right.setAlwaysOnTop(true);
+                    right.addKeyListener(new KeyAdapter() {
+                        @Override
+                        public void keyPressed(KeyEvent e) {
+                            super.keyPressed(e);
+                            if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
+                                out.println("right: Escape pressed");
+                                right.dispose();
+                                right = null;
+                            }
+                        }
+                    });
+                    right.addKeyListener(new KeyAdapter() {
+                        @Override
+                        public void keyPressed(KeyEvent e) {
+                            processKeyInput(e);
+                        }
+                    });
+                }
                 rightLocation = new Point((int) (screenSize.width * 0.75 - imageDialogSize.width * 0.5), (int) (screenSize.height * 0.05));
                 right.setLocation(rightLocation);
                 right.setPreferredSize(imageDialogSize);
                 right.pack();
-                right.addKeyListener(new KeyAdapter() {
-                    @Override
-                    public void keyPressed(KeyEvent e) {
-                        super.keyPressed(e);
-                        if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
-                            out.println("right: Escape pressed");
-                            right.dispose();
-                        }
-                    }
-                });
-                right.addKeyListener(new KeyAdapter() {
-                    @Override
-                    public void keyPressed(KeyEvent e) {
-                        processKeyInput(e);
-                    }
-                });
+
 
                 showImage(right, path);
                 right.setVisible(true);
@@ -632,12 +637,13 @@ public class SelectSortTest extends JFrame {
     }
 
     public boolean isAlreadySorted(String path) {
-        for (RatedImage obj : sorted) {
-            if (obj.getPath().equals(path)) {
-                return true;
+        if (sortedList == null) {
+            sortedList = new ArrayList<>();
+            for (RatedImage obj : sorted) {
+                sortedList.add(obj.getPath());
             }
         }
-        return false;
+        return sortedList.contains(path);
     }
 
     private void closeProgram() {
@@ -649,25 +655,9 @@ public class SelectSortTest extends JFrame {
     private void processKeyInput(KeyEvent e) {
         if (e.getKeyChar() == KeyEvent.VK_1) {
             out.println("main: 1 pressed");
-            if (left != null) {
-                left.setVisible(false);
-                left.dispose();
-            }
-            if (right != null) {
-                right.setVisible(false);
-                right.dispose();
-            }
             setChoice(1);
         } else if (e.getKeyChar() == KeyEvent.VK_2) {
             out.println("main: 2 pressed");
-            if (left != null) {
-                left.setVisible(false);
-                left.dispose();
-            }
-            if (right != null) {
-                right.setVisible(false);
-                right.dispose();
-            }
             setChoice(2);
         }
         if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
@@ -676,10 +666,51 @@ public class SelectSortTest extends JFrame {
         }
     }
 
+    private Dimension getScreenSize() {
+        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        int width = gd.getDisplayMode().getWidth();
+        int height = gd.getDisplayMode().getHeight();
+        return new Dimension(width, height);
+    }
+
+    private void initVisualStyle() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void buildMainWindow(SelectSortTest obj) {
+        obj.setTitle("Favorite Image Sort");
+        obj.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        obj.setPreferredSize(defaultSize);
+        // center main window
+        obj.setLocation((int) (screenSize.width * 0.5 - defaultSize.width * 0.5), (int) (screenSize.height * 0.5 - defaultSize.height * 0.5));
+    }
+
+    private void startDatabaseLoader() {
+        dataBaseLoader = new Thread() {
+            @Override
+            public void run() {
+                loadDataFromDatabase();
+            }
+        };
+        dataBaseLoader.start();
+    }
+
+    private synchronized void loadDataFromDatabase() {
+        data = new SQLManager();
+        sorted = data.getAllEntries();
+    }
+
     private enum ZoomStatus {
         noneZoomed, leftZoomed, rightZoomed, bothZoomed
     }
-
-
-
 }

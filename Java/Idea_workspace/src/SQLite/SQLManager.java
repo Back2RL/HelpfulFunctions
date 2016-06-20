@@ -135,34 +135,9 @@ public class SQLManager {
         }
         try {
             //stat.executeUpdate("drop table if exists "+tableName"+;");
-            statement.executeUpdate("create table " + tableName + " (md5 primary key not null, filepath not null, rating int);");
+            statement.executeUpdate("create table " + tableName + " (md5 primary key not null, filepath not null, md5_prev unique, md5_next unique);");
         } catch (SQLException e) {
             System.err.println(e.getLocalizedMessage());
-        }
-    }
-
-    private void addPreparedEntry(PreparedStatement prep, String key, String data) {
-        if (prep == null || key == null || data == null) {
-            System.err.println("addPreparedStatement: one or more parameters are null");
-            return;
-        }
-        try {
-            prep.setString(1, key);
-            prep.setString(2, data);
-            prep.addBatch();
-        } catch (SQLException e) {
-            System.err.println(e.getLocalizedMessage() + "; " + key + "; " + data);
-        }
-    }
-
-    private void checkDummyEntry() {
-        try (ResultSet rs = statement.executeQuery("select * from " + tableName + ";")) {
-            if (!rs.next()) {
-                insertSingleEntry("none", "none", -1);
-            }
-            rs.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
@@ -174,11 +149,19 @@ public class SQLManager {
         }
     }
 
-    private boolean insertSingleEntry(String md5, String filepath, int rating) {
-        try (PreparedStatement prep = connection.prepareStatement("insert into " + tableName + " values (?, ?, ?);")) {
+    private boolean insertSingleEntry(String md5, String filepath, String prev_md5, String next_md5) {
+        try (PreparedStatement prep = connection.prepareStatement("update " + tableName + " set md5_next = ? where md5 = ?; update " + tableName + " set md5_prev = ? where md5 = ?; insert into " + tableName + " values (?, ?, ?, ?);")) {
+            //  edit the next lower rated entry
             prep.setString(1, md5);
-            prep.setString(2, filepath);
-            prep.setString(3, String.valueOf(rating));
+            prep.setString(2, prev_md5);
+            // edit the next higher rated entry
+            prep.setString(3, md5);
+            prep.setString(4, next_md5);
+            // add the new entry
+            prep.setString(5, md5);
+            prep.setString(6, filepath);
+            prep.setString(7, prev_md5);
+            prep.setString(8, next_md5);
             prep.addBatch();
             connection.setAutoCommit(false);
             prep.executeBatch();
@@ -191,73 +174,80 @@ public class SQLManager {
     }
 
     public void insertMultipleEntries(List<RatedImage> elems) {
+        deleteTable();
+        initDatabase();
 
         int index = 0;
         while (index < elems.size()) {
-            try (PreparedStatement prep = connection.prepareStatement("insert into " + tableName + " values (?, ?, ?);")) {
+            try (PreparedStatement prep = connection.prepareStatement("insert into " + tableName + " values (?, ?, ?, ?);")) {
                 while (index < elems.size()) {
-                    System.out.println(elems.get(index).getMd5Hash()+"  "+elems.get(index).getPath()+"  "+index);
+                    System.out.println(elems.get(index).getMd5Hash() + "  " + elems.get(index).getPath());
 
                     prep.setString(1, elems.get(index).getMd5Hash());
                     prep.setString(2, elems.get(index).getPath());
-                    prep.setString(3, Integer.toString(index));
+                    prep.setString(3, index - 1 >= 0 ? elems.get(index - 1).getMd5Hash() : null);
+                    prep.setString(4, index + 1 < elems.size() ? elems.get(index + 1).getMd5Hash() : null);
                     prep.addBatch();
-                    // TODO: find a better solution for this
                     connection.setAutoCommit(false);
                     prep.executeBatch();
                     connection.setAutoCommit(true);
                     index++;
                 }
-
-//                addPreparedEntry(prep, "Gandhi", "politics");
-//                addPreparedEntry(prep, "Turing", "computers");
-//                addPreparedEntry(prep, "Wittgenstein", "smartypants");
-//                addPreparedEntry(prep, "Leo", "Student");
-
                 connection.setAutoCommit(false);
                 prep.executeBatch();
                 connection.setAutoCommit(true);
 
             } catch (SQLException e) {
-                System.err.println("Insert Multiple: " + e.getLocalizedMessage());
+                System.err.println("Insert Multiple: " + e.getLocalizedMessage()+" -->111 Skipping image");
+                elems.remove(index);
 
-                try (PreparedStatement prep = connection.prepareStatement("update " + tableName + " set rating = ? where md5 = ?;")) {
-
-                    System.out.println("trying to update the entry");
-                    prep.setString(1, Integer.toString(index));
-                    prep.setString(2, elems.get(index).getMd5Hash());
-                    prep.addBatch();
-
-
-//                addPreparedEntry(prep, "Gandhi", "politics");
-//                addPreparedEntry(prep, "Turing", "computers");
-//                addPreparedEntry(prep, "Wittgenstein", "smartypants");
-//                addPreparedEntry(prep, "Leo", "Student");
-
-                    connection.setAutoCommit(false);
-                    prep.executeBatch();
-                    connection.setAutoCommit(true);
-index++;
-                } catch (SQLException ex) {
-                    System.err.println("Update: " + ex.getLocalizedMessage());
-                }
+//                try (PreparedStatement prep = connection.prepareStatement("update " + tableName + " set rating = ? where md5 = ?;")) {
+//
+//                    System.out.println("Updating the rating of the existing entry");
+//                    prep.setString(1, Integer.toString(index));
+//                    prep.setString(2, elems.get(index).getMd5Hash());
+//                    prep.addBatch();
+//
+//                    connection.setAutoCommit(false);
+//                    prep.executeBatch();
+//                    connection.setAutoCommit(true);
+//                    index++;
+//                } catch (SQLException ex) {
+//                    System.err.println("Update: " + ex.getLocalizedMessage());
+//                }
             }
         }
 
     }
 
     public List<RatedImage> getAllEntries() {
+        String next = null;
 
         List<RatedImage> result = new ArrayList<>();
-        try (ResultSet rs = statement.executeQuery("select * from " + tableName + " order by rating;")) {
+        try (ResultSet rs = statement.executeQuery("select * from " + tableName + " where md5_prev is null;")) {
             while (rs.next()) {
-                result.add(new RatedImage(rs.getString("md5"), rs.getString("filepath"), rs.getInt("rating")));
-                System.out.println("md5 = " + rs.getString("md5") + "; filepath = " + rs.getString("filepath") + "; rating = " + rs.getInt("rating"));
+                next = rs.getString("md5_next");
+                result.add(new RatedImage(rs.getString("md5"), rs.getString("filepath")));
+                System.out.println("md5 = " + rs.getString("md5") + "; filepath = " + rs.getString("filepath"));
+                System.out.println("Found 1st Element");
             }
             rs.close();
         } catch (SQLException e) {
             System.err.println("get all Entries: " + e.getLocalizedMessage());
         }
+
+        do {
+            try (ResultSet rs = statement.executeQuery("select * from " + tableName + " where md5 = '" + next + "'")) {
+                while (rs.next()) {
+                    next = rs.getString("md5_next");
+                    result.add(new RatedImage(rs.getString("md5"), rs.getString("filepath")));
+                    System.out.println("md5 = " + rs.getString("md5") + "; filepath = " + rs.getString("filepath"));
+                }
+                rs.close();
+            } catch (SQLException e) {
+                System.err.println("get all Entries: " + e.getLocalizedMessage());
+            }
+        } while (next != null);
         return result;
     }
 }
