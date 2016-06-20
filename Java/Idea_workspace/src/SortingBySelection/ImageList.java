@@ -1,22 +1,23 @@
 package SortingBySelection;
 
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class ImageList extends JFrame {
 
     private JPanel content;
+    private PreLoader preLoader;
 
 
-    public ImageList(ArrayList<String> files) {
+    public ImageList(PreLoader preLoader, ArrayList<String> files) {
+        this.preLoader = preLoader;
+        if (preLoader == null) {
+            this.preLoader = new PreLoader(100);
+        }
 
         setTitle("Images");
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
@@ -24,7 +25,7 @@ public class ImageList extends JFrame {
         this.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                     dispose();
                 }
             }
@@ -44,21 +45,21 @@ public class ImageList extends JFrame {
                     try {
                         class ImagePanel extends JPanel {
 
-                            private BufferedImage image;
+                            private Image image;
 
                             public ImagePanel() {
-                                try {
-                                    image = ImageIO.read(new File(path));
-                                } catch (IOException ex) {
+
+                                image = preLoader.getImage(path);
+                                if (image == null) {
                                     // handle exception...
                                     JOptionPane.showMessageDialog(this,
-                                            "Fehler beim Laden des Bilds: " + ex.getMessage(),
+                                            "Fehler beim Laden des Bilds: ",
                                             "Fehler",
                                             JOptionPane.ERROR_MESSAGE);
                                     return;
                                 }
-                                if (image == null) return;
-                                this.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
+
+                                this.setPreferredSize(new Dimension(image.getWidth(this), image.getHeight(this)));
                             }
 
                             @Override
@@ -94,8 +95,13 @@ public class ImageList extends JFrame {
             }
         };
         loader.start();
-setPreferredSize(new Dimension(640,480));
+
+        setPreferredSize(new Dimension(640, 480)
+
+        );
+
         pack();
+
     }
 
     public static void main(String[] args) {
@@ -106,7 +112,7 @@ setPreferredSize(new Dimension(640,480));
                 files.add("X:\\Christmas\\__Merry_Christmas___by_love1008.jpg");
                 files.add("X:\\Christmas\\2100917268_7f1873c831_o.jpg");
                 files.add("X:\\Christmas\\80_01_01.jpg");
-                ImageList i = new ImageList(files);
+                ImageList i = new ImageList(null, files);
                 i.setVisible(true);
             }
         });

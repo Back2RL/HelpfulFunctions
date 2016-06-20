@@ -13,9 +13,15 @@ public class FullScreenImage extends JFrame {
     private Image scaledImage; // downloaded image
     private int w, h; // Display height and width
     private volatile int scale;
+    private PreLoader loader;
 
 
-    public FullScreenImage(String source) {
+    public FullScreenImage(PreLoader loader, String source) {
+        this.loader = loader;
+        if(loader == null){
+            this.loader = new PreLoader(100);
+        }
+
         // Exiting program on window close
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -94,9 +100,9 @@ public class FullScreenImage extends JFrame {
             @Override
             public void run() {
                 if (args.length < 1) // by default program will load AnyExample logo
-                    new FullScreenImage("http://www.anyexample.com/i/logo.gif");
+                    new FullScreenImage(null,"http://www.anyexample.com/i/logo.gif");
                 else
-                    new FullScreenImage(args[0]); // or first command-line argument
+                    new FullScreenImage(null,args[0]); // or first command-line argument
             }
         });
     }
@@ -125,20 +131,12 @@ public class FullScreenImage extends JFrame {
         });
     }
 
-    private void loadImage(String sourcePath) {
+    private void loadImage(final String sourcePath) {
         Thread imageLoader = new Thread() {
             @Override
             public void run() {
                 // loading image
-                if (sourcePath.startsWith("http://")) { // http:// URL was specified
-                    try {
-                        screenImage = Toolkit.getDefaultToolkit().getImage(new URL(sourcePath));
-                    } catch (MalformedURLException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    screenImage = Toolkit.getDefaultToolkit().getImage(sourcePath); // otherwise - file
-                }
+                screenImage = loader.getImage(sourcePath);
                 calculateScaleToFillScreen();
                 scaleImage();
             }
