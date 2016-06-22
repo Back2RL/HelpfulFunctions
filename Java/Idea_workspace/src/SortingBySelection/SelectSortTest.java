@@ -53,7 +53,7 @@ public class SelectSortTest extends JFrame {
 
     public SelectSortTest() {
 
-        preLoader =  new PreLoader(100);
+        preLoader = new PreLoader(100);
 
         // get the Screensize
         screenSize = getScreenSize();
@@ -99,12 +99,12 @@ public class SelectSortTest extends JFrame {
         boolean valid = true;
         try {
             // TODO: enable start of comparison while images are loaded in the background
-            Image image = preLoader.getImage(f.getPath());
-            //Image image = ImageIO.read(f);
+            //Image image = preLoader.getImage(f.getPath());
+            Image image = ImageIO.read(f);
             if (image == null) {
                 valid = false;
             }
-            preLoader.addLoadedImage(f.getPath(),image);
+            preLoader.addLoadedImage(f.getPath(), image);
         } catch (Exception ex) {
             System.out.println("Error while checking whether file is image");
             valid = false;
@@ -145,79 +145,74 @@ public class SelectSortTest extends JFrame {
     private void buildStartStopButtons() {
         startAnalysis = new JButton("Start");
         abortAnalysis = new JButton("Abbruch");
-        abortAnalysis.setEnabled(false);
 
-        startAnalysis.setMinimumSize(new Dimension(100, 20));
-        startAnalysis.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                worker = new Thread() {
-                    @Override
-                    public void run() {
-                        super.run();
+        startAnalysis.setToolTipText("starts to analyze the directory and presents all comparable images");
+        abortAnalysis.setToolTipText("aborts the comparing process and presents all sorted images");
 
-                        startComparing();
-
-                        EventQueue.invokeLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                //startAnalysis.setEnabled(true);
-                                abortAnalysis.setEnabled(false);
-
-                            }
-                        });
-
-                    }
-                };
-                EventQueue.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        startAnalysis.setEnabled(false);
-                        abortAnalysis.setEnabled(true);
-                    }
-                });
-                worker.start();
-            }
-        });
-
-        abortAnalysis.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (worker != null && worker.isAlive()) {
-                    worker.interrupt();
-                    worker = null;
-                }
-                if (directoryAnalyzer != null && directoryAnalyzer.isAlive()) {
-                    directoryAnalyzer.interrupt();
-                    directoryAnalyzer = null;
-                }
-                EventQueue.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        abortAnalysis.setEnabled(false);
-                        // TODO: fix issues with linked list in database, duplicates cause infinite loop
-                        //startAnalysis.setEnabled(true);
-                        if (right != null) {
-                            right.dispose();
-                        }
-                        if (left != null) {
-                            left.dispose();
-                        }
-                        sortedList = new ArrayList<String>();
-                        for (RatedImage o : sorted) {
-                            out.println(o.getPath());
-                            sortedList.add(o.getPath());
-                        }
-                        ImageList showList = new ImageList(preLoader,sortedList);
-                        sortedList = null;
-                        showList.setVisible(true);
-                    }
-                });
-            }
-        });
+        startAnalysis.setActionCommand("start");
+        abortAnalysis.setActionCommand("abort");
 
         getContentPane().add(abortAnalysis, BorderLayout.SOUTH);
         getContentPane().add(startAnalysis, BorderLayout.CENTER);
+
+        abortAnalysis.setEnabled(false);
+
+        startAnalysis.setMinimumSize(new Dimension(100, 20));
+
+        ActionListener buttonAction = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getActionCommand().equals("start")) {
+                    worker = new Thread() {
+                        @Override
+                        public void run() {
+                            startComparing();
+
+                            EventQueue.invokeLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //startAnalysis.setEnabled(true);
+                                    abortAnalysis.setEnabled(false);
+                                }
+                            });
+                        }
+                    };
+                    abortAnalysis.setEnabled(true);
+                    startAnalysis.setEnabled(false);
+
+                    worker.start();
+                } else if (e.getActionCommand().equals("abort")) {
+                    if (worker != null && worker.isAlive()) {
+                        worker.interrupt();
+                        worker = null;
+                    }
+                    if (directoryAnalyzer != null && directoryAnalyzer.isAlive()) {
+                        directoryAnalyzer.interrupt();
+                        directoryAnalyzer = null;
+                    }
+                    abortAnalysis.setEnabled(false);
+                    // TODO: fix issues with linked list in database, duplicates cause infinite loop
+                    //startAnalysis.setEnabled(true);
+                    if (right != null) {
+                        right.dispose();
+                    }
+                    if (left != null) {
+                        left.dispose();
+                    }
+                    sortedList = new ArrayList<String>();
+                    for (RatedImage o : sorted) {
+                        out.println(o.getPath());
+                        sortedList.add(o.getPath());
+                    }
+                    ImageList showList = new ImageList(preLoader, sortedList);
+                    sortedList = null;
+                    showList.setVisible(true);
+                }
+            }
+        };
+
+        startAnalysis.addActionListener(buttonAction);
+        abortAnalysis.addActionListener(buttonAction);
     }
 
     private void buildDirectoryChooser() {
@@ -325,7 +320,7 @@ public class SelectSortTest extends JFrame {
                 EventQueue.invokeLater(new Runnable() {
                     @Override
                     public void run() {
-                        ImageList showList = new ImageList(preLoader,sortedList);
+                        ImageList showList = new ImageList(preLoader, sortedList);
                         showList.setVisible(true);
                     }
                 });
@@ -394,7 +389,7 @@ public class SelectSortTest extends JFrame {
                 addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        FullScreenImage fullscreenImage = new FullScreenImage(preLoader,pathToImage);
+                        FullScreenImage fullscreenImage = new FullScreenImage(preLoader, pathToImage);
                     }
                 });
 
@@ -405,8 +400,8 @@ public class SelectSortTest extends JFrame {
                     @Override
                     public void run() {
 
-                            image = preLoader.getImage(pathToImage);
-                        if(image == null){
+                        image = preLoader.getImage(pathToImage);
+                        if (image == null) {
                             JOptionPane.showMessageDialog(thisObj,
                                     "Fehler beim Laden des Bilds: ",
                                     "Fehler",
@@ -473,7 +468,7 @@ public class SelectSortTest extends JFrame {
                 super.keyPressed(e);
                 if (e.getKeyChar() == KeyEvent.VK_SPACE) {
                     out.println("space pressed");
-                    FullScreenImage fullscreenImage = new FullScreenImage(preLoader,pathToImage);
+                    FullScreenImage fullscreenImage = new FullScreenImage(preLoader, pathToImage);
                 }
             }
         });

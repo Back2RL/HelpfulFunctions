@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="SortingBySelection.AApp">
+  <grid id="27dc6" binding="panel1" default-binding="true" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties>
+      <preferredSize width="200" height="70"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="55f84" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="North"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <toolbar id="14fe4">
+            <constraints border-constraint="North"/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="e0201" class="javax.swing.JButton" binding="button1" default-binding="true">
+                <constraints/>
+                <properties>
+                  <text value="Button"/>
+                </properties>
+              </component>
+              <component id="d0754" class="javax.swing.JButton" binding="button2" default-binding="true">
+                <constraints/>
+                <properties>
+                  <text value="Button"/>
+                </properties>
+              </component>
+            </children>
+          </toolbar>
+          <grid id="76ba9" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints border-constraint="Center"/>
+            <properties/>
+            <border type="empty"/>
+            <children>
+              <component id="6bc21" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+                <constraints border-constraint="West"/>
+                <properties>
+                  <preferredSize width="300" height="24"/>
+                </properties>
+              </component>
+              <component id="4b163" class="javax.swing.JButton" binding="openButton" default-binding="true">
+                <constraints border-constraint="Center"/>
+                <properties>
+                  <minimumSize width="20" height="32"/>
+                  <preferredSize width="30" height="20"/>
+                  <text value="Open"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>
