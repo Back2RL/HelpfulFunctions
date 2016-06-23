@@ -3,25 +3,25 @@ import com.sun.javaws.exceptions.InvalidArgumentException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Net {
+public class NeuronNet {
 
     private List<Layer> layers;
 
-    public float getError() {
+    public double getError() {
         return error;
     }
 
-    private float error;
+    private double error;
 
-    public float getRecentAverageError() {
+    public double getRecentAverageError() {
         return recentAverageError;
     }
 
-    private float recentAverageError;
-    private static final float recentAverageSmoothingFactor = 10.0f;
+    private double recentAverageError;
+    private static final double recentAverageSmoothingFactor = 10.0f;
 
 
-    public Net(final int[] topology) {
+    public NeuronNet(final int[] topology) {
         int numLayers = topology.length;
 
         layers = new ArrayList<>();
@@ -46,7 +46,7 @@ public class Net {
         }
     }
 
-    public void feedForward(final List<Float> inputVals) {
+    public void feedForward(final List<Double> inputVals) {
 
         if (inputVals.size() != layers.get(0).size() - 1) {
             try {
@@ -73,21 +73,21 @@ public class Net {
 
     }
 
-    public void backProp(final List<Float> targetVals) {
+    public void backProp(final List<Double> targetVals) {
         // calculate overall net error (Root Mean Square errors)
         Layer outputLayer = layers.get(layers.size() - 1);
         error = 0.0f;
         for (int n = 0; n < outputLayer.size() - 1; ++n) {
-            float delta = targetVals.get(n) - outputLayer.get(n).getOutputVal();
+            double delta = targetVals.get(n) - outputLayer.get(n).getOutputVal();
             error += delta * delta;
         }
         // get average error squared
         error /= outputLayer.size() - 1;
-        error = (float) Math.sqrt(error);
+        error = (double) Math.sqrt(error);
 
         // implement a recent average measurement
         // TODO: implement functionality to turn this off
-        recentAverageError = (recentAverageError * recentAverageSmoothingFactor + error) / (recentAverageSmoothingFactor + 1.0f);
+        recentAverageError = (recentAverageError * recentAverageSmoothingFactor + error) / (recentAverageSmoothingFactor + 1.0);
 
         // calculate output layer gradients
         for (int n = 0; n < outputLayer.size() -1; ++n) {
@@ -115,8 +115,8 @@ public class Net {
 
     }
 
-    public List<Float> getResults() {
-    List<Float> resultVals =  new ArrayList<>();
+    public List<Double> getResults() {
+    List<Double> resultVals =  new ArrayList<>();
 
         for(int n = 0; n< layers.get(layers.size()-1).size() - 1; ++n){
             resultVals.add(layers.get(layers.size() - 1).get(n).getOutputVal());

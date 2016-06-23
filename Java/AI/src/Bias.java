@@ -4,7 +4,7 @@ public class Bias extends Neuron {
     }
 
     @Override
-    public float getOutputVal() {
+    public double getOutputVal() {
         return 1.0f;
     }
 }

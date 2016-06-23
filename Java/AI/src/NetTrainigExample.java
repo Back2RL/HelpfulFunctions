@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class NetTrainigExample {
@@ -11,32 +10,32 @@ public class NetTrainigExample {
         // last: number of outputs
         final int[] topology = {4, 4, 4, 4, 2};
 
-        Net myNet = new Net(topology);
+        NeuronNet myNeuronNet = new NeuronNet(topology);
 
 
         for (int i = 0; i < 100000; i++) {
 
-            List<Float> inputVals = new ArrayList<>();
+            List<Double> inputVals = new ArrayList<>();
             // dot forward
-            inputVals.add(1.0f);
+            inputVals.add(1.0);
             // dot up
-            inputVals.add(0.0f);
+            inputVals.add(0.0);
             // dot right
-            inputVals.add(0.0f);
+            inputVals.add(0.0);
             // distance
-            inputVals.add(0.0f);
+            inputVals.add(0.0);
 
-            myNet.feedForward(inputVals);
+            myNeuronNet.feedForward(inputVals);
 
-            List<Float> targetVals = new ArrayList<>();
+            List<Double> targetVals = new ArrayList<>();
             // pitch
-            targetVals.add(1.0f);
+            targetVals.add(1.0);
             // yaw
-            targetVals.add(0.0f);
+            targetVals.add(0.0);
 
-            myNet.backProp(targetVals);
+            myNeuronNet.backProp(targetVals);
 
-            List<Float> resultVals = myNet.getResults();
+            List<Double> resultVals = myNeuronNet.getResults();
 
             System.out.println("Target : Generated");
             System.out.println(targetVals.toString() + "      : " + resultVals.toString());
@@ -45,24 +44,24 @@ public class NetTrainigExample {
 
             inputVals = new ArrayList<>();
             // dot forward
-            inputVals.add(1.0f);
+            inputVals.add(1.0);
             // dot up
-            inputVals.add(0.0f);
+            inputVals.add(0.0);
             // dot right
-            inputVals.add(1.0f);
+            inputVals.add(1.0);
             // distance
-            inputVals.add(1.0f);
+            inputVals.add(1.0);
 
-            myNet.feedForward(inputVals);
+            myNeuronNet.feedForward(inputVals);
             targetVals = new ArrayList<>();
             // pitch
-            targetVals.add(0.0f);
+            targetVals.add(0.0);
             // yaw
-            targetVals.add(1.0f);
+            targetVals.add(1.0);
 
-            myNet.backProp(targetVals);
+            myNeuronNet.backProp(targetVals);
 
-            resultVals = myNet.getResults();
+            resultVals = myNeuronNet.getResults();
 
             System.out.println("Target : Generated");
             System.out.println(targetVals.toString() + "      : " + resultVals.toString());
@@ -71,24 +70,24 @@ public class NetTrainigExample {
 
             inputVals = new ArrayList<>();
             // dot forward
-            inputVals.add(1.0f);
+            inputVals.add(1.0);
             // dot up
-            inputVals.add(0.0f);
+            inputVals.add(0.0);
             // dot right
-            inputVals.add(-1.0f);
+            inputVals.add(-1.0);
             // distance
-            inputVals.add(1.0f);
+            inputVals.add(1.0);
 
-            myNet.feedForward(inputVals);
+            myNeuronNet.feedForward(inputVals);
             targetVals = new ArrayList<>();
             // pitch
-            targetVals.add(0.0f);
+            targetVals.add(0.0);
             // yaw
-            targetVals.add(-1.0f);
+            targetVals.add(-1.0);
 
-            myNet.backProp(targetVals);
+            myNeuronNet.backProp(targetVals);
 
-            resultVals = myNet.getResults();
+            resultVals = myNeuronNet.getResults();
 
             System.out.println("Target : Generated");
             System.out.println(targetVals.toString() + "      : " + resultVals.toString());
@@ -97,24 +96,24 @@ public class NetTrainigExample {
 
             inputVals = new ArrayList<>();
             // dot forward
-            inputVals.add(-1.0f);
+            inputVals.add(-1.0);
             // dot up
-            inputVals.add(0.0f);
+            inputVals.add(0.0);
             // dot right
-            inputVals.add(1.0f);
+            inputVals.add(1.0);
             // distance
-            inputVals.add(0.0f);
+            inputVals.add(0.0);
 
-            myNet.feedForward(inputVals);
+            myNeuronNet.feedForward(inputVals);
             targetVals = new ArrayList<>();
             // pitch
-            targetVals.add(1.0f);
+            targetVals.add(1.0);
             // yaw
-            targetVals.add(1.0f);
+            targetVals.add(1.0);
 
-            myNet.backProp(targetVals);
+            myNeuronNet.backProp(targetVals);
 
-            resultVals = myNet.getResults();
+            resultVals = myNeuronNet.getResults();
 
             System.out.println("Target : Generated");
             System.out.println(targetVals.toString() + "      : " + resultVals.toString());
@@ -123,45 +122,45 @@ public class NetTrainigExample {
 
             inputVals = new ArrayList<>();
             // dot forward
-            inputVals.add(-1.0f);
+            inputVals.add(-1.0);
             // dot up
-            inputVals.add(0.0f);
+            inputVals.add(0.0);
             // dot right
-            inputVals.add(-1.0f);
+            inputVals.add(-1.0);
             // distance
-            inputVals.add(0.0f);
+            inputVals.add(0.0);
 
-            myNet.feedForward(inputVals);
+            myNeuronNet.feedForward(inputVals);
             targetVals = new ArrayList<>();
             // pitch
-            targetVals.add(1.0f);
+            targetVals.add(1.0);
             // yaw
-            targetVals.add(-1.0f);
+            targetVals.add(-1.0);
 
-            myNet.backProp(targetVals);
+            myNeuronNet.backProp(targetVals);
 
-            resultVals = myNet.getResults();
+            resultVals = myNeuronNet.getResults();
 
             System.out.println("Target : Generated");
             System.out.println(targetVals.toString() + "      : " + resultVals.toString());
 
             // :::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-            System.out.println("recent average Error = " + myNet.getRecentAverageError());
-            System.out.println("recent  Error =                  " + myNet.getError());
+            System.out.println("recent average Error = " + myNeuronNet.getRecentAverageError());
+            System.out.println("recent  Error =                  " + myNeuronNet.getError());
             System.out.println("------------------------------------------");
         }
 
-        List<Float> inputVals = new ArrayList<>();
-        inputVals.add(1.0f);
-        inputVals.add(0.0f);
-        inputVals.add(1.0f);
-        inputVals.add(0.5f);
+        List<Double> inputVals = new ArrayList<>();
+        inputVals.add(1.0);
+        inputVals.add(0.0);
+        inputVals.add(1.0);
+        inputVals.add(0.5);
 
-        myNet.feedForward(inputVals);
+        myNeuronNet.feedForward(inputVals);
 
 
-        List<Float> resultVals = myNet.getResults();
+        List<Double> resultVals = myNeuronNet.getResults();
 
         System.out.println("Generated");
         System.out.println(resultVals.toString());

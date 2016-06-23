@@ -1,6 +1,6 @@
-package AI_Test;
-
 import java.awt.*;
+
+
 import java.awt.event.*;
 import java.util.ArrayList;
 
@@ -49,6 +49,8 @@ class Zeichen implements Primitive {
 public class AIExampleTrainingTest extends JFrame {
     private ArrayList<Primitive> primitives = new ArrayList<Primitive>();
     private MyPanel jpnl;
+
+    private ArrayList<Creature> actors;
 
     public AIExampleTrainingTest() {
         setTitle("Sketchpad");
@@ -114,6 +116,7 @@ public class AIExampleTrainingTest extends JFrame {
                         refreshRate = 60;
                     }
 
+                    refreshRate = 200;
                     long tickIntervall = 1_000_000_000L / (long) refreshRate;
 
                     Thread fpsDisplayer = new Thread() {
@@ -131,6 +134,18 @@ public class AIExampleTrainingTest extends JFrame {
                         }
                     };
                     fpsDisplayer.start();
+
+                    actors = new ArrayList<>();
+                    actors.add(new Creature(1280, 700));
+                    actors.add(new Creature(1280, 700));
+                    actors.add(new Creature(1280, 700));
+                    actors.add(new Creature(1280, 700));
+                    actors.add(new Creature(1280, 700));
+                    actors.add(new Creature(1280, 700));
+                    actors.add(new Creature(1280, 700));
+                    actors.add(new Creature(1280, 700));
+                    actors.add(new Creature(1280, 700));
+
 
                     while (bIsRunning) {
 
@@ -187,7 +202,15 @@ public class AIExampleTrainingTest extends JFrame {
     }
 
     public void tick(final double dt) {
+        for (Creature actor : actors) {
+            Vec2D targetLocation = new Vec2D(500, 720);
 
+            double dotForward = actor.getForwardDir().dotProduct(targetLocation.subtract(actor.getLocation().getNormalized()));
+            double dotRight = actor.getForwardDir().getRotated(90.0).dotProduct(targetLocation.subtract(actor.getLocation().getNormalized()));
+            actor.learn(dotForward, dotRight, dt);
+
+            actor.move(dt);
+        }
     }
 
     class MyPanel extends JPanel {
@@ -197,6 +220,11 @@ public class AIExampleTrainingTest extends JFrame {
 
             // Startpunkt ermitteln:
             Point position = new Point((int) jpnl.getBounds().getCenterX(), (int) jpnl.getBounds().getCenterY());
+
+            for (Creature actor : actors) {
+                actor.draw(g);
+            }
+
 
             for (Primitive o : primitives) {
                 o.zeichne(g, position);

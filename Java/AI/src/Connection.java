@@ -1,21 +1,21 @@
 public class Connection {
 
-    private float weight;
-    private float deltaWeight;
+    private double weight;
+    private double deltaWeight;
 
-    public float getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public void setWeight(float weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 
-    public float getDeltaWeight() {
+    public double getDeltaWeight() {
         return deltaWeight;
     }
 
-    public void setDeltaWeight(float deltaWeight) {
+    public void setDeltaWeight(double deltaWeight) {
         this.deltaWeight = deltaWeight;
     }
 }
