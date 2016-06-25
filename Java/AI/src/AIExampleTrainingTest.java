@@ -57,6 +57,7 @@ public class AIExampleTrainingTest extends JFrame {
     private Vec2D targetLocation;
 
     public AIExampleTrainingTest() {
+        targetLocation =  new Vec2D(0,0);
         setTitle("Sketchpad");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         jpnl = new MyPanel();
@@ -96,6 +97,15 @@ public class AIExampleTrainingTest extends JFrame {
         };
         jpnl.addKeyListener(kl);
 
+        jpnl.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                System.out.println("Mouse moved to "+ e.getPoint().toString());
+
+                targetLocation = new Vec2D(e.getPoint().getX(),e.getPoint().getY());
+            }
+        });
+
         // GAME LOOP
 
         synchronized (this) {
@@ -120,6 +130,7 @@ public class AIExampleTrainingTest extends JFrame {
                         refreshRate = 60;
                     }
 
+                    refreshRate = 60;
                     long tickIntervall = 1_000_000_000L / (long) refreshRate;
 
                     Thread fpsDisplayer = new Thread() {
@@ -139,7 +150,7 @@ public class AIExampleTrainingTest extends JFrame {
                     fpsDisplayer.start();
 
                     int numberOfLifeforms = 1000;
-                    int[] topology = new int[]{3,2,2};
+                    int[] topology = new int[]{2,3,4,3,2,1};
                     genpool = new GenPool(numberOfLifeforms, topology);
 
 
@@ -168,7 +179,7 @@ public class AIExampleTrainingTest extends JFrame {
                             List<Double> newGenome = new ArrayList<>();
                             for (int i = 0; i < parent1.getGenome().size(); ++i) {
                                 // Mutation?
-                                if (rand.nextDouble() < 0.01) {
+                                if (rand.nextDouble() < 0.001) {
                                     newGenome.add(rand.nextDouble() * 2.0 - 1.0);
                                 } else {
                                     // no mutation, get one of the parents gene
@@ -271,20 +282,20 @@ public class AIExampleTrainingTest extends JFrame {
 
     public void tick(final double dt) {
         for (Creature actor : actors) {
-            targetLocation = new Vec2D(1280, 720);
+
 
 
 
             Vec2D dirToTarget = targetLocation.subtract(actor.getLocation()).getNormalized();
             double dotForward = actor.getForwardDir().dotProduct(dirToTarget);
             double dotRight = actor.getForwardDir().getRotated(90.0).dotProduct(dirToTarget);
-            double distance = Math.min(1000.0,actor.getLocation().distance(targetLocation)) / 1000.0;
+            //double distance = Math.min(1000.0,actor.getLocation().distance(targetLocation)) / 1000.0;
 
             List<Double> inputVals = new ArrayList<>();
 
             inputVals.add(dotForward);
             inputVals.add(dotRight);
-            inputVals.add(distance);
+            //inputVals.add(distance);
 
             actor.learn(inputVals, dt);
 

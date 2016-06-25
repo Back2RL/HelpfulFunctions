@@ -51,7 +51,7 @@ public class Creature {
 
 
     public void move(double deltaTime){
-        location = location.add(forwardDir.multiplyWithDouble(currVelocity * deltaTime));
+        location = location.add(forwardDir.multiplyWithDouble(velocity * deltaTime));
     }
 
     public void learn(List<Double> inputVals, double dt){
@@ -75,7 +75,7 @@ public class Creature {
         System.out.println("recent  Error =                  " + brain.getError());
 
         forwardDir.rotateByDeg(turnRate * resultVals.get(0) * dt);
-        currVelocity = velocity *0.75 + resultVals.get(1)*0.5;
+        //currVelocity = velocity *0.75 + resultVals.get(1)*0.5;
 
 
     }
