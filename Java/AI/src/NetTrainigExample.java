@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class NetTrainigExample {
     public static void main(String[] args) {
@@ -8,12 +9,12 @@ public class NetTrainigExample {
         // 1st: number of inputs,
         // 1st to last: layers with number of neurons
         // last: number of outputs
-        final int[] topology = {4, 4, 4, 4, 2};
+        final int[] topology = {4, 2};
 
         NeuronNet myNeuronNet = new NeuronNet(topology);
 
 
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 0; i < 10000; i++) {
 
             List<Double> inputVals = new ArrayList<>();
             // dot forward
@@ -155,12 +156,18 @@ public class NetTrainigExample {
         inputVals.add(1.0);
         inputVals.add(0.0);
         inputVals.add(1.0);
-        inputVals.add(0.5);
+        inputVals.add(1.0);
 
         myNeuronNet.feedForward(inputVals);
 
 
         List<Double> resultVals = myNeuronNet.getResults();
+        System.out.println(myNeuronNet.getGenome().toString());
+        List<Double> genome =  myNeuronNet.getGenome();
+        genome.set(new Random().nextInt(genome.size()),0.0);
+        myNeuronNet.setGenome(genome);
+        System.out.println(myNeuronNet.getGenome().toString());
+
 
         System.out.println("Generated");
         System.out.println(resultVals.toString());

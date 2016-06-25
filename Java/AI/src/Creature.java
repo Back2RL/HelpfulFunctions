@@ -4,8 +4,9 @@ import java.util.List;
 
 public class Creature {
 
-    public static final double velocity = 50.0;
-    public static final double turnRate = 90.0;
+    public static final double velocity = 200.0;
+    public static final double turnRate = 360.0;
+    private double currVelocity;
 
     public Vec2D getLocation() {
         return location;
@@ -28,41 +29,40 @@ public class Creature {
 
     private Vec2D forwardDir;
 
-    public Creature(int x, int y) {
-        brain =  new NeuronNet(new int[]{2,3,4,5,4,2,1,1});
+    public NeuronNet getBrain() {
+        return brain;
+    }
+
+    public void setBrain(NeuronNet brain) {
+        this.brain = brain;
+    }
+
+    public Creature(int x, int y, NeuronNet brain) {
+        this.brain = brain;
         location = new Vec2D(x, y);
         forwardDir = new Vec2D(Math.random() * 2.0 - 1.0, Math.random() * 2.0 - 1.0).getNormalized();
     }
 
 
     public void draw(Graphics g) {
-        g.fillOval((int) location.getX(), (int) location.getY(), 3, 3);
+        g.fillOval((int) location.getX(), (int) location.getY(), 5, 5);
     }
 
-    public static void main(String[] args) {
 
-        Creature test = new Creature(5, 5);
-        System.out.println(test.getForwardDir());
-        test.getForwardDir().rotateByDeg(90.0);
-        System.out.println(test.getForwardDir());
-
-    }
 
     public void move(double deltaTime){
-        location = location.add(forwardDir.multiplyWithDouble(velocity * deltaTime));
+        location = location.add(forwardDir.multiplyWithDouble(currVelocity * deltaTime));
     }
 
-    public void learn(double dotForward, double dotRight, double dt){
+    public void learn(List<Double> inputVals, double dt){
 
-        List<Double> inputVals = new ArrayList<>();
-        inputVals.add(dotForward);
-        inputVals.add(dotRight);
+
         brain.feedForward(inputVals);
 
-        List<Double> targetVals = new ArrayList<>();
-        targetVals.add( - dotRight * Math.signum(dotRight));
+        //List<Double> targetVals = new ArrayList<>();
+        //targetVals.add( - dotRight * Math.signum(dotRight));
 
-        brain.backProp(targetVals);
+        //brain.backProp(targetVals);
 
         List<Double> resultVals = brain.getResults();
 
@@ -75,6 +75,7 @@ public class Creature {
         System.out.println("recent  Error =                  " + brain.getError());
 
         forwardDir.rotateByDeg(turnRate * resultVals.get(0) * dt);
+        currVelocity = velocity *0.75 + resultVals.get(1)*0.5;
 
 
     }

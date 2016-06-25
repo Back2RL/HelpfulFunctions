@@ -5,6 +5,16 @@ import java.util.List;
 
 public class NeuronNet {
 
+    public double getFitness() {
+        return fitness;
+    }
+
+    public void setFitness(double fitness) {
+        this.fitness = fitness;
+    }
+
+    private double fitness = 0.0;
+
     private List<Layer> layers;
 
     public double getError() {
@@ -90,25 +100,25 @@ public class NeuronNet {
         recentAverageError = (recentAverageError * recentAverageSmoothingFactor + error) / (recentAverageSmoothingFactor + 1.0);
 
         // calculate output layer gradients
-        for (int n = 0; n < outputLayer.size() -1; ++n) {
+        for (int n = 0; n < outputLayer.size() - 1; ++n) {
             outputLayer.get(n).calcOutputGradients(targetVals.get(n));
         }
 
         // calculate gradients on hidden layers
-        for(int layerNum = layers.size() - 2; layerNum > 0; -- layerNum){
+        for (int layerNum = layers.size() - 2; layerNum > 0; --layerNum) {
             Layer hiddenLayer = layers.get(layerNum);
             Layer nextLayer = layers.get(layerNum + 1);
-            for(int n = 0; n < hiddenLayer.size(); ++n){
+            for (int n = 0; n < hiddenLayer.size(); ++n) {
                 hiddenLayer.get(n).calcHiddenGradients(nextLayer);
             }
         }
 
         // form all layers from outputs to first hidden layer update all connection weights
-        for(int layerNum = layers.size() -1; layerNum > 0; --layerNum){
-            Layer layer =  layers.get(layerNum);
-            Layer prevLayer =  layers.get(layerNum -1);
+        for (int layerNum = layers.size() - 1; layerNum > 0; --layerNum) {
+            Layer layer = layers.get(layerNum);
+            Layer prevLayer = layers.get(layerNum - 1);
 
-            for(int n = 0; n< layer.size()-1;++n){
+            for (int n = 0; n < layer.size() - 1; ++n) {
                 layer.get(n).updateInputWeights(prevLayer);
             }
         }
@@ -116,14 +126,35 @@ public class NeuronNet {
     }
 
     public List<Double> getResults() {
-    List<Double> resultVals =  new ArrayList<>();
+        List<Double> resultVals = new ArrayList<>();
 
-        for(int n = 0; n< layers.get(layers.size()-1).size() - 1; ++n){
+        for (int n = 0; n < layers.get(layers.size() - 1).size() - 1; ++n) {
             resultVals.add(layers.get(layers.size() - 1).get(n).getOutputVal());
         }
 
-       return resultVals;
+        return resultVals;
     }
 
+    public List<Double> getGenome() {
+        List<Double> genome = new ArrayList<>();
+        for (Layer layer : layers) {
+            for (Neuron node : layer) {
+                genome.addAll(node.getGenome());
+            }
+        }
+        return genome;
+    }
 
+    public void setGenome(List<Double> genome) {
+        for (Layer layer : layers) {
+            for (Neuron node : layer) {
+                List<Double> subGenome = genome.subList(0, node.getNumConnections());
+                genome = genome.subList(subGenome.size(), genome.size());
+
+                node.setGenome(subGenome);
+            }
+        }
+    }
 }
+
+
