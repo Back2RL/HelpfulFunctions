@@ -130,7 +130,6 @@ public class AIExampleTrainingTest extends JFrame {
                         refreshRate = 60;
                     }
 
-                    refreshRate = 60;
                     long tickIntervall = 1_000_000_000L / (long) refreshRate;
 
                     Thread fpsDisplayer = new Thread() {
@@ -149,8 +148,8 @@ public class AIExampleTrainingTest extends JFrame {
                     };
                     fpsDisplayer.start();
 
-                    int numberOfLifeforms = 1000;
-                    int[] topology = new int[]{2,3,4,3,2,1};
+                    int numberOfLifeforms = 2000;
+                    int[] topology = new int[]{3,3,1};
                     genpool = new GenPool(numberOfLifeforms, topology);
 
 
@@ -179,7 +178,7 @@ public class AIExampleTrainingTest extends JFrame {
                             List<Double> newGenome = new ArrayList<>();
                             for (int i = 0; i < parent1.getGenome().size(); ++i) {
                                 // Mutation?
-                                if (rand.nextDouble() < 0.001) {
+                                if (rand.nextDouble() < 0.01) {
                                     newGenome.add(rand.nextDouble() * 2.0 - 1.0);
                                 } else {
                                     // no mutation, get one of the parents gene
@@ -194,12 +193,13 @@ public class AIExampleTrainingTest extends JFrame {
                             genpool.getBrains().add(brain);
                             actors.add(new Creature(1280, 800, brain));
                         }
+
                         Vec2D startLoc = new Vec2D(2000,800);
                         for(Creature actor:actors){
                             actor.setLocation(startLoc);
                         }
 
-                        double runTime = 10.0;
+                        double runTime = 5.0 +Math.random() * 5.0;
                         double elapsedTime = 0.0;
                         System.out.println("nextGen");
 
@@ -289,12 +289,14 @@ public class AIExampleTrainingTest extends JFrame {
             Vec2D dirToTarget = targetLocation.subtract(actor.getLocation()).getNormalized();
             double dotForward = actor.getForwardDir().dotProduct(dirToTarget);
             double dotRight = actor.getForwardDir().getRotated(90.0).dotProduct(dirToTarget);
+            double dotLeft = actor.getForwardDir().getRotated(-90.0).dotProduct(dirToTarget);
             //double distance = Math.min(1000.0,actor.getLocation().distance(targetLocation)) / 1000.0;
 
             List<Double> inputVals = new ArrayList<>();
 
             inputVals.add(dotForward);
             inputVals.add(dotRight);
+            inputVals.add(dotLeft);
             //inputVals.add(distance);
 
             actor.learn(inputVals, dt);
@@ -327,7 +329,8 @@ public class AIExampleTrainingTest extends JFrame {
         double factor = 1.0 / actors.size();
 
         for (Creature actor : actors) {
-            double fitness = actor.getLocation().distance(targetLocation);
+            double distance = actor.getLocation().distance(targetLocation);
+            double fitness =distance;
             System.out.println(fitness);
             actor.getBrain().setFitness(fitness);
             avgFittness += fitness * factor;

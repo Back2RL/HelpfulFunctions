@@ -5,7 +5,7 @@ import java.util.List;
 public class Creature {
 
     public static final double velocity = 200.0;
-    public static final double turnRate = 360.0;
+    public static double turnRate = 360.0;
     private double currVelocity;
 
     public Vec2D getLocation() {
@@ -38,6 +38,7 @@ public class Creature {
     }
 
     public Creature(int x, int y, NeuronNet brain) {
+        turnRate = new Random().nextBoolean() ? turnRate : -turnRate;
         this.brain = brain;
         location = new Vec2D(x, y);
         forwardDir = new Vec2D(Math.random() * 2.0 - 1.0, Math.random() * 2.0 - 1.0).getNormalized();
