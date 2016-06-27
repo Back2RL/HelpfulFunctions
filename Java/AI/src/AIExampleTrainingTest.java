@@ -1,11 +1,9 @@
-import java.awt.*;
-
-
-import java.awt.event.*;
-import java.util.*;
-import java.util.List;
-
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 interface Primitive {
     /**
@@ -53,15 +51,18 @@ public class AIExampleTrainingTest extends JFrame {
 
     private ArrayList<Creature> actors;
     private GenPool genpool;
-
+private static final double mutationRate = 0.005;
+    private final static  int numberOfLifeforms = 1000;
+    private final static int[] topology = new int[]{1, 5,5, 2};
     private Vec2D targetLocation;
 
     public AIExampleTrainingTest() {
-        targetLocation =  new Vec2D(0,0);
+        targetLocation = new Vec2D(0, 0);
         setTitle("Sketchpad");
+
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         jpnl = new MyPanel();
-        jpnl.setPreferredSize(new Dimension(400, 300));
+        jpnl.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         // Normalerweise kann ein JPanel keinen Tastaturfokus erhalten.
         // Das ändern wir nun ...
         jpnl.setFocusable(true);
@@ -100,9 +101,8 @@ public class AIExampleTrainingTest extends JFrame {
         jpnl.addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
-                System.out.println("Mouse moved to "+ e.getPoint().toString());
-
-                targetLocation = new Vec2D(e.getPoint().getX(),e.getPoint().getY());
+                System.out.println("Mouse moved to " + e.getPoint().toString());
+                targetLocation = new Vec2D(e.getPoint().getX(), e.getPoint().getY());
             }
         });
 
@@ -148,8 +148,8 @@ public class AIExampleTrainingTest extends JFrame {
                     };
                     fpsDisplayer.start();
 
-                    int numberOfLifeforms = 2000;
-                    int[] topology = new int[]{3,3,1};
+
+
                     genpool = new GenPool(numberOfLifeforms, topology);
 
 
@@ -157,7 +157,7 @@ public class AIExampleTrainingTest extends JFrame {
 
                     for (int i = 0; i < numberOfLifeforms; ++i) {
                         Random rand = new Random();
-                        actors.add(new Creature(1280, 800, genpool.getBrains().get(i)));
+                        actors.add(new Creature(1000, 800, genpool.getBrains().get(i)));
                     }
 
 
@@ -178,7 +178,7 @@ public class AIExampleTrainingTest extends JFrame {
                             List<Double> newGenome = new ArrayList<>();
                             for (int i = 0; i < parent1.getGenome().size(); ++i) {
                                 // Mutation?
-                                if (rand.nextDouble() < 0.01) {
+                                if (rand.nextDouble() < mutationRate) {
                                     newGenome.add(rand.nextDouble() * 2.0 - 1.0);
                                 } else {
                                     // no mutation, get one of the parents gene
@@ -193,13 +193,29 @@ public class AIExampleTrainingTest extends JFrame {
                             genpool.getBrains().add(brain);
                             actors.add(new Creature(1280, 800, brain));
                         }
+                        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                        Vec2D startLoc = new Vec2D(1000, 800);
+                        for (Creature actor : actors) {
 
-                        Vec2D startLoc = new Vec2D(2000,800);
-                        for(Creature actor:actors){
+                            // TODO:
+                            actor.getBrain().setFitness(0.0);
+                            // TODO: set random startlocation
                             actor.setLocation(startLoc);
+                            //actor.setLocation(new Vec2D(Math.random() * screenSize.getWidth(),Math.random() * screenSize.getHeight()));
                         }
 
-                        double runTime = 5.0 +Math.random() * 5.0;
+                        // TODO: new random targetlocation
+
+                      targetLocation = new Vec2D(Math.random() * screenSize.getWidth(), Math.random() * screenSize.getHeight());
+//                        try {
+//                            Robot robot = new Robot(GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice());
+//                            robot.mouseMove((int)(Math.random() * screenSize.getWidth()), (int)(Math.random() * screenSize.getHeight()));
+//                        } catch (AWTException e) {
+//
+//                        } catch (HeadlessException e) {
+//
+//                        }
+                        double runTime = 5.0 + Math.random() * 5.0;
                         double elapsedTime = 0.0;
                         System.out.println("nextGen");
 
@@ -284,22 +300,20 @@ public class AIExampleTrainingTest extends JFrame {
         for (Creature actor : actors) {
 
 
-
-
             Vec2D dirToTarget = targetLocation.subtract(actor.getLocation()).getNormalized();
-            double dotForward = actor.getForwardDir().dotProduct(dirToTarget);
-            double dotRight = actor.getForwardDir().getRotated(90.0).dotProduct(dirToTarget);
-            double dotLeft = actor.getForwardDir().getRotated(-90.0).dotProduct(dirToTarget);
-            //double distance = Math.min(1000.0,actor.getLocation().distance(targetLocation)) / 1000.0;
+            double dotRightToTarget = actor.getForwardDir().getRotated(90).dotProduct(dirToTarget);
 
             List<Double> inputVals = new ArrayList<>();
 
-            inputVals.add(dotForward);
-            inputVals.add(dotRight);
-            inputVals.add(dotLeft);
-            //inputVals.add(distance);
+            double angle = Math.acos(actor.getForwardDir().dotProduct(dirToTarget))/Math.PI;
+
+            inputVals.add(Math.signum(dotRightToTarget)*angle);
 
             actor.learn(inputVals, dt);
+
+            double distance = actor.getLocation().distance(targetLocation);
+            double fitness = actor.getBrain().getFitness() + distance * 0.001;
+            actor.getBrain().setFitness(fitness);
 
             actor.move(dt);
         }
@@ -329,11 +343,8 @@ public class AIExampleTrainingTest extends JFrame {
         double factor = 1.0 / actors.size();
 
         for (Creature actor : actors) {
-            double distance = actor.getLocation().distance(targetLocation);
-            double fitness =distance;
-            System.out.println(fitness);
-            actor.getBrain().setFitness(fitness);
-            avgFittness += fitness * factor;
+
+            avgFittness += actor.getBrain().getFitness() * factor;
         }
     }
 }

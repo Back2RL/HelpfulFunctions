@@ -4,8 +4,8 @@ import java.util.List;
 
 public class Creature {
 
-    public static final double velocity = 200.0;
-    public static double turnRate = 360.0;
+    public static final double velocity = 1000.0;
+    public static double turnRate = 90.0;
     private double currVelocity;
 
     public Vec2D getLocation() {
@@ -38,7 +38,7 @@ public class Creature {
     }
 
     public Creature(int x, int y, NeuronNet brain) {
-        turnRate = new Random().nextBoolean() ? turnRate : -turnRate;
+        //turnRate = new Random().nextBoolean() ? turnRate : -turnRate;
         this.brain = brain;
         location = new Vec2D(x, y);
         forwardDir = new Vec2D(Math.random() * 2.0 - 1.0, Math.random() * 2.0 - 1.0).getNormalized();
@@ -52,7 +52,7 @@ public class Creature {
 
 
     public void move(double deltaTime){
-        location = location.add(forwardDir.multiplyWithDouble(velocity * deltaTime));
+        location = location.add(forwardDir.multiplyWithDouble(currVelocity * deltaTime));
     }
 
     public void learn(List<Double> inputVals, double dt){
@@ -76,7 +76,7 @@ public class Creature {
         System.out.println("recent  Error =                  " + brain.getError());
 
         forwardDir.rotateByDeg(turnRate * resultVals.get(0) * dt);
-        //currVelocity = velocity *0.75 + resultVals.get(1)*0.5;
+        currVelocity = velocity *0.25 + resultVals.get(1)*velocity*0.5;
 
 
     }

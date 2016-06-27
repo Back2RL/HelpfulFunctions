@@ -50,8 +50,8 @@ public class NeuronNet {
                 } else {
                     layers.get(layers.size() - 1).add(new Neuron(numOutputs, neuronNum));
                 }
-
-                System.out.println("Made a Neuron of type " + layers.get(layers.size() - 1).get(neuronNum).getClass().getName());
+// TODO: debug toggling
+                //System.out.println("Made a Neuron of type " + layers.get(layers.size() - 1).get(neuronNum).getClass().getName());
             }
         }
     }
