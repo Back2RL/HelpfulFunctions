@@ -5,7 +5,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
@@ -17,9 +19,6 @@ public class IndexUI extends JFrame {
 
         buildPanels();
         baueFotoGUI();
-
-
-
 
 
         pack();
@@ -94,8 +93,6 @@ public class IndexUI extends JFrame {
                     jtfFoto.setText(path);
 
 
-
-
                     showImage();
                 }
             }
@@ -120,6 +117,7 @@ public class IndexUI extends JFrame {
                             JOptionPane.ERROR_MESSAGE);
                     return;
                 }
+                setDoubleBuffered(true);
                 setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
             }
 
@@ -127,37 +125,37 @@ public class IndexUI extends JFrame {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
 
-                String imgFilename = jtfFoto.getText();
-                ImageIcon icon = new ImageIcon(imgFilename);
+                setBackground(new Color(0,0,0));
 
-                int width = icon.getIconWidth();
-                int height = icon.getIconHeight();
+                final double imageAspectRatio = (double) image.getWidth() / image.getHeight();
+                //final double imageAspectRatio = (double) icon.getIconWidth() / icon.getIconHeight();
 
-                float imageAspectRatio = (float)width / height;
-                float jframeAspectRatio = getWidth() * 0.5f / getHeight();
+                final double PanelWidth = getWidth();
+                final double PanelHight = getHeight();
+                final double jframeAspectRatio = PanelWidth / PanelHight;
 
-                int pnlW = (int) (getWidth());
-                int pnlH = getHeight();
+                System.out.println("Panelsize = " + PanelWidth + "x" + PanelHight);
 
-                System.out.println("Panelsize = " +pnlW +"x"+pnlH);
+                int RenderWidth = 0;
+                int RenderHight = 0;
 
-                int x = 0;
-                int y = 0;
+                int OffsetX = 0;
+                int OffsetY = 0;
 
-                System.out.println(imageAspectRatio +" vs "+ jframeAspectRatio);
+                System.out.println(imageAspectRatio + " vs " + jframeAspectRatio);
 
                 if (imageAspectRatio < jframeAspectRatio) {
-                    y = pnlH;
-                    x = (int) ((y * imageAspectRatio));
-
+                    RenderHight = (int) PanelHight;
+                    RenderWidth = (int) (PanelHight * imageAspectRatio);
+                    OffsetX = (int) ((PanelWidth - RenderWidth) * 0.5);
                 } else {
-                    x = pnlW;
-                    y = (int) ((x / imageAspectRatio));
+                    RenderWidth = (int) PanelWidth;
+                    RenderHight = (int) (PanelWidth / imageAspectRatio);
+                    OffsetY = (int) ((PanelHight - RenderHight) * 0.5);
                 }
 
-                g.drawImage(image, pnlW / 2 - x/2, getHeight() / 2 - y / 2, x, y, null);
+                g.drawImage(image, OffsetX, OffsetY, RenderWidth, RenderHight, null);
             }
-
         }
         ImagePanel image = new ImagePanel();
 
@@ -169,7 +167,7 @@ public class IndexUI extends JFrame {
         meinJDialog.setTitle("Mein JDialog Beispiel");
         // Höhe und Breite des Fensters werden
         // auf 200 Pixel gesetzt
-        meinJDialog.setSize(200,200);
+        meinJDialog.setSize(200, 200);
 
 
         // Hinzufügen einer Komponente,
@@ -180,7 +178,7 @@ public class IndexUI extends JFrame {
 
         meinJDialog.setAlwaysOnTop(true);
 
-        meinJDialog.add(image,BoxLayout.X_AXIS);
+        meinJDialog.add(image, BoxLayout.X_AXIS);
 
         meinJDialog.setResizable(true);
         meinJDialog.setVisible(true);
