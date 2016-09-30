@@ -1,0 +1,7 @@
+gcc -E main.c //Präprozessor-Schritt
+gcc -c main.c //Präprozessor-Schritt + kompilieren
+gcc main.o other.o //Linker-Schritt
+gcc -o Programm main.o //Umbenennung des Programms
+
+gcc -o Programm main.c other.o //Kombination der Vorherigen
+
