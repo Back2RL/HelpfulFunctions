@@ -1,0 +1,1 @@
+int quadrat(int x);
