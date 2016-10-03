@@ -5,31 +5,11 @@ import java.util.List;
 
 public class NeuronNet {
 
-    public double getFitness() {
-        return fitness;
-    }
-
-    public void setFitness(double fitness) {
-        this.fitness = fitness;
-    }
-
-    private double fitness = 0.0;
-
-    private List<Layer> layers;
-
-    public double getError() {
-        return error;
-    }
-
-    private double error;
-
-    public double getRecentAverageError() {
-        return recentAverageError;
-    }
-
-    private double recentAverageError;
     private static final double recentAverageSmoothingFactor = 10.0f;
-
+    private double fitness = 0.0;
+    private List<Layer> layers;
+    private double error;
+    private double recentAverageError;
 
     public NeuronNet(final int[] topology) {
         int numLayers = topology.length;
@@ -54,6 +34,22 @@ public class NeuronNet {
                 //System.out.println("Made a Neuron of type " + layers.get(layers.size() - 1).get(neuronNum).getClass().getName());
             }
         }
+    }
+
+    public double getFitness() {
+        return fitness;
+    }
+
+    public void setFitness(double fitness) {
+        this.fitness = fitness;
+    }
+
+    public double getError() {
+        return error;
+    }
+
+    public double getRecentAverageError() {
+        return recentAverageError;
     }
 
     public void feedForward(final List<Double> inputVals) {

@@ -1,0 +1,5 @@
+
+// const int * Constant2 // value that is pointed to is constant
+// int const * Constant2 // value that is pointed to is constant
+// int * const Constant3 // pointer is constant
+// int const * const Constant4 // pointer and value constant

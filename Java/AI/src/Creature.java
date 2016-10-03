@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Creature {
 
-    public static final double velocity = 1000.0;
+    public static final double velocity = 500.0;
     public static double turnRate = 90.0;
     private double currVelocity;
 

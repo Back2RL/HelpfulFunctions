@@ -60,7 +60,7 @@ public class Neuron {
     }
 
     private double randomWeight() {
-        return Math.random();
+        return -1.0 + 2.0 * Math.random();
     }
 
     void feedForward(final Layer prevLayer) {

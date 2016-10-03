@@ -51,9 +51,10 @@ public class AIExampleTrainingTest extends JFrame {
 
     private ArrayList<Creature> actors;
     private GenPool genpool;
-private static final double mutationRate = 0.005;
+private static final double mutationRate = 0.01;
     private final static  int numberOfLifeforms = 1000;
     private final static int[] topology = new int[]{1, 5,5, 2};
+    private final static double runTime = 3.0;
     private Vec2D targetLocation;
 
     public AIExampleTrainingTest() {
@@ -215,7 +216,7 @@ private static final double mutationRate = 0.005;
 //                        } catch (HeadlessException e) {
 //
 //                        }
-                        double runTime = 5.0 + Math.random() * 5.0;
+
                         double elapsedTime = 0.0;
                         System.out.println("nextGen");
 
