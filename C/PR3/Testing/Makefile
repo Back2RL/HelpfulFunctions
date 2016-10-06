@@ -1,5 +1,5 @@
 GCC_ARGS = -Wall -ansi -pedantic-errors -Wstrict-prototypes
-OBJ = main.o math.o
+OBJ = main.o math.o input.o
 NAME = Test
 
 $(NAME): $(OBJ)

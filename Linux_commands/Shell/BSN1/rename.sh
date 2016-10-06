@@ -2,6 +2,7 @@
 dir="./test/*"
 path="./test/"
 ext=".jpeg"
+newext=".jpg"
 for file in ${dir}
 do
 	echo "$file"
@@ -12,7 +13,7 @@ do
 	if [ "${basefilename}" != "${name}" ]
 	then
 		echo "renaming extention:"
-		newfn="${path}${name}.jpg"
+		newfn="${path}${name}${newext}"
 		echo "new name = $newfn"
 		cp "${file}" "${newfn}"
 	fi
