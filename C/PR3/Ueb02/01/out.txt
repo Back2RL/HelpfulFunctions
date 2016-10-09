@@ -1,0 +1,2 @@
+gcc -Wall -ansi -pedantic-errors -Wstrict-prototypes -c math.c
+Makefile:9: recipe for target 'math.o' failed

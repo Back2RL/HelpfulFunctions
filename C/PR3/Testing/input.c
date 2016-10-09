@@ -1,5 +1,4 @@
 #include "input.h"
-#include <stdio.h>
 
 int readInt(const char * const prompt){
 	int read = 0;

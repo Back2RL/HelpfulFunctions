@@ -1,0 +1,4 @@
+1. es existiert keine Main-Funktion
+2. bei der Regel g.o ist es nicht notwendig stdio.h anzugeben, da es sich um eine Standardbibliothek handelt.
+3. die Regel m.c: ist überflüssig und falsch,  wird die Option -o statt -c verwendet und f.h und g.h werden zweimal angegeben. Ausserdem soll das Object m.c erzeugt werden, dies würde aber den Quellcode m.c überschreiben.
+
