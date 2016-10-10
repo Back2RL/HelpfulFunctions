@@ -1,1 +1,1 @@
-extern int summe(void);
+int summe(void);

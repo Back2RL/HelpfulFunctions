@@ -1,1 +1,1 @@
-extern void berechne(void);
+void berechne(void);

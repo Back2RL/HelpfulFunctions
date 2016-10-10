@@ -1,1 +1,1 @@
-extern int differenz(void);
+int differenz(void);
