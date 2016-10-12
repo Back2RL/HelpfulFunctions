@@ -1,8 +1,15 @@
 #!/bin/bash
-dir="./test/*"
-path="./test/"
+# ändert die Dateiendung aller Dateien die mit .jpeg enden 
+# im aktuellen Verzeichnis in .jpg um
+# Leo 12.10.2016
+####
+#
+
+dir="./*.jpeg"
+path="./"
 ext=".jpeg"
 newext=".jpg"
+#JPEG-Dateien durchlaufen
 for file in ${dir}
 do
 	echo "$file"
@@ -12,7 +19,7 @@ do
 	echo "$name"
 	if [ "${basefilename}" != "${name}" ]
 	then
-		echo "renaming extention:"
+		echo "renaming ext:"
 		newfn="${path}${name}${newext}"
 		echo "new name = $newfn"
 		cp "${file}" "${newfn}"
