@@ -52,9 +52,9 @@ public class AIExampleTrainingTest extends JFrame {
     private ArrayList<Creature> actors;
     private GenPool genpool;
 private static final double mutationRate = 0.01;
-    private final static  int numberOfLifeforms = 1000;
-    private final static int[] topology = new int[]{1, 5,5, 2};
-    private final static double runTime = 3.0;
+    private final static  int numberOfLifeforms = 100;
+    private final static int[] topology = new int[]{1, 5, 2};
+    private final static double runTime = 10.0;
     private Vec2D targetLocation;
 
     public AIExampleTrainingTest() {
@@ -63,7 +63,8 @@ private static final double mutationRate = 0.01;
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         jpnl = new MyPanel();
-        jpnl.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
+        jpnl.setPreferredSize(new Dimension(640,480));
+       // jpnl.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         // Normalerweise kann ein JPanel keinen Tastaturfokus erhalten.
         // Das ändern wir nun ...
         jpnl.setFocusable(true);
@@ -195,7 +196,7 @@ private static final double mutationRate = 0.01;
                             actors.add(new Creature(1280, 800, brain));
                         }
                         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-                        Vec2D startLoc = new Vec2D(1000, 800);
+                        Vec2D startLoc = new Vec2D(200, 200);
                         for (Creature actor : actors) {
 
                             // TODO:
