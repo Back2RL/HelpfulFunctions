@@ -13,6 +13,7 @@ int main(int argc, char* args[]){
 		char c = 'a';
 		printf("Char    = %lu\n",sizeof(c));
 		printf("Char*   = %lu\n",sizeof(pntr));
+		printf("Char*   = %p\n",&c);
 	}
 
 
