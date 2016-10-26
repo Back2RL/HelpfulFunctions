@@ -46,6 +46,8 @@ class Zeichen implements Primitive {
 
 @SuppressWarnings("serial")
 public class AIExampleTrainingTest extends JFrame {
+    private static final boolean DEBUG = false;
+
     private ArrayList<Primitive> primitives = new ArrayList<Primitive>();
     private MyPanel jpnl;
 
@@ -53,7 +55,7 @@ public class AIExampleTrainingTest extends JFrame {
     private GenPool genpool;
 private static final double mutationRate = 0.01;
     private final static  int numberOfLifeforms = 100;
-    private final static int[] topology = new int[]{1, 5, 2};
+    private final static int[] topology = new int[]{1, 2,2, 2};
     private final static double runTime = 10.0;
     private Vec2D targetLocation;
 
@@ -90,7 +92,7 @@ private static final double mutationRate = 0.01;
                         step(0, d);
                         break;
                 }
-                System.out.println(KeyEvent.getKeyText(evt.getKeyCode())); // nur so
+                if(DEBUG)System.out.println(KeyEvent.getKeyText(evt.getKeyCode())); // nur so
             }
 
             @Override
@@ -103,7 +105,7 @@ private static final double mutationRate = 0.01;
         jpnl.addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
-                System.out.println("Mouse moved to " + e.getPoint().toString());
+                if(DEBUG)System.out.println("Mouse moved to " + e.getPoint().toString());
                 targetLocation = new Vec2D(e.getPoint().getX(), e.getPoint().getY());
             }
         });
@@ -140,7 +142,7 @@ private static final double mutationRate = 0.01;
                             yield();
                             Thread.currentThread().setPriority(MIN_PRIORITY);
                             while (bIsRunning) {
-                                System.out.println("FPS = " + (int) (1.0 / deltaTime));
+                                if(DEBUG)System.out.println("FPS = " + (int) (1.0 / deltaTime));
                                 try {
                                     sleep(1000);
                                 } catch (InterruptedException e) {
@@ -219,7 +221,7 @@ private static final double mutationRate = 0.01;
 //                        }
 
                         double elapsedTime = 0.0;
-                        System.out.println("nextGen");
+                        if(DEBUG)System.out.println("nextGen");
 
                         while (bIsRunning) {
 
@@ -239,7 +241,7 @@ private static final double mutationRate = 0.01;
                             long sleepTime = tickIntervall - (System.nanoTime() - time);
                             if (sleepTime > 0L) {
                                 try {
-                                    //System.out.println(sleepTime / 1_000_000L + " - "+(int)(sleepTime % 1000L));
+                                    //if(DEBUG)System.out.println(sleepTime / 1_000_000L + " - "+(int)(sleepTime % 1000L));
                                     sleep(sleepTime / 1_000_000L, (int) (sleepTime % 1000L));
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
@@ -249,9 +251,9 @@ private static final double mutationRate = 0.01;
 
                         }
                         calcFitness();
-                        System.out.println(genpool.getBrains().toString());
+                        if(DEBUG)System.out.println(genpool.getBrains().toString());
                         genpool.sortBrains();
-                        System.out.println(genpool.getBrains().toString());
+                        if(DEBUG)System.out.println(genpool.getBrains().toString());
                         genpool.setBrains(genpool.getBrains().subList(0, genpool.getBrains().size() / 2));
 
                         int actorNum = actors.size();

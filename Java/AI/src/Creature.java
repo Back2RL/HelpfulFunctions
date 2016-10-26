@@ -3,6 +3,7 @@ import java.util.*;
 import java.util.List;
 
 public class Creature {
+    private static final boolean DEBUG = false;
 
     public static final double velocity = 500.0;
     public static double turnRate = 90.0;
@@ -67,13 +68,13 @@ public class Creature {
 
         List<Double> resultVals = brain.getResults();
 
-        System.out.println("Target : Generated");
-        System.out.println(brain.toString() + "      : " + resultVals.toString());
+        if(DEBUG)System.out.println("Target : Generated");
+        if(DEBUG)System.out.println(brain.toString() + "      : " + resultVals.toString());
 
         // :::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-        System.out.println("recent average Error = " + brain.getRecentAverageError());
-        System.out.println("recent  Error =                  " + brain.getError());
+        if(DEBUG)System.out.println("recent average Error = " + brain.getRecentAverageError());
+        if(DEBUG)System.out.println("recent  Error =                  " + brain.getError());
 
         forwardDir.rotateByDeg(turnRate * resultVals.get(0) * dt);
         currVelocity = velocity *0.25 + resultVals.get(1)*velocity*0.5;
