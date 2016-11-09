@@ -150,7 +150,9 @@ public class SQLManager {
     }
 
     private boolean insertSingleEntry(String md5, String filepath, String prev_md5, String next_md5) {
-        try (PreparedStatement prep = connection.prepareStatement("update " + tableName + " set md5_next = ? where md5 = ?; update " + tableName + " set md5_prev = ? where md5 = ?; insert into " + tableName + " values (?, ?, ?, ?);")) {
+        try (PreparedStatement prep = connection.prepareStatement("update " + tableName + " set md5_next = ? where md5 = ?;"
+                +" update " + tableName + " set md5_prev = ? where md5 = ?;"
+                +" insert into " + tableName + " values (?, ?, ?, ?);")) {
             //  edit the next lower rated entry
             prep.setString(1, md5);
             prep.setString(2, prev_md5);

@@ -8,7 +8,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +52,7 @@ public class SelectSortTest extends JFrame {
 
     public SelectSortTest() {
 
-        preLoader = new PreLoader(100);
+        preLoader = PreLoader.getPreloadInstance();
 
         // get the Screensize
         screenSize = getScreenSize();
@@ -99,14 +98,14 @@ public class SelectSortTest extends JFrame {
         boolean valid = true;
         try {
             // TODO: enable start of comparison while images are loaded in the background
-            //Image image = preLoader.getImage(f.getPath());
-            Image image = ImageIO.read(f);
+            BufferedImage image = preLoader.getImage(f.getPath());
+            //Image image = ImageIO.read(f);
             if (image == null) {
                 valid = false;
             }
-            preLoader.addLoadedImage(f.getPath(), image);
         } catch (Exception ex) {
             System.out.println("Error while checking whether file is image");
+            ex.printStackTrace();
             valid = false;
         }
         return valid;
@@ -204,7 +203,7 @@ public class SelectSortTest extends JFrame {
                         out.println(o.getPath());
                         sortedList.add(o.getPath());
                     }
-                    ImageList showList = new ImageList(preLoader, sortedList);
+                    ImageList showList = new ImageList(sortedList);
                     sortedList = null;
                     showList.setVisible(true);
                 }
@@ -320,7 +319,7 @@ public class SelectSortTest extends JFrame {
                 EventQueue.invokeLater(new Runnable() {
                     @Override
                     public void run() {
-                        ImageList showList = new ImageList(preLoader, sortedList);
+                        ImageList showList = new ImageList(sortedList);
                         showList.setVisible(true);
                     }
                 });
@@ -389,7 +388,7 @@ public class SelectSortTest extends JFrame {
                 addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        FullScreenImage fullscreenImage = new FullScreenImage(preLoader, pathToImage);
+                        FullScreenImage fullscreenImage = new FullScreenImage(pathToImage);
                     }
                 });
 
@@ -468,7 +467,7 @@ public class SelectSortTest extends JFrame {
                 super.keyPressed(e);
                 if (e.getKeyChar() == KeyEvent.VK_SPACE) {
                     out.println("space pressed");
-                    FullScreenImage fullscreenImage = new FullScreenImage(preLoader, pathToImage);
+                    FullScreenImage fullscreenImage = new FullScreenImage(pathToImage);
                 }
             }
         });

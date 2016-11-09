@@ -13,11 +13,8 @@ public class ImageList extends JFrame {
     private PreLoader preLoader;
 
 
-    public ImageList(PreLoader preLoader, ArrayList<String> files) {
-        this.preLoader = preLoader;
-        if (preLoader == null) {
-            this.preLoader = new PreLoader(100);
-        }
+    public ImageList(ArrayList<String> files) {
+        this.preLoader = PreLoader.getPreloadInstance();
 
         setTitle("Images");
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
@@ -112,7 +109,7 @@ public class ImageList extends JFrame {
                 files.add("X:\\Christmas\\__Merry_Christmas___by_love1008.jpg");
                 files.add("X:\\Christmas\\2100917268_7f1873c831_o.jpg");
                 files.add("X:\\Christmas\\80_01_01.jpg");
-                ImageList i = new ImageList(null, files);
+                ImageList i = new ImageList(files);
                 i.setVisible(true);
             }
         });

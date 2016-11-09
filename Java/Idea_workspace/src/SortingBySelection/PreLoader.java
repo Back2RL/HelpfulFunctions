@@ -1,6 +1,7 @@
 package SortingBySelection;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -8,42 +9,13 @@ import java.util.List;
 
 public class PreLoader {
 
-    private class LoadedImage {
-        private String path;
-
-        public java.awt.Image getImage() {
-            return Image;
-        }
-
-        public void setImage(java.awt.Image image) {
-            Image = image;
-        }
-
-        private Image Image;
-
-        public String getPath() {
-            return path;
-        }
-
-        public void setPath(String path) {
-            this.path = path;
-        }
-
-        public LoadedImage(String path, java.awt.Image image) {
-            this.path = path;
-            Image = image;
-        }
-    }
-
-
-    private final int MAX_PRELOADED_IMAGES;
+    private static PreLoader mPreloadInstance;
+    private final int MAX_PRELOAD_IMAGES = 100;
     private List<LoadedImage> loadedImages;
     private List<String> queued;
-
     private Thread loader;
 
-    public PreLoader(int maxPreloadedImages) {
-        this.MAX_PRELOADED_IMAGES = maxPreloadedImages;
+    private PreLoader() {
         loadedImages = new ArrayList<>();
         queued = new ArrayList<>();
 
@@ -51,13 +23,14 @@ public class PreLoader {
             @Override
             public void run() {
                 // set priority lower
-                yield();
+                Thread.currentThread().setPriority(MIN_PRIORITY);
 
                 // loading loop
                 while (true) {
                     // sleep
                     try {
                         sleep(1000);
+                        System.out.println(loadedImages.size() + " Images Loaded...");
                     } catch (InterruptedException e) {
                         System.err.println("PreLoader: Loading Thread was interrupted.");
                         return;
@@ -69,7 +42,7 @@ public class PreLoader {
                         continue;
                     }
 
-                    Image loadedImage = loadImage(nextImage);
+                    BufferedImage loadedImage = loadImage(nextImage);
 
                     // check if loading was successful
                     if (loadedImage == null) {
@@ -85,6 +58,13 @@ public class PreLoader {
         loader.start();
     }
 
+    public static PreLoader getPreloadInstance() {
+        if (mPreloadInstance == null) {
+            mPreloadInstance = new PreLoader();
+        }
+        return mPreloadInstance;
+    }
+
     private synchronized String getNextQueued() {
         if (queued.size() > 0) {
             String path = queued.get(0);
@@ -94,18 +74,18 @@ public class PreLoader {
         return null;
     }
 
-    public synchronized void addLoadedImage(String path, Image image) {
+    private synchronized void addLoadedImage(String path, BufferedImage image) {
         loadedImages.add(new LoadedImage(path, image));
-        while (loadedImages.size() > MAX_PRELOADED_IMAGES) {
+        while (loadedImages.size() > MAX_PRELOAD_IMAGES) {
             loadedImages.remove(loadedImages.size() - 1);
         }
         System.out.println(loadedImages.size() + " images loaded");
     }
 
-    public synchronized Image getImage(String path){
-        Image loadedImage = getPreloadedImage(path);
-        if(loadedImage == null){
-            if(queued.contains(path)){
+    public synchronized BufferedImage getImage(String path) {
+        BufferedImage loadedImage = getPreloadedImage(path);
+        if (loadedImage == null) {
+            if (queued.contains(path)) {
                 queued.remove(path);
             }
             loadedImage = loadImage(path);
@@ -119,45 +99,71 @@ public class PreLoader {
         return loadedImage;
     }
 
-    private synchronized Image getPreloadedImage(String path){
-        for(LoadedImage image:loadedImages){
-            if(image.getPath().equals(path)){
+    private synchronized BufferedImage getPreloadedImage(String path) {
+        for (LoadedImage image : loadedImages) {
+            if (image.getPath().equals(path)) {
                 // move the accessed image to index 0
                 loadedImages.remove(image);
-                loadedImages.add(0,image);
+                loadedImages.add(0, image);
                 return image.getImage();
             }
         }
         return null;
     }
 
-    public synchronized void addToQueue(String path){
-        queued.add(0,path);
+    public synchronized void addToQueue(String path) {
+        queued.add(0, path);
         loader.notify();
     }
 
-    private synchronized Image loadImage(String path){
-        Image loadedImage = null;
+    private synchronized BufferedImage loadImage(String path) {
+        BufferedImage loadedImage = null;
         // load the image from the given path
-        if (path.startsWith("http://")) { // http:// URL was specified
+        if (path.startsWith("http://")) {
             try {
-                loadedImage = Toolkit.getDefaultToolkit().getImage(new URL(path));
+                loadedImage = toBufferedImage(Toolkit.getDefaultToolkit().getImage(new URL(path)));
             } catch (MalformedURLException e) {
                 System.err.println("PreLoader: Image could not be loaded from URL, trying to load from file");
-                // try loading from file instead
                 try {
-                    loadedImage = Toolkit.getDefaultToolkit().getImage(path);
+                    loadedImage = toBufferedImage(Toolkit.getDefaultToolkit().getImage(path));
                 } catch (SecurityException se) {
                     System.err.println("PreLoader: Image could also not be loaded from file");
                 }
             }
         } else {
             try {
-                loadedImage = Toolkit.getDefaultToolkit().getImage(path);
+                loadedImage = toBufferedImage(Toolkit.getDefaultToolkit().getImage(path));
             } catch (SecurityException se) {
                 System.err.println("PreLoader: Image could not be loaded from file");
             }
         }
         return loadedImage;
+    }
+
+    public static BufferedImage toBufferedImage(Image img) {
+        if (img == null) return null;
+        if (img instanceof BufferedImage) {
+            return (BufferedImage) img;
+        }
+        int x, y;
+        // Create a buffered image with transparency
+        do {
+            x = img.getWidth(null);
+            y = img.getHeight(null);
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } while (x == -1 || y == -1);
+        BufferedImage bimage = new BufferedImage(x, y, BufferedImage.TYPE_INT_ARGB);
+
+        // Draw the image on to the buffered image
+        Graphics2D bGr = bimage.createGraphics();
+        bGr.drawImage(img, 0, 0, null);
+        bGr.dispose();
+
+        // Return the buffered image
+        return bimage;
     }
 }

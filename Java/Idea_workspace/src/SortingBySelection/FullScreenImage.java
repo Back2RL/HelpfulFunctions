@@ -3,8 +3,6 @@ package SortingBySelection;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 
 public class FullScreenImage extends JFrame {
@@ -16,11 +14,8 @@ public class FullScreenImage extends JFrame {
     private PreLoader loader;
 
 
-    public FullScreenImage(PreLoader loader, String source) {
-        this.loader = loader;
-        if(loader == null){
-            this.loader = new PreLoader(100);
-        }
+    public FullScreenImage(String source) {
+        this.loader = PreLoader.getPreloadInstance();
 
         // Exiting program on window close
         addWindowListener(new WindowAdapter() {
@@ -96,14 +91,11 @@ public class FullScreenImage extends JFrame {
 
     // Program entry
     public static void main(String[] args) throws Exception {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                if (args.length < 1) // by default program will load AnyExample logo
-                    new FullScreenImage(null,"http://www.anyexample.com/i/logo.gif");
-                else
-                    new FullScreenImage(null,args[0]); // or first command-line argument
-            }
+        EventQueue.invokeLater(() -> {
+            if (args.length < 1) // by default program will load AnyExample logo
+                new FullScreenImage("http://www.anyexample.com/i/logo.gif");
+            else
+                new FullScreenImage(args[0]); // or first command-line argument
         });
     }
 
