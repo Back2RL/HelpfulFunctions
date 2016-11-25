@@ -1,7 +1,9 @@
-CFLAGS = -Wall -Wdeclaration-after-statement -Ddebug
-CXXFLAGS = -Wall #-Ddebug
+CFLAGS = -Wall -Wdeclaration-after-statement -Ddebug -pedantic-errors
+CXXFLAGS = -Wall -std=c++11 -pedantic-errors #-Ddebug 
 LDLIBS = -lm
+OBJ= Vektor.o CPUtime.o vektoren.o
 
-vektoren: vektoren.cpp Vektor.o CPUtime.o 
-Vektor.o: Vektor.cpp Headers/Vektor.h
-CPUtime.o: Headers/CPUtime.h CPUtime.cpp
+vektoren: $(OBJ) 
+	g++ -o $@ $(OBJ)
+%.o: %.cpp
+	g++ $(CXXFLAGS) -c %< 
