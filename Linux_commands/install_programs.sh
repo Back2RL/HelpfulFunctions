@@ -4,6 +4,7 @@ sudo apt-get install g++
 sudo apt-get install vim
 sudo apt-get install preload
 sudo apt-get install gthumb
+sudo apt-get install gparted
 #/etc/preload.conf (settings)
 sudo apt-get install htop
 sudo apt-get install cpufrequtils
