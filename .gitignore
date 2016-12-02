@@ -3,3 +3,5 @@
 *.o
 *.swp
 *.directory
+cmake-build-debug/
+.idea/
