@@ -85,7 +85,7 @@ int main(int argc, char *argv[]) {
 		}
 
 		//  Perform some computation.
-		double sum = 0;
+		//double sum = 0;
 		/*
 #pragma omp parallel for reduction(+ : sum)
 for (long long i = 1; i < 1000000000; i++) {

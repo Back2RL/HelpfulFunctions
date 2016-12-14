@@ -6,4 +6,7 @@ OBJ= Vektor.o CPUtime.o vektoren.o
 vektoren: $(OBJ) 
 	g++ -o $@ $(OBJ)
 %.o: %.cpp
-	g++ $(CXXFLAGS) -c %< 
+	g++ $(CXXFLAGS) -c $< 
+
+clean:
+	rm *.o
