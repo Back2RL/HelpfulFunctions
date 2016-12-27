@@ -6,9 +6,9 @@
 #
 for file in *.jpeg
 do
-#	echo $file
+	echo $file
 	basename=`basename $file .jpeg`
-#	echo $basename
+	echo $basename
 	cp $file $basename.jpg
 done
 echo Fertig!
