@@ -56,3 +56,33 @@ for file in `ls`
 do 
 	echo "$file"
 done
+
+ps	#existierende Prozesse
+ps -e	#every (alle)
+ps -ef	#full (ausfürlich)
+ps -efl	#long (vollständig)
+
+pstree	#Prozessbaum
+
+kill -9 #1234 (PID)
+
+at 2130 -f meinSkript #startet meinSkript nach Ablauf der Zeit
+at -l 			#zeigt Prozess in der Warteschlange
+at -d 12		#löscht Prozess an der Position 12 aus der Warteschlange 
+
+jobs	#zeigt laufende Prozesse des Nutzers
+killall #Prozessname (killt alle mit dem Namen)
+
+top	#zeigt Systemasulastung an
+
+nice #option process (Prozessen andere Prioritäten geben)
+
+#Stdin  0
+#stdout 1
+#sterr  2
+
+#z.B.:
+ll > result.txt
+ll 1> result.txt #dasselbe
+ll 2>> errors.log #Fehler umleiten und anhängen
+ll 2>&1 alles.txt #leitet 1 und 2 um

@@ -18,5 +18,16 @@ echo `cat $1 | wc -w`" Wörter"
 echo `cat $1 | wc -m`" Buchstaben"
 
 #b)
-echo `cat $1 | grep *"Müller "*`
-echo `cat $1 | grep -nie müller`
+echo "Müller kommt vor:"
+echo `cat $1 | grep -ne "Müller"`
+
+#c
+echo "Müller ohne Doppelnamen:"
+echo `cat $1 | grep -ne "Müller "`
+
+#d
+echo "Müller groß/klein:"
+echo `cat $1 | grep -ie "müller"`
+
+#e
+echo `cat $1 | grep -n "Sch"*"r "*`

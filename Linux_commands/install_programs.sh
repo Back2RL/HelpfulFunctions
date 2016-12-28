@@ -1,5 +1,7 @@
 #!/bin/bash
 sudo apt-get update
+sudo apt-get install agrep
+sudo apt-get install at
 sudo apt-get install g++
 sudo apt-get install vim
 sudo apt-get install preload
