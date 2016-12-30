@@ -46,6 +46,22 @@ else
 	echo "nothing"
 fi
 
+# Argumente auswerten
+while getopts ":v::f:" opt; do
+  case $opt in
+    v)
+      echo "-v was triggered with $OPTARG!"
+      ;;
+    f)
+      echo "-f was triggered with $OPTARG!"
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG"
+      ;;
+	:)
+	echo "option -$OPTARG requires an argument!"
+  esac
+done
 
 for number in 1 2 3 4 5 6 7 8 9 0
 do
@@ -86,3 +102,39 @@ ll > result.txt
 ll 1> result.txt #dasselbe
 ll 2>> errors.log #Fehler umleiten und anhängen
 ll 2>&1 alles.txt #leitet 1 und 2 um
+
+free	#zeigt RAM-Informationen des Systems an
+
+du -ch ~	#gibt den Speicherverbrauch des Homeverzeichnisses an
+du -ca --block-size MB ~ #all
+du -s --block-size MB ~ #summarize
+
+du -ah ~ | sort -hr | less #sortiert nach Größe
+du -ah ~ | sort -hr | head -n 10 #nur 10 Ergebnisse
+
+sort -fk4 schausteller.txt #Sortiert die Datei nach dem Stadtnamen (ignorecase)
+
+
+touch example.file
+ln example.file hardlink_2_example.file 	#ist danach die selbe Datei, funktioniert nur innerhalb der selben Partition
+ln -s example.file softlink_2_example.file #verweist nur auf die Datei
+
+ls -li 	#zeigt Link informationen an
+du -a | sort -hr #der Hardlink auf example taucht hier nicht auf (selbe Inode-Nr.)
+
+#löschen von hardlinks:
+rm hardlink_2_example.file
+# Datei ist erst dann vollständig gelöscht wenn ALLE Hardlinks gelöscht sind
+
+mkfifo #name #eine neue Pipe mit Namen erstellen, Name ist z.B. ein Verzeichnis
+
+
+newgrp #gruppenname #erstellt eine neu Gruppe
+chown #neuerBesitzer Datei
+chgrp #neueGruppe Datei
+
+#Rechte rwx = 4+2+1
+chmod a+x file	#all
+chmod u+x file	#user
+chmod go-x file	#group and other
+chmod 664 file
