@@ -18,3 +18,5 @@ sudo add-apt-repository ppa:jfi/ppa
 sudo apt-get update
 sudo apt-get install psensor
 sudo sensors-detect
+sudo apt-get install texmaker
+
