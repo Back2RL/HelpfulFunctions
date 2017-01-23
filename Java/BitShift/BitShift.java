@@ -107,11 +107,11 @@ public class BitShift {
 	    System.out.println();
     } 
     
-    public static int getBinaryAtPos(int zahl, int pos) { 
-        int mask = 1 << pos;
+    public static int getBinaryAtPos(int zahl, int pos) {
+		int mask = 1 << pos;
         zahl &= mask;
         zahl >>= pos;
-        return zahl;
+        return Math.abs(zahl);
     } 
     
     
