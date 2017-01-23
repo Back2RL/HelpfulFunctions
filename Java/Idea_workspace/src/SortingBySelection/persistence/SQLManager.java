@@ -1,4 +1,4 @@
-package SQLite;
+package SortingBySelection.persistence;
 
 
 import SortingBySelection.RatedImage;
@@ -86,6 +86,7 @@ public class SQLManager {
         if (conn == null || md5 == null || md5.equals("")) {
             return null;
         }
+
         try (PreparedStatement prep = conn.prepareStatement("select filepath from " + tableName + " where md5 = ?;")) {
             prep.setString(1, md5);
             ResultSet rs = prep.executeQuery();

@@ -1,4 +1,4 @@
-package SortingBySelection;
+package SortingBySelection.logic;
 
 import java.io.*;
 import java.security.MessageDigest;
@@ -17,20 +17,18 @@ public class MD5 {
 		// Change MD5 to SHA1 to get SHA checksum
 		// MessageDigest md = MessageDigest.getInstance("SHA1");
 
-		try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file))) {
+		try (FileInputStream fileInputStream = new FileInputStream(file);
+				BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream)) {
 			byte[] dataBytes = new byte[1024];
-			int nread = 0;
-			while ((nread = bis.read(dataBytes)) != -1) {
-				md.update(dataBytes, 0, nread);
+			int nRead = 0;
+			while ((nRead = bufferedInputStream.read(dataBytes)) != -1) {
+				md.update(dataBytes, 0, nRead);
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			System.err.println(file + " could not be found");
+			System.err.println("MD5: "+ file + " could not be found");
 			return null;
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			return null;
+		} catch (IOException e) {
+			System.err.println("MD5: "+ file + " could not be read");
 		}
 
 		byte[] mdbytes = md.digest();

@@ -1,5 +1,7 @@
 package SortingBySelection;
 
+import SortingBySelection.logic.MD5;
+
 import java.io.File;
 import java.util.Objects;
 

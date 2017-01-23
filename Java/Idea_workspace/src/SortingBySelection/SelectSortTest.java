@@ -1,8 +1,7 @@
 package SortingBySelection;
 
-import SQLite.SQLManager;
+import SortingBySelection.persistence.SQLManager;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -293,16 +292,16 @@ public class SelectSortTest extends JFrame {
         }
 
 
-        // wait until Analyzer has finished analysing
+        // wait until AnalysisManager has finished analysing
         while (directoryAnalyzer.isAlive()) {
             try {
-                System.out.println("Waiting for Analyzer to finish analysing.");
+                System.out.println("Waiting for AnalysisManager to finish analysing.");
                 directoryAnalyzer.join(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        System.out.println("Analyzer has finished analysing.");
+        System.out.println("AnalysisManager has finished analysing.");
 
         System.out.println("Comparison can start:");
         int cnt = 0;
@@ -575,9 +574,12 @@ public class SelectSortTest extends JFrame {
 
         while (true) {
             try {
+				System.out.println("SST: analysing directory: "+analysisDir.getAbsolutePath());
                 for (File currentFile : analysisDir.listFiles()) {
+					System.out.println("SST: "+currentFile.getAbsolutePath());
                     if (!currentFile.canRead() || currentFile.isHidden() || Files.isSymbolicLink(currentFile.toPath())) {
-                        continue;
+						System.out.println("SST: "+currentFile.getAbsolutePath());
+						continue;
                     }
 
                     if (currentFile.isDirectory()) {

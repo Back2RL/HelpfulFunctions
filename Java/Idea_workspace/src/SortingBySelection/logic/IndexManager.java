@@ -1,4 +1,6 @@
-package SortingBySelection;
+package SortingBySelection.logic;
+
+import SortingBySelection.Time;
 
 import java.io.*;
 import java.nio.file.FileAlreadyExistsException;
@@ -7,7 +9,7 @@ import java.util.*;
 
 public class IndexManager {
 	private static final String indexSeperator = ";";
-	private final boolean DEBUG = false;
+	private final boolean DEBUG = true;
 	private boolean bUseMaxFileSize;
 	private long maxFileSize = 100 * 1024; // 100 KB
 
@@ -242,7 +244,7 @@ public class IndexManager {
 				break;
 			}
 		}
-		// System.out.println(allFiles.toString());
+		// System.out.println(files.toString());
 		System.out.println("-----");
 		System.out.println("Number of found files: " + allFiles.size());
 		merge(allFiles);

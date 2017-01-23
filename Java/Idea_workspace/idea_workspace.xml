@@ -95,7 +95,7 @@
   <!-- Project Libraries -->
   
   <path id="library.sqlite-jdbc-3.8.11.2.classpath">
-    <pathelement location="${basedir}/src/SQLite/sqlite-jdbc-3.8.11.2.jar"/>
+    <pathelement location="/SortingBySelection/persistence/sqlite-jdbc-3.8.11.2.jar"/>
   </path>
   <!-- Register Custom Compiler Taskdefs -->
   <property name="javac2.home" value="${idea.home}/lib"/>
