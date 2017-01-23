@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#intern command to check type 
+type #command check if command is intern(built-in shell) or not
+
+#extern command
+which #command check where program is installed
+
 echo 'abc $uvw'	#wird als ein Wort betrachtet
 uvw=stefan
 echo "abc $uvw" #wird als ein Wort betrachtet aber Variablen werden ersetzt
@@ -97,6 +103,9 @@ nice #option process (Prozessen andere Prioritäten geben)
 #stdout 1
 #sterr  2
 
+>  # replace content
+>> # append output
+
 #z.B.:
 ll > result.txt
 ll 1> result.txt #dasselbe
@@ -138,3 +147,12 @@ chmod a+x file	#all
 chmod u+x file	#user
 chmod go-x file	#group and other
 chmod 664 file
+
+ifconfig 	# shows the network-interface information
+arp 	# shows the content of the ARP-cache (Adress Resolution Protocol)
+route 		# shows the IP routing table 
+
+traceroute #windows tracert, nachverfolgen des Pfades eines IP-Pakets
+
+nc -l portno # start netcat using a listening port
+nc address port #start netcat trying to connect to an address with target port
