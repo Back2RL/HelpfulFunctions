@@ -53,9 +53,9 @@ public class AIExampleTrainingTest extends JFrame {
 
     private ArrayList<Creature> actors;
     private GenPool genpool;
-private static final double mutationRate = 0.01;
-    private final static  int numberOfLifeforms = 100;
-    private final static int[] topology = new int[]{1, 2,2, 2};
+    private static final double mutationRate = 0.01;
+    private final static int numberOfLifeforms = 100;
+    private final static int[] topology = new int[]{1, 2, 2, 2};
     private final static double runTime = 10.0;
     private Vec2D targetLocation;
 
@@ -65,8 +65,8 @@ private static final double mutationRate = 0.01;
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         jpnl = new MyPanel();
-        jpnl.setPreferredSize(new Dimension(640,480));
-       // jpnl.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
+        jpnl.setPreferredSize(new Dimension(640, 480));
+        // jpnl.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         // Normalerweise kann ein JPanel keinen Tastaturfokus erhalten.
         // Das ändern wir nun ...
         jpnl.setFocusable(true);
@@ -92,7 +92,7 @@ private static final double mutationRate = 0.01;
                         step(0, d);
                         break;
                 }
-                if(DEBUG)System.out.println(KeyEvent.getKeyText(evt.getKeyCode())); // nur so
+                if (DEBUG) System.out.println(KeyEvent.getKeyText(evt.getKeyCode())); // nur so
             }
 
             @Override
@@ -105,7 +105,7 @@ private static final double mutationRate = 0.01;
         jpnl.addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
-                if(DEBUG)System.out.println("Mouse moved to " + e.getPoint().toString());
+                if (DEBUG) System.out.println("Mouse moved to " + e.getPoint().toString());
                 targetLocation = new Vec2D(e.getPoint().getX(), e.getPoint().getY());
             }
         });
@@ -142,7 +142,7 @@ private static final double mutationRate = 0.01;
                             yield();
                             Thread.currentThread().setPriority(MIN_PRIORITY);
                             while (bIsRunning) {
-                                if(DEBUG)System.out.println("FPS = " + (int) (1.0 / deltaTime));
+                                if (DEBUG) System.out.println("FPS = " + (int) (1.0 / deltaTime));
                                 try {
                                     sleep(1000);
                                 } catch (InterruptedException e) {
@@ -151,7 +151,6 @@ private static final double mutationRate = 0.01;
                         }
                     };
                     fpsDisplayer.start();
-
 
 
                     genpool = new GenPool(numberOfLifeforms, topology);
@@ -210,7 +209,7 @@ private static final double mutationRate = 0.01;
 
                         // TODO: new random targetlocation
 
-                      targetLocation = new Vec2D(Math.random() * screenSize.getWidth(), Math.random() * screenSize.getHeight());
+                        targetLocation = new Vec2D(Math.random() * screenSize.getWidth(), Math.random() * screenSize.getHeight());
 //                        try {
 //                            Robot robot = new Robot(GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice());
 //                            robot.mouseMove((int)(Math.random() * screenSize.getWidth()), (int)(Math.random() * screenSize.getHeight()));
@@ -221,7 +220,7 @@ private static final double mutationRate = 0.01;
 //                        }
 
                         double elapsedTime = 0.0;
-                        if(DEBUG)System.out.println("nextGen");
+                        if (DEBUG) System.out.println("nextGen");
 
                         while (bIsRunning) {
 
@@ -251,9 +250,9 @@ private static final double mutationRate = 0.01;
 
                         }
                         calcFitness();
-                        if(DEBUG)System.out.println(genpool.getBrains().toString());
+                        if (DEBUG) System.out.println(genpool.getBrains().toString());
                         genpool.sortBrains();
-                        if(DEBUG)System.out.println(genpool.getBrains().toString());
+                        if (DEBUG) System.out.println(genpool.getBrains().toString());
                         genpool.setBrains(genpool.getBrains().subList(0, genpool.getBrains().size() / 2));
 
                         int actorNum = actors.size();
@@ -309,9 +308,9 @@ private static final double mutationRate = 0.01;
 
             List<Double> inputVals = new ArrayList<>();
 
-            double angle = Math.acos(actor.getForwardDir().dotProduct(dirToTarget))/Math.PI;
+            double angle = Math.acos(actor.getForwardDir().dotProduct(dirToTarget)) / Math.PI;
 
-            inputVals.add(Math.signum(dotRightToTarget)*angle);
+            inputVals.add(Math.signum(dotRightToTarget) * angle);
 
             actor.learn(inputVals, dt);
 
