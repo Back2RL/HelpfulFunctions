@@ -10,7 +10,7 @@ public class TestingTrees {
 		System.out.println(start);
 		final BinarySearchTree two = new BinarySearchTree();
 
-		two.generateRandomTree(1000000, 1, 1000000, false);
+		two.generateRandomTree(10000000, 1, 1000000000, true);
 		//
 		// final TreeMap<Integer, Byte> test = new TreeMap<>();
 		// for (int i = 0; i < 10000000; ++i) {
