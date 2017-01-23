@@ -16,61 +16,65 @@ using namespace std;
 
 // die Klasse Vektor
 class Vektor {
-	public:
-		// 1. Konstruktor mit Standardwerten (hat keinen Returnwert)
-		Vektor(const double &x = 0, const double &y = 0, const double &z = 0);
+public:
+	// 1. Konstruktor mit Standardwerten (hat keinen Returnwert)
+	Vektor(const double &x = 0, const double &y = 0, const double &z = 0);
 
-		Vektor(const Vektor &v); // 2. Konstruktor zum kopieren
+	Vektor(const Vektor &v); // 2. Konstruktor zum kopieren
 
-		double getX(void) const;
+	double getX(void) const;
 
-		virtual ~Vektor(void) {
+	virtual ~Vektor(void) {
 #ifdef debug
-			std::cout << "Vektor destroyed" << endl;
+		std::cout << "Vektor destroyed" << endl;
 #endif
-		}
-		void setX(const double &x);
+	}
 
-		double getY(void) const;
+	void setX(const double &x);
 
-		void setY(const double &y);
+	double getY(void) const;
 
-		double getZ(void) const;
+	void setY(const double &y);
 
-		void setZ(const double &z);
+	double getZ(void) const;
 
-		double length(void) const;
-		double lengthSquared(void) const;
+	void setZ(const double &z);
 
-		static double dotProduct(const Vektor &v1, const Vektor &v2);
+	double length(void) const;
 
-		void normalize(void);
+	double lengthSquared(void) const;
 
-		Vektor getNormalized(void) const;
+	static double dotProduct(const Vektor &v1, const Vektor &v2);
 
-		bool isZeroVector(void) const;
+	void normalize(void);
 
-		//friend gestattet Zugriff auch auf private Objekte
-		friend Vektor operator+(const Vektor &a, const Vektor &b);
+	Vektor getNormalized(void) const;
 
-		//Ausgabe eines Vektors als stream
-		friend ostream &operator<<(ostream &os, const Vektor &a);
+	bool isZeroVector(void) const;
 
-		friend double operator*(const Vektor &a, const Vektor &b);
+	//friend gestattet Zugriff auch auf private Objekte
+	friend Vektor operator+(const Vektor &a, const Vektor &b);
 
-		//Komutativgesetz muss auch berücksichtigt werden
-		friend Vektor operator*(const Vektor &a, const double &d);
+	//Ausgabe eines Vektors als stream
+	friend ostream &operator<<(ostream &os, const Vektor &a);
 
-		friend Vektor operator*(const double &d, const Vektor &a);
+//	friend istream &operator>>(istream &is, const Vektor &v);
 
-		friend Vektor operator/(const Vektor &a, const double &d);
+	friend double operator*(const Vektor &a, const Vektor &b);
 
-		friend Vektor operator/(const double &d, const Vektor &a);
+	//Komutativgesetz muss auch berücksichtigt werden
+	friend Vektor operator*(const Vektor &a, const double &d);
 
-	private:
-		double x;
-		double y;
-		double z;
+	friend Vektor operator*(const double &d, const Vektor &a);
+
+	friend Vektor operator/(const Vektor &a, const double &d);
+
+	friend Vektor operator/(const double &d, const Vektor &a);
+
+private:
+	double x;
+	double y;
+	double z;
 };
 
 #endif
