@@ -3,78 +3,76 @@
 
 #include <iostream>
 #include <cmath>
+#include "TestInterface.h"
 
 #define SMALL_NUMBER 1E-9
 
-#ifdef debug
-#define DEBUG true
-#else
-#define DEBUG false
-#endif
+//#define debugVektor
 
 using namespace std;
 
 // die Klasse Vektor
-class Vektor {
+class Vektor : public TestInterface {
 public:
-	// 1. Konstruktor mit Standardwerten (hat keinen Returnwert)
-	Vektor(const double &x = 0, const double &y = 0, const double &z = 0);
 
-	Vektor(const Vektor &v); // 2. Konstruktor zum kopieren
+    void printSomething(void) const override;
 
-	double getX(void) const;
+    Vektor(const double &x = 0, const double &y = 0, const double &z= 0);
 
-	virtual ~Vektor(void) {
-#ifdef debug
-		std::cout << "Vektor destroyed" << endl;
-#endif
-	}
+    Vektor(const Vektor &v);
 
-	void setX(const double &x);
+    double getX(void) const;
 
-	double getY(void) const;
+    virtual ~Vektor(void);
 
-	void setY(const double &y);
+    void setX(const double &x);
 
-	double getZ(void) const;
+    double getY(void) const;
 
-	void setZ(const double &z);
+    void setY(const double &y);
 
-	double length(void) const;
+    double getZ(void) const;
 
-	double lengthSquared(void) const;
+    void setZ(const double &z);
 
-	static double dotProduct(const Vektor &v1, const Vektor &v2);
+    double length(void) const;
 
-	void normalize(void);
+    double lengthSquared(void) const;
 
-	Vektor getNormalized(void) const;
+    static double dotProduct(const Vektor &v1, const Vektor &v2);
 
-	bool isZeroVector(void) const;
+    void normalize(void);
 
-	//friend gestattet Zugriff auch auf private Objekte
-	friend Vektor operator+(const Vektor &a, const Vektor &b);
+    Vektor getNormalized(void) const;
 
-	//Ausgabe eines Vektors als stream
-	friend ostream &operator<<(ostream &os, const Vektor &a);
+    bool isZeroVector(void) const;
+
+    //friend gestattet Zugriff auch auf private Objekte
+    friend Vektor operator+(const Vektor &a, const Vektor &b);
+
+    //Ausgabe eines Vektors als stream
+    friend ostream &operator<<(ostream &os, const Vektor &a);
 
 //	friend istream &operator>>(istream &is, const Vektor &v);
 
-	friend double operator*(const Vektor &a, const Vektor &b);
+    friend double operator*(const Vektor &a, const Vektor &b);
 
-	//Komutativgesetz muss auch berücksichtigt werden
-	friend Vektor operator*(const Vektor &a, const double &d);
+    //Komutativgesetz muss auch berücksichtigt werden
+    friend Vektor operator*(const Vektor &a, const double &d);
 
-	friend Vektor operator*(const double &d, const Vektor &a);
+    friend Vektor operator*(const double &d, const Vektor &a);
 
-	friend Vektor operator/(const Vektor &a, const double &d);
+    friend Vektor operator/(const Vektor &a, const double &d);
 
-	friend Vektor operator/(const double &d, const Vektor &a);
+    friend Vektor operator/(const double &d, const Vektor &a);
+
+    // eigener Zuweisungs Operator für flache Kopie (hier nicht wirklich notwendig)
+    Vektor& operator=(const Vektor& other);
 
 private:
-	double x;
-	double y;
-	double z;
+    double x;
+    double y;
+    double z;
 };
 
 #endif
