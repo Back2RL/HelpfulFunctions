@@ -20,7 +20,13 @@ public class AnalysisWorker implements Runnable {
 	volatile boolean abortRequested = false;
 	volatile boolean pauseRequested = false;
 	volatile boolean stopRequested = false;
-	private Thread thread;
+	volatile boolean analysisSucceeded = false;
+
+	public boolean hasAnalysisSucceeded() {
+		return analysisSucceeded;
+	}
+
+	private volatile Thread thread;
 
 	public AnalysisWorker(final File startDirectory) {
 		directories = new ArrayList<>();
@@ -28,7 +34,7 @@ public class AnalysisWorker implements Runnable {
 		files = new ArrayList<>();
 	}
 
-	public Thread getThread() {
+	public synchronized Thread getThread() {
 		return thread;
 	}
 
@@ -80,11 +86,15 @@ public class AnalysisWorker implements Runnable {
 						pendingDirectories.add(currentFile);
 						continue;
 					}
-
-					files.add(currentFile);
+					if (currentFile.isFile()) {
+						files.add(currentFile);
+					} else {
+						System.err.println("Not a file: " + currentFile);
+					}
 				}
 			} catch (NullPointerException e) {
-				System.out.println("Can not access: " + analysisDir.toString() + " : NullPointerException");
+				if (analysisDir != null)
+					System.err.println("Can not access: " + analysisDir.toString());
 			}
 			if (!pendingDirectories.isEmpty()) {
 				analysisDir = pendingDirectories.get(0);
@@ -101,7 +111,9 @@ public class AnalysisWorker implements Runnable {
 				return;
 			}
 		}
-
+		if (!stopRequested) {
+			analysisSucceeded = true;
+		}
 		// System.out.println(files.toString());
 		System.out.println("-----");
 		System.out.println("Number of found files: " + files.size());
@@ -113,7 +125,7 @@ public class AnalysisWorker implements Runnable {
 			while (pauseRequested && !(abortRequested || stopRequested)) {
 				try {
 					System.out.println("AnalysisWorker: pausing...");
-					thread.sleep(1_000L);
+					thread.sleep(10_000L);
 				} catch (InterruptedException e) {
 				}
 			}
@@ -132,6 +144,7 @@ public class AnalysisWorker implements Runnable {
 	public synchronized boolean continueAnalysis() {
 		if (thread.isAlive() && pauseRequested) {
 			pauseRequested = false;
+			thread.interrupt();
 			return true;
 		}
 		return false;
@@ -139,7 +152,7 @@ public class AnalysisWorker implements Runnable {
 
 	public synchronized boolean isAnalyzing() {
 		System.out.println(thread.getName());
-		return thread.isAlive() && !thread.isInterrupted();
+		return thread.isAlive();// && !thread.isInterrupted();
 	}
 
 	private File getDirectory(String path) {

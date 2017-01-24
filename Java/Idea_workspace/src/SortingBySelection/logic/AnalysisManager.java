@@ -1,6 +1,7 @@
 package SortingBySelection.logic;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +24,7 @@ public class AnalysisManager {
 			System.err.println("AnalysisManager: can't start. AnalysisManager is still running. Abort it to start a new Task.");
 			return false;
 		}
-		analysisWorker =new AnalysisWorker(directory);
+		analysisWorker = new AnalysisWorker(directory);
 		analysisWorker.setThread(new Thread(analysisWorker));
 		analysisWorker.getThread().start();
 		return isAnalyzing();
@@ -46,11 +47,15 @@ public class AnalysisManager {
 	}
 
 	public boolean continueAnalysis() {
-			return analysisWorker != null && analysisWorker.isAnalyzing() && analysisWorker.continueAnalysis();
+		return analysisWorker != null && analysisWorker.isAnalyzing() && analysisWorker.continueAnalysis();
 	}
 
-	public List<File> getFiles(){
-		return analysisWorker != null ? analysisWorker.getFiles() : null;
+	public List<File> getFiles() {
+		return analysisWorker != null ? analysisWorker.getFiles() : new ArrayList<>();
+	}
+
+	public boolean hasFinished(){
+		return analysisWorker != null ? analysisWorker.hasAnalysisSucceeded() : false;
 	}
 
 

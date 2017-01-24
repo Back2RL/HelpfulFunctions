@@ -5,7 +5,7 @@ import java.io.File;
 /**
  * Created by leonard on 22.01.17.
  */
-public class Controller {
+public class Controller{
 	private static Controller ourInstance = new Controller();
 
 	public static Controller getInstance() {
@@ -15,38 +15,27 @@ public class Controller {
 	private Controller() {
 	}
 
-	public boolean startAnalyizingDirectory(final File directory) {
+	public boolean startAnalyzingDirectory(final File directory) {
 		return AnalysisManager.getInstance().analyzeDir(directory);
 	}
 
-	public static void main(String args[]){
-		Controller.getInstance().startAnalyizingDirectory(new File("/home"));
+	public static int getFileCount(){
+		return AnalysisManager.getInstance().getFiles().size();
+	}
 
-		try {
-			Thread.sleep(3000		);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+	public static void main(String args[]){
+		Controller.getInstance().startAnalyzingDirectory(new File("/home"));
 		AnalysisManager.getInstance().pauseAnalysis();
-		try {
-			Thread.sleep(3000		);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		System.out.println(AnalysisManager.getInstance().continueAnalysis());
-		try {
-			Thread.sleep(6000		);
-		} catch (InterruptedException e) {
-		}
 		while(AnalysisManager.getInstance().isAnalyzing()){
 			try {
-				Thread.sleep(1000		);
+				Thread.sleep(500		);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			System.out.println(AnalysisManager.getInstance().getFiles().size());
+			System.out.println(getFileCount()+" "+AnalysisManager.getInstance().hasFinished());
 		}
 
+		System.out.println(getFileCount()+" "+AnalysisManager.getInstance().hasFinished());
 	}
-
 }
