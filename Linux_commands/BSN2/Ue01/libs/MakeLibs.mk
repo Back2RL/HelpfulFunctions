@@ -11,4 +11,4 @@ $(LIB): $(OBJ)
 	gcc $(GCC_ARGS) -c -g  $<
 
 clean:
-	rm $(OBJ)
+	rm $(OBJ) $(LIB).a

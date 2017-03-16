@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "file1.h"
-#include "file2.h"
+#include "libs/file1.h"
+#include "libs/file2.h"
 
 
 int scanInt(char *prompt);
