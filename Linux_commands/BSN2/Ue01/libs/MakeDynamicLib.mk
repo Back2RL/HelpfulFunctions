@@ -1,14 +1,14 @@
 #Muster Makefile
 GCC_ARGS = -Wall -ansi -pedantic-errors -Wstrict-prototypes
 OBJ = file1.o file2.o 
-LIB = libtest-static
+LIB = libtest-dynamic
 
 
 $(LIB): $(OBJ)
-	ar rcs $(LIB).a file1.o file2.o
+	gcc -shared -o $(LIB).so $^
 
-%.o: %.c
-	gcc $(GCC_ARGS) -c -g  $<
+%.o: %.c %.h
+	gcc $(GCC_ARGS) -c -g -fpic $^
 
 clean:
-	rm $(OBJ) $(LIB).a
+	rm $(OBJ) $(LIB).so
