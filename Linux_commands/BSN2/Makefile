@@ -1,7 +1,7 @@
 #Muster Makefile
 
 #$<	die erste Abhängigkeit
-#$@	Name des targets
+#$@	Name des Targets
 #$+	eine Liste aller Abhängigkeiten
 #$^	eine Liste aller Abhängigkeiten, wobei allerdings doppelt vorkommende Abhängigkeiten eliminiert wurden.
 
@@ -12,9 +12,8 @@ NAME = Main
 $(NAME): $(OBJ)
 	gcc $(GCC_ARGS) -o $@ $(OBJ)
 
-%.o: %.c
-	gcc $(GCC_ARGS) -c $<
-
+%.o: %.c %.h
+	gcc $(GCC_ARGS) -c $^
 
 clean:
-	rm $(NAME) $(OBJ)
+	rm $(NAME) $(OBJ) *.gch

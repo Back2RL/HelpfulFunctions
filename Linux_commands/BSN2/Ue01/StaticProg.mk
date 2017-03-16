@@ -1,10 +1,10 @@
 GCC_ARGS = -Wall -ansi -pedantic-errors -Wstrict-prototypes
 OBJ = testprog.o 
-NAME = testprogDynamic
-LIB = -L./libs -ltest-dynamic
+NAME = staticTestProg
+LIB = -L./libs -ltest-static
 
 $(NAME): $(OBJ)
-	gcc $(GCC_ARGS) -dynamic -g -o $@ $^  $(LIB) 
+	gcc $(GCC_ARGS) -static -g -o $@ $^  $(LIB) 
 
 %.o: %.c
 	gcc $(GCC_ARGS) -g -c $^ 

@@ -3,6 +3,15 @@
 #include "libs/file1.h"
 #include "libs/file2.h"
 
+/* funktioniert nicht
+#include <file1.h>
+#include <file2.h>
+*/
+
+/* das hier funktioniert auch
+int addSeven(int);
+int addTwo(int);
+*/
 
 int scanInt(char *prompt);
 
