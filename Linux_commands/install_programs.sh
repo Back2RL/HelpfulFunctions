@@ -20,3 +20,6 @@ sudo apt-get install psensor
 sudo sensors-detect
 sudo apt-get install texmaker
 
+sudo add-apt-repository ppa:gezakovacs/ppa
+sudo apt-get update
+sudo apt-get install unetbootin

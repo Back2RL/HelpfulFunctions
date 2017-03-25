@@ -1,0 +1,9 @@
+sudo mkdir /etc/X11/xorg.conf.d
+create file "/etc/X11/xorg.conf.d/20-intel.conf" with following content:
+
+Section "Device"
+   Identifier  "Intel Graphics"
+   Driver      "intel"
+   Option      "AccelMethod" "SNA"
+   Option      "TearFree"    "true"
+EndSection
