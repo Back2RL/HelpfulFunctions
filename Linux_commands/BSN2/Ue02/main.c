@@ -2,14 +2,16 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <assert.h>
 
 #define LOOPS 30000
+#define BUFFERSIZE 1024
 
 int main(int argc, char* args){
-int rc;	
-int fileDescriptor;
+	int rc;	
+	int fileDescriptor;
 	int index;
-	char buffer[1];
+	char buffer[BUFFERSIZE+1];
 
 	printf("1\n");
 	errno = 0;
@@ -81,7 +83,7 @@ int fileDescriptor;
 			perror("Fehler beim schreiben in created.txt");
 		}
 	}
-	
+
 	close(fileDescriptor);
 	printf("5\n");
 
@@ -109,23 +111,29 @@ int fileDescriptor;
 			perror("Datei hallo.txt konnte nicht geöffnet werden");
 		}
 	}
-	
+
 	errno = 0;
-	rc = lseek(fileDescriptor, 0,SEEK_END);
+	rc = lseek(fileDescriptor, -1600,SEEK_END);
 	if(rc < 0){
 		if(errno != 0){
 			perror("Seek in Datei hallo.txt fehlgeschlagen");
 		}
 	}
 	printf("Cursor-Position in der Datei nach dem seek: %d\n", rc); 
-		
+
 	printf("Dateiinhalt von created:\n");
-	while(read(fileDescriptor,buffer,1) == 1){
+	errno = 0;
+	while(rc = read(fileDescriptor,buffer,BUFFERSIZE), rc > 0){
+		buffer[rc] = '\0';		
 		printf("%s", buffer);
+	}
+	if(errno != 0){
+		perror("Fehler beim lesen von hallo.txt");	
 	}
 	printf("\n");
 
 	close(fileDescriptor);
+
 
 	return 0;
 }
