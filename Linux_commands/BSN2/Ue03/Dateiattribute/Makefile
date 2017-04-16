@@ -16,4 +16,4 @@ $(NAME): $(OBJ)
 	gcc $(GCC_ARGS) -c $^
 
 clean:
-	rm $(NAME) $(OBJ) *.gch
+	rm $(NAME) $(OBJ) # *.gch
