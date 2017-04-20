@@ -31,11 +31,11 @@ void alternative_system(int argc, char *args[]);
 int main(int argc, char *args[]) {
 
 	//simpleFork();
-	//chain(50);
-	//singleParent(50);
+	//chain(200);
+	singleParent(50);
 	//childParentWriting();
 
-	forkExec(argc, args);
+	//forkExec(argc, args);
 	//alternative_system(argc, args);
 
 	return 0;
@@ -50,8 +50,7 @@ void simpleFork() {
 		printf("return code of fork: %d\n", pid);
 		printf("Child pid: %d\n", getpid());
 		printf("Childs ppid: %d\n", getppid());
-	}
-	if (pid == 0) {
+	} else if (pid == 0) {
 		// Child
 		printf("Kind:\n");
 		printf("Kind: return code of fork: %d\n", pid);
@@ -112,8 +111,7 @@ void chain(int numChilds) {
 			printf("return code of fork: %d\n", pid);
 			printf("Child pid: %d\n", getpid());
 			printf("Childs ppid: %d\n", getppid());
-		}
-		if (pid == 0) {
+		} else if (pid == 0) {
 			// Child
 			printf("Kind:\n");
 			printf("Kind: chain number: %d\n", index + 1);
@@ -169,14 +167,14 @@ void singleParent(int numChilds) {
 			printf("return code of fork: %d\n", pid);
 			printf("Child pid: %d\n", getpid());
 			printf("Childs ppid: %d\n", getppid());
-		}
-		if (pid == 0) {
+		} else if (pid == 0) {
 			// Child
 			printf("Kind:\n");
 			printf("Kind: chain number: %d\n", index + 1);
 			printf("Kind: return code of fork: %d\n", pid);
 			printf("Kind: pid: %d\n", getpid());
 			printf("Kind: ppid: %d\n", getppid());
+			//sleep(60);
 			break;
 		} else {
 			// Parent
@@ -246,8 +244,7 @@ void childParentWriting() {
 		printf("return code of fork: %d\n", pid);
 		printf("Child pid: %d\n", getpid());
 		printf("Childs ppid: %d\n", getppid());
-	}
-	if (pid == 0) {
+	} else if (pid == 0) {
 		// Child
 		printf("Kind:\n");
 		printf("Kind: return code of fork: %d\n", pid);
@@ -325,8 +322,7 @@ void forkExec(int argc, char *args[]) {
 			printf("return code of fork: %d\n", pid);
 			printf("Child pid: %d\n", getpid());
 			printf("Childs ppid: %d\n", getppid());
-		}
-		if (pid == 0) {
+		} else if (pid == 0) {
 			// Child
 			printf("Kind:\n");
 			printf("Kind: chain number: %d\n", index + 1);
