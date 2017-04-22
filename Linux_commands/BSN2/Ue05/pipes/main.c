@@ -3,43 +3,46 @@
 #include <stdio.h>
 #include <wait.h>
 #include <memory.h>
+#include <stdlib.h>
 #include <ctype.h>
 
 #define READ 0
 #define WRITE 1
+#define BUFFER_LEN 12
 
 // Ue04 Aufg. 3
-void simpleFork();
+void childParentCommunicationWithPipes();
 
 void checkChildExitStatus(int status, int childPID);
 
-
 int main(int argc, char *args[]) {
 
-	simpleFork();
+	childParentCommunicationWithPipes();
 
-	return 0;
+	return EXIT_SUCCESS;
 }
 
-void simpleFork() {
-	pid_t pid;
-
+void childParentCommunicationWithPipes() {
 	// pipes
 	int pipeParent2Child[2];
 	int pipeChild2Parent[2];
 
-	// create 1. pipe
+	pid_t pid;
+
+	// create pipe for writing to child-process
 	errno = 0;
 	if (pipe(pipeParent2Child) == -1 || errno != 0) {
 		perror("Fehler beim Erzeugen der 1. Pipe");
+		exit(EXIT_FAILURE);
 	}
-	// create 2. pipe
+	// create pipe for reading from child-process
 	errno = 0;
 	if (pipe(pipeChild2Parent) == -1 || errno != 0) {
 		perror("Fehler beim Erzeugen der 2. Pipe");
-		return;
+		exit(EXIT_FAILURE);
 	}
 
+	// create child process
 	errno = 0;
 	pid = fork();
 	if (pid == -1 || errno != 0) {
@@ -47,6 +50,7 @@ void simpleFork() {
 		printf("return code of fork: %d\n", pid);
 		printf("Child pid: %d\n", getpid());
 		printf("Childs ppid: %d\n", getppid());
+		exit(EXIT_FAILURE);
 	} else if (pid == 0) {
 		// Child
 		printf("Kind:\n");
@@ -54,35 +58,57 @@ void simpleFork() {
 		printf("Kind: pid: %d\n", getpid());
 		printf("Kind: ppid: %d\n", getppid());
 
+		// close unused pipe end for reading
 		errno = 0;
 		if (close(pipeParent2Child[WRITE]) == -1 || errno != 0) {
 			perror("Fehler beim Schließen der Schreiböffnung der Lese-Pipe im Child;");
+			exit(EXIT_FAILURE);
 		}
+		// close unused pipe end for writing
 		errno = 0;
 		if (close(pipeChild2Parent[READ]) == -1 || errno != 0) {
 			perror("Fehler beim Schließen der Leseöffnung der Schreib-Pipe im Child;");
+			exit(EXIT_FAILURE);
 		}
 
-		{
-			char zeile[1024];
-			do {
-				int n = (int) read(pipeParent2Child[READ], zeile, 1024);
-				printf("Kind hat %d Zeichen empfangen\n", n);
-				zeile[n] = '\0';
-				printf("Kind Stringlen = %d\n", (int) strlen(zeile));
-				if (n > 10) {
-					for (int i = 0; i < n; i++) {
-						if (zeile[i] == '\0' || zeile[i] == '\n') continue;
-						zeile[i] = (char) toupper(zeile[i]); // in Großbuchstabe wandeln
-					}
-					printf("Hier Kind, Zeile in GROSS: %s", zeile);
-					write(pipeChild2Parent[WRITE], zeile, strlen(zeile));
-				} else if (errno != 0) {
-					perror("Fehler beim Lesen aus der Pipe");
-					break;
-				} else break;
-			} while (1);
-		}
+		do {
+			char line[BUFFER_LEN];
+			int bytesReceived;
+
+			// read message from parent
+			errno = 0;
+			bytesReceived = (int) read(pipeParent2Child[READ], line, BUFFER_LEN);
+			if (bytesReceived == -1 || errno != 0) {
+				perror("Fehler beim Lesen aus der Pipe im Child");
+				exit(EXIT_FAILURE);
+			} else if (bytesReceived == 0) {
+				break;
+			}
+
+			// append 0 to turn line into valid string
+			line[bytesReceived] = '\0';
+			printf("Hier Kind, empfangen %d\n", bytesReceived);
+
+			// turn string to uppercase
+			if (bytesReceived > 10) {
+				for (int i = 0; i < bytesReceived; ++i) {
+					line[i] = (char) toupper(line[i]); // in Großbuchstabe wandeln
+				}
+			} else {
+				printf("Hier Kind, Nachricht ist zu kurz\n");
+				break;
+			} // abort if to short messages were received
+
+			printf("Hier Kind, Zeile in GROSS: %s\n", line);
+
+			// send String to parent
+			errno = 0;
+			if (write(pipeChild2Parent[WRITE], line, strlen(line)) == -1 || errno != 0) {
+				perror("Fehler beim Schreiben in die Pipe im Child");
+				exit(EXIT_FAILURE);
+			}
+		} while (1);
+
 		printf("Child Ende...\n");
 
 		errno = 0;
@@ -98,46 +124,72 @@ void simpleFork() {
 		// Parent
 		int childPID = pid;
 		int status;
+
 		printf("Parent:\n");
 		printf("Parent: return code of fork: %d\n", pid);
 		printf("Parent: pid: %d\n", getpid());
 		printf("Parent: ppid: %d\n", getppid());
 
+		// close unused pipe end for writing
 		errno = 0;
 		if (close(pipeChild2Parent[WRITE]) == -1 || errno != 0) {
 			perror("Fehler beim Schließen der Schreiböffnung der Lese-Pipe im Parent;");
 		}
 		errno = 0;
+		// close unused pipe end for reading
 		if (close(pipeParent2Child[READ]) == -1 || errno != 0) {
 			perror("Fehler beim Schließen der Leseöffnung der Schreib-Pipe im Parent;");
 		}
 
-		{
-			char zeile[1024];
-			size_t textLenRead;
-			ssize_t textLenSend;
-			size_t textLenReceived;
-			do {
-				printf("Hier Vater, bitte Zeile eingeben: ");
-				fgets(zeile, 1024, stdin);
-				textLenRead = strlen(zeile);
-				errno = 0;
-				textLenSend = write(pipeParent2Child[WRITE], zeile, textLenRead);
-				if (textLenSend == -1 || errno != 0) {
-					perror("Fehler beim Screiben im Parent");
-				}
+		do {
+			char line[BUFFER_LEN];
+			int bytesRead;
+			int bytesSend;
+			int bytesReceived;
 
-				if (read(pipeChild2Parent[READ], zeile, 1024) > 0) {
-					textLenReceived = strlen(zeile);
-					printf("Eingelesen %d; Gesendet %d; Empfangen %d\n", (int) textLenRead, (int) textLenSend,
-						   (int) textLenReceived);
-					printf("Hier Vater, gelesen: %s", zeile);
-				} else if (errno != 0) {
-					perror("Fehler beim Lesen aus der Pipe");
-					break;
-				} else break;
-			} while (1);
-		}
+			printf("Hier Vater, bitte Zeile eingeben: ");
+
+			// read user input from console
+			errno = 0;
+			if (fgets(line, BUFFER_LEN, stdin) == NULL || errno != 0) {
+				perror("Fehler beim Lesen von stdin im Parent");
+				exit(EXIT_FAILURE);
+			}
+
+			bytesRead = (int) strlen(line);
+			// make sure stdin is empty in case buffer has been filled completely
+			if(bytesRead == BUFFER_LEN-1){
+				while( getchar() != '\n');
+			}
+			printf("Hier Vater, Eingelesen %d;\n", bytesRead);
+
+			errno = 0;
+			bytesSend = (int) write(pipeParent2Child[WRITE], line, (size_t) bytesRead);
+			if (bytesSend == -1 || errno != 0) {
+				perror("Fehler beim Schreiben in die Pipe im Parent");
+				exit(EXIT_FAILURE);
+			}
+
+			printf("Hier Vater, Gesendet %d\n", bytesSend);
+
+			// read message from child
+			errno = 0;
+			bytesReceived = (int) read(pipeChild2Parent[READ], line, BUFFER_LEN);
+			if (bytesReceived == -1 || errno != 0) {
+				perror("Fehler beim Lesen aus der Pipe im Parent");
+				exit(EXIT_FAILURE);
+			} else if (bytesReceived == 0) {
+				break;
+			}
+			// append 0 to turn line into valid string
+			line[bytesReceived] = '\0';
+
+			printf("Hier Vater, Empfangen %d\n", bytesReceived);
+			printf("Hier Vater, gelesen: %s\n", line);
+
+		} while (1);
+
+		printf("Parent Ende...\n");
 
 		errno = 0;
 		if (close(pipeChild2Parent[READ]) == -1 || errno != 0) {
@@ -148,7 +200,7 @@ void simpleFork() {
 			perror("Fehler beim Schließen der Schreiböffnung im Parent;");
 		}
 
-
+		// wait for child to disappear
 		errno = 0;
 		pid = waitpid(childPID, &status, 0);
 		if (pid == -1 || errno != 0) {
