@@ -1,28 +1,24 @@
-// vim: ts=4 sw=4
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
-#include <sys/select.h>
 #include <signal.h>
-#include "readline.c"
 #include <errno.h>
+#include "readline.h"
 
-#include "snp.h"
-
-#define MAX(a,b)	((a) > (b)) ? (a) : (b)
-#define	MAXLEN 256
+#define    MAXLEN 256
 
 void usage(char *progname);
+
 void chat(int sd);
+
 int empfangen(int sd, char *buffer, int maxlen);
+
 int senden(int sd, char *buffer);
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
 	int sd;
 	struct sockaddr_in adresse; /* Internet-Adress-Struktur */
 	u_short port = 48556;
@@ -32,8 +28,8 @@ int main(int argc, char *argv[])
 	int optchar;
 
 	opterr = 0;
-	while(optchar = getopt(argc, argv, "p:"), optchar != -1) {
-		switch(optchar) {
+	while (optchar = getopt(argc, argv, "p:"), optchar != -1) {
+		switch (optchar) {
 			case 'p': /* Portnummer setzen */
 				rc = sscanf(optarg, "%hu", &port);
 				if (rc != 1)
@@ -69,7 +65,7 @@ int main(int argc, char *argv[])
 	}
 	adresse.sin_addr = *(struct in_addr *) server->h_addr;
 
-	if (connect(sd, (struct sockaddr *)&adresse, sizeof(adresse)) < 0) {
+	if (connect(sd, (struct sockaddr *) &adresse, sizeof(adresse)) < 0) {
 		perror("connect");
 		exit(1);
 	}
@@ -80,16 +76,14 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
-void usage(char *progname)
-{
+void usage(char *progname) {
 	printf("Usage: %s [Optionen] Hostname\n", progname);
 	printf("Optionen:\n");
 	printf("\t-p #\tPortnummer setzen (default: 48556)\n");
 	exit(1);
 }
 
-void chat(int sd)
-{
+void chat(int sd) {
 	int rc;
 	char buffer[MAXLEN];
 	fd_set bereit;
@@ -106,7 +100,7 @@ void chat(int sd)
 	/* Warten auf den Start der Kommunikation
 	 * Wir nutzen select um jede Sekunde einen Punkt auszugeben ...
 	 */
-	while(1) {
+	while (1) {
 		struct timeval zeit;
 
 		FD_ZERO(&bereit);
@@ -130,93 +124,38 @@ void chat(int sd)
 		printf("\n");
 		break;
 	}
-
 	/* Der Socket ist nun bereit zur Kommunikation */
-
-	if(empfangen(sd, buffer, MAXLEN) <= 0) {
-		exit(1);
-	}
-	rc = write(1, buffer, strlen(buffer));
-	if (rc < 0) {
-		perror("write");
+	if (empfangen(sd, buffer, MAXLEN) <= 0) {
 		exit(1);
 	}
 
-	while(1) {
-		fd_set bereit;
-
-		FD_ZERO(&bereit);
-		FD_SET( 0, &bereit);
-		FD_SET(sd, &bereit);
-
-		rc = select(MAX( 0, sd) + 1 , &bereit, NULL, NULL, NULL);
-		if (rc < 0) {
-			if (errno == EINTR) 
-				continue;
-			perror("select");
-			exit(1);
-		}
-
-		if (rc == 0)
-			continue;
-
-		if (FD_ISSET(sd, &bereit)) {
-			/* Erst einmal empfangen (kann auch EOF sein!) */
-			if (empfangen( sd, buffer, MAXLEN) <= 0) {
-				/* Server ist nicht mehr erreichbar - Ende der Kommunikation */
-				break;
-			}
-			if ( write(1, buffer, strlen(buffer)) < 0 ) {
-				perror("write");
-				exit(1);
-			}
-			continue;		
-		}
-
-		if (FD_ISSET(0, &bereit)) {
-			rc = readline(0, buffer, MAXLEN-1);
-			if (rc < 0) { /* Fehler -> Ausgabe */
-			perror("readline");
-			exit(1);
-			}
-			*(buffer+rc) = (char) 0; /* String erstellen */
-			if (strcasecmp(buffer, "quit\n") == 0) 
-				break;
-
-			if(senden(sd, buffer) < 0) {
-				perror("senden");	
-				exit(1);
-			}
-		}
-	}
 }
 
 /* Empfangen einer Zeile über einen Deskriptor
  * Rückgabe: Zeichenanzahl > 0 / 0 bei EOF / -1 bei Fehler
  */
-int empfangen(int in, char *buffer, int maxlen)
-{
+int empfangen(int in, char *buffer, int maxlen) {
 	int rc;
 
-	rc = readline(in, buffer, maxlen-1);
+	rc = readline(in, buffer, maxlen - 1);
 	if (rc <= 0) { /* Fehler oder EOF */
 		if (rc < 0) /* Fehler -> Ausgabe */
 			perror("read");
 		return rc;
 	}
-	*(buffer+rc) = (char) 0; /* String erstellen */
+	*(buffer + rc) = (char) 0; /* String erstellen */
 	return rc;
 }
 
 /* Senden einer Zeichenkette über einen Deskriptor
  * Rückgabe: 0 für okay / -1 bei Fehler oder EOF (EPIPE)
  */
-int senden(int out, char *buffer)
-{
+int senden(int out, char *buffer) {
 	int rc;
 
-	rc = write(out, buffer, strlen(buffer));
-	if (rc < 0) {
+	errno = 0;
+	rc = (int) write(out, buffer, strlen(buffer));
+	if (rc == -1 || errno != 0) {
 		if (errno != EPIPE) /* Wenn nicht EPIPE: Fehlerausgabe */
 			perror("write");
 		return -1;
