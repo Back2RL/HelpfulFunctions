@@ -9,24 +9,29 @@ fi
 CONFIG_FILE="auto_CPU_Freq.conf"
 
 TARGET_TEMP=$1
+MAX_DELTA_WARMER=5
 
 if [ $TARGET_TEMP -gt 80 ]; then TARGET_TEMP=80; fi
 if [ $TARGET_TEMP -lt 40 ]; then TARGET_TEMP=40; fi
 
 echo "Target Temperature = $TARGET_TEMP°C"
 
-MAX_ALLOWED_TEMP=72
+let MAX_ALLOWED_TEMP=$TARGET_TEMP+$MAX_DELTA_WARMER
 
-MEASUREMENTS=10
-INTERVAL=3
+MEASUREMENTS=29
+INTERVAL=2
 
 P=-50
 I=-25
-D=-100
+D=50
 
 AVG_ERROR=1
 OLD_AVG_ERROR=1
 CUML_ERROR=1600
+
+FREQ=1600
+bash ./setCPUFreqs.sh 0 $FREQ
+
 
 if [ -f "$CONFIG_FILE" ]
 then
@@ -59,18 +64,23 @@ while [ 0 ]
 do
 	clear
 
-	READ_TEMPS=`sensors -u | grep temp._input | sed -n "$TEMPS"p | cut -d' ' -f4 | cut -d'.' -f1`
 	
 	OK=0
 	CNT=0
 	SUM=0
-	I=0	
+	INDEX=0	
 	
-	while [ $I -lt $MEASUREMENTS ]
+	while [ $INDEX -lt $MEASUREMENTS ]
 	do
  		clear
-		let I+=1
-		echo "$I/$MEASUREMENTS"
+		let INDEX+=1
+		AVG=`bc <<< "scale=3; $SUM / $CNT"`
+		AVG_ERROR=`bc <<< "scale=3;$AVG - $TARGET_TEMP"`
+		echo "$INDEX/$MEASUREMENTS   CPU-Freq = $FREQ Mhz"
+		echo "Average: $AVG°C; Difference = $AVG_ERROR°C"
+		echo
+
+		READ_TEMPS=`sensors -u | grep temp._input | sed -n "$TEMPS"p | cut -d' ' -f4 | cut -d'.' -f1`
 
 		for T in $READ_TEMPS
 		do
@@ -86,20 +96,17 @@ do
 			let CNT+=1
 			let SUM+=$T	
 		done
+	
+		if [ $OK -eq -1 ]
+		then
+			break
+		fi
 		
 		sleep $INTERVAL
 	done
-	
-
-	if [ $OK -eq -1 ]
-	then
-		bash ./setCPUFreqs.sh 0 0
-	else
-		clear
 		OLD_AVG_ERROR=$AVG_ERROR
 		AVG=`bc <<< "scale=3; $SUM / $CNT"`
 		AVG_ERROR=`bc <<< "scale=3;$AVG - $TARGET_TEMP"`
-		echo "Average: $AVG°C; Difference = $AVG_ERROR°C"
 
 		PTerm=`bc <<< "scale=3;$P * $AVG_ERROR"`
 		echo "P Result = $PTerm"
@@ -109,9 +116,14 @@ do
 		echo "I Result = $CUML_ERROR; increased by $CUML_ADD"
 
 		TMP=`cut -d'.' -f1 <<< "$OLD_AVG_ERROR"`
-		if [ $TMP != 0 ]
+		if [ "$TMP" != "" ]
+		then
+		if [ $TMP -ne 0 ]
 		then
 			DTerm=`bc <<< "scale=3;($AVG_ERROR / $OLD_AVG_ERROR) * $D"`
+		else
+			DTerm=0
+		fi
 		else
 			DTerm=0
 		fi
@@ -121,7 +133,8 @@ do
 		RESULT=`bc <<< "$PTerm + $CUML_ERROR + $DTerm"`
 		RESULT=`cut -d'.' -f1 <<< "$RESULT"`
 		echo "Result of PID: $RESULT"
-
+		
+		FREQ=$RESULT
 		bash ./setCPUFreqs.sh 0 $RESULT
 	
 		CUML_ERROR=`cut -d'.' -f1 <<< "$CUML_ERROR"`
@@ -134,6 +147,6 @@ do
 			CUML_ERROR=1
 		fi
 
-		sleep 5
-	fi
+		sleep $INTERVAL
+	
 done 
