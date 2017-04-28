@@ -1,6 +1,10 @@
 #!/bin/bash
 #sudo cpufreq-set -g userspace
 
+# lower priority of this process
+#echo "my PID = $$"
+#renice 10 -p $$
+
 if [ $# -ne 2 ]
 then
 	echo "arguments missing: [min freq] [max freq] (in Mhz)"
@@ -67,8 +71,17 @@ for CORE in 0 1 2 3
 do
 	#sudo cpufreq-set --cpu "$CORE" -g powersave && echo "set governor for core $CORE"
 	sudo cpufreq-set --cpu "$CORE" --min "$min"Khz # && echo "set min freq for core $CORE"
+	RC=$?
+	if [ $RC -ne 0 ]; then 
+		echo "Returncode = $RC"
+		exit $RC
+ 	fi
 	sudo cpufreq-set --cpu "$CORE" --max "$max"Khz # && echo "set max freq for core $CORE"
-
+	RC=$?
+	if [ $RC -ne 0 ]; then 
+		echo "Returncode = $RC"
+		exit $RC
+ 	fi
 done
 
 #sudo cpufreq-set -f 480Mhz
@@ -76,3 +89,8 @@ done
 #sudo cpufreq-info 
 #sudo cpufreq-info -l 
 sudo cpufreq-info -p
+RC=$?
+if [ $RC -ne 0 ]; then 
+	echo "Returncode = $RC"
+	exit $RC
+fi
