@@ -6,7 +6,7 @@
 #include <netdb.h>
 #include <signal.h>
 #include <errno.h>
-#include "readline.h"
+#include <readline.h>
 
 #define    MAXLEN 256
 
