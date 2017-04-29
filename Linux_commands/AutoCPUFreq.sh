@@ -1,8 +1,86 @@
 #!/bin/bash
 
-# lower priority of this process
-echo "my PID = $$"
-renice 19 -p $$
+# set priority of this process, arguments: [-20 to 19]
+function setProcessPriority {
+	renice $1 -p $$
+}
+
+# call like this: "checkIsInteger $varToCheck"
+# prints 0 for true, 1 for false
+function checkIsInteger {
+	re='^[0-9]+$'
+	if ! [[ $1 =~ $re ]] ; then
+		echo 1
+	else	
+		echo 0
+	fi
+}
+
+# call like this: "checkIsFloat $varToCheck"
+# prints 0 for true, 1 for false
+function checkIsFloat {
+	re='^-?[0-9]+([.][0-9]+)?$'
+	if ! [[ $1 =~ $re ]] ; then
+		echo 1
+	else	
+		echo 0
+	fi
+}
+
+# call like this: "checkIsPosFloat $varToCheck"
+# prints 0 for true, 1 for false
+function checkIsPosFloat {
+	re='^[0-9]+([.][0-9]+)?$'
+	if ! [[ $1 =~ $re ]] ; then
+		echo 1
+	else	
+		echo 0
+	fi
+}
+
+# call like this: "loadOption filePath optionName delemiterChar"
+# prints the loaded option
+function loadOption {
+	# TODO: check for valid arguments
+	# TODO: reg exp: make sure line starts followed by optionname e.g. ^optionname=*$
+	local READ=`grep -a -m 1 -h -r "^$2$3.*$" "$1" | head -1`
+	local VALUE=`echo $READ | cut -d'=' -f2 `
+	echo "$VALUE"
+}
+
+
+echo "Option opt is Integer and has the value: $VALUE"
+
+function loadSettings {
+	echo "Settings-file exists"
+	
+#	VALUE=`loadOption ./settings.txt opt =`
+#	RC=`checkIsInteger $VALUE` 
+#	if [ "$RC" -ne 0 ]; then
+#		echo "Error reading Option \"$OPT\""
+#		exit 1
+#	fi
+
+	TEMPS=`sed -n '1p' "$CONFIG_FILE"`
+	echo "Temperature entries $TEMPS will be used"
+	echo "Do you want to change the settings?"
+
+	OPTIONS="Change Continue"
+        select opt in $OPTIONS; do
+        	if [ "$opt" = "Change" ]; then
+			rm "$CONFIG_FILE"
+			echo "Please restart the script"
+			exit 0
+        	elif [ "$opt" = "Continue" ]; then
+			break
+        	else
+                   	echo "Bad Option"
+		fi
+	done
+}
+
+setProcessPriority 19
+
 
 if [ $# -ne 1 ]
 then
@@ -41,23 +119,13 @@ MIN_FREQ=480
 MAX_FREQ=2560
 
 # initialize CPU-Frequency
-bash ./setCPUFreqs.sh "$FREQ" "$FREQ"
+bash ./setCPUFreqs.sh 0 $FREQ
 
 # check if Config-File exists
 # TODO: write all settings to config file and reimport them on next start
 if [ -f "$CONFIG_FILE" ]
 then
-	echo "Settings-file exists"
-	TEMPS=`sed -n '1p' "$CONFIG_FILE"`
-	echo "Temperature entries $TEMPS will be used"
-	echo "Do you want to change this (y/n)?"
-	read CHANGE
-	if [ "$CHANGE" == "y" ]
-	then
-		rm "$CONFIG_FILE"
-		echo "Please restart the script"
-		exit 0
-	fi
+	loadSettings
 else
 	echo "Settings-file does not exist"
 	echo "You will be shown a list of sensors now:"
