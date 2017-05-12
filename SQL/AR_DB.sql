@@ -1,153 +1,145 @@
-drop database AR;
-create database AR;
-use AR;
+drop database ar;
+create database ar;
+use ar;
+set time_zone = "+00:00";
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
-CREATE TABLE if not exists user
+create table if not exists user
 (
-  id int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  name varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
-  password varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  created datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  lastonline datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (id),
-  UNIQUE KEY name_uniq (name)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  id int(10) unsigned not null auto_increment,
+  name varchar(128) collate utf8mb4_unicode_ci not null,
+  password varchar(256) collate utf8mb4_unicode_ci not null,
+  created datetime not null default current_timestamp,
+  lastonline datetime default current_timestamp,
+  primary key (id),
+  unique key name_uniq (name)
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 
-CREATE TABLE session
+create table session
 (
-  id int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  user int(11) unsigned NOT NULL,
-  begin datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  end datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  id int(10) unsigned not null auto_increment,
+  user int(11) unsigned not null,
+  begin datetime not null default current_timestamp,
+  updated datetime not null default current_timestamp,
   primary key (id),
   foreign key user_fk (user) references user(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 
-CREATE TABLE ItemName
+create table itemname
 (
-  name varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
+  name varchar(128) collate utf8mb4_unicode_ci not null,
   primary key (name)
 );
 
-CREATE TABLE Prefix
+create table prefix
 (
-  id int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  name varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (id)
+  id int(10) unsigned not null auto_increment,
+  name varchar(128) collate utf8mb4_unicode_ci not null,
+  primary key (id)
 );
 
-CREATE TABLE Suffix
+create table suffix
 (
-  id int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  name varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (id)
+  id int(10) unsigned not null auto_increment,
+  name varchar(128) collate utf8mb4_unicode_ci not null,
+  primary key (id)
 );
 
-CREATE TABLE Effect
+create table effect
 (
-  Name INT NOT NULL,
-  PRIMARY KEY (Name)
+  name varchar(128) collate utf8mb4_unicode_ci not null,
+  primary key (name)
 );
 
-CREATE TABLE ItemType
+create table itemtype
 (
-  Name INT NOT NULL,
-  PRIMARY KEY (Name)
+  name varchar(128) collate utf8mb4_unicode_ci not null,
+  primary key (name)
 );
 
-CREATE TABLE AttributeType
+create table attributetype
 (
-  Name INT NOT NULL,
-  PRIMARY KEY (Name)
+  name varchar(128) collate utf8mb4_unicode_ci not null,
+  primary key (name)
 );
 
-CREATE TABLE is
+create table item_has_types
 (
-  Name INT NOT NULL,
-  Name INT NOT NULL,
-  PRIMARY KEY (Name, Name),
-  FOREIGN KEY (Name) REFERENCES ItemName(Name),
-  FOREIGN KEY (Name) REFERENCES ItemType(Name)
+  item varchar(128) collate utf8mb4_unicode_ci not null,
+  itemtype varchar(128) collate utf8mb4_unicode_ci not null,
+  primary key (item, itemtype),
+  foreign key (item) references itemname(name),
+  foreign key (itemtype) references itemtype(name)
 );
 
-CREATE TABLE Item
+create table item
 (
-  ID INT NOT NULL,
-  ID INT,
-  Name INT NOT NULL,
-  ID INT,
-  ID INT,
-  PRIMARY KEY (ID),
-  FOREIGN KEY (ID) REFERENCES User(ID),
-  FOREIGN KEY (Name) REFERENCES ItemName(Name),
-  FOREIGN KEY (ID) REFERENCES Prefix(ID),
-  FOREIGN KEY (ID) REFERENCES Suffix(ID)
+  id int(10) unsigned not null auto_increment,
+  owner int(10) unsigned not null,
+  name varchar(128) collate utf8mb4_unicode_ci not null,
+  prefix int(10) unsigned not null,
+  suffix int(10) unsigned not null,
+  primary key (id),
+  foreign key (owner) references user(id),
+  foreign key (name) references itemname(name),
+  foreign key (prefix) references prefix(id),
+  foreign key (suffix) references suffix(id)
 );
 
-CREATE TABLE Attribute
+create table attribute
 (
-  ID INT NOT NULL,
-  Value INT NOT NULL,
-  Min INT NOT NULL,
-  Max INT NOT NULL,
-  Name INT NOT NULL,
-  PRIMARY KEY (ID),
-  FOREIGN KEY (Name) REFERENCES AttributeType(Name)
+  id int(10) unsigned not null auto_increment,
+  value int(10) not null,
+  min int(10) not null,
+  max int(10) not null,
+  name varchar(128) collate utf8mb4_unicode_ci not null,
+  primary key (id),
+  foreign key (name) references attributetype(name)
 );
 
-CREATE TABLE grants
+create table prefix_gives
 (
-  ID INT NOT NULL,
-  ID INT NOT NULL,
-  PRIMARY KEY (ID, ID),
-  FOREIGN KEY (ID) REFERENCES Prefix(ID),
-  FOREIGN KEY (ID) REFERENCES Attribute(ID)
+  prefix int(10) unsigned not null auto_increment,
+  attribute int(10) unsigned not null,
+  primary key (prefix, attribute),
+  foreign key (prefix) references prefix(id),
+  foreign key (attribute) references attribute(id)
 );
 
-CREATE TABLE grants
+create table suffix_gives
 (
-  ID INT NOT NULL,
-  ID INT NOT NULL,
-  PRIMARY KEY (ID, ID),
-  FOREIGN KEY (ID) REFERENCES Suffix(ID),
-  FOREIGN KEY (ID) REFERENCES Attribute(ID)
+  suffix int(10) unsigned not null auto_increment,
+  attribute int(10) unsigned not null,
+  primary key (suffix, attribute),
+  foreign key (suffix) references suffix(id),
+  foreign key (attribute) references attribute(id)
 );
 
-CREATE TABLE grants
+create table itemtype_gives
 (
-  Name INT NOT NULL,
-  ID INT NOT NULL,
-  PRIMARY KEY (Name, ID),
-  FOREIGN KEY (Name) REFERENCES ItemType(Name),
-  FOREIGN KEY (ID) REFERENCES Attribute(ID)
+  itemtype varchar(128) collate utf8mb4_unicode_ci not null,
+  attribute int(10) unsigned not null,
+  primary key (itemtype, attribute),
+  foreign key (itemtype) references itemtype(name),
+  foreign key (attribute) references attribute(id)
 );
 
-CREATE TABLE has
+create table attribute_has_effect
 (
-  ID INT NOT NULL,
-  Name INT NOT NULL,
-  PRIMARY KEY (ID, Name),
-  FOREIGN KEY (ID) REFERENCES Attribute(ID),
-  FOREIGN KEY (Name) REFERENCES Effect(Name)
+  attribute int(10) unsigned not null auto_increment,
+  effect varchar(128) collate utf8mb4_unicode_ci not null,
+  primary key (attribute, effect),
+  foreign key (attribute) references attribute(id),
+  foreign key (effect) references effect(name)
 );
 
-CREATE TABLE has_Upgrades
+create table item_has_upgrades
 (
-  Rank INT NOT NULL,
-  ID INT NOT NULL,
-  ID INT NOT NULL,
-  PRIMARY KEY (ID, ID),
-  FOREIGN KEY (ID) REFERENCES Item(ID),
-  FOREIGN KEY (ID) REFERENCES Attribute(ID)
+  item int(10) unsigned not null,
+  attribute int(10) unsigned not null,
+  rank int(10) not null,
+  primary key (item, attribute),
+  foreign key (item) references item(id),
+  foreign key (attribute) references attribute(id)
 );
