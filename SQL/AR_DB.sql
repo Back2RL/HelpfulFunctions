@@ -1,0 +1,153 @@
+drop database AR;
+create database AR;
+use AR;
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+CREATE TABLE if not exists user
+(
+  id int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  name varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
+  password varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
+  created datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  lastonline datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY name_uniq (name)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE session
+(
+  id int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  user int(11) unsigned NOT NULL,
+  begin datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  end datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  primary key (id),
+  foreign key user_fk (user) references user(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE ItemName
+(
+  name varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
+  primary key (name)
+);
+
+CREATE TABLE Prefix
+(
+  id int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  name varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE Suffix
+(
+  id int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  name varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE Effect
+(
+  Name INT NOT NULL,
+  PRIMARY KEY (Name)
+);
+
+CREATE TABLE ItemType
+(
+  Name INT NOT NULL,
+  PRIMARY KEY (Name)
+);
+
+CREATE TABLE AttributeType
+(
+  Name INT NOT NULL,
+  PRIMARY KEY (Name)
+);
+
+CREATE TABLE is
+(
+  Name INT NOT NULL,
+  Name INT NOT NULL,
+  PRIMARY KEY (Name, Name),
+  FOREIGN KEY (Name) REFERENCES ItemName(Name),
+  FOREIGN KEY (Name) REFERENCES ItemType(Name)
+);
+
+CREATE TABLE Item
+(
+  ID INT NOT NULL,
+  ID INT,
+  Name INT NOT NULL,
+  ID INT,
+  ID INT,
+  PRIMARY KEY (ID),
+  FOREIGN KEY (ID) REFERENCES User(ID),
+  FOREIGN KEY (Name) REFERENCES ItemName(Name),
+  FOREIGN KEY (ID) REFERENCES Prefix(ID),
+  FOREIGN KEY (ID) REFERENCES Suffix(ID)
+);
+
+CREATE TABLE Attribute
+(
+  ID INT NOT NULL,
+  Value INT NOT NULL,
+  Min INT NOT NULL,
+  Max INT NOT NULL,
+  Name INT NOT NULL,
+  PRIMARY KEY (ID),
+  FOREIGN KEY (Name) REFERENCES AttributeType(Name)
+);
+
+CREATE TABLE grants
+(
+  ID INT NOT NULL,
+  ID INT NOT NULL,
+  PRIMARY KEY (ID, ID),
+  FOREIGN KEY (ID) REFERENCES Prefix(ID),
+  FOREIGN KEY (ID) REFERENCES Attribute(ID)
+);
+
+CREATE TABLE grants
+(
+  ID INT NOT NULL,
+  ID INT NOT NULL,
+  PRIMARY KEY (ID, ID),
+  FOREIGN KEY (ID) REFERENCES Suffix(ID),
+  FOREIGN KEY (ID) REFERENCES Attribute(ID)
+);
+
+CREATE TABLE grants
+(
+  Name INT NOT NULL,
+  ID INT NOT NULL,
+  PRIMARY KEY (Name, ID),
+  FOREIGN KEY (Name) REFERENCES ItemType(Name),
+  FOREIGN KEY (ID) REFERENCES Attribute(ID)
+);
+
+CREATE TABLE has
+(
+  ID INT NOT NULL,
+  Name INT NOT NULL,
+  PRIMARY KEY (ID, Name),
+  FOREIGN KEY (ID) REFERENCES Attribute(ID),
+  FOREIGN KEY (Name) REFERENCES Effect(Name)
+);
+
+CREATE TABLE has_Upgrades
+(
+  Rank INT NOT NULL,
+  ID INT NOT NULL,
+  ID INT NOT NULL,
+  PRIMARY KEY (ID, ID),
+  FOREIGN KEY (ID) REFERENCES Item(ID),
+  FOREIGN KEY (ID) REFERENCES Attribute(ID)
+);
