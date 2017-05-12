@@ -1,0 +1,1 @@
+INSERT INTO ar.user(id,name,password,created) VALUES (	default,	'Back2RL',	md5('password'),	default);

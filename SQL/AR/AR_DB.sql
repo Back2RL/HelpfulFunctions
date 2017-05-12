@@ -9,18 +9,20 @@ create table if not exists user
   name varchar(128) collate utf8mb4_unicode_ci not null,
   password varchar(256) collate utf8mb4_unicode_ci not null,
   created datetime not null default current_timestamp,
-  lastonline datetime default current_timestamp,
   primary key (id),
   unique key name_uniq (name)
 ) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
-
 create table session
 (
   id int(10) unsigned not null auto_increment,
+  ip varchar(128) collate utf8mb4_unicode_ci not null,
+  sessionkey varchar(128) collate utf8mb4_unicode_ci not null,
   user int(11) unsigned not null,
   begin datetime not null default current_timestamp,
   updated datetime not null default current_timestamp,
+  ended datetime, 
+  unique key sessionkey_uniq (sessionkey),
   primary key (id),
   foreign key user_fk (user) references user(id)
 ) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
@@ -30,39 +32,39 @@ create table itemname
 (
   name varchar(128) collate utf8mb4_unicode_ci not null,
   primary key (name)
-);
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 create table prefix
 (
   id int(10) unsigned not null auto_increment,
   name varchar(128) collate utf8mb4_unicode_ci not null,
   primary key (id)
-);
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 create table suffix
 (
   id int(10) unsigned not null auto_increment,
   name varchar(128) collate utf8mb4_unicode_ci not null,
   primary key (id)
-);
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 create table effect
 (
   name varchar(128) collate utf8mb4_unicode_ci not null,
   primary key (name)
-);
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 create table itemtype
 (
   name varchar(128) collate utf8mb4_unicode_ci not null,
   primary key (name)
-);
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 create table attributetype
 (
   name varchar(128) collate utf8mb4_unicode_ci not null,
   primary key (name)
-);
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 create table item_has_types
 (
@@ -71,7 +73,7 @@ create table item_has_types
   primary key (item, itemtype),
   foreign key (item) references itemname(name),
   foreign key (itemtype) references itemtype(name)
-);
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 create table item
 (
@@ -85,7 +87,7 @@ create table item
   foreign key (name) references itemname(name),
   foreign key (prefix) references prefix(id),
   foreign key (suffix) references suffix(id)
-);
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 create table attribute
 (
@@ -96,7 +98,7 @@ create table attribute
   name varchar(128) collate utf8mb4_unicode_ci not null,
   primary key (id),
   foreign key (name) references attributetype(name)
-);
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 create table prefix_gives
 (
@@ -105,7 +107,7 @@ create table prefix_gives
   primary key (prefix, attribute),
   foreign key (prefix) references prefix(id),
   foreign key (attribute) references attribute(id)
-);
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 create table suffix_gives
 (
@@ -114,7 +116,7 @@ create table suffix_gives
   primary key (suffix, attribute),
   foreign key (suffix) references suffix(id),
   foreign key (attribute) references attribute(id)
-);
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 create table itemtype_gives
 (
@@ -123,7 +125,7 @@ create table itemtype_gives
   primary key (itemtype, attribute),
   foreign key (itemtype) references itemtype(name),
   foreign key (attribute) references attribute(id)
-);
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 create table attribute_has_effect
 (
@@ -132,7 +134,7 @@ create table attribute_has_effect
   primary key (attribute, effect),
   foreign key (attribute) references attribute(id),
   foreign key (effect) references effect(name)
-);
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 create table item_has_upgrades
 (
@@ -142,4 +144,4 @@ create table item_has_upgrades
   primary key (item, attribute),
   foreign key (item) references item(id),
   foreign key (attribute) references attribute(id)
-);
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
