@@ -1,0 +1,19 @@
+#decrypt 
+gpg -d file.gpg > file
+
+#encrypt
+gpg -c --cipher-algo aes256 file
+
+#tar list content
+tar -tvf file.tar
+
+#create tar
+tar -c files/dir -f outputfile.tar
+
+#extract tar
+tar xvf file.tar 
+
+
+gpg --import Stefan-Wohlfeil-GPGKey-2017.asc 
+ gpg --list-keys 
+ gpg --encrypt --recipient stefan.wohlfeil@hs-hannover.de MessageRaw.txt 
