@@ -81,6 +81,17 @@ function loadSettings {
 
 setProcessPriority 19
 
+CONFIG_FILE="auto_CPU_Freq.conf"
+
+MEASUREMENTS=9
+INTERVAL=1
+P=-25
+I=-10
+D=10
+TARGET_TEMP=60
+MAX_DELTA_WARMER=5
+MIN_FREQ=480
+MAX_FREQ=2560
 
 if [ $# -ne 1 ]
 then
@@ -91,9 +102,6 @@ else
 	TARGET_TEMP=$1
 fi
 
-CONFIG_FILE="auto_CPU_Freq.conf"
-
-MAX_DELTA_WARMER=5
 
 if [ $TARGET_TEMP -gt 80 ]; then TARGET_TEMP=80; fi
 if [ $TARGET_TEMP -lt 40 ]; then TARGET_TEMP=40; fi
@@ -102,12 +110,7 @@ echo "Target Temperature = $TARGET_TEMP°C"
 
 let MAX_ALLOWED_TEMP=$TARGET_TEMP+$MAX_DELTA_WARMER
 
-MEASUREMENTS=29
-INTERVAL=2
 
-P=-25
-I=-10
-D=0
 
 AVG_ERROR=1
 OLD_AVG_ERROR=1
@@ -115,8 +118,6 @@ CUML_ERROR=1600
 
 FREQ=1600
 PREV_FREQ=1600
-MIN_FREQ=480
-MAX_FREQ=2560
 
 # initialize CPU-Frequency
 bash ./setCPUFreqs.sh 0 $FREQ
