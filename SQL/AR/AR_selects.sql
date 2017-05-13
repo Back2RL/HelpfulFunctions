@@ -1,3 +1,6 @@
+set autocommit = 0;
+start transaction;
+
 -- get user id after login
 SELECT user.id
 FROM ar.user
@@ -10,3 +13,4 @@ FROM ar.session
 where ar.session.user = 0;
 
 
+commit;

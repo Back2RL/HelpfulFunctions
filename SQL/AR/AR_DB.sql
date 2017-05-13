@@ -1,3 +1,5 @@
+set autocommit = 0;
+start transaction;
 drop database ar;
 create database ar;
 use ar;
@@ -38,6 +40,7 @@ create table prefix
 (
   id int(10) unsigned not null auto_increment,
   name varchar(128) collate utf8mb4_unicode_ci not null,
+  unique key name_uniq (name),
   primary key (id)
 ) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
@@ -45,6 +48,7 @@ create table suffix
 (
   id int(10) unsigned not null auto_increment,
   name varchar(128) collate utf8mb4_unicode_ci not null,
+  unique key name_uniq (name),
   primary key (id)
 ) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
@@ -57,7 +61,9 @@ create table effect
 create table itemtype
 (
   name varchar(128) collate utf8mb4_unicode_ci not null,
-  primary key (name)
+  parenttype varchar(128) collate utf8mb4_unicode_ci,
+  primary key (name),
+  foreign key (parenttype) references itemtype(name) on delete cascade
 ) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 create table attributetype
@@ -80,8 +86,8 @@ create table item
   id int(10) unsigned not null auto_increment,
   owner int(10) unsigned not null,
   name varchar(128) collate utf8mb4_unicode_ci not null,
-  prefix int(10) unsigned not null,
-  suffix int(10) unsigned not null,
+  prefix int(10) unsigned,
+  suffix int(10) unsigned,
   primary key (id),
   foreign key (owner) references user(id),
   foreign key (name) references itemname(name),
@@ -92,9 +98,9 @@ create table item
 create table attribute
 (
   id int(10) unsigned not null auto_increment,
-  value int(10) not null,
-  min int(10) not null,
-  max int(10) not null,
+  value int(10) not null default 0,
+  min int(10) not null default 0,
+  max int(10) not null default 0,
   name varchar(128) collate utf8mb4_unicode_ci not null,
   primary key (id),
   foreign key (name) references attributetype(name)
@@ -141,7 +147,10 @@ create table item_has_upgrades
   item int(10) unsigned not null,
   attribute int(10) unsigned not null,
   rank int(10) not null,
+  unique key rank_uniq (rank),
   primary key (item, attribute),
   foreign key (item) references item(id),
   foreign key (attribute) references attribute(id)
 ) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
+
+commit;
