@@ -20,8 +20,20 @@ replace INTO ar.itemtype (name,parenttype)VALUES('Missile','Weapon');
 replace INTO ar.prefix(id,name)VALUES(default,'Garuda');
 
 -- suffixes
-
 replace INTO ar.suffix(id,name)VALUES(default,'of Garuda');
+
+-- Itemnames
+replace INTO ar.itemname(name)VALUES('Twintail');
+
+-- Items
+replace INTO ar.item(id,owner,name,prefix,suffix)
+VALUES(default,1,'Twintail',null,null);
+
+-- Item has Types
+replace INTO ar.item_has_types(item,itemtype)
+VALUES('Twintail','Weapon');
+
+
 
 
 commit;

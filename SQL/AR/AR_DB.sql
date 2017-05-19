@@ -63,7 +63,7 @@ create table itemtype
   name varchar(128) collate utf8mb4_unicode_ci not null,
   parenttype varchar(128) collate utf8mb4_unicode_ci,
   primary key (name),
-  foreign key (parenttype) references itemtype(name) on delete cascade
+  foreign key (parenttype) references itemtype(name) on update cascade on delete cascade
 ) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 create table attributetype
@@ -77,8 +77,8 @@ create table item_has_types
   item varchar(128) collate utf8mb4_unicode_ci not null,
   itemtype varchar(128) collate utf8mb4_unicode_ci not null,
   primary key (item, itemtype),
-  foreign key (item) references itemname(name),
-  foreign key (itemtype) references itemtype(name)
+  foreign key (item) references itemname(name) on update cascade on delete cascade,
+  foreign key (itemtype) references itemtype(name)  on update cascade on delete cascade
 ) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 create table item
@@ -89,10 +89,10 @@ create table item
   prefix int(10) unsigned,
   suffix int(10) unsigned,
   primary key (id),
-  foreign key (owner) references user(id),
-  foreign key (name) references itemname(name),
-  foreign key (prefix) references prefix(id),
-  foreign key (suffix) references suffix(id)
+  foreign key owner_fk (owner) references user(id) on update cascade on delete cascade,
+  foreign key name_fk (name) references itemname(name),
+  foreign key prefix_fk (prefix) references prefix(id),
+  foreign key suffix_fk (suffix) references suffix(id)
 ) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 create table attribute
