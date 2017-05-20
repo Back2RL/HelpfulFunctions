@@ -23,3 +23,8 @@ sudo apt-get install texmaker
 sudo add-apt-repository ppa:gezakovacs/ppa
 sudo apt-get update
 sudo apt-get install unetbootin
+
+sudo add-apt-repository ppa:sebastian-stenzel/cryptomator
+sudo apt-get update
+sudo apt-get install cryptomator 
+
