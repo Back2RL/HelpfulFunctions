@@ -6,3 +6,8 @@
 cmake-build-debug/
 .idea/
 *.iml
+*.*~
+.settings/
+.classpath
+.project
+.Rhistory

@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename local variable &apos;i&apos; in &apos;PlayerInputData.Test.main(...)&apos; to &apos;k&apos;&#x0A;- Original project: &apos;DataCompression&apos;&#x0A;- Original element: &apos;PlayerInputData.Test.main(String[]).i&apos;&#x0A;- Renamed element: &apos;i&apos;&#x0A;- Update references to refactored element" description="Rename local variable &apos;i&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;PlayerInputData{Test.java[Test~main~\[QString;@i!660!669!664!664!I!0!false" name="k" references="true" stamp="1465390213059" version="1.0"/>
-</session>
