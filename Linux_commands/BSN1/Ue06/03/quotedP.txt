@@ -1,8 +1,0 @@
-s/=3D/=3D3D/g
-s/=E4/=3DE4/g
-s/=F6/=3DF6/g
-s/=FC/=3DFC/g
-s/=DF/=3DDF/g
-s/=C4/=3DC4/g
-s/=D6/=3DD6/g
-s/=DC/=3DDC/g
