@@ -83,8 +83,11 @@ setProcessPriority 19
 
 CONFIG_FILE="auto_CPU_Freq.conf"
 
-MEASUREMENTS=59
-INTERVAL=1
+MEASUREMENTS=10
+DEFAULTINTERVAL=5
+URGENTINTERVAL=1
+SLEEPINTERVAL=10
+INTERVAL=$ACTIVEINTERVAL
 P=-50
 I=-15
 D=0
@@ -284,8 +287,15 @@ do
 				FREQ=$PREV_FREQ
 				echo "ERROR: Frequency was not set!"				
 			fi
+			if [ $OK -eq -1 ]
+			then
+				INTERVAL=$URGENTINTERVAL
+			else
+				INTERVAL=$DEFAULTINTERVAL
+			fi
 		else 
 			echo "Nothing to do... everything OK"
+			INTERVAL=$SLEEPINTERVAL
 		fi
 
 		# wait before next iteration starts
