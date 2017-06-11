@@ -83,10 +83,10 @@ setProcessPriority 19
 
 CONFIG_FILE="auto_CPU_Freq.conf"
 
-MEASUREMENTS=5
-INTERVAL=10
-P=-25
-I=-10
+MEASUREMENTS=59
+INTERVAL=1
+P=-50
+I=-15
 D=0
 TARGET_TEMP=60
 MAX_DELTA_WARMER=5
@@ -109,6 +109,7 @@ if [ $TARGET_TEMP -lt 40 ]; then TARGET_TEMP=40; fi
 echo "Target Temperature = $TARGET_TEMP°C"
 
 let MAX_ALLOWED_TEMP=$TARGET_TEMP+$MAX_DELTA_WARMER
+let MIN_ALLOWED_TEMP=$TARGET_TEMP-$MAX_DELTA_WARMER
 
 
 
@@ -120,7 +121,7 @@ FREQ=1600
 PREV_FREQ=1600
 
 # initialize CPU-Frequency
-bash ./setCPUFreqs.sh 0 $FREQ
+bash ./setCPUFreqs.sh $FREQ $FREQ
 
 # check if Config-File exists
 # TODO: write all settings to config file and reimport them on next start
@@ -172,6 +173,13 @@ do
 				fi
 				
 			fi
+			if [ $T -lt $MIN_ALLOWED_TEMP ]
+			then
+				echo "Temp below $MIN_ALLOWED_TEMP°C!"
+				OVERHEATED_TEMP=$T
+				OK=-1
+			fi
+
 			let CNT+=1
 			let SUM+=$T	
 		done
@@ -270,8 +278,8 @@ do
 		if [ $FREQ -ne $PREV_FREQ ]
 		then
 			# set new CPU-Frequency
-			#bash ./setCPUFreqs.sh $FREQ $FREQ
-			bash ./setCPUFreqs.sh 0 $FREQ
+			bash ./setCPUFreqs.sh $FREQ $FREQ
+			#bash ./setCPUFreqs.sh 0 $FREQ
 			if [ $? -ne 0 ]; then 
 				FREQ=$PREV_FREQ
 				echo "ERROR: Frequency was not set!"				

@@ -66,23 +66,47 @@ fi
 echo "To set min = $min Khz"
 echo "To set max = $max Khz"
 
+	sudo cpufreq-set --max "$max"Khz
+	RC=$?
+	if [ $RC -ne 0 ]; then 
+		sudo cpufreq-set --min "$min"Khz
+		RC=$?
+		if [ $RC -ne 0 ]; then 
+			echo "Returncode = $RC"
+			exit $RC
+ 		fi
+		sudo cpufreq-set --max "$max"Khz
+		RC=$?
+		if [ $RC -ne 0 ]; then 
+			echo "Returncode = $RC"
+			exit $RC
+ 		fi
+ 	fi
+	sudo cpufreq-set --min "$min"Khz
+	RC=$?
+	if [ $RC -ne 0 ]; then 
+		echo "Returncode = $RC"
+		exit $RC
+ 	fi
+
 #TODO: make corecount dynamic
-for CORE in 0 1 2 3
-do
-	#sudo cpufreq-set --cpu "$CORE" -g powersave && echo "set governor for core $CORE"
-	sudo cpufreq-set --cpu "$CORE" --min "$min"Khz # && echo "set min freq for core $CORE"
-	RC=$?
-	if [ $RC -ne 0 ]; then 
-		echo "Returncode = $RC"
-		exit $RC
- 	fi
-	sudo cpufreq-set --cpu "$CORE" --max "$max"Khz # && echo "set max freq for core $CORE"
-	RC=$?
-	if [ $RC -ne 0 ]; then 
-		echo "Returncode = $RC"
-		exit $RC
- 	fi
-done
+#for CORE in 0 1 2 3
+#do
+#	#sudo cpufreq-set --cpu "$CORE" -g powersave && echo "set governor for core $CORE"
+#	#sudo cpufreq-set --cpu "$CORE" --max "$max"Khz # && echo "set max freq for core $CORE"
+#	sudo cpufreq-set --max "$max"Khz # && echo "set max freq for core $CORE"
+#	RC=$?
+#	if [ $RC -ne 0 ]; then 
+#		echo "Returncode = $RC"
+#		exit $RC
+#	fi
+#	sudo cpufreq-set --cpu "$CORE" --min "$min"Khz # && echo "set min freq for core $CORE"
+#	RC=$?
+#	if [ $RC -ne 0 ]; then 
+#		echo "Returncode = $RC"
+#		exit $RC
+#	fi
+#done
 
 #sudo cpufreq-set -f 480Mhz
 
