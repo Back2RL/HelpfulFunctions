@@ -10,7 +10,7 @@
 #define HAND
 
 using namespace std;
-#define NUM (50000000L)
+#define NUM (100000000L)
 
 int main(int argc, char **argv) {
 
@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
 		}
 	}
 	timer.stopTimer();
-	printf("elapsed = %lf\n", timer.getSeconds());
+	printf("For-Each: elapsed = %lf\n", timer.getSeconds());
 	results.push_back(timer.getSeconds());
 #endif
 
@@ -44,8 +44,20 @@ int main(int argc, char **argv) {
 		}
 	}
 	timer.stopTimer();
-	printf("elapsed = %lf\n", timer.getSeconds());
+	printf("Iterator: elapsed = %lf\n", timer.getSeconds());
 	results.push_back(timer.getSeconds());
+	{
+		timer.startTimer();
+		vector<long>::iterator end = zahlen.end();
+		for (vector<long>::iterator it = zahlen.begin(); it != end; ++it) {
+			if (*it % 10000000 == 0) {
+				printf("%ld\n", *it);
+			}
+		}
+		timer.stopTimer();
+		printf("Iterator opt.: elapsed = %lf\n", timer.getSeconds());
+		results.push_back(timer.getSeconds());
+	}
 #endif
 
 #ifdef HAND
@@ -56,17 +68,43 @@ int main(int argc, char **argv) {
 		}
 	}
 	timer.stopTimer();
-	printf("elapsed = %lf\n", timer.getSeconds());
+	printf("Hand: elapsed = %lf\n", timer.getSeconds());
 	results.push_back(timer.getSeconds());
+	{
+		timer.startTimer();
+		long end = zahlen.size();
+		for (long i = 0; i < end; ++i) {
+			if (zahlen[i] % 10000000 == 0) {
+				printf("%ld\n", zahlen[i]);
+			}
+		}
+		timer.stopTimer();
+		printf("Hand opt.: elapsed = %lf\n", timer.getSeconds());
+		results.push_back(timer.getSeconds());
+	}
+	{
+		timer.startTimer();
+		unsigned long end = zahlen.size();
+		for (unsigned long i = 0; i < end; ++i) {
+			const long &zahl = zahlen[i];
+			if (zahl % 10000000 == 0) {
+				printf("%ld\n", zahl);
+			}
+		}
+		timer.stopTimer();
+		printf("Hand opt. with ref: elapsed = %lf\n", timer.getSeconds());
+		results.push_back(timer.getSeconds());
+	}
+
 #endif
 
 	double min = numeric_limits<double>::max();
 	double max = 0;
-	for(double& time:results){
-		if(time < min) min = time;
-		if(time > max) max = time;
+	for (double &time:results) {
+		if (time < min) min = time;
+		if (time > max) max = time;
 	}
-	printf("ratio best/worst: %lf\n", min/max);
+	printf("ratio best/worst: %lf\n", min / max);
 
 	return EXIT_SUCCESS;
 } 
