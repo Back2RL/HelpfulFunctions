@@ -1,5 +1,6 @@
-CONFIG = debug
-CONFIG += c++11
+CONFIG = release
+CONFIG += warn_on
+QMAKE_CXXFLAGS += -std=c++1y
 QMAKE_LIBDIR +=  -Lusr/local/lib  
 
 HEADERS += CPUtime.h
