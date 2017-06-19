@@ -18,7 +18,7 @@ public:
 private:
     clock_t start;
 public:
-    clock_t getEnd(void) const ;
+    clock_t getEnd(void) const;
 
     void setEnd(clock_t end);
 
@@ -36,11 +36,11 @@ public:
 
     void startTimer(void);
 
-    void stopTimer(void) ;
+    void stopTimer(void);
 
-    int getNumClocks(void) const ;
+    int getNumClocks(void) const;
 
-    double getSeconds(void) const ;
+    double getSeconds(void) const;
 
 };
 
