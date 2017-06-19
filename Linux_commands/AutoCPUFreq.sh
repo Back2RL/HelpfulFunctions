@@ -287,6 +287,7 @@ do
 				FREQ=$PREV_FREQ
 				echo "ERROR: Frequency was not set!"				
 			fi
+
 			if [ $OK -eq -1 ]
 			then
 				INTERVAL=$URGENTINTERVAL
@@ -297,8 +298,4 @@ do
 			echo "Nothing to do... everything OK"
 			INTERVAL=$SLEEPINTERVAL
 		fi
-
-		# wait before next iteration starts
-		#sleep $INTERVAL
-	
 done 
