@@ -24,6 +24,8 @@ using namespace std;
 
 int main(int argc, char **argv) {
 
+    printf("%s %s : %s\n\t%4d : %s\n", __DATE__, __TIME__, __FILE__, __LINE__, __FUNCTION__);
+
     vector<double> results;
     vector<long> zahlen;
     for (long i = 0; i < NUM; ++i) {
