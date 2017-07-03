@@ -281,8 +281,8 @@ do
 		if [ $FREQ -ne $PREV_FREQ ]
 		then
 			# set new CPU-Frequency
-			bash ./setCPUFreqs.sh $FREQ $FREQ
-			#bash ./setCPUFreqs.sh 0 $FREQ
+			#bash ./setCPUFreqs.sh $FREQ $FREQ
+			bash ./setCPUFreqs.sh 0 $FREQ
 			if [ $? -ne 0 ]; then 
 				FREQ=$PREV_FREQ
 				echo "ERROR: Frequency was not set!"				

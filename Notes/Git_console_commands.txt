@@ -14,3 +14,9 @@ git branch -d branchname	//deletes the local branch
 
 //interesting article:
 //	http://www.zorched.net/2008/04/14/start-a-new-branch-on-your-remote-git-repository/
+
+// clone when packet is too big
+mkdir repo_name
+cd repo_name && git init
+git remote add origin url/to/repo
+git fetch
