@@ -6,21 +6,21 @@ echo "use \"-m\" to mount or \"-u\" to unmount"
 exit
 fi
 
-path="/home/$USER/googleDrive"
+DIR="/home/$USER/googleDrive"
 
-if [ ! -d "$path" ]
+if [ ! -d "$DIR" ]
 then
-	echo "creating directory \"$path\""
-	mkdir "$path"
+	echo "creating directory \"$DIR\""
+	mkdir "$DIR"
 fi
 
 if [ "$1" == "-m" ]
 then
-	google-drive-ocamlfuse "$path"
+	google-drive-ocamlfuse "$DIR"
 	echo "mounted"
 elif [ "$1" == "-u" ]
 then
-	fusermount -u "$path"
+	fusermount -u "$DIR"
 	echo "unmounted"
 else 
 	echo "unknown argument"
