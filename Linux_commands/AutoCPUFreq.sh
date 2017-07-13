@@ -107,7 +107,7 @@ fi
 
 
 if [ $TARGET_TEMP -gt 80 ]; then TARGET_TEMP=80; fi
-if [ $TARGET_TEMP -lt 40 ]; then TARGET_TEMP=40; fi
+if [ $TARGET_TEMP -lt 30 ]; then TARGET_TEMP=30; fi
 
 echo "Target Temperature = $TARGET_TEMP°C"
 
