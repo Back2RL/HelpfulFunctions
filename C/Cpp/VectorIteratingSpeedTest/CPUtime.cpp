@@ -1,5 +1,11 @@
 #include "CPUtime.h"
 
+/* more precise:
+auto begin = std::chrono::high_resolution_clock::now();
+auto end = std::chrono::high_resolution_clock::now();	
+printf("Duration = %ld nanoseconds", std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count());		
+*/
+
 clock_t CPUtime::getStart() const {
     return start;
 }
