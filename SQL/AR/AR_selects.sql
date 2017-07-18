@@ -19,7 +19,8 @@ left join session on user = player.id
 left join item as it on it.owner = player.id 
 left join prefix as pre on prefix = pre.id 
 left join suffix as suf on suffix = suf.id
-left join item_has_types as ity on it.id = ity.item;
+left join item_has_types as ity on it.id = ity.item
+where it.id != 0;
 
 
 commit;
