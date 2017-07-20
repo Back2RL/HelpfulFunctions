@@ -81,7 +81,7 @@ function loadSettings {
 
 setProcessPriority 19
 
-CONFIG_FILE="auto_CPU_Freq.conf"
+CONFIG_FILE=".auto_CPU_Freq.conf"
 
 MEASUREMENTS=10
 DEFAULTINTERVAL=5
