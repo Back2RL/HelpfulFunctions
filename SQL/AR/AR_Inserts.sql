@@ -27,7 +27,7 @@ replace INTO ar.itemname(name)VALUES('Twintail');
 
 -- Items
 replace INTO ar.item(id,owner,name,prefix,suffix)
-VALUES(default,1,'Twintail',null,null);
+VALUES(default,9,'Twintail',null,null);
 
 -- Item has Types
 replace INTO ar.item_has_types(item,itemtype)
