@@ -1,0 +1,10 @@
+#lists installed kernels:
+aptitude search ~ilinux-image	
+
+#no need for more than two kernels to be installed
+#one in use and the previous one to that
+#remove a kernel:
+sudo apt-get autoremove linux-image-3.2.0-23-generic
+
+#returns the currently used kernel:
+uname -r
