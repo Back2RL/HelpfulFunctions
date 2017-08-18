@@ -8,16 +8,10 @@ set(SOURCE_FILES
         CPUtime.h
         main.cpp
         Loops/ForEach.h
-        Loops/ForEach.cpp
         Loops/Hand.h
-        Loops/Hand.cpp
         Loops/HandOpt.h
-        Loops/HandOpt.cpp
         Loops/HandOptRef.h
-        Loops/HandOptRef.cpp
         Loops/Iterator.h
-        Loops/Iterator.cpp
-        Loops/IteratorOpt.h
-        Loops/IteratorOpt.cpp)
+        Loops/IteratorOpt.h)
 
 add_executable(VectorIteratingSpeedTest ${SOURCE_FILES})
