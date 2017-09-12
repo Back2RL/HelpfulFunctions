@@ -3,6 +3,7 @@ package logic;
 import java.io.File;
 
 public class Settings {
+	private File lastBrowserDir = null;
 	private File originalsDir = null;
 	private File dummiesDir = null;
 
@@ -20,5 +21,13 @@ public class Settings {
 
 	public void setDummiesDir(final File dummiesDir) {
 		this.dummiesDir = dummiesDir;
+	}
+
+	public File getLastBrowserDir() {
+		return lastBrowserDir;
+	}
+
+	public void setLastBrowserDir(File lastBrowserDir) {
+		this.lastBrowserDir = lastBrowserDir;
 	}
 }

@@ -65,6 +65,8 @@ public class Main extends Application {
 						//column2.setPercentWidth(20);
 						gridpane.getColumnConstraints().add(column1);
 
+						Button btnStartDummyCreation = new Button("Create Dummies");
+						btnStartDummyCreation.setMinWidth(100);
 
 						AutoSelectingTextField tfOrigDirPathInput = new AutoSelectingTextField();
 						tfOrigDirPathInput.textProperty().addListener(new ChangeListener<String>() {
@@ -85,6 +87,7 @@ public class Main extends Application {
 										}
 									});
 								}
+								updateStartButton(btnStartDummyCreation);
 							}
 						});
 						tfOrigDirPathInput.setTooltip(new Tooltip("path to the directory of Original Files (Files with a real size)"));
@@ -108,7 +111,9 @@ public class Main extends Application {
 										}
 									});
 								}
+								updateStartButton(btnStartDummyCreation);
 							}
+
 						});
 						tfDummyDirPathInput.setTooltip(new Tooltip("path to the directory where the created Dummy-Files will be placed (empty Files)"));
 
@@ -118,16 +123,22 @@ public class Main extends Application {
 							@Override
 							public void handle(final ActionEvent event) {
 								DirectoryChooser directoryChooser = new DirectoryChooser();
+								File lastBrowserDir = LogicController.getInstance().getLastBrowserDir();
+								if (lastBrowserDir != null && lastBrowserDir.exists() && lastBrowserDir.isDirectory()) {
+									directoryChooser.setInitialDirectory(lastBrowserDir);
+								}
 								directoryChooser.setTitle("Choose the Directory that contains the original Files");
-								Platform.runLater(new Runnable() {
-									@Override
-									public void run() {
-										File dir = directoryChooser.showDialog(primaryStage);
-										LogicController.getInstance().setOriginalsDir(dir);
-										tfOrigDirPathInput.setText(dir.getAbsolutePath());
-									}
-								});
-
+								File dir = directoryChooser.showDialog(primaryStage);
+								if (dir != null) {
+									LogicController.getInstance().setOriginalsDir(dir);
+									LogicController.getInstance().updateLastBrowserDir(dir.getParentFile());
+									Platform.runLater(new Runnable() {
+										@Override
+										public void run() {
+											tfOrigDirPathInput.setText(dir.getAbsolutePath());
+										}
+									});
+								}
 							}
 						});
 
@@ -137,36 +148,47 @@ public class Main extends Application {
 							@Override
 							public void handle(final ActionEvent event) {
 								DirectoryChooser directoryChooser = new DirectoryChooser();
+								File lastBrowserDir = LogicController.getInstance().getLastBrowserDir();
+								if (lastBrowserDir != null && lastBrowserDir.exists() && lastBrowserDir.isDirectory()) {
+									directoryChooser.setInitialDirectory(lastBrowserDir);
+								}
 								directoryChooser.setTitle("Choose the Directory that shall be the Target for the Dummy-Files");
-
-								Platform.runLater(new Runnable() {
-									@Override
-									public void run() {
-										File dir = directoryChooser.showDialog(primaryStage);
-										LogicController.getInstance().setDummiesDir(dir);
-										tfDummyDirPathInput.setText(dir.getAbsolutePath());
-									}
-								});
-
+								File dir = directoryChooser.showDialog(primaryStage);
+								if (dir != null) {
+									LogicController.getInstance().setDummiesDir(dir);
+									LogicController.getInstance().updateLastBrowserDir(dir.getParentFile());
+									Platform.runLater(new Runnable() {
+										@Override
+										public void run() {
+											tfDummyDirPathInput.setText(dir.getAbsolutePath());
+										}
+									});
+								}
 							}
 						});
 
-						Button btnStartDummyCreation = new Button("Create Dummies");
-						btnStartDummyCreation.setMinWidth(100);
+
 						btnStartDummyCreation.setOnAction(new EventHandler<ActionEvent>() {
 							@Override
 							public void handle(final ActionEvent event) {
 								new Thread(new Runnable() {
 									@Override
 									public void run() {
-										if(LogicController.getInstance().createDummies()) {
+										Platform.runLater(new Runnable() {
+											@Override
+											public void run() {
+												btnStartDummyCreation.setDisable(true);
+												status.setText("creating Dummies...");
+											}
+										});
+										if (LogicController.getInstance().createDummies()) {
 											Platform.runLater(new Runnable() {
 												@Override
 												public void run() {
 													status.setText("Dummy-Creation finished");
 												}
 											});
-										}else{
+										} else {
 											Platform.runLater(new Runnable() {
 												@Override
 												public void run() {
@@ -174,6 +196,7 @@ public class Main extends Application {
 												}
 											});
 										}
+										updateStartButton(btnStartDummyCreation);
 									}
 								}).start();
 							}
@@ -184,6 +207,7 @@ public class Main extends Application {
 						gridpane.add(btnChooseOrigDir, 1, 0);
 						gridpane.add(btnChooseDummyDir, 1, 1);
 						gridpane.add(btnStartDummyCreation, 0, 2);
+						updateStartButton(btnStartDummyCreation);
 						scrollPane.setContent(gridpane);
 
 					}
@@ -204,6 +228,18 @@ public class Main extends Application {
 		primaryStage.setMinWidth(512);
 		primaryStage.setAlwaysOnTop(true);
 		primaryStage.show();
+	}
+
+	private void updateStartButton(Button startButton) {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				final boolean isRunning = LogicController.getInstance().getRunStatus();
+
+				startButton.setDisable(isRunning || LogicController.getInstance().getOriginalsDir() == null
+						|| LogicController.getInstance().getDummiesDir() == null);
+			}
+		});
 	}
 
 

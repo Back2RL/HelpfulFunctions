@@ -9,6 +9,31 @@ public class LogicController implements LogicInterface {
 
 	private Settings settings = null;
 
+	synchronized public boolean isRunning() {
+		return isRunning;
+	}
+
+	synchronized public void setRunning(boolean running) {
+		isRunning = running;
+	}
+
+	private boolean isRunning = false;
+
+	@Override
+	public File getOriginalsDir() {
+		return settings.getOriginalsDir();
+	}
+
+	@Override
+	public File getDummiesDir() {
+		return settings.getDummiesDir();
+	}
+
+	@Override
+	public boolean getRunStatus() {
+		return isRunning();
+	}
+
 	private static LogicController ourInstance = new LogicController();
 
 	public static LogicController getInstance() {
@@ -27,6 +52,7 @@ public class LogicController implements LogicInterface {
 			settings.setOriginalsDir(newOriginalsDir);
 			return true;
 		}
+		settings.setOriginalsDir(null);
 		return false;
 	}
 
@@ -36,6 +62,7 @@ public class LogicController implements LogicInterface {
 			settings.setDummiesDir(newDummiesDir);
 			return true;
 		}
+		settings.setDummiesDir(null);
 		return false;
 	}
 
@@ -46,6 +73,13 @@ public class LogicController implements LogicInterface {
 	@Override
 	public boolean createDummies() {
 
+//		try {
+//			Thread.sleep(5000);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+
+		setRunning(true);
 		int created = 0;
 		int skipped = 0;
 		int failed = 0;
@@ -56,16 +90,19 @@ public class LogicController implements LogicInterface {
 		if (!isValidDirectory(originals)) {
 			Logger.getGlobal().log(Level.WARNING, "Creation of Dummies failed: " +
 					"invalid Originals Directory");
+			setRunning(false);
 			return false;
 		}
 		if (!isValidDirectory(dummies)) {
 			Logger.getGlobal().log(Level.WARNING, "Creation of Dummies failed: " +
 					"invalid Dummies Directory");
+			setRunning(false);
 			return false;
 		}
 		if (originals.equals(dummies)) {
 			Logger.getGlobal().log(Level.WARNING, "Creation of Dummies failed: " +
 					"Dummy and Original Directory are the same");
+			setRunning(false);
 			return false;
 		}
 
@@ -73,6 +110,7 @@ public class LogicController implements LogicInterface {
 		if (childFiles == null || childFiles.length == 0) {
 			Logger.getGlobal().log(Level.WARNING, "Creation of Dummies failed: " +
 					"Originals Directory contains no Files");
+			setRunning(false);
 			return false;
 		}
 		Logger.getGlobal().log(Level.INFO, "Starting creation of Dummies.\n" +
@@ -105,6 +143,21 @@ public class LogicController implements LogicInterface {
 		Logger.getGlobal().log(Level.INFO, "Creation of Dummies finished.\n" +
 				"  total: " + childFiles.length + "\ncreated: " + created +
 				"\nskipped: " + skipped + "\n failed: " + failed);
+		setRunning(false);
 		return true;
+	}
+
+	@Override
+	public File getLastBrowserDir() {
+		return settings.getLastBrowserDir();
+	}
+
+	@Override
+	public boolean updateLastBrowserDir(File browserDir) {
+		if (isValidDirectory(browserDir)) {
+			settings.setLastBrowserDir(browserDir);
+			return true;
+		}
+		return false;
 	}
 }
