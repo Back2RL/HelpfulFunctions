@@ -7,6 +7,10 @@ import java.util.logging.Logger;
 
 public class LogicController implements LogicInterface {
 
+	public Settings getSettings() {
+		return settings;
+	}
+
 	private Settings settings = null;
 
 	synchronized public boolean isRunning() {
@@ -43,7 +47,7 @@ public class LogicController implements LogicInterface {
 	private LogicController() {
 		// TODO: load/validate from XML File
 		settings = new Settings();
-
+		settings.addObserver(SettingsSaver.getInstance());
 	}
 
 	@Override
@@ -160,4 +164,6 @@ public class LogicController implements LogicInterface {
 		}
 		return false;
 	}
+
+
 }

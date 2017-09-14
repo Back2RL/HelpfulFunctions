@@ -15,7 +15,6 @@ public class AutoSelectingTextField extends TextField {
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-				setText("Enter a Path");
 				setEditable(true);
 			}
 		});

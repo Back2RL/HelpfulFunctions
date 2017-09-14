@@ -1,4 +1,5 @@
 import gui.AutoSelectingTextField;
+import gui.ErrorDialog;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -11,12 +12,26 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import logic.LogicController;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
+import persistance.XSD_Validation;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main extends Application {
 
+
+	public static void main(String[] args) {
+		launch(args);
+	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -57,6 +72,9 @@ public class Main extends Application {
 					@Override
 					public void run() {
 
+						loadSettings();
+						// TODO: add button to reload settings
+
 						GridPane gridpane = new GridPane();
 						gridpane.setAlignment(Pos.TOP_LEFT);
 						ColumnConstraints column1 = new ColumnConstraints();
@@ -69,6 +87,9 @@ public class Main extends Application {
 						btnStartDummyCreation.setMinWidth(100);
 
 						AutoSelectingTextField tfOrigDirPathInput = new AutoSelectingTextField();
+						if (LogicController.getInstance().getOriginalsDir() != null) {
+							tfOrigDirPathInput.setText(LogicController.getInstance().getOriginalsDir().getPath());
+						}
 						tfOrigDirPathInput.textProperty().addListener(new ChangeListener<String>() {
 							@Override
 							public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
@@ -93,6 +114,9 @@ public class Main extends Application {
 						tfOrigDirPathInput.setTooltip(new Tooltip("path to the directory of Original Files (Files with a real size)"));
 
 						AutoSelectingTextField tfDummyDirPathInput = new AutoSelectingTextField();
+						if (LogicController.getInstance().getDummiesDir() != null) {
+							tfDummyDirPathInput.setText(LogicController.getInstance().getDummiesDir().getPath());
+						}
 						tfDummyDirPathInput.textProperty().addListener(new ChangeListener<String>() {
 							@Override
 							public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
@@ -210,6 +234,7 @@ public class Main extends Application {
 						updateStartButton(btnStartDummyCreation);
 						scrollPane.setContent(gridpane);
 
+
 					}
 				});
 			}
@@ -226,8 +251,14 @@ public class Main extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.setMinHeight(128);
 		primaryStage.setMinWidth(512);
-		primaryStage.setAlwaysOnTop(true);
+		//primaryStage.setAlwaysOnTop(true);
 		primaryStage.show();
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			public void handle(WindowEvent we) {
+				LogicController.getInstance().getSettings().save();
+				Logger.getGlobal().log(Level.INFO,"Closing the Program");
+			}
+		});
 	}
 
 	private void updateStartButton(Button startButton) {
@@ -242,8 +273,79 @@ public class Main extends Application {
 		});
 	}
 
+	private void loadSettings() {
+		File settingsXML = new File("DummyFileCreatorSettings.xml");
+		if (settingsXML.exists() && settingsXML.canRead()) {
+			Logger.getGlobal().log(Level.INFO, "Settings-File foung. Loading...");
+			if (XSD_Validation.validateXMLSchema(new File("DummyFileCreatorSettings.xml"))) {
 
-	public static void main(String[] args) {
-		launch(args);
+
+				SAXReader reader = new SAXReader();
+				try {
+					Document document = reader.read(settingsXML);
+
+
+					Element root = document.getRootElement();
+
+//					// iterate through child elements of root
+//					for (Iterator<Element> it = root.elementIterator(); it.hasNext(); ) {
+//						Element element = it.next();
+//						System.out.println(element.getName() + ": " + element.getText());
+//					}
+
+					for (Iterator<Element> it = root.elementIterator("originalsDir"); it.hasNext(); ) {
+						Element element = it.next();
+						System.out.println(element.getName() + ": " + element.getText());
+						LogicController.getInstance().setOriginalsDir(new File(element.getText()));
+					}
+					for (Iterator<Element> it = root.elementIterator("dummiesDir"); it.hasNext(); ) {
+						Element element = it.next();
+						System.out.println(element.getName() + ": " + element.getText());
+						LogicController.getInstance().setDummiesDir(new File(element.getText()));
+					}
+					for (Iterator<Element> it = root.elementIterator("lastBrowsed"); it.hasNext(); ) {
+						Element element = it.next();
+						System.out.println(element.getName() + ": " + element.getText());
+						if (LogicController.getInstance().updateLastBrowserDir(new File(element.getText()))) {
+							System.out.println("updated last browsed Directory");
+						}
+					}
+
+//					// iterate through child elements of root with element name "foo"
+//					for (Iterator<Element> it = root.elementIterator("foo"); it.hasNext(); ) {
+//						Element foo = it.next();
+//						// do something
+//						System.out.println(foo.getText());
+//					}
+//
+//					// iterate through attributes of root
+//					for (Iterator<Attribute> it = root.attributeIterator(); it.hasNext(); ) {
+//						Attribute attribute = it.next();
+//						// do something
+//						System.out.println(attribute.getName());
+//					}
+
+
+					Logger.getGlobal().log(Level.INFO, "Settings successfully loaded");
+				} catch (DocumentException e) {
+					e.printStackTrace();
+					Logger.getGlobal().log(Level.WARNING, e.getMessage());
+					new ErrorDialog(Alert.AlertType.ERROR, e, "Error", "Loading of Settings failed!");
+				}
+
+
+			} else {
+				Logger.getGlobal().log(Level.WARNING, "Settings-File contains an error and can not be used!");
+			}
+		} else {
+			Logger.getGlobal().log(Level.INFO, "Settings-File not found. A new File will be created.");
+			try {
+				settingsXML.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+				Logger.getGlobal().log(Level.WARNING, e.getMessage());
+				new ErrorDialog(Alert.AlertType.ERROR, e, "Error", "The Creation of the Settings-File failed!");
+			}
+		}
 	}
 }
