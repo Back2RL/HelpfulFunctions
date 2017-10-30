@@ -1,4 +1,4 @@
-package strategyPattern;
+package strategyPattern.strategies;
 
 public abstract class BuchStrategie {
 	/**

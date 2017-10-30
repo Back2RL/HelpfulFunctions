@@ -1,4 +1,4 @@
-package statePattern;
+package statePatter.states;
 
 public abstract class DoorState {
 	public DoorState abschließen() {

@@ -1,4 +1,6 @@
-package strategyPattern;
+package strategyPattern.buecher;
+
+import strategyPattern.strategies.BuchStrategie;
 
 public class Buch {
 	private BuchStrategie strategie;

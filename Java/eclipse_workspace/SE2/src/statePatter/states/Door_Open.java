@@ -1,4 +1,4 @@
-package statePattern;
+package statePatter.states;
 
 public class Door_Open extends DoorState {
 

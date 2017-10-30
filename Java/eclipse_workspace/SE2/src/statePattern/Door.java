@@ -1,5 +1,7 @@
 package statePattern;
 
+import statePatter.states.DoorState;
+
 public class Door{
 
 	private DoorState state;

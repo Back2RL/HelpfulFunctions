@@ -1,5 +1,8 @@
 package strategyPattern;
 
+import strategyPattern.buecher.Buch;
+import strategyPattern.strategies.Buch_Normal;
+
 public class Main {
 
 	public static void main(String[] args) {

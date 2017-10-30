@@ -1,6 +1,7 @@
 package templatePattern;
 
-import templatePattern.Buch_Normal;
+import templatePattern.buecher.Buch_Normal;
+import templatePattern.templates.BuchTemplate;
 
 public class Main {
 

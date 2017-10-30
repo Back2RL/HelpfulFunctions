@@ -1,4 +1,4 @@
-package strategyPattern;
+package strategyPattern.strategies;
 
 public class Buch_Normal extends BuchStrategie {
 
