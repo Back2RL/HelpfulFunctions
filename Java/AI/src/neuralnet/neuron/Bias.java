@@ -1,3 +1,5 @@
+package neuralnet.neuron;
+
 public class Bias extends Neuron {
     public Bias(int numOutputs, final int myIndex) {
         super(numOutputs, myIndex);

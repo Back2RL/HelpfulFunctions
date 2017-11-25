@@ -1,3 +1,5 @@
+import neuralnet.net.NeuronNet;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -54,8 +56,8 @@ public class AIExampleTrainingTest extends JFrame {
     private ArrayList<Creature> actors;
     private GenPool genpool;
     private static final double mutationRate = 0.01;
-    private final static int numberOfLifeforms = 100;
-    private final static int[] topology = new int[]{1, 2, 2, 2};
+    private final static int numberOfLifeforms = 1000;
+    private final static int[] topology = new int[]{1, 4, 2};
     private final static double runTime = 10.0;
     private Vec2D targetLocation;
 
@@ -168,9 +170,7 @@ public class AIExampleTrainingTest extends JFrame {
                         Random rand = new Random();
 
                         List<NeuronNet> survivors = new ArrayList<>();
-                        for (NeuronNet brain : genpool.getBrains()) {
-                            survivors.add(brain);
-                        }
+                        survivors.addAll(genpool.getBrains());
 
                         while (actors.size() < numberOfLifeforms) {
                             // TODO: evolve

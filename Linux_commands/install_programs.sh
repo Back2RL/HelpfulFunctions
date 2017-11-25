@@ -30,3 +30,7 @@ sudo apt-get update
 sudo apt-get install cryptomator 
 
 sudo apt-get install qdirstat
+
+sudo apt-add-repository ppa:thomas.tsai/ubuntu-tuxboot
+sudo apt-get update
+sudo apt-get install tuxboot
