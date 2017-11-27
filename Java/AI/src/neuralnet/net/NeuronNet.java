@@ -1,4 +1,8 @@
-import com.sun.javaws.exceptions.InvalidArgumentException;
+package neuralnet.net;
+
+import neuralnet.layer.Layer;
+import neuralnet.neuron.Bias;
+import neuralnet.neuron.Neuron;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,7 +93,7 @@ public class NeuronNet {
         }
         // get average error squared
         error /= outputLayer.size() - 1;
-        error = (double) Math.sqrt(error);
+        error = Math.sqrt(error);
 
         // implement a recent average measurement
         // TODO: implement functionality to turn this off

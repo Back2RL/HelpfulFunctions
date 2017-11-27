@@ -1,3 +1,5 @@
+import neuralnet.net.NeuronNet;
+
 import java.util.*;
 
 /**

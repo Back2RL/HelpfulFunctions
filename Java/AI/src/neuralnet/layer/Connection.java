@@ -1,3 +1,5 @@
+package neuralnet.layer;
+
 public class Connection {
 
     private double weight;
