@@ -6,7 +6,7 @@ echo "use \"-m\" to mount or \"-u\" to unmount"
 exit
 fi
 
-DIR="/home/$USER/googleDrive"
+DIR="/home/$USER/MountPoints/googleDrive"
 
 if [ ! -d "$DIR" ]
 then

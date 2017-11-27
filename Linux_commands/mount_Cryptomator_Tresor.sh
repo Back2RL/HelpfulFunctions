@@ -17,7 +17,7 @@ echo "use \"-m\" to mount or \"-u\" to unmount"
 exit
 fi
 
-DIR=`pwd`"/davPrivate"
+DIR=`pwd`"/MountPoints/davPrivate"
 
 if [ ! -d "$DIR" ]
 then

@@ -9,7 +9,7 @@ fi
 
 USER=nas
 ADDRESS=//192.168.188.123/PiExtern 
-DIR=`pwd`"/Pi_Samba_Mount"
+DIR=`pwd`"/MountPoints/Pi_Samba_Mount"
 
 if [ ! -d "$DIR" ]
 then
