@@ -3,3 +3,8 @@ wget -c link
 # check whether a file is available/online
 wget --spider link
 
+#clone a device to image or device
+sudo bash -c 'pv < /dev/sda > /dev/sdb'
+#or
+sudo bash -c 'pv < /dev/sda > ~/image.img'
+
