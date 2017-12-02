@@ -4,6 +4,7 @@ import neuralnet.layer.Connection;
 import neuralnet.layer.Layer;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Neuron {
@@ -13,8 +14,11 @@ public class Neuron {
 	// multiplier of last weight change: 0 no momentum, 0.5 moderate momentum [0.0..n]
 	private static final double alpha = 0.1f;
 
+	private static final int MAX_MEMORIES = 3;
+
 	private int myIndex;
 	private double outputVal;
+	private LinkedList<Double> memory = new LinkedList<>();
 	private double gradient;
 	private List<Connection> outputWeights;
 
@@ -43,6 +47,9 @@ public class Neuron {
 		for (int connection = 0; connection < numOutputs; ++connection) {
 			outputWeights.add(new Connection(randomWeight()));
 		}
+		for (int i = 0; i < MAX_MEMORIES; ++i) {
+			memory.addLast(0.0);
+		}
 	}
 
 	public Neuron(final int numOutputs, final int myIndex, List<Double> genome) {
@@ -52,6 +59,10 @@ public class Neuron {
 		for (int connection = 0; connection < numOutputs; ++connection) {
 			outputWeights.add(new Connection(genome.get(i)));
 			++i;
+		}
+
+		for (i = 0; i < MAX_MEMORIES; ++i) {
+			memory.addLast(0.0);
 		}
 	}
 
@@ -78,7 +89,12 @@ public class Neuron {
 			sum += prevLayer.get(n).getOutputVal() * prevLayer.get(n).outputWeights.get(myIndex).getWeight();
 		}
 
+		for (Double d : memory) {
+			sum += d;
+		}
+		memory.removeFirst();
 		outputVal = transferFunction(sum);
+		memory.addLast(outputVal/MAX_MEMORIES);
 	}
 
 	private static double transferFunction(final double x) {

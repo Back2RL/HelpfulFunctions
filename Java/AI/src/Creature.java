@@ -6,7 +6,7 @@ import java.util.List;
 public class Creature {
 	private static final boolean DEBUG = false;
 
-	public static final double velocity = 2000.0;
+	public static final double velocity = 200.0;
 	public static double turnRate = 360.0;
 	private double currVelocity;
 
@@ -79,7 +79,7 @@ public class Creature {
 			System.out.println("recent  Error =                  " + brain.getError());
 		}
 		forwardDir.rotateByDeg(turnRate * resultVals.get(0) * dt);
-		currVelocity = velocity * 0.0 + resultVals.get(1) * velocity * 1;
+		currVelocity = velocity * -0.5 + resultVals.get(1) * velocity * 1.5;
 
 
 	}
