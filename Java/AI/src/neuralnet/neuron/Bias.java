@@ -7,6 +7,6 @@ public class Bias extends Neuron {
 
     @Override
     public double getOutputVal() {
-        return 1.0f;
+        return 1.0;
     }
 }

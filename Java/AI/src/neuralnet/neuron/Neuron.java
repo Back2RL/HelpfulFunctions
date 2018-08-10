@@ -10,15 +10,14 @@ import java.util.List;
 public class Neuron {
 
 	// overall net learning rate: 0 slow learner, 0.2 medium learner, 1.0 reckless learner [0.0..1.0]
-	private static final double eta = 0.1f;
+	private static final double eta = 0.01;
 	// multiplier of last weight change: 0 no momentum, 0.5 moderate momentum [0.0..n]
-	private static final double alpha = 0.1f;
+	private static final double alpha = 0.1;
 
 	private static final int MAX_MEMORIES = 3;
 
 	private int myIndex;
 	private double outputVal;
-	private LinkedList<Double> memory = new LinkedList<>();
 	private double gradient;
 	private List<Connection> outputWeights;
 
@@ -47,9 +46,6 @@ public class Neuron {
 		for (int connection = 0; connection < numOutputs; ++connection) {
 			outputWeights.add(new Connection(randomWeight()));
 		}
-		for (int i = 0; i < MAX_MEMORIES; ++i) {
-			memory.addLast(0.0);
-		}
 	}
 
 	public Neuron(final int numOutputs, final int myIndex, List<Double> genome) {
@@ -59,10 +55,6 @@ public class Neuron {
 		for (int connection = 0; connection < numOutputs; ++connection) {
 			outputWeights.add(new Connection(genome.get(i)));
 			++i;
-		}
-
-		for (i = 0; i < MAX_MEMORIES; ++i) {
-			memory.addLast(0.0);
 		}
 	}
 
@@ -89,12 +81,7 @@ public class Neuron {
 			sum += prevLayer.get(n).getOutputVal() * prevLayer.get(n).outputWeights.get(myIndex).getWeight();
 		}
 
-		for (Double d : memory) {
-			sum += d;
-		}
-		memory.removeFirst();
 		outputVal = transferFunction(sum);
-		memory.addLast(outputVal/MAX_MEMORIES);
 	}
 
 	private static double transferFunction(final double x) {
@@ -104,7 +91,7 @@ public class Neuron {
 
 	private static double transferFunctionDerivative(final double x) {
 		// tanh derivative (approximation)
-		return 1.0f - x * x;
+		return 1.0 - x * x;
 	}
 
 	public void calcOutputGradients(final double targetVal) {
@@ -142,10 +129,6 @@ public class Neuron {
 
 			neuron.outputWeights.get(myIndex).setDeltaWeight(newDeltaWeight);
 			neuron.outputWeights.get(myIndex).setWeight(neuron.outputWeights.get(myIndex).getWeight() + newDeltaWeight);
-
-
 		}
-
 	}
-
 }

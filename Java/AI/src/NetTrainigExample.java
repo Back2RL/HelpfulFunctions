@@ -11,12 +11,12 @@ public class NetTrainigExample {
 		// 1st: number of inputs,
 		// 1st to last: layers with number of neurons
 		// last: number of outputs
-		final int[] topology = {4, 5, 4, 3, 2};
+		final int[] topology = {4, 3,3, 2};
 
 		NeuronNet myNeuronNet = new NeuronNet(topology);
 
 
-		for (int i = 0; i < 10000; i++) {
+		do{
 
 			List<Double> inputVals = new ArrayList<>();
 			// dot forward
@@ -152,7 +152,7 @@ public class NetTrainigExample {
 			System.out.println("recent average Error = " + myNeuronNet.getRecentAverageError());
 			System.out.println("recent  Error =                  " + myNeuronNet.getError());
 			System.out.println("------------------------------------------");
-		}
+		} while(myNeuronNet.getError() > 5e-3);
 
 		List<Double> inputVals = new ArrayList<>();
 		inputVals.add(1.0);
