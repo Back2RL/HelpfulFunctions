@@ -80,7 +80,7 @@ public class NeuronNet {
 
 	public void backProp(final List<Double> targetVals) {
 		// calculate overall net error (Root Mean Square errors)
-		Layer outputLayer = layers.get(layers.size() - 1);
+		Layer outputLayer = layers.get(layers.size() -1);
 		error = 0.0;
 		for (int n = 0; n < outputLayer.size() - 1; ++n) {
 			double delta = targetVals.get(n) - outputLayer.get(n).getOutputVal();
