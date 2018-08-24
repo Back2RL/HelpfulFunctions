@@ -10,4 +10,9 @@ public class Training {
 		net.backProp(targetVals);
 		return net.getResults();
 	}
+
+	public static List<Double> getResultFromInput(NeuronNet net, List<Double> inputVals) {
+		net.feedForward(inputVals);
+		return net.getResults();
+	}
 }
