@@ -10,7 +10,7 @@ import java.util.*;
 
 public class ImageUpscalingTraining {
 
-	final static int TRAINING_RUNS = 100;
+	final static int TRAINING_RUNS = 10000;
 	final static boolean RANDOM_TRAINING = false;
 
 	final static int UPDATE_INTERVAL = 100;
@@ -44,15 +44,15 @@ public class ImageUpscalingTraining {
 		createDirectoryIfNotExists(finalTestResult);
 
 
-		Vector<Pair<String,Vector<List<Double>>>> lowResImageData = new Vector<>();// contains Lists for each channel in order ARGB
-		Vector<Pair<String,Vector<List<Double>>>> highResImageData =new Vector<>(); // contains Lists for each channel in order ARGB
+		Vector<RawImageData> lowResImageData = new Vector<>();// contains Lists for each channel in order ARGB
+		Vector<RawImageData> highResImageData =new Vector<>(); // contains Lists for each channel in order ARGB
 
 		ImageUtils.loadImageData(lowResImageData, lowResDir.listFiles());
 		ImageUtils.loadImageData(highResImageData, highResDir.listFiles());
 
-		int[] topology = new int[]{lowResImageData.get(0).getValue().size(),
+		int[] topology = new int[]{lowResImageData.get(0).pixelCount(),
 //				128,
-				highResImageData.get(0).getValue().size()};
+				highResImageData.get(0).pixelCount()};
 
 		NeuronNet net;
 
@@ -74,22 +74,20 @@ public class ImageUpscalingTraining {
 
 
 
-	private static void train(File outputDir, Vector<Pair<String, Vector<List<Double>>>> lowResImageData,  Vector<Pair<String, Vector<List<Double>>>> highResImageData, NeuronNet net) throws IOException {
+	private static void train(File outputDir, Vector<RawImageData> lowResImageData,  Vector<RawImageData> highResImageData, NeuronNet net) throws IOException {
 		Random rand = new Random();
 		for (int i = 0; i < TRAINING_RUNS; ++i) {
 
 			if (RANDOM_TRAINING) {
 				int imageIndex = rand.nextInt(lowResImageData.size());
-				int channelIndex = rand.nextInt(lowResImageData.size());
-				Training.singleIteration(net, lowResImageData.get(imageIndex).getValue().get(channelIndex), highResImageData.get(imageIndex).getValue().get(channelIndex));
+				int channelIndex = rand.nextInt(4);
+				Training.singleIteration(net, lowResImageData.get(imageIndex).getChannels_RGBA()[channelIndex],highResImageData.get(imageIndex).getChannels_RGBA()[channelIndex]);
 			} else {
 				for (int imageIndex = 0; imageIndex < lowResImageData.size(); imageIndex++) {
-					Vector<List<Double>> lowResImageChannelData = lowResImageData.get(imageIndex).getValue();
-					Vector<List<Double>> highResImageChannelData = highResImageData.get(imageIndex).getValue();
-					for (int channelIndex = 0; channelIndex < lowResImageChannelData.size(); channelIndex++) {
-						assert lowResImageChannelData.size() == 4 : "lowResImageChannelData size is not 4";
-						assert highResImageChannelData.size() == 4 : "highResImageChannelData size is not 4";
-						Training.singleIteration(net,lowResImageChannelData.get(channelIndex) , highResImageChannelData.get(channelIndex));
+					double[][] lowResImageChannelData = lowResImageData.get(imageIndex).getChannels_RGBA();
+					double[][] highResImageChannelData = highResImageData.get(imageIndex).getChannels_RGBA();
+					for (int channelIndex = 0; channelIndex < lowResImageChannelData.length; channelIndex++) {
+						Training.singleIteration(net,lowResImageChannelData[channelIndex] , highResImageChannelData[channelIndex]);
 					}
 				}
 			}
@@ -100,12 +98,12 @@ public class ImageUpscalingTraining {
 		}
 	}
 
-	private static void writeImages(File outputDir, Vector<Pair<String, Vector<List<Double>>>> lowResImageData, Vector<Pair<String, Vector<List<Double>>>> highResImageData, NeuronNet net) throws IOException {
+	private static void writeImages(File outputDir, Vector<RawImageData> lowResImageData, Vector<RawImageData> highResImageData, NeuronNet net) throws IOException {
 		for (int imageIndex = 0; imageIndex < lowResImageData.size(); imageIndex += 4) {
-			List<Double> result0 = Training.getResultFromInput(net, lowResImageData.get(imageIndex).getValue().get(0));
-			List<Double> result1 = Training.getResultFromInput(net, lowResImageData.get(imageIndex).getValue().get(1));
-			List<Double> result2 = Training.getResultFromInput(net, lowResImageData.get(imageIndex).getValue().get(2));
-			List<Double> result3 = Training.getResultFromInput(net, lowResImageData.get(imageIndex).getValue().get(3));
+			double[] result0 = Training.getResultFromInput(net, lowResImageData.get(imageIndex).getChannels_RGBA()[0]);
+			double[] result1 = Training.getResultFromInput(net, lowResImageData.get(imageIndex).getChannels_RGBA()[1]);
+			double[] result2 = Training.getResultFromInput(net, lowResImageData.get(imageIndex).getChannels_RGBA()[2]);
+			double[] result3 = Training.getResultFromInput(net, lowResImageData.get(imageIndex).getChannels_RGBA()[3]);
 			BufferedImage outImage = new BufferedImage(HIGH_RES_WIDTH, HIGH_RES_HEIGHT, BufferedImage.TYPE_INT_ARGB);
 
 
@@ -118,25 +116,25 @@ public class ImageUpscalingTraining {
 					int a = 255;
 
 
-					r = (int) (255.5 * Math.min(Math.max(result0.get(index), 0.0), 1.0));
-					g = (int) (255.5 * Math.min(Math.max(result1.get(index), 0.0), 1.0));
-					b = (int) (255.5 * Math.min(Math.max(result2.get(index), 0.0), 1.0));
-					a = (int) (255.5 * Math.min(Math.max(result3.get(index), 0.0), 1.0));
+					r = (int) (255.5 * Math.min(Math.max(result0[index], 0.0), 1.0));
+					g = (int) (255.5 * Math.min(Math.max(result1[index], 0.0), 1.0));
+					b = (int) (255.5 * Math.min(Math.max(result2[index], 0.0), 1.0));
+					a = (int) (255.5 * Math.min(Math.max(result3[index], 0.0), 1.0));
 					int argb = a << 24 | r << 16 | g << 8 | b;
 					outImage.setRGB(x, y, argb);
 					index++;
 				}
 			}
 
-			File outputfile = new File(outputDir.getAbsolutePath() + File.separator + lowResImageData.get(imageIndex).getKey());
+			File outputfile = new File(outputDir.getAbsolutePath() + File.separator + lowResImageData.get(imageIndex).getName());
 			ImageIO.write(outImage, "png", outputfile);
 
 			BufferedImage outHighResImage = new BufferedImage(HIGH_RES_WIDTH, HIGH_RES_HEIGHT, BufferedImage.TYPE_INT_ARGB);
 
-			result0 = highResImageData.get(imageIndex).getValue().get(0);
-			result1 = highResImageData.get(imageIndex).getValue().get(1);
-			result2 = highResImageData.get(imageIndex).getValue().get(2);
-			result3 = highResImageData.get(imageIndex).getValue().get(3);
+			result0 = highResImageData.get(imageIndex).getChannels_RGBA()[0];
+			result1 = highResImageData.get(imageIndex).getChannels_RGBA()[1];
+			result2 = highResImageData.get(imageIndex).getChannels_RGBA()[2];
+			result3 = highResImageData.get(imageIndex).getChannels_RGBA()[3];
 			index = 0;
 			for (int y = 0; y < HIGH_RES_HEIGHT; ++y) {
 				for (int x = 0; x < HIGH_RES_WIDTH; ++x) {
@@ -146,17 +144,17 @@ public class ImageUpscalingTraining {
 					int a = 255;
 
 
-					r = (int) (255.5 * result0.get(index));
-					g = (int) (255.5 * result1.get(index));
-					b = (int) (255.5 * result2.get(index));
-					a = (int) (255.5 * result3.get(index));
+					r = (int) (255.5 * result0[index]);
+					g = (int) (255.5 * result1[index]);
+					b = (int) (255.5 * result2[index]);
+					a = (int) (255.5 * result3[index]);
 					int argb = a << 24 | r << 16 | g << 8 | b;
 					outHighResImage.setRGB(x, y, argb);
 					index++;
 				}
 			}
 
-			File outputHighResfile = new File(outputDir.getAbsolutePath() + File.separator + highResImageData.get(imageIndex).getKey());
+			File outputHighResfile = new File(outputDir.getAbsolutePath() + File.separator + highResImageData.get(imageIndex).getName());
 			ImageIO.write(outHighResImage, "png", outputHighResfile);
 		}
 	}

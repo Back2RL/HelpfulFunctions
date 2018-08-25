@@ -2,13 +2,16 @@ import java.util.List;
 import java.util.Vector;
 
 public class RawImageData {
+
+	public String getName() {
+		return name;
+	}
+
+	private final String name;
 	private final int width;
 	private final int height;
 
-	private final double[][] channel_R;
-	private final double[][] channel_G;
-	private final double[][] channel_B;
-	private final double[][] channel_A;
+	private final double[][] channels_RGBA;
 
 	public int getWidth() {
 		return width;
@@ -18,44 +21,38 @@ public class RawImageData {
 		return height;
 	}
 
-	public double[][] getChannel_R() {
-		return channel_R;
+	public double[][] getChannels_RGBA() {
+		return channels_RGBA;
 	}
 
-	public double[][] getChannel_G() {
-		return channel_G;
-	}
-
-	public double[][] getChannel_B() {
-		return channel_B;
-	}
-
-	public double[][] getChannel_A() {
-		return channel_A;
-	}
-
-	public RawImageData(int width, int height, Vector<List<Double>> imageData) {
+	public RawImageData(String name, int width, int height, Vector<List<Double>> imageData) {
+		this.name = name;
 		this.width = width;
 		this.height = height;
 
-		channel_R = new double[height][width];
-		channel_G = new double[height][width];
-		channel_B = new double[height][width];
-		channel_A = new double[height][width];
+		channels_RGBA = new double[4][];
+		int pixelCount = pixelCount();
+		channels_RGBA[0] = new double[pixelCount];
+		channels_RGBA[1] = new double[pixelCount];
+		channels_RGBA[2] = new double[pixelCount];
+		channels_RGBA[3] = new double[pixelCount];
 
 		assert imageData.size() == 4 : "4 Channels expected, " + imageData.size() + "exist!";
 		for (int pixelIndex = 0; pixelIndex < imageData.get(0).size(); pixelIndex++) {
-			channel_R[pixelIndex / height][pixelIndex%width] = imageData.get(0).get(pixelIndex);
+			channels_RGBA[0][pixelIndex] = imageData.get(0).get(pixelIndex);
 		}
 		for (int pixelIndex = 0; pixelIndex < imageData.get(1).size(); pixelIndex++) {
-			channel_G[pixelIndex / height][pixelIndex%width] = imageData.get(0).get(pixelIndex);
+			channels_RGBA[1][pixelIndex] = imageData.get(1).get(pixelIndex);
 		}
 		for (int pixelIndex = 0; pixelIndex < imageData.get(2).size(); pixelIndex++) {
-			channel_B[pixelIndex / height][pixelIndex%width] = imageData.get(0).get(pixelIndex);
+			channels_RGBA[2][pixelIndex] = imageData.get(2).get(pixelIndex);
 		}
 		for (int pixelIndex = 0; pixelIndex < imageData.get(3).size(); pixelIndex++) {
-			channel_A[pixelIndex / height][pixelIndex%width] = imageData.get(0).get(pixelIndex);
-
+			channels_RGBA[3][pixelIndex] = imageData.get(3).get(pixelIndex);
 		}
+	}
+
+	public int pixelCount(){
+		return width*height;
 	}
 }

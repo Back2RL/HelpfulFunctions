@@ -21,44 +21,44 @@ public class NetTrainigExample {
 
 
 		do {
-			List<Double> inputVals = new ArrayList<>();
+			double[] inputVals = new double[4];
 			// dot forward
-			inputVals.add(1.0);
+			inputVals[0] = 1.0;
 			// dot up
-			inputVals.add(0.0);
+			inputVals[0] = 0.0;
 			// dot right
-			inputVals.add(0.0);
+			inputVals[0] = 0.0;
 			// distance
-			inputVals.add(0.0);
+			inputVals[0] = 0.0;
 
-			List<Double> targetVals = new ArrayList<>();
+			double[] targetVals =  new double[2];
 			// pitch
-			targetVals.add(1.0);
+			targetVals[0] = 1.0;
 			// yaw
-			targetVals.add(0.0);
+			targetVals[0] = 0.0;
 
-			List<Double> resultVals = Training.singleIteration(myNeuronNet, inputVals, targetVals);
+			double[] resultVals = Training.singleIteration(myNeuronNet, inputVals, targetVals);
 
 			//System.out.println("Target : Generated");
 			//System.out.println(targetVals.toString() + "      : " + resultVals.toString());
 
 			// .................................................
 
-			inputVals = new ArrayList<>();
+			inputVals = new double[4];
 			// dot forward
-			inputVals.add(1.0);
+			inputVals[0] = 1.0;
 			// dot up
-			inputVals.add(0.0);
+			inputVals[0] = 0.0;
 			// dot right
-			inputVals.add(1.0);
+			inputVals[0] = 1.0;
 			// distance
-			inputVals.add(1.0);
+			inputVals[0] = 1.0;
 
-			targetVals = new ArrayList<>();
+			targetVals = new double[2];
 			// pitch
-			targetVals.add(0.0);
+			targetVals[0] = 0.0;
 			// yaw
-			targetVals.add(1.0);
+			targetVals[0] = 1.0;
 
 
 			Training.singleIteration(myNeuronNet, inputVals, targetVals);
@@ -68,21 +68,21 @@ public class NetTrainigExample {
 
 			// .................................................
 
-			inputVals = new ArrayList<>();
+			inputVals = new double[4];
 			// dot forward
-			inputVals.add(1.0);
+			inputVals[0] = 1.0;
 			// dot up
-			inputVals.add(0.0);
+			inputVals[0] = 0.0;
 			// dot right
-			inputVals.add(-1.0);
+			inputVals[0] = -1.0;
 			// distance
-			inputVals.add(1.0);
+			inputVals[0] = 1.0;
 
-			targetVals = new ArrayList<>();
+			targetVals = new double[2];
 			// pitch
-			targetVals.add(0.0);
+			targetVals[0] = 0.0;
 			// yaw
-			targetVals.add(-1.0);
+			targetVals[0] = -1.0;
 
 
 			Training.singleIteration(myNeuronNet, inputVals, targetVals);
@@ -92,21 +92,21 @@ public class NetTrainigExample {
 
 			// .................................................
 
-			inputVals = new ArrayList<>();
+			inputVals = new double[4];
 			// dot forward
-			inputVals.add(-1.0);
+			inputVals[0] = -1.0;
 			// dot up
-			inputVals.add(0.0);
+			inputVals[0] = 0.0;
 			// dot right
-			inputVals.add(1.0);
+			inputVals[0] = 1.0;
 			// distance
-			inputVals.add(0.0);
+			inputVals[0] = 0.0;
 
-			targetVals = new ArrayList<>();
+			targetVals = new double[2];
 			// pitch
-			targetVals.add(1.0);
+			targetVals[0] = 1.0;
 			// yaw
-			targetVals.add(1.0);
+			targetVals[0] = 1.0;
 
 
 			Training.singleIteration(myNeuronNet, inputVals, targetVals);
@@ -116,21 +116,21 @@ public class NetTrainigExample {
 
 			// .................................................
 
-			inputVals = new ArrayList<>();
+			inputVals = new double[4];
 			// dot forward
-			inputVals.add(-1.0);
+			inputVals[0] = -1.0;
 			// dot up
-			inputVals.add(0.0);
+			inputVals[0] = 0.0;
 			// dot right
-			inputVals.add(-1.0);
+			inputVals[0] = -1.0;
 			// distance
-			inputVals.add(0.0);
+			inputVals[0] = 0.0;
 
-			targetVals = new ArrayList<>();
+			targetVals = new double[2];
 			// pitch
-			targetVals.add(1.0);
+			targetVals[0] = 1.0;
 			// yaw
-			targetVals.add(-1.0);
+			targetVals[0] = -1.0;
 
 			Training.singleIteration(myNeuronNet, inputVals, targetVals);
 
@@ -150,16 +150,16 @@ public class NetTrainigExample {
 		long end = System.currentTimeMillis();
 		System.out.println((end - startTime) + "ms; " + iterations + " iterations; " + (double) iterations / ((end - startTime) / 1000.0) + " iterations/second");
 
-		List<Double> inputVals = new ArrayList<>();
-		inputVals.add(1.0);
-		inputVals.add(0.0);
-		inputVals.add(1.0);
-		inputVals.add(1.0);
+		double[] inputVals = new double[4];
+		inputVals[0] = 1.0;
+		inputVals[0] = 0.0;
+		inputVals[0] = 1.0;
+		inputVals[0] = 1.0;
 
 		myNeuronNet.feedForward(inputVals);
 
 
-		List<Double> resultVals = myNeuronNet.getResults();
+		double[] resultVals = myNeuronNet.getResults();
 		System.out.println(myNeuronNet.getGenome().toString());
 		List<Double> genome = myNeuronNet.getGenome();
 		genome.set(new Random().nextInt(genome.size()), 0.0);

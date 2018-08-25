@@ -306,11 +306,11 @@ public class AIExampleTrainingTest extends JFrame {
             Vec2D dirToTarget = targetLocation.subtract(actor.getLocation()).getNormalized();
             double dotRightToTarget = actor.getForwardDir().getRotated(90).dotProduct(dirToTarget);
 
-            List<Double> inputVals = new ArrayList<>();
+            double[] inputVals = new double[1];
 
             double angle = Math.acos(actor.getForwardDir().dotProduct(dirToTarget)) / Math.PI;
 
-            inputVals.add(Math.signum(dotRightToTarget) * angle);
+            inputVals[0] = Math.signum(dotRightToTarget) * angle;
 
             actor.learn(inputVals, dt);
 

@@ -57,8 +57,8 @@ public class NeuronNet implements Serializable {
 		return recentAverageError;
 	}
 
-	public void feedForward(final List<Double> inputVals) {
-		if (inputVals.size() != layers.get(0).size() - 1) {
+	public void feedForward(final double[] inputVals) {
+		if (inputVals.length != layers.get(0).size() - 1) {
 			try {
 				throw new Exception("Number of Inputvalues does not equal number of Neurons in Inputlayer.");
 			} catch (Exception e) {
@@ -67,8 +67,8 @@ public class NeuronNet implements Serializable {
 		}
 
 		// put the input values into the input neurons
-		for (int i = 0; i < inputVals.size(); ++i) {
-			layers.get(0).get(i).setOutputVal(inputVals.get(i));
+		for (int i = 0; i < inputVals.length; ++i) {
+			layers.get(0).get(i).setOutputVal(inputVals[i]);
 		}
 
 		// forward propagate
@@ -80,12 +80,12 @@ public class NeuronNet implements Serializable {
 		}
 	}
 
-	public void backProp(final List<Double> targetVals) {
+	public void backProp(final double[] targetVals) {
 		// calculate overall net error (Root Mean Square errors)
 		Layer outputLayer = layers.get(layers.size() -1);
 		error = 0.0;
 		for (int n = 0; n < outputLayer.size() - 1; ++n) {
-			double delta = targetVals.get(n) - outputLayer.get(n).getOutputVal();
+			double delta = targetVals[n] - outputLayer.get(n).getOutputVal();
 			error += delta * delta;
 		}
 		// get average error squared
@@ -98,7 +98,7 @@ public class NeuronNet implements Serializable {
 
 		// calculate output layer gradients
 		for (int n = 0; n < outputLayer.size() - 1; ++n) {
-			outputLayer.get(n).calcOutputGradients(targetVals.get(n));
+			outputLayer.get(n).calcOutputGradients(targetVals[n]);
 		}
 
 		// calculate gradients on hidden layers
@@ -122,11 +122,12 @@ public class NeuronNet implements Serializable {
 
 	}
 
-	public List<Double> getResults() {
-		List<Double> resultVals = new ArrayList<>();
+	public double[] getResults() {
+		int num = layers.get(layers.size() - 1).size() - 1;
 
-		for (int n = 0; n < layers.get(layers.size() - 1).size() - 1; ++n) {
-			resultVals.add(layers.get(layers.size() - 1).get(n).getOutputVal());
+		double[] resultVals = new double[num];
+		for (int n = 0; n <num; ++n) {
+			resultVals[n] = layers.get(layers.size() - 1).get(n).getOutputVal();
 		}
 
 		return resultVals;

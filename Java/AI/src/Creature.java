@@ -56,7 +56,7 @@ public class Creature {
 		location = location.add(forwardDir.multiplyWithDouble(currVelocity * deltaTime));
 	}
 
-	public void learn(List<Double> inputVals, double dt) {
+	public void learn(double[] inputVals, double dt) {
 
 
 		brain.feedForward(inputVals);
@@ -66,7 +66,7 @@ public class Creature {
 
 		//brain.backProp(targetVals);
 
-		List<Double> resultVals = brain.getResults();
+		double[] resultVals = brain.getResults();
 
 		if (DEBUG) {
 			System.out.println("Target : Generated");
@@ -78,8 +78,8 @@ public class Creature {
 			System.out.println("recent average Error = " + brain.getRecentAverageError());
 			System.out.println("recent  Error =                  " + brain.getError());
 		}
-		forwardDir.rotateByDeg(turnRate * resultVals.get(0) * dt);
-		currVelocity = velocity * -0.5 + resultVals.get(1) * velocity * 1.5;
+		forwardDir.rotateByDeg(turnRate * resultVals[0] * dt);
+		currVelocity = velocity * -0.5 + resultVals[1] * velocity * 1.5;
 
 
 	}

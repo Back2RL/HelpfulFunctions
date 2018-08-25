@@ -32,7 +32,7 @@ public class ImageUtils {
 	 * @param imageFiles
 	 * @throws IOException
 	 */
-	public static void loadImageData(Vector<Pair<String, Vector<List<Double>>>> outImageData, File[] imageFiles) throws IOException {
+	public static void loadImageData(Vector<RawImageData> outImageData, File[] imageFiles) throws IOException {
 		if (imageFiles != null) {
 			for (File image : imageFiles) {
 				Vector<List<Double>> imageData = new Vector<>();
@@ -73,7 +73,8 @@ public class ImageUtils {
 					}
 				}
 				imageData.add(data);
-				outImageData.add(new Pair<>(image.getName(), imageData));
+				RawImageData rawImageData = new RawImageData(image.getName(),bufferedImage.getWidth(), bufferedImage.getHeight(),imageData);
+				outImageData.add(rawImageData);
 			}
 		}
 	}
