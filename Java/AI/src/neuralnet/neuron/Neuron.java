@@ -3,11 +3,14 @@ package neuralnet.neuron;
 import neuralnet.layer.Connection;
 import neuralnet.layer.Layer;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Neuron {
+public class Neuron implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	// overall net learning rate: 0 slow learner, 0.2 medium learner, 1.0 reckless learner [0.0..1.0]
 	private static final double eta = 0.01;

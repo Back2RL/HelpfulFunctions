@@ -1,6 +1,10 @@
 package neuralnet.layer;
 
-public class Connection {
+import java.io.Serializable;
+
+public class Connection implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private double weight;
     private double deltaWeight;

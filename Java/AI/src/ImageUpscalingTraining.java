@@ -1,19 +1,16 @@
+import javafx.util.Pair;
 import neuralnet.Training;
 import neuralnet.net.NeuronNet;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Vector;
+import java.util.*;
 
 public class ImageUpscalingTraining {
 
-	final static int TRAINING_RUNS = 10000;
+	final static int TRAINING_RUNS = 100;
 	final static boolean RANDOM_TRAINING = false;
 
 	final static int UPDATE_INTERVAL = 100;
@@ -47,40 +44,53 @@ public class ImageUpscalingTraining {
 		createDirectoryIfNotExists(finalTestResult);
 
 
-		Vector<List<Double>> lowResImageData = new Vector<>(); // contains Lists for each channel in order ARGB
-		Vector<List<Double>> highResImageData = new Vector<>(); // contains Lists for each channel in order ARGB
+		Vector<Pair<String,Vector<List<Double>>>> lowResImageData = new Vector<>();// contains Lists for each channel in order ARGB
+		Vector<Pair<String,Vector<List<Double>>>> highResImageData =new Vector<>(); // contains Lists for each channel in order ARGB
 
-		loadImageData(lowResImageData, lowResDir.listFiles());
-		loadImageData(highResImageData, highResDir.listFiles());
+		ImageUtils.loadImageData(lowResImageData, lowResDir.listFiles());
+		ImageUtils.loadImageData(highResImageData, highResDir.listFiles());
 
-		int[] topology = new int[]{lowResImageData.get(0).size(),
+		int[] topology = new int[]{lowResImageData.get(0).getValue().size(),
 //				128,
-				highResImageData.get(0).size()};
+				highResImageData.get(0).getValue().size()};
 
-		NeuronNet net = new NeuronNet(topology);
+		NeuronNet net;
+
+		net = NeuronNet.loadNeuralNet(topology);
 
 		train(results, lowResImageData, highResImageData, net);
-		writeImages(results,lowResImageData, highResImageData, net);
+		writeImages(results, lowResImageData, highResImageData, net);
 		System.out.println(net.getError());
 
 		lowResImageData = new Vector<>();
 		highResImageData = new Vector<>();
 
-		loadImageData(lowResImageData, finalTestLowRes.listFiles());
-		loadImageData(highResImageData, finalTestHighRes.listFiles());
-		writeImages(finalTestResult,lowResImageData, highResImageData, net);
+		ImageUtils.loadImageData(lowResImageData, finalTestLowRes.listFiles());
+		ImageUtils.loadImageData(highResImageData, finalTestHighRes.listFiles());
+		writeImages(finalTestResult, lowResImageData, highResImageData, net);
+
+		NeuronNet.saveNeuralNet(net);
 	}
 
-	private static void train(File outputDir, Vector<List<Double>> lowResImageData, Vector<List<Double>> highResImageData, NeuronNet net) throws IOException {
+
+
+	private static void train(File outputDir, Vector<Pair<String, Vector<List<Double>>>> lowResImageData,  Vector<Pair<String, Vector<List<Double>>>> highResImageData, NeuronNet net) throws IOException {
 		Random rand = new Random();
 		for (int i = 0; i < TRAINING_RUNS; ++i) {
 
-			if(RANDOM_TRAINING){
-				int index = rand.nextInt(lowResImageData.size());
-				Training.singleIteration(net, lowResImageData.get(index), highResImageData.get(index));
-			}else {
-				for (int imageIndex = 0; imageIndex < lowResImageData.size(); imageIndex+=4) {
-					List<Double> result = Training.singleIteration(net, lowResImageData.get(imageIndex), highResImageData.get(imageIndex));
+			if (RANDOM_TRAINING) {
+				int imageIndex = rand.nextInt(lowResImageData.size());
+				int channelIndex = rand.nextInt(lowResImageData.size());
+				Training.singleIteration(net, lowResImageData.get(imageIndex).getValue().get(channelIndex), highResImageData.get(imageIndex).getValue().get(channelIndex));
+			} else {
+				for (int imageIndex = 0; imageIndex < lowResImageData.size(); imageIndex++) {
+					Vector<List<Double>> lowResImageChannelData = lowResImageData.get(imageIndex).getValue();
+					Vector<List<Double>> highResImageChannelData = highResImageData.get(imageIndex).getValue();
+					for (int channelIndex = 0; channelIndex < lowResImageChannelData.size(); channelIndex++) {
+						assert lowResImageChannelData.size() == 4 : "lowResImageChannelData size is not 4";
+						assert highResImageChannelData.size() == 4 : "highResImageChannelData size is not 4";
+						Training.singleIteration(net,lowResImageChannelData.get(channelIndex) , highResImageChannelData.get(channelIndex));
+					}
 				}
 			}
 			if (i % UPDATE_INTERVAL == 0) {
@@ -90,12 +100,12 @@ public class ImageUpscalingTraining {
 		}
 	}
 
-	private static void writeImages(File outputDir, Vector<List<Double>> lowResImageData, Vector<List<Double>> highResImageData, NeuronNet net) throws IOException {
-		for (int imageIndex = 0; imageIndex < lowResImageData.size(); imageIndex+=4) {
-			List<Double> result0 = Training.getResultFromInput(net, lowResImageData.get(imageIndex));
-			List<Double> result1 = Training.getResultFromInput(net, lowResImageData.get(imageIndex+1));
-			List<Double> result2 = Training.getResultFromInput(net, lowResImageData.get(imageIndex+2));
-			List<Double> result3 = Training.getResultFromInput(net, lowResImageData.get(imageIndex+3));
+	private static void writeImages(File outputDir, Vector<Pair<String, Vector<List<Double>>>> lowResImageData, Vector<Pair<String, Vector<List<Double>>>> highResImageData, NeuronNet net) throws IOException {
+		for (int imageIndex = 0; imageIndex < lowResImageData.size(); imageIndex += 4) {
+			List<Double> result0 = Training.getResultFromInput(net, lowResImageData.get(imageIndex).getValue().get(0));
+			List<Double> result1 = Training.getResultFromInput(net, lowResImageData.get(imageIndex).getValue().get(1));
+			List<Double> result2 = Training.getResultFromInput(net, lowResImageData.get(imageIndex).getValue().get(2));
+			List<Double> result3 = Training.getResultFromInput(net, lowResImageData.get(imageIndex).getValue().get(3));
 			BufferedImage outImage = new BufferedImage(HIGH_RES_WIDTH, HIGH_RES_HEIGHT, BufferedImage.TYPE_INT_ARGB);
 
 
@@ -108,26 +118,25 @@ public class ImageUpscalingTraining {
 					int a = 255;
 
 
-					r = (int) (255.0 * Math.min(Math.max(result0.get(index), 0), 1));
-					g = (int) (255.0 * Math.min(Math.max(result1.get(index), 0), 1));
-					b = (int) (255.0 * Math.min(Math.max(result2.get(index), 0), 1));
-					a = (int) (255.0 * Math.min(Math.max(result3.get(index), 0), 1));
+					r = (int) (255.5 * Math.min(Math.max(result0.get(index), 0.0), 1.0));
+					g = (int) (255.5 * Math.min(Math.max(result1.get(index), 0.0), 1.0));
+					b = (int) (255.5 * Math.min(Math.max(result2.get(index), 0.0), 1.0));
+					a = (int) (255.5 * Math.min(Math.max(result3.get(index), 0.0), 1.0));
 					int argb = a << 24 | r << 16 | g << 8 | b;
 					outImage.setRGB(x, y, argb);
 					index++;
 				}
 			}
 
-			File outputfile = new File(outputDir.getAbsolutePath()+File.separator+"image" + imageIndex + ".png");
+			File outputfile = new File(outputDir.getAbsolutePath() + File.separator + lowResImageData.get(imageIndex).getKey());
 			ImageIO.write(outImage, "png", outputfile);
 
 			BufferedImage outHighResImage = new BufferedImage(HIGH_RES_WIDTH, HIGH_RES_HEIGHT, BufferedImage.TYPE_INT_ARGB);
 
-			result0 = highResImageData.get(imageIndex);
-			result1 = highResImageData.get(imageIndex+1);
-			result2 = highResImageData.get(imageIndex+2);
-			result3 = highResImageData.get(imageIndex+3);
-
+			result0 = highResImageData.get(imageIndex).getValue().get(0);
+			result1 = highResImageData.get(imageIndex).getValue().get(1);
+			result2 = highResImageData.get(imageIndex).getValue().get(2);
+			result3 = highResImageData.get(imageIndex).getValue().get(3);
 			index = 0;
 			for (int y = 0; y < HIGH_RES_HEIGHT; ++y) {
 				for (int x = 0; x < HIGH_RES_WIDTH; ++x) {
@@ -137,64 +146,22 @@ public class ImageUpscalingTraining {
 					int a = 255;
 
 
-					r = (int) (255.0 * result0.get(index));
-					g = (int) (255.0 * result1.get(index));
-					b = (int) (255.0 * result2.get(index));
-					a = (int) (255.0 * result3.get(index));
+					r = (int) (255.5 * result0.get(index));
+					g = (int) (255.5 * result1.get(index));
+					b = (int) (255.5 * result2.get(index));
+					a = (int) (255.5 * result3.get(index));
 					int argb = a << 24 | r << 16 | g << 8 | b;
 					outHighResImage.setRGB(x, y, argb);
 					index++;
 				}
 			}
 
-			File outputHighResfile = new File(outputDir.getAbsolutePath()+File.separator+"image" + imageIndex + "_target.png");
+			File outputHighResfile = new File(outputDir.getAbsolutePath() + File.separator + highResImageData.get(imageIndex).getKey());
 			ImageIO.write(outHighResImage, "png", outputHighResfile);
 		}
 	}
 
-	private static void loadImageData(Vector<List<Double>> outImageData, File[] imageFiles) throws IOException {
-		if (imageFiles != null) {
-			for (File image : imageFiles) {
-				BufferedImage bufferedImage = ImageIO.read(image);
-				int channels = 3;
-				if(bufferedImage.getColorModel().hasAlpha()){
-					channels = 4;
-				}
-				double[] pixelData = new double[channels * bufferedImage.getHeight() * bufferedImage.getWidth()];
-				bufferedImage.getData().getPixels(0, 0, bufferedImage.getWidth(), bufferedImage.getHeight(), pixelData);
 
-				List<Double> data = new ArrayList<>();
-				for (int i = 0; i < pixelData.length; i+=channels) {
-					data.add(pixelData[i] / 255.0);
-				}
-				outImageData.add(data);
-
-				data = new ArrayList<>();
-				for (int i = 1; i < pixelData.length; i+=channels) {
-					data.add(pixelData[i] / 255.0);
-				}
-				outImageData.add(data);
-
-				data = new ArrayList<>();
-				for (int i = 2; i < pixelData.length; i+=channels) {
-					data.add(pixelData[i] / 255.0);
-				}
-				outImageData.add(data);
-
-				data = new ArrayList<>();
-				if(channels == 4) {
-					for (int i = 3; i < pixelData.length; i += channels) {
-						data.add(pixelData[i] / 255.0);
-					}
-				} else {
-					for (int i = 0; i < pixelData.length; i += channels) {
-						data.add(1.0);
-					}
-				}
-				outImageData.add(data);
-			}
-		}
-	}
 
 
 	private static void createDirectoryIfNotExists(File dir) {

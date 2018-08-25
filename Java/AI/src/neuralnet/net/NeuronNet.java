@@ -4,10 +4,12 @@ import neuralnet.layer.Layer;
 import neuralnet.neuron.Bias;
 import neuralnet.neuron.Neuron;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NeuronNet {
+public class NeuronNet implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	private static final double recentAverageSmoothingFactor = 10.0;
 	private double fitness = 0.0;
@@ -149,6 +151,25 @@ public class NeuronNet {
 				node.setGenome(subGenome);
 			}
 		}
+	}
+
+	public static void saveNeuralNet(NeuronNet net) throws IOException {
+		try (FileOutputStream fos = new FileOutputStream("net.serialized");
+		     ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+			oos.writeObject(net);
+		}
+	}
+
+	public static NeuronNet loadNeuralNet(int[] topology) {
+		NeuronNet net;
+		try (FileInputStream fis = new FileInputStream("net.serialized");
+		     ObjectInputStream ois = new ObjectInputStream(fis)) {
+			net = (NeuronNet) ois.readObject();
+		} catch (Exception e) {
+			e.printStackTrace();
+			net = new NeuronNet(topology);
+		}
+		return net;
 	}
 }
 
