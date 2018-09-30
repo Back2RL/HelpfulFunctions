@@ -11,7 +11,7 @@ import java.util.Vector;
 
 public class ImageUpscalingTraining {
 
-	final static int TRAINING_RUNS = 10;
+	final static int TRAINING_RUNS = 3;
 	final static boolean RANDOM_TRAINING = false;
 
 	final static int UPDATE_INTERVAL = 10;
@@ -19,90 +19,107 @@ public class ImageUpscalingTraining {
 	final static int COLOR_CHANNEL_OFFSET = 0; // 0..3
 	final static int COLOR_CHANNEL_SKIPPING = 4;
 
-	final static int LOW_RES_WIDTH = 8;
-	final static int LOW_RES_HEIGHT = 8;
+	final static int LOW_RES_WIDTH = 9;
+	final static int LOW_RES_HEIGHT = 9;
 
-	final static int HIGH_RES_WIDTH = 16;
-	final static int HIGH_RES_HEIGHT = 16;
-
-	private static boolean origsWritten = false;
-
+	final static int HIGH_RES_WIDTH = 18;
+	final static int HIGH_RES_HEIGHT = 18;
 
 	public static void main(String[] args) throws IOException {
 
-		File lowResDir = new File("./training/lowRes");
-		File highResDir = new File("./training/highRes");
-		File results = new File("./training/results");
-
-		File finalTestLowRes = new File("./training/finalTestLowRes");
-		File finalTestHighRes = new File("./training/finalTestHighRes");
-		File finalTestResult = new File("./training/finalTestResult");
-
-		File untiledImages = new File("./training/untiledImages");
-		File tiledImages = new File("./training/tiledImages");
-
-		createDirectoryIfNotExists(new File("./training"));
-		createDirectoryIfNotExists(lowResDir);
-		createDirectoryIfNotExists(highResDir);
-		createDirectoryIfNotExists(results);
-
-		createDirectoryIfNotExists(finalTestLowRes);
-		createDirectoryIfNotExists(finalTestResult);
-
-		createDirectoryIfNotExists(untiledImages);
-		createDirectoryIfNotExists(tiledImages);
-
-
 		Vector<RawImageData> lowResImageData = new Vector<>();
 		Vector<RawImageData> highResImageData = new Vector<>();
-		Vector<RawImageData> untiledImageData = new Vector<>();
 
-		ImageUtils.loadImageData(lowResImageData, lowResDir.listFiles());
+		NeuronNet neuronNet = null;
+
+		createDirectoryIfNotExists(new File("./training"));
+
+		File highResDir = new File("./training/highRes");
+		File lowResDir = new File("./training/lowRes");
+		File results = new File("./training/results");
+
+		createDirectoryIfNotExists(highResDir);
+		createDirectoryIfNotExists(lowResDir);
+		createDirectoryIfNotExists(results);
+
+
 		ImageUtils.loadImageData(highResImageData, highResDir.listFiles());
-		ImageUtils.loadImageData(untiledImageData, untiledImages.listFiles());
+		ImageUtils.loadImageData(lowResImageData, lowResDir.listFiles());
 
-		int[] topology = new int[]{lowResImageData.get(0).pixelCount(),
-				//highResImageData.get(0).pixelCount(),
-				highResImageData.get(0).pixelCount()};
 
-		NeuronNet net;
+		int[] topology = new int[]{LOW_RES_WIDTH * LOW_RES_HEIGHT,
+				LOW_RES_WIDTH * LOW_RES_HEIGHT,
+				HIGH_RES_WIDTH*HIGH_RES_HEIGHT};
 
-		net = NeuronNet.loadNeuralNet(topology);
+		neuronNet = NeuronNet.loadNeuralNet(topology);
 
-		writeImages(results, null, highResImageData, highResImageData.size(), net);
-		train(results, lowResImageData, highResImageData, net);
-		writeImages(results, lowResImageData, highResImageData, lowResImageData.size(), net);
-		System.out.println(net.getError());
+		//trainNeuralNetOnData(lowResImageData, highResImageData, neuronNet, results,false);
 
-		lowResImageData = new Vector<>();
-		highResImageData = new Vector<>();
+		//System.exit(0);
 
-		ImageUtils.loadImageData(lowResImageData, finalTestLowRes.listFiles());
-		ImageUtils.loadImageData(highResImageData, finalTestHighRes.listFiles());
-		writeImages(finalTestResult, lowResImageData, highResImageData, lowResImageData.size(), net);
+		Vector<RawImageData> untiledLowResImageData = new Vector<>();
+		Vector<RawImageData> untiledHighResImageData = new Vector<>();
 
-		NeuronNet.saveNeuralNet(net);
+		File untiledLowResImages = new File("./training/untiledLowResImages");
+		File tiledLowResImages = new File("./training/tiledLowResImages");
+		File untiledHighResImages = new File("./training/untiledHighResImages");
+		File tiledHighResImages = new File("./training/tiledHighResImages");
+		File finalTestResult = new File("./training/finalTestResult");
 
-		Vector<RawImageData> tiles = ImageUtils.tileImage(untiledImageData, 8, 8);
+		createDirectoryIfNotExists(untiledLowResImages);
+		createDirectoryIfNotExists(tiledLowResImages);
+		createDirectoryIfNotExists(untiledHighResImages);
+		createDirectoryIfNotExists(tiledHighResImages);
+		createDirectoryIfNotExists(finalTestResult);
 
-		Vector<RawImageData> upscaledTiles = new Vector<>();
-		for (RawImageData tile : tiles) {
-			RawImageData upscaledTile = new RawImageData(tile.getName(), tile.getWidth() * 2, tile.getHeight() * 2, null, tile.getTileColumnIndex(), tile.getTileRowIndex(), tile.getUntiledOrigWidth() * 2, tile.getUntiledOrigHeight() * 2);
+		ImageUtils.loadImageData(untiledLowResImageData, untiledLowResImages.listFiles());
+		ImageUtils.loadImageData(untiledHighResImageData, untiledHighResImages.listFiles());
+
+		lowResImageData = ImageUtils.tileImage(untiledLowResImageData, LOW_RES_WIDTH, LOW_RES_HEIGHT);
+		highResImageData = ImageUtils.tileImage(untiledHighResImageData, HIGH_RES_WIDTH, HIGH_RES_HEIGHT);
+
+		Vector<RawImageData> toUpscale = ImageUtils.tileImage(untiledHighResImageData, LOW_RES_WIDTH, LOW_RES_HEIGHT);
+
+
+		//writeImagesToDir(tiledLowResImages, lowResImageData, lowResImageData.size());
+		//writeImagesToDir(tiledHighResImages, highResImageData, highResImageData.size());
+
+		for (int i = 0; i < 100 ; ++i) {
+			trainNeuralNetOnData(lowResImageData, highResImageData, neuronNet, finalTestResult, false);
+
+			Vector<RawImageData> upscaledTiles = new Vector<>();
+			generateHighResTiles(toUpscale, neuronNet, upscaledTiles);
+
+			Vector<RawImageData> stitchedImages = ImageUtils.stitchImages(upscaledTiles);
+			writeImagesToDir(finalTestResult, stitchedImages, stitchedImages.size());
+		}
+	}
+
+	private static void generateHighResTiles(Vector<RawImageData> lowResImageData, NeuronNet neuronNet, Vector<RawImageData> upscaledTiles) {
+		for (RawImageData tile : lowResImageData) {
+			RawImageData upscaledTile = new RawImageData(tile.getName(), tile.getWidth() * (HIGH_RES_WIDTH/LOW_RES_WIDTH), tile.getHeight() * (HIGH_RES_HEIGHT/LOW_RES_HEIGHT), null, tile.getTileColumnIndex(), tile.getTileRowIndex(), tile.getUntiledOrigWidth() * (HIGH_RES_WIDTH/LOW_RES_WIDTH), tile.getUntiledOrigHeight() * (HIGH_RES_HEIGHT/LOW_RES_HEIGHT));
 			upscaledTiles.add(upscaledTile);
 			for (int i = 0; i < tile.getChannels_RGBA().length; i++) {
-				net.feedForward(tile.getChannels_RGBA()[i]);
-				upscaledTile.getChannels_RGBA()[i] = net.getResults();
+				neuronNet.feedForward(tile.getChannels_RGBA()[i]);
+				upscaledTile.getChannels_RGBA()[i] = neuronNet.getResults();
+				for (int i1 = 0; i1 < upscaledTile.getChannels_RGBA()[i].length; i1++) {
+					upscaledTile.getChannels_RGBA()[i][i1] = Math.min(Math.max(upscaledTile.getChannels_RGBA()[i][i1], 0.0), 1.0);
+				}
 			}
 		}
+	}
 
-		Vector<RawImageData> stitchedImages = ImageUtils.stitchImages(upscaledTiles);
-		writeImages(finalTestResult, null, stitchedImages, stitchedImages.size(), null);
-
-		System.exit(0);
+	private static void trainNeuralNetOnData(Vector<RawImageData> lowResImageData, Vector<RawImageData> highResImageData, NeuronNet neuronNet, File results, boolean writeImagesToFile) throws IOException {
+		if(writeImagesToFile)writeImagesToDir(results, highResImageData, highResImageData.size()); // write High-res files
+		train(results, lowResImageData, highResImageData, neuronNet,writeImagesToFile);
+		if(writeImagesToFile) generateAndWriteHighResTilesToDir(results, lowResImageData, lowResImageData.size(), neuronNet);
+		System.out.println("Error = " + neuronNet.getError());
+		System.out.println("Recent Error = " + neuronNet.getRecentAverageError());
+		NeuronNet.saveNeuralNet(neuronNet);
 	}
 
 
-	private static void train(File outputDir, Vector<RawImageData> lowResImageData, Vector<RawImageData> highResImageData, NeuronNet net) throws IOException {
+	private static void train(File outputDir, Vector<RawImageData> lowResImageData, Vector<RawImageData> highResImageData, NeuronNet net, boolean writeImagesToFile) throws IOException {
 		Random rand = new Random();
 		for (int i = 0; i < TRAINING_RUNS; ++i) {
 
@@ -119,16 +136,19 @@ public class ImageUpscalingTraining {
 					}
 				}
 			}
-			if (i % UPDATE_INTERVAL == 0) {
-				writeImages(outputDir, lowResImageData, null, lowResImageData.size(), net);
+			if (i % UPDATE_INTERVAL == 0 && writeImagesToFile) {
+				generateAndWriteHighResTilesToDir(outputDir, lowResImageData, lowResImageData.size(), net);
 				NeuronNet.saveNeuralNet(net);
-				System.out.println(net.getError());
+				System.out.println("Run : " + i);
+				System.out.println("Error = " + net.getError());
+				System.out.println("Recent Error = " + net.getRecentAverageError());
+
 			}
 		}
 	}
 
 
-	private static void writeImages(File outputDir, Vector<RawImageData> lowResImageData, Vector<RawImageData> highResImageData, int imageCount, NeuronNet net) throws IOException {
+	private static void generateAndWriteHighResTilesToDir(File outputDir, Vector<RawImageData> lowResImageData, int imageCount, NeuronNet net) throws IOException {
 		double[] result0;
 		double[] result1;
 		double[] result2;
@@ -166,17 +186,27 @@ public class ImageUpscalingTraining {
 				File outputfile = new File(outputDir.getAbsolutePath() + File.separator + lowResImageData.get(imageIndex).getName());
 				ImageIO.write(outImage, "png", outputfile);
 			}
+		}
+	}
 
-			if (highResImageData != null) {
-				BufferedImage outHighResImage = new BufferedImage(highResImageData.get(imageIndex).getWidth(), highResImageData.get(imageIndex).getHeight(), BufferedImage.TYPE_INT_ARGB);
+	private static void writeImagesToDir(File outputDir, Vector<RawImageData> imageData, int imageCount){
+		double[] result0;
+		double[] result1;
+		double[] result2;
+		double[] result3;
+		int index;
 
-				result0 = highResImageData.get(imageIndex).getChannels_RGBA()[0];
-				result1 = highResImageData.get(imageIndex).getChannels_RGBA()[1];
-				result2 = highResImageData.get(imageIndex).getChannels_RGBA()[2];
-				result3 = highResImageData.get(imageIndex).getChannels_RGBA()[3];
+		for (int imageIndex = 0; imageIndex < imageCount; imageIndex++) {
+			if (imageData != null) {
+				BufferedImage outHighResImage = new BufferedImage(imageData.get(imageIndex).getWidth(), imageData.get(imageIndex).getHeight(), BufferedImage.TYPE_INT_ARGB);
+
+				result0 = imageData.get(imageIndex).getChannels_RGBA()[0];
+				result1 = imageData.get(imageIndex).getChannels_RGBA()[1];
+				result2 = imageData.get(imageIndex).getChannels_RGBA()[2];
+				result3 = imageData.get(imageIndex).getChannels_RGBA()[3];
 				index = 0;
-				for (int y = 0; y < highResImageData.get(imageIndex).getHeight(); ++y) {
-					for (int x = 0; x < highResImageData.get(imageIndex).getWidth(); ++x) {
+				for (int y = 0; y < imageData.get(imageIndex).getHeight(); ++y) {
+					for (int x = 0; x < imageData.get(imageIndex).getWidth(); ++x) {
 						int r = 0;
 						int g = 0;
 						int b = 0;
@@ -193,8 +223,12 @@ public class ImageUpscalingTraining {
 					}
 				}
 
-				File outputHighResfile = new File(outputDir.getAbsolutePath() + File.separator + highResImageData.get(imageIndex).getName());
-				ImageIO.write(outHighResImage, "png", outputHighResfile);
+				File outputHighResfile = new File(outputDir.getAbsolutePath() + File.separator + imageData.get(imageIndex).getName()+"_AI_UPSCALED.png");
+				try {
+					ImageIO.write(outHighResImage, "png", outputHighResfile);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}

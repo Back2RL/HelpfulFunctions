@@ -69,7 +69,7 @@ public class ImageUtils {
 
 			String name = rawImageData.getName();
 			name = name.replace("_" + rawImageData.getTileRowIndex() + "x" + rawImageData.getTileColumnIndex() + ".png", "");
-			System.out.println(name);
+			//System.out.println(name);
 
 			if (alreadyProcessed.contains(name)) {
 				continue;
@@ -117,7 +117,7 @@ public class ImageUtils {
 			}
 		}
 
-
+		System.out.println(result.size() +" image/-s stitched");
 		return result;
 	}
 

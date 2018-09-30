@@ -1,0 +1,5 @@
+- create taring samples from highres images
+    - create 8x8 and 16x16 tiles
+- stich tiles back together
+- serialize neuralNet
+- load/save neuralNet
